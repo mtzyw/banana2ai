@@ -112,10 +112,14 @@ export default function HeroSection() {
           <div className="flex flex-col p-3 sm:p-4 md:p-6">
             {/* Upload + Textarea Row */}
             <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
-              {/* Upload button — small and simple like original */}
-              <label htmlFor="hero-upload" className="flex-shrink-0 cursor-pointer">
-                <div className="flex h-[100px] w-[80px] items-center justify-center rounded-lg border border-dashed border-gray-500/50 bg-gray-900/30 transition-colors hover:border-gray-400/70 hover:bg-gray-800/40">
-                  <Plus className="h-6 w-6 text-gray-500" />
+              {/* Upload button — tilted SVG card like original */}
+              <label htmlFor="hero-upload" className="flex-shrink-0 cursor-pointer group">
+                <div className="-rotate-6 transition-transform hover:scale-110">
+                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" className="h-16 w-16 sm:h-20 sm:w-20">
+                    <path d="M10 6C10 4.89543 10.8954 4 12 4H68C69.1046 4 70 4.89543 70 6V74C70 75.1046 69.1046 76 68 76H12C10.8954 76 10 75.1046 10 74V6Z" className="fill-gray-900/40 stroke-gray-500/60 transition-colors group-hover:fill-gray-800/50 group-hover:stroke-gray-400/70" strokeWidth="2" strokeDasharray="2 2" />
+                    <line x1="40" y1="25" x2="40" y2="55" className="stroke-gray-500 transition-colors group-hover:stroke-gray-400" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="25" y1="40" x2="55" y2="40" className="stroke-gray-500 transition-colors group-hover:stroke-gray-400" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
                 </div>
                 <input type="file" id="hero-upload" accept="image/*" className="hidden" />
               </label>
@@ -142,22 +146,25 @@ export default function HeroSection() {
             {/* Bottom Controls — no border-t like original */}
             <div className="flex items-center justify-between gap-2 border-gray-400/20 pt-3">
               <div className="flex items-center gap-2 sm:gap-3">
-                <button className="flex h-10 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
+                <button className="flex h-12 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
                   <ImageIcon className="h-4 w-4" />
                   <span>AI 图片</span>
                   <ChevronDown className="h-4 w-4 text-white/40" />
                 </button>
-                <button className="flex h-10 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
+                <button className="flex h-12 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
                   <span className="truncate">{selectedModel}</span>
                   <ChevronDown className="h-4 w-4 text-white/40" />
                 </button>
               </div>
               <div className="flex items-center gap-2">
-                <button className="flex h-10 items-center gap-2 rounded-md border border-white/[0.12] bg-black/40 px-4 text-sm font-medium text-white transition-transform hover:scale-105 hover:bg-white/[0.12] sm:h-12 sm:px-6">
+                <button className="flex h-12 items-center gap-2 rounded-md border border-[#2c2f3a] bg-black/40 px-4 text-sm font-medium text-white shadow-sm transition-transform hover:scale-105 hover:bg-white/[0.08] sm:px-6">
                   <Sparkles className="h-4 w-4" />
                   <span>快速生成</span>
                 </button>
-                <button className="flex h-10 items-center gap-2 rounded-md bg-[#f8d24b] px-4 text-sm font-semibold text-black transition-transform hover:scale-105 hover:bg-yellow-300 sm:h-12 sm:px-6">
+                <button
+                  className="flex h-12 items-center gap-2 rounded-md px-4 text-sm font-semibold text-[#181d25] shadow-sm transition-transform hover:scale-105 sm:px-6"
+                  style={{ background: 'linear-gradient(to right, #ffde5c, #d7f4e1 50%, #e0d7ea)' }}
+                >
                   <LayoutDashboard className="h-4 w-4" />
                   <span>创建工作流</span>
                 </button>
@@ -166,18 +173,27 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Model Tags Bar — scrollable row with icons */}
+        {/* Model Tags Bar — glass capsule like original */}
         <div className="mt-6 w-full">
           <div className="flex w-full items-center justify-center px-2">
-            <div className="flex items-center gap-4 overflow-x-auto py-2 sm:gap-6">
+            <div
+              className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-gray-400/10 bg-black/10 px-3 py-2 backdrop-blur-sm sm:gap-3 sm:px-4 sm:py-2.5 md:gap-4 md:px-6 md:py-3 lg:px-8 lg:py-4"
+              style={{
+                boxShadow: `rgba(255, 218, 42, 0.1) -2px 2.4px 18px -2.6px inset,
+                  rgb(255 255 255 / 40%) -5.7px -4px 3.4px -2.7px inset,
+                  rgba(255, 255, 255, 0.3) 6.7px 6.7px 3.4px -6.2px inset,
+                  rgb(255 255 255 / 50%) 0px 1px 12px -5px inset,
+                  rgb(255 255 255 / 40%) -6.7px -6.7px 3.4px -6.7px inset`,
+              }}
+            >
               {MODELS.map((m) => (
-                <button
+                <div
                   key={m.id}
-                  className="flex flex-shrink-0 items-center gap-1.5 text-sm text-white/60 transition-colors hover:text-white/90"
+                  className="flex items-center gap-1 transition-all hover:scale-105 sm:gap-1.5 md:gap-2 cursor-pointer"
                 >
-                  <span className="text-xs opacity-60">{m.icon}</span>
-                  <span>{m.label}</span>
-                </button>
+                  <span className="text-xs text-white/40">{m.icon}</span>
+                  <span className="text-xs font-medium text-white/70 sm:text-sm">{m.label}</span>
+                </div>
               ))}
             </div>
           </div>
