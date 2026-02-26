@@ -23,7 +23,7 @@ const MODELS = [
 const TYPEWRITER_PROMPTS = [
   'The train moves forward through a bright forest, sunlight flickering through the leaves onto the windows. A girl leans out joyfully, her hair blowing in the wind. Soft anime lighting, vibrant colors, smooth gentle motion.',
   'Cyberpunk desert warrior woman with pink-turquoise ombre hair, golden futuristic armor, steampunk goggles, standing in red canyon desert, golden hour lighting, post-apocalyptic cinematic style.',
-  'Gothic anime girl with silver hair and crimson eyes, wearing an elegant black lace dress, surrounded by floating dark roses, moonlit cathedral background, dramatic lighting.',
+  'Gothic anime girl with split face (normal blue eye/glowing skull red eye), platinum twin braids, black chains outfit against bright pink background, kawaii-horror aesthetic.',
   'A cozy mountain cabin at sunset, warm golden light spilling from windows, snow-capped peaks in background, pine trees, a winding path with lanterns, Studio Ghibli style, peaceful atmosphere.',
   'Filling black and white portraits with appropriate colors can create a sense of realism.',
 ];
