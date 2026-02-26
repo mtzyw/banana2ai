@@ -148,7 +148,8 @@ export default function HeroSection() {
                   onChange={(e) => setPrompt(e.target.value)}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
-                  className="relative z-10 w-full resize-none border-none bg-transparent text-sm text-white outline-none placeholder:text-gray-400 focus:outline-none focus:ring-0 sm:text-base"
+                  className="relative z-10 w-full resize-none border-none text-sm text-white outline-none placeholder:text-gray-400 focus:outline-none focus:ring-0 sm:text-base"
+                  style={{ background: 'transparent' }}
                   rows={3}
                 />
               </div>
