@@ -31,6 +31,12 @@ const TYPEWRITER_PROMPTS = [
 export default function HeroSection() {
   const [prompt, setPrompt] = useState('');
   const [selectedModel, setSelectedModel] = useState('Nano Banana Pro');
+  const [titleVisible, setTitleVisible] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setTitleVisible(true), 100);
+    return () => clearTimeout(t);
+  }, []);
 
   // Typewriter
   const [displayText, setDisplayText] = useState('');
@@ -96,15 +102,20 @@ export default function HeroSection() {
 
       {/* Content — max-w-7xl like original */}
       <div className="z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-3 sm:px-4 md:px-6">
-        {/* Title */}
-        <div className="mx-auto mb-4 max-w-6xl text-center sm:mb-6 md:mb-8">
+        {/* Title — fade-in-down animation on mount */}
+        <div
+          className="mx-auto mb-4 max-w-6xl text-center sm:mb-6 md:mb-8 transition-all duration-700 ease-out"
+          style={{
+            opacity: titleVisible ? 1 : 0,
+            transform: titleVisible ? 'translateY(0)' : 'translateY(-20px)',
+          }}
+        >
           <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">
-            <span className="text-white">Banana Pro AI:</span>
-            <span className="gradient-glow-text">最强大的免费 AI 图像生成器</span>
+            Banana Pro AI:<span className="gradient-glow-text">最强大的免费 AI 图像生成器</span>
           </h1>
-          <p className="mt-2 text-xs font-bold sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl" style={{ color: '#ffcc33' }}>
+          <h2 className="gradient-text mt-2 text-xs font-bold sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl">
             专业的图生图和文生图创作，适用于商业和艺术用途。几秒内获得工作室级品质，无任何附加条件。
-          </p>
+          </h2>
         </div>
 
         {/* Input Box — full width, lighter background */}
@@ -127,9 +138,9 @@ export default function HeroSection() {
               {/* Textarea with typewriter */}
               <div className="relative flex-1">
                 {!prompt && !userFocused.current && (
-                  <div className="pointer-events-none absolute left-0 top-0 h-full w-full text-sm text-white/50 sm:text-base">
+                  <div className="pointer-events-none absolute left-0 top-0 h-full w-full text-sm text-gray-400 sm:text-base" style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}>
                     {displayText}
-                    <span className="ml-[1px] inline-block h-[1em] w-[2px] bg-white/50 align-middle" style={{ animation: 'blink 1s step-end infinite' }} />
+                    <span className="ml-[1px] inline-block h-[1em] w-[2px] bg-gray-400 align-middle" style={{ animation: 'blink 1s step-end infinite' }} />
                   </div>
                 )}
                 <textarea

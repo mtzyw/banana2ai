@@ -121,6 +121,14 @@ pre {
 /* === Banana Pro AI 特效 === */
 
 /* 渐变发光文字 */
+/* gradient-text — 金色渐变文字 (副标题用) */
+.gradient-text {
+  background: linear-gradient(90deg, #ffcc33, #ff9900);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .gradient-glow-text {
   background-image: linear-gradient(to right, hsl(48, 100%, 68%), hsl(36, 100%, 60%), hsl(48, 100%, 68%));
   -webkit-background-clip: text;
