@@ -6,18 +6,18 @@ import {
   ChevronDown,
   LayoutDashboard,
   Sparkles,
-  AlertTriangle,
-  Info,
+  Upload,
+  Plus,
 } from 'lucide-react';
 
 const MODELS = [
-  { label: 'Nano Banana', id: 'nano' },
-  { label: 'Seedream', id: 'seedream' },
-  { label: 'Flux', id: 'flux' },
-  { label: 'Grok', id: 'grok' },
-  { label: 'Qwen', id: 'qwen' },
-  { label: 'Sora', id: 'sora' },
-  { label: 'Veo', id: 'veo' },
+  { label: 'Nano Banana', id: 'nano', icon: 'G' },
+  { label: 'Seedream', id: 'seedream', icon: '▌' },
+  { label: 'Flux', id: 'flux', icon: '△' },
+  { label: 'Grok', id: 'grok', icon: '◇' },
+  { label: 'Qwen', id: 'qwen', icon: '✦' },
+  { label: 'Sora', id: 'sora', icon: '●' },
+  { label: 'Veo', id: 'veo', icon: 'G' },
 ];
 
 const TYPEWRITER_PROMPTS = [
@@ -25,16 +25,14 @@ const TYPEWRITER_PROMPTS = [
   'Cyberpunk desert warrior woman with pink-turquoise ombre hair, golden futuristic armor, steampunk goggles, standing in red canyon desert, golden hour lighting, post-apocalyptic cinematic style.',
   'Gothic anime girl with silver hair and crimson eyes, wearing an elegant black lace dress, surrounded by floating dark roses, moonlit cathedral background, dramatic lighting.',
   'A cozy mountain cabin at sunset, warm golden light spilling from windows, snow-capped peaks in background, pine trees, a winding path with lanterns, Studio Ghibli style, peaceful atmosphere.',
-  'Ancient Chinese warrior princess in flowing silk robes, cherry blossom petals falling, misty mountain landscape, ink wash painting style with vivid color accents, ethereal lighting.',
+  'Filling black and white portraits with appropriate colors can create a sense of realism.',
 ];
 
 export default function HeroSection() {
   const [prompt, setPrompt] = useState('');
-  const [activeType, setActiveType] = useState<'image' | 'video'>('image');
   const [selectedModel, setSelectedModel] = useState('Nano Banana Pro');
-  const [activeModelTag, setActiveModelTag] = useState('nano');
 
-  // Typewriter state
+  // Typewriter
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const promptIdxRef = useRef(0);
@@ -43,15 +41,12 @@ export default function HeroSection() {
 
   const doTypewriter = useCallback(() => {
     if (userFocused.current) return;
-
     const currentPrompt = TYPEWRITER_PROMPTS[promptIdxRef.current];
-
     if (isTyping) {
       if (charIdxRef.current < currentPrompt.length) {
         charIdxRef.current++;
         setDisplayText(currentPrompt.slice(0, charIdxRef.current));
       } else {
-        // Pause at end then start erasing
         setTimeout(() => setIsTyping(false), 2000);
       }
     } else {
@@ -59,7 +54,6 @@ export default function HeroSection() {
         charIdxRef.current--;
         setDisplayText(currentPrompt.slice(0, charIdxRef.current));
       } else {
-        // Move to next prompt
         promptIdxRef.current = (promptIdxRef.current + 1) % TYPEWRITER_PROMPTS.length;
         setIsTyping(true);
       }
@@ -76,7 +70,6 @@ export default function HeroSection() {
     userFocused.current = true;
     setDisplayText('');
   };
-
   const handleBlur = () => {
     if (!prompt) {
       userFocused.current = false;
@@ -87,9 +80,9 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center">
       {/* Video Background */}
-      <div className="absolute inset-0 z-0 h-full w-full overflow-hidden">
+      <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-b from-black/40 to-black/60">
         <video
           autoPlay
           loop
@@ -98,65 +91,41 @@ export default function HeroSection() {
           className="h-full w-full object-cover"
           src="/images/banana/index-video05.mp4"
         />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-16 flex flex-col items-center gap-6">
-        {/* Notice banners */}
-        <div className="flex flex-wrap gap-2 justify-center">
-          <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm px-3 py-1 text-xs text-white/80 cursor-pointer hover:bg-black/50 transition-colors">
-            <AlertTriangle className="w-3 h-3 text-yellow-400" />
-            严禁成人/NSFW 内容 →
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm px-3 py-1 text-xs text-white/80 cursor-pointer hover:bg-black/50 transition-colors">
-            <Info className="w-3 h-3 text-blue-400" />
-            Banana Pro AI 是一个独立平台... →
-          </span>
-        </div>
-
+      {/* Content — max-w-7xl like original */}
+      <div className="z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-3 sm:px-4 md:px-6">
         {/* Title */}
-        <div className="text-center max-w-3xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white mb-4">
-            Banana Pro AI:
-            <span className="gradient-glow-text">
-              最强大的免费 AI 图像生成器
-            </span>
+        <div className="mx-auto mb-4 max-w-6xl text-center sm:mb-6 md:mb-8">
+          <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">
+            <span className="text-white">Banana Pro AI:</span>
+            <span className="gradient-glow-text">最强大的免费 AI 图像生成器</span>
           </h1>
-          <p className="text-[#ffcc33]/90 text-sm sm:text-base md:text-lg font-medium">
+          <p className="mt-2 text-xs font-bold sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl" style={{ color: '#ffcc33' }}>
             专业的图生图和文生图创作，适用于商业和艺术用途。几秒内获得工作室级品质，无任何附加条件。
           </p>
         </div>
 
-        {/* Input Area */}
-        <div className="w-full rounded-2xl border border-white/[0.15] bg-[#111111]/70 shadow-xl backdrop-blur-xl transition-shadow duration-300 hover:shadow-[0_0_40px_rgba(255,204,51,0.15)]">
-          <div className="flex flex-col p-4 sm:p-5">
+        {/* Input Box — full width, lighter background */}
+        <div className="w-full rounded-lg border border-gray-400/20 bg-[#111111]/40 shadow-lg backdrop-blur-xl sm:rounded-xl">
+          <div className="flex flex-col p-3 sm:p-4 md:p-6">
             {/* Upload + Textarea Row */}
-            <div className="flex items-start gap-3">
-              {/* Image Upload Button */}
-              <label htmlFor="hero-image-upload" className="flex-shrink-0 cursor-pointer">
-                <div className="relative -rotate-6 transition-transform hover:scale-110 group">
-                  <svg width="80" height="80" viewBox="0 0 80 80" fill="none" className="h-16 w-16 sm:h-20 sm:w-20">
-                    <path
-                      d="M10 6C10 4.89543 10.8954 4 12 4H68C69.1046 4 70 4.89543 70 6V74C70 75.1046 69.1046 76 68 76H12C10.8954 76 10 75.1046 10 74V6Z"
-                      className="fill-gray-900/40 stroke-gray-500/60 group-hover:fill-gray-800/50 group-hover:stroke-gray-400/70 transition-colors"
-                      strokeWidth="2" strokeDasharray="2 2"
-                    />
-                    <line x1="40" y1="25" x2="40" y2="55" className="stroke-gray-500 group-hover:stroke-gray-400 transition-colors" strokeWidth="2.5" strokeLinecap="round" />
-                    <line x1="25" y1="40" x2="55" y2="40" className="stroke-gray-500 group-hover:stroke-gray-400 transition-colors" strokeWidth="2.5" strokeLinecap="round" />
-                  </svg>
+            <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-3">
+              {/* Upload button — small and simple like original */}
+              <label htmlFor="hero-upload" className="flex-shrink-0 cursor-pointer">
+                <div className="flex h-[100px] w-[80px] items-center justify-center rounded-lg border border-dashed border-gray-500/50 bg-gray-900/30 transition-colors hover:border-gray-400/70 hover:bg-gray-800/40">
+                  <Plus className="h-6 w-6 text-gray-500" />
                 </div>
-                <input type="file" id="hero-image-upload" accept="image/*" className="hidden" />
+                <input type="file" id="hero-upload" accept="image/*" className="hidden" />
               </label>
 
-              {/* Textarea with typewriter overlay */}
+              {/* Textarea with typewriter */}
               <div className="relative flex-1">
-                {/* Typewriter overlay */}
                 {!prompt && !userFocused.current && (
-                  <div className="pointer-events-none absolute left-0 top-0 h-full w-full text-sm sm:text-base text-white/50 leading-relaxed whitespace-pre-wrap">
+                  <div className="pointer-events-none absolute left-0 top-0 h-full w-full text-sm text-white/50 sm:text-base">
                     {displayText}
-                    <span className="inline-block w-[2px] h-[1em] bg-white/50 ml-[1px] align-middle" style={{ animation: 'blink 1s step-end infinite' }} />
+                    <span className="ml-[1px] inline-block h-[1em] w-[2px] bg-white/50 align-middle" style={{ animation: 'blink 1s step-end infinite' }} />
                   </div>
                 )}
                 <textarea
@@ -164,36 +133,32 @@ export default function HeroSection() {
                   onChange={(e) => setPrompt(e.target.value)}
                   onFocus={handleFocus}
                   onBlur={handleBlur}
-                  placeholder=""
-                  className="relative z-10 w-full min-h-[80px] resize-none bg-transparent text-white/90 text-sm sm:text-base outline-none leading-relaxed"
+                  className="relative z-10 w-full resize-none border-none bg-transparent text-sm text-white outline-none placeholder:text-gray-400 focus:outline-none focus:ring-0 sm:text-base"
                   rows={3}
                 />
               </div>
             </div>
 
-            {/* Bottom Controls */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-white/[0.08]">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setActiveType('image')}
-                  className={`flex h-10 items-center gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300 ${activeType === 'image' ? 'border-yellow-500/40 bg-yellow-500/10 text-yellow-300' : ''}`}
-                >
-                  <ImageIcon className="w-4 h-4" />
-                  <span className="hidden sm:inline">图片</span>
-                  <ChevronDown className="w-4 h-4 text-white/40" />
+            {/* Bottom Controls — no border-t like original */}
+            <div className="flex items-center justify-between gap-2 border-gray-400/20 pt-3">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <button className="flex h-10 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
+                  <ImageIcon className="h-4 w-4" />
+                  <span>AI 图片</span>
+                  <ChevronDown className="h-4 w-4 text-white/40" />
                 </button>
-                <button className="flex h-10 items-center gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300 min-w-[120px] sm:min-w-[160px]">
+                <button className="flex h-10 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
                   <span className="truncate">{selectedModel}</span>
-                  <ChevronDown className="w-4 h-4 flex-shrink-0 text-white/40" />
+                  <ChevronDown className="h-4 w-4 text-white/40" />
                 </button>
               </div>
               <div className="flex items-center gap-2">
-                <button className="flex items-center gap-2 h-10 sm:h-12 px-4 sm:px-6 rounded-md border border-white/[0.12] bg-black/40 hover:bg-white/[0.12] text-white text-sm font-medium transition-transform hover:scale-105">
-                  <Sparkles className="w-4 h-4" />
+                <button className="flex h-10 items-center gap-2 rounded-md border border-white/[0.12] bg-black/40 px-4 text-sm font-medium text-white transition-transform hover:scale-105 hover:bg-white/[0.12] sm:h-12 sm:px-6">
+                  <Sparkles className="h-4 w-4" />
                   <span>快速生成</span>
                 </button>
-                <button className="flex items-center gap-2 h-10 sm:h-12 px-4 sm:px-6 rounded-md bg-[#f8d24b] hover:bg-yellow-300 text-black text-sm font-semibold transition-transform hover:scale-105">
-                  <LayoutDashboard className="w-4 h-4" />
+                <button className="flex h-10 items-center gap-2 rounded-md bg-[#f8d24b] px-4 text-sm font-semibold text-black transition-transform hover:scale-105 hover:bg-yellow-300 sm:h-12 sm:px-6">
+                  <LayoutDashboard className="h-4 w-4" />
                   <span>创建工作流</span>
                 </button>
               </div>
@@ -201,41 +166,36 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Model Tags */}
-        <div
-          className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-gray-400/10 bg-black/10 px-4 py-2.5 backdrop-blur-sm"
-          style={{ boxShadow: 'rgba(255, 218, 42, 0.1) -2px 2.4px 18px -2.6px inset, rgba(0, 0, 0, 0.3) 0px 4px 12px' }}
-        >
-          {MODELS.map((model) => (
-            <button
-              key={model.id}
-              onClick={() => setActiveModelTag(model.id)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors border ${
-                activeModelTag === model.id
-                  ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40'
-                  : 'bg-white/[0.05] text-white/50 border-white/[0.1] hover:text-white/80 hover:bg-white/[0.08]'
-              }`}
-            >
-              {model.label}
-            </button>
-          ))}
+        {/* Model Tags Bar — scrollable row with icons */}
+        <div className="mt-6 w-full">
+          <div className="flex w-full items-center justify-center px-2">
+            <div className="flex items-center gap-4 overflow-x-auto py-2 sm:gap-6">
+              {MODELS.map((m) => (
+                <button
+                  key={m.id}
+                  className="flex flex-shrink-0 items-center gap-1.5 text-sm text-white/60 transition-colors hover:text-white/90"
+                >
+                  <span className="text-xs opacity-60">{m.icon}</span>
+                  <span>{m.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Notice badges at bottom */}
-        <div className="flex flex-wrap gap-3 justify-center">
-          <span className="flex items-center gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs text-red-400 cursor-pointer hover:bg-red-500/20 transition-colors">
-            🚫 严禁成人/NSFW 内容 →
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs text-blue-400 cursor-pointer hover:bg-blue-500/20 transition-colors">
-            ℹ️ Banana Pro AI 是一个独立平台... →
-          </span>
-        </div>
-
-        {/* Bounce arrow */}
-        <div className="animate-bounce mt-2 text-white/40">
-          <ChevronDown className="w-6 h-6" />
+        {/* Bottom Notices — only here, not at top */}
+        <div className="mt-6 w-full">
+          <div className="flex w-full items-center justify-center gap-3">
+            <span className="flex items-center gap-1.5 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-xs text-red-300/80 transition-colors hover:bg-red-500/20 cursor-pointer">
+              🚫 严禁成人/NSFW 内容 →
+            </span>
+            <span className="text-white/20">|</span>
+            <span className="flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs text-blue-300/80 transition-colors hover:bg-blue-500/20 cursor-pointer">
+              ℹ️ Banana Pro AI 是一个独立平台... →
+            </span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
