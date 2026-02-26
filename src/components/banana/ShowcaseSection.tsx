@@ -11,18 +11,21 @@ const features = [
   { title: '免费注册', desc: '无需信用卡，永久免费，每日提供免费额度让您尽情创作。' },
 ];
 
-const images = [
-  '/images/banana/1tpln4as6p33.jpeg',
-  '/images/banana/l8af5arb7l0d.jpeg',
-  '/images/banana/8pk4idwouhh0.jpeg',
-  '/images/banana/3rh7in3ztrd9.jpeg',
+/* 原站用 3 video + 3 image 交替展示 */
+const media: Array<{ type: 'video' | 'image'; src: string }> = [
+  { type: 'video', src: '/images/banana/i2vuvmfyggea.mp4' },
+  { type: 'image', src: '/images/banana/1tpln4as6p33.jpeg' },
+  { type: 'image', src: '/images/banana/l8af5arb7l0d.jpeg' },
+  { type: 'image', src: '/images/banana/8pk4idwouhh0.jpeg' },
+  { type: 'image', src: '/images/banana/3rh7in3ztrd9.jpeg' },
+  { type: 'image', src: '/images/banana/oymo6e4j50qi.jpeg' },
 ];
 
 export default function ShowcaseSection() {
   const ref = useScrollFade();
 
   return (
-    <section className="py-16 md:py-24 px-4 bg-[#0a0d14]">
+    <section className="relative px-4 py-12 md:py-24 bg-[#0a0d14]">
       <div className="max-w-6xl mx-auto" ref={ref}>
         <div className="text-center mb-12 scroll-fade-in">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
@@ -48,17 +51,28 @@ export default function ShowcaseSection() {
             ))}
           </div>
 
-          {/* Right: 2x2 Image Grid */}
+          {/* Right: Media Grid (video + images) */}
           <div className="grid grid-cols-2 gap-3 scroll-fade-right">
-            {images.map((src, i) => (
-              <div key={i} className="relative aspect-square rounded-xl overflow-hidden image-hover-zoom">
-                <Image
-                  src={src}
-                  alt={`Banana Pro AI showcase ${i + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
+            {media.map((item, i) => (
+              <div key={i} className="relative aspect-square rounded-xl overflow-hidden image-hover-zoom gradient-glow-bg">
+                {item.type === 'video' ? (
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="h-full w-full object-cover"
+                    src={item.src}
+                  />
+                ) : (
+                  <Image
+                    src={item.src}
+                    alt={`Banana Pro AI showcase ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                )}
               </div>
             ))}
           </div>
