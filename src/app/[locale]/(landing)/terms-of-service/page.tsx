@@ -81,6 +81,27 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="bg-[#13151f] border border-[#363b4e] rounded-xl p-6">
+            <h2 className="text-xl font-bold text-[#ffcc33] mb-4">用户数据收集</h2>
+            <p className="text-white/70 leading-relaxed mb-4">我们收集以下用户数据：</p>
+            <ul className="list-disc list-inside space-y-1 text-white/70 mb-4">
+              <li>姓名</li>
+              <li>电子邮箱</li>
+              <li>支付信息</li>
+            </ul>
+            <p className="text-white/70 leading-relaxed">我们还通过网络 Cookie 收集非个人数据。</p>
+          </section>
+
+          <section className="bg-[#13151f] border border-[#363b4e] rounded-xl p-6">
+            <h2 className="text-xl font-bold text-[#ffcc33] mb-4">信息使用</h2>
+            <p className="text-white/70 leading-relaxed">收集的信息用于订单处理和改进我们的服务。</p>
+          </section>
+
+          <section className="bg-[#13151f] border border-[#363b4e] rounded-xl p-6">
+            <h2 className="text-xl font-bold text-[#ffcc33] mb-4">数据共享</h2>
+            <p className="text-white/70 leading-relaxed">我们不会与任何其他方共享您的个人数据。</p>
+          </section>
+
+          <section className="bg-[#13151f] border border-[#363b4e] rounded-xl p-6">
             <h2 className="text-xl font-bold text-[#ffcc33] mb-4">适用法律</h2>
             <p className="text-white/70 leading-relaxed">
               本条款受美国法律管辖。任何争议应提交至美国法院解决。
