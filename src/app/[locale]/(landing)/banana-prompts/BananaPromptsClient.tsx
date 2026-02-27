@@ -13,14 +13,14 @@ import {
 /* ──────────────────────────── Data ──────────────────────────── */
 
 const EXAMPLE_PROMPTS = [
-  { id: 1, prompt: 'A serene Japanese garden at twilight, with a traditional torii gate reflected in a still koi pond, cherry blossoms falling, soft lantern light, ultra-realistic photography, 8K resolution', model: 'Banana Pro AI', image: '/images/banana/1tpln4as6p33.jpeg', tags: ['风景', '日本风格', '写实'] },
-  { id: 2, prompt: '超写实人像，金发女性，穿着现代都市风格服装，站在霓虹灯闪烁的东京街头，赛博朋克氛围，电影感光影', model: 'Flux AI', image: '/images/banana/3rh7in3ztrd9.jpeg', tags: ['人像', '赛博朋克', '都市'] },
-  { id: 3, prompt: '一只威严的雄狮站在非洲草原日落的金色光芒中，背景是宽阔的草原和斑斓的天空，超高清细节，4K摄影风格', model: 'Seedream AI', image: '/images/banana/5aqwpua9noqi.jpeg', tags: ['动物', '自然', '日落'] },
-  { id: 4, prompt: 'Futuristic space station orbiting a gas giant, detailed architecture with solar panels and observation decks, astronaut in spacesuit floating nearby, dramatic space backdrop with nebula', model: 'Grok Imagine', image: '/images/banana/8pk4idwouhh0.jpeg', tags: ['科幻', '太空', '建筑'] },
-  { id: 5, prompt: '传统中国水墨画风格，山水画，峻岭险峰，云雾缭绕，一叶扁舟行于江上，意境悠远，丹青神韵', model: 'Nano Banana', image: '/images/banana/b88usp2lk4ef.jpeg', tags: ['水墨', '国风', '山水'] },
-  { id: 6, prompt: 'Professional product photography of a luxury watch on a dark marble surface, dramatic studio lighting, bokeh background, commercial quality, ultra sharp details', model: 'Z Image Turbo', image: '/images/banana/d5gn3mlwmm7n.jpeg', tags: ['产品', '摄影', '奢华'] },
-  { id: 7, prompt: '梦幻水下场景，透明水母发出蓝紫色荧光，深海珊瑚礁背景，光线穿透水面形成丁达尔效应，超现实主义风格', model: 'Banana Pro AI', image: '/images/banana/f4ru78usquup.jpeg', tags: ['海洋', '梦幻', '荧光'] },
-  { id: 8, prompt: 'Cozy autumn café interior with warm golden lighting, steaming latte art on wooden table, rain drops on window, vintage bookshelf background, cinematic color grading', model: 'Flux AI', image: '/images/banana/j3znhyr1jyn8.jpeg', tags: ['室内', '秋季', '温馨'] },
+  { id: 1, prompt: 'Do this for the Bleach. Input Variable: [INSERT TITLE] (e.g., The Terminator, Dune, The Matrix). System Prompt: Create a collection of six anime-styled movie posters arranged in a 3x2 grid layout.', model: 'Nano Banana', image: '/images/banana/i59ggw75r8an.jpeg', tags: ['动漫', '海报', '网格'] },
+  { id: 2, prompt: 'Cinematic film still of the protagonist in a dimly lit, ancient private library, caught in a decisive moment while researching late at night. Shot on an Arri Alexa Mini with a Cooke S4/i 50mm Prime lens at T2.0.', model: 'Nano Banana Pro', image: '/images/banana/wp5zy2q1v2qt.png', tags: ['电影', '人像', '写实'] },
+  { id: 3, prompt: 'Create a hyper-realistic 3D render of a transparent twitter profile card, designed like a futuristic holographic ID badge held between fingers against a dark background.', model: 'Nano Banana', image: '/images/banana/759tq1o4hsw5.jpeg', tags: ['3D', '未来', '卡片'] },
+  { id: 4, prompt: 'Oil on Canvas, A view of the bay from an upstairs window. In a impressionism, new media art style. A breathtaking sunset with warm golden and amber tones illuminating the scene.', model: 'Nano Banana Pro', image: '/images/banana/8ohkeheuu9j9.jpeg', tags: ['油画', '风景', '印象派'] },
+  { id: 5, prompt: 'Highly detailed close-up photograph, ultra-photorealistic, 8K resolution shot on a digital camera with cinematic lighting and dramatic shadows. Portrait of a man with sunglasses.', model: 'Nano Banana', image: '/images/banana/4guxonqg3xs4.jpeg', tags: ['人像', '摄影', '特写'] },
+  { id: 6, prompt: 'Cinematic 90s film still of a stunning young man with messy wet-look dark hair strands falling across forehead, photographed on Kodak Vision3 500T film stock emulation.', model: 'Nano Banana Pro', image: '/images/banana/hgxvzwze7bds.png', tags: ['电影', '复古', '90年代'] },
+  { id: 7, prompt: 'Beautiful redheaded woman with a perfectly proportioned figure, smiling happily and naturally, posing on a tropical beach at golden hour with soft warm lighting.', model: 'Nano Banana', image: '/images/banana/d6uhgzt4yofk.png', tags: ['人像', '海滩', '自然'] },
+  { id: 8, prompt: 'Ultra-viral recipe infographic. Showcase a FOOD with melted cheese, crispy edges and fresh herbs. Include step-by-step visual guide with ingredients list and cooking time.', model: 'Nano Banana Pro', image: '/images/banana/mhrfjpmo7n24.jpeg', tags: ['美食', '信息图', '食谱'] },
 ];
 
 const HOW_IT_WORKS = [
@@ -192,60 +192,79 @@ export default function BananaPromptsClient() {
             </h2>
           </FadeIn>
 
-          {/* Search */}
-          <FadeIn delay={0.15} className="mx-auto mt-8 max-w-2xl">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/30" />
-              <input
-                type="text"
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                placeholder="搜索提示词、风格、模型..."
-                className="w-full rounded-xl border border-[#363b4e] bg-[#1c2030] py-3 pl-12 pr-4 text-sm text-white placeholder-white/30 outline-none transition-all focus:border-[#ffcc33]/50 focus:ring-2 focus:ring-[#ffcc33]/20"
-              />
-            </div>
-          </FadeIn>
         </div>
       </section>
 
-      {/* ─── 2. Prompt Gallery ─── */}
+      {/* ─── 1b. AI Prompt Generator ─── */}
+      <section className="px-4 pb-8">
+        <FadeIn className="mx-auto max-w-3xl">
+          <div className="rounded-xl border border-[#363b4e] bg-[#161f2b] p-5">
+            <div className="mb-2 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-[#ffcc33]" />
+              <span className="font-semibold text-white">使用 AI 生成 Nano Banana 提示词</span>
+              <span className="rounded-md bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/60">3 今日剩余使用次数</span>
+            </div>
+            <p className="mb-3 text-sm text-white/40">描述您的图片创意，让 AI 为您创建完美的 Nano Banana 提示词</p>
+            <div className="flex gap-2">
+              <textarea
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="描述您想要创建的图像..."
+                rows={3}
+                className="min-h-[80px] flex-1 resize-none rounded-lg border border-[#363b4e] bg-[#0f1117] px-3 py-2 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-[#ffcc33]/50"
+              />
+            </div>
+            <div className="mt-3 flex justify-end">
+              <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#ffcc33] to-[#ff9900] px-5 py-2 text-sm font-semibold text-black transition-all hover:opacity-90">
+                <Sparkles className="h-4 w-4" />
+                生成
+              </button>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* ─── 2. Prompt Gallery (Masonry) ─── */}
       <section className="px-4 pb-16">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="columns-1 gap-3 sm:columns-2 md:gap-4 lg:columns-3 xl:columns-4">
             {filtered.map((p, i) => (
-              <FadeIn key={p.id} delay={i * 0.05}>
-                <div className="group overflow-hidden rounded-xl border border-[#363b4e] bg-[#13151f] transition-all duration-300 hover:-translate-y-1 hover:border-[#ffcc33]/40 hover:shadow-lg hover:shadow-[#ffcc33]/10">
-                  <div className="relative aspect-square overflow-hidden">
-                    <Image src={p.image} alt={p.prompt} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                    <div className="absolute bottom-3 left-3 right-3 flex gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-                      <button
-                        onClick={() => handleCopy(p.id, p.prompt)}
-                        className="flex-1 rounded-lg bg-[#1c2030]/90 px-3 py-2 text-xs font-medium backdrop-blur-sm transition-all hover:bg-[#ffcc33] hover:text-black"
-                      >
-                        {copiedId === p.id ? '已复制 ✓' : '复制提示词'}
-                      </button>
+              <div key={p.id} className="mb-3 break-inside-avoid md:mb-4">
+                <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-gray-800 bg-[#161f2b] transition-all duration-300 hover:border-gray-700 hover:shadow-lg">
+                  {/* Image */}
+                  <div className="relative overflow-hidden">
+                    <Image
+                      src={p.image}
+                      alt={p.prompt}
+                      width={400}
+                      height={400}
+                      className="h-full w-full transition-transform duration-300 group-hover:scale-105 object-contain"
+                    />
+                  </div>
+                  {/* Prompt text */}
+                  <div className="flex flex-1 flex-col p-3">
+                    <p className="mb-2 flex-shrink-0 text-sm font-medium text-gray-300">Prompt:</p>
+                    <p className="mb-3 text-xs leading-relaxed text-white/50 line-clamp-4">{p.prompt}</p>
+                    {/* Action buttons */}
+                    <div className="mt-auto flex gap-2">
                       <Link
                         href="/zh/image/banana-pro-ai/"
-                        className="flex items-center rounded-lg bg-gradient-to-r from-[#ffcc33] to-[#ff9900] px-3 py-2 text-xs font-medium text-black transition-all hover:opacity-90"
+                        className="flex flex-1 items-center justify-center gap-1.5 rounded-md bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:from-yellow-500 hover:to-orange-600 hover:shadow-lg"
                       >
-                        使用 <ExternalLink className="ml-1 h-3 w-3" />
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        Use It
                       </Link>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <p className="mb-3 line-clamp-2 text-sm text-white/70">{p.prompt}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="rounded-full bg-[#ffcc33]/10 px-2.5 py-0.5 text-xs font-medium text-[#ffcc33]">{p.model}</span>
-                      <div className="flex gap-1.5">
-                        {p.tags.map((t) => (
-                          <span key={t} className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-white/40">{t}</span>
-                        ))}
-                      </div>
+                      <button
+                        onClick={() => handleCopy(p.id, p.prompt)}
+                        className="flex flex-1 items-center justify-center gap-1.5 rounded-md bg-gradient-to-r from-yellow-400 to-red-400 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:from-yellow-500 hover:to-red-500 hover:shadow-lg"
+                      >
+                        <Copy className="h-3.5 w-3.5" />
+                        {copiedId === p.id ? 'Copied!' : 'Copy It'}
+                      </button>
                     </div>
                   </div>
                 </div>
-              </FadeIn>
+              </div>
             ))}
           </div>
           {filtered.length === 0 && (
