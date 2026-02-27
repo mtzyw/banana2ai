@@ -32,7 +32,7 @@
 input,
 select,
 textarea {
-  @apply border-border outline-ring/50 bg-background;
+  @apply border-border outline-ring/50;
 }
 
 button {

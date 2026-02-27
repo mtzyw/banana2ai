@@ -2,22 +2,42 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { Upload, X, Loader2, CheckCircle, Sparkles } from 'lucide-react';
+import { Upload, X, Loader2, CheckCircle, Sparkles, ChevronDown, ChevronLeft, ChevronRight, Info, Gem, Images, Coins } from 'lucide-react';
 
+/* ── Aspect ratios with visual shape hints ── */
 const ASPECT_RATIOS = [
-  '16:9', '5:4', '4:3', '3:2', '1:1', '2:3', '3:4', '4:5', '9:16',
-] as const;
+  { label: '16:9', w: 'w-11', h: 'h-6' },
+  { label: '5:4',  w: 'w-8',  h: 'h-6' },
+  { label: '4:3',  w: 'w-8',  h: 'h-6' },
+  { label: '3:2',  w: 'w-9',  h: 'h-6' },
+  { label: '1:1',  w: 'w-7',  h: 'h-7' },
+  { label: '2:3',  w: 'w-5',  h: 'h-7' },
+  { label: '3:4',  w: 'w-6',  h: 'h-8' },
+  { label: '4:5',  w: 'w-6',  h: 'h-8' },
+  { label: '9:16', w: 'w-5',  h: 'h-9' },
+  { label: '21:9', w: 'w-12', h: 'h-6' },
+];
 
-const SAMPLE_IMAGES = [
-  '/images/banana/1tpln4as6p33.jpeg',
-  '/images/banana/3rh7in3ztrd9.jpeg',
-  '/images/banana/5aqwpua9noqi.jpeg',
-  '/images/banana/8pk4idwouhh0.jpeg',
-  '/images/banana/b88usp2lk4ef.jpeg',
-  '/images/banana/d5gn3mlwmm7n.jpeg',
-  '/images/banana/f4ru78usquup.jpeg',
-  '/images/banana/i0ygz1dtdza3.jpeg',
-  '/images/banana/j3znhyr1jyn8.jpeg',
+const RESOLUTIONS = ['1K', '2K', '4K'];
+const QUANTITIES = [1, 2, 3, 4];
+
+/* ── Example slides ── */
+const EXAMPLES = [
+  {
+    before: '/images/banana/98spck2jk4rw.jpeg',
+    after:  '/images/banana/gb44amf4y760.jpeg',
+    prompt: 'Use this photo to make a 3×3 photo booth grid. Each photo should have a different pose and expression. No repetition allowed.',
+  },
+  {
+    before: '/images/banana/1tpln4as6p33.jpeg',
+    after:  '/images/banana/3rh7in3ztrd9.jpeg',
+    prompt: 'Transform this portrait into a cinematic movie poster with dramatic lighting and color grading.',
+  },
+  {
+    before: '/images/banana/5aqwpua9noqi.jpeg',
+    after:  '/images/banana/8pk4idwouhh0.jpeg',
+    prompt: 'Reimagine this scene in a Studio Ghibli anime art style with soft watercolor textures.',
+  },
 ];
 
 type Mode = 'text' | 'image';
@@ -27,19 +47,14 @@ export default function ImageGenerator() {
   const [mode, setMode] = useState<Mode>('text');
   const [prompt, setPrompt] = useState('');
   const [selectedRatio, setSelectedRatio] = useState('1:1');
+  const [resolution, setResolution] = useState('1K');
+  const [quantity, setQuantity] = useState(1);
+  const [isPublic, setIsPublic] = useState(true);
   const [generateState, setGenerateState] = useState<GenerateState>('idle');
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [exampleIdx, setExampleIdx] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  // Auto-resize textarea
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
-    }
-  }, [prompt]);
 
   const handleGenerate = () => {
     if (generateState === 'loading') return;
@@ -63,154 +78,386 @@ export default function ImageGenerator() {
     if (file && file.type.startsWith('image/')) handleFileChange(file);
   }, []);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => setIsDragging(false);
-
-  const getButtonContent = () => {
-    if (generateState === 'loading') return (
-      <><Loader2 className="w-5 h-5 animate-spin mr-2" />生成中...</>
-    );
-    if (generateState === 'done') return (
-      <><CheckCircle className="w-5 h-5 mr-2" />生成完成！</>
-    );
-    return <><Sparkles className="w-5 h-5 mr-2" />✨ AI 生成</>;
-  };
+  const ex = EXAMPLES[exampleIdx];
 
   return (
-    <div className="w-full bg-[#13151f] border border-[#363b4e] rounded-2xl overflow-hidden">
-      {/* Mode Tabs */}
-      <div className="flex border-b border-[#363b4e]">
-        {(['text', 'image'] as Mode[]).map((m) => (
-          <button
-            key={m}
-            onClick={() => setMode(m)}
-            className={`flex-1 py-3.5 text-sm font-semibold transition-all duration-200 ${
-              mode === m
-                ? 'bg-[#1c2030] text-[#ffcc33] border-b-2 border-[#ffcc33]'
-                : 'text-white/50 hover:text-white/80 hover:bg-white/[0.03]'
-            }`}
-          >
-            {m === 'text' ? '文本转换为 图片' : '图片转 图片'}
-          </button>
-        ))}
-      </div>
+    <div className="flex flex-col gap-4 md:gap-6 lg:flex-row" style={{ height: 'calc(100vh - 180px)', maxHeight: '750px' }}>
+      {/* ═══ Left: AI Image Generator Panel ═══ */}
+      <div className="w-full flex-shrink-0 lg:w-[380px] xl:w-[420px]">
+        <div className="flex h-full flex-col rounded-xl border border-[#363b4e]/50 bg-[#13151f] shadow-lg">
+          {/* Header + Model selector */}
+          <div className="flex-shrink-0 p-5 pb-2">
+            <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <span className="text-base font-bold text-white sm:text-lg">AI图像生成器</span>
+              <button className="flex w-full items-center gap-1 rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm transition-colors hover:bg-[#252a3d] sm:w-auto">
+                <Image src="/images/banana/google-icon.svg" alt="Google" width={24} height={24} className="h-6 w-6 flex-shrink-0" />
+                <span className="truncate text-[#ffcc33]">Nano Banana Pro</span>
+                <ChevronDown className="h-4 w-4 text-white/50" />
+              </button>
+            </div>
+            <div className="rounded-lg p-2">
+              <p className="text-sm font-semibold text-white/90">由 Google Nano Banana Pro 模型提供支持（第三方集成）。</p>
+            </div>
+          </div>
 
-      {/* Content area */}
-      <div className="flex flex-col lg:flex-row min-h-[480px]">
-        {/* Left panel ~40% */}
-        <div className="w-full lg:w-[40%] p-5 flex flex-col gap-4 border-b lg:border-b-0 lg:border-r border-[#363b4e]">
-          {/* Image upload (image mode only) */}
-          {mode === 'image' && (
-            <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">上传参考图片</label>
-              {uploadedFile ? (
-                <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#0f1117]">
-                  <img src={uploadedFile} alt="uploaded" className="w-full h-full object-contain" />
+          {/* Scrollable controls */}
+          <div className="flex min-h-0 flex-1 flex-col px-5 pb-5 pt-2">
+            <div className="flex h-full flex-col">
+              {/* Mode tabs */}
+              <div className="mb-4 flex-shrink-0">
+                <div className="grid grid-cols-2 gap-1 rounded-lg bg-[#0f1117] p-1">
+                  {(['text', 'image'] as Mode[]).map((m) => (
+                    <button
+                      key={m}
+                      onClick={() => setMode(m)}
+                      className={`relative rounded-md px-6 py-3 text-sm font-medium transition-all ${
+                        mode === m
+                          ? 'text-white'
+                          : 'text-white/50 hover:text-white/80'
+                      }`}
+                      style={mode === m ? {
+                        background: '#0f1117',
+                        boxShadow: 'inset 0 0 0 2px transparent',
+                        borderImage: 'linear-gradient(135deg, #ffcc33, #ff9900) 1',
+                        border: '2px solid',
+                        borderRadius: '6px',
+                      } : undefined}
+                    >
+                      {m === 'text' ? '文本转换为 图片' : '图片转 图片'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Scrollable body */}
+              <div className="mb-4 min-h-0 flex-1 space-y-4 overflow-y-auto custom-scrollbar">
+                {/* Image upload (image mode) */}
+                {mode === 'image' && (
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-white">上传参考图片</label>
+                    {uploadedFile ? (
+                      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#0f1117]">
+                        <img src={uploadedFile} alt="uploaded" className="h-full w-full object-contain" />
+                        <button
+                          onClick={() => setUploadedFile(null)}
+                          className="absolute right-2 top-2 rounded-full bg-black/60 p-1 transition-colors hover:bg-black/80"
+                        >
+                          <X className="h-4 w-4 text-white" />
+                        </button>
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => fileInputRef.current?.click()}
+                        onDrop={handleDrop}
+                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                        onDragLeave={() => setIsDragging(false)}
+                        className={`flex min-h-[140px] cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed transition-all duration-200 ${
+                          isDragging
+                            ? 'border-[#ffcc33] bg-[#ffcc33]/5'
+                            : 'border-[#363b4e] bg-[#0f1117] hover:border-[#ffcc33]/50'
+                        }`}
+                      >
+                        <Upload className="h-8 w-8 text-white/30" />
+                        <span className="text-sm text-white/50">拖拽图片或点击选择</span>
+                      </div>
+                    )}
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileChange(f); }}
+                    />
+                  </div>
+                )}
+
+                {/* Prompt */}
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <label className="text-sm font-medium text-white">提示词</label>
+                  </div>
+                  <textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    placeholder=" 描述您想要生成的图像..., 最多 5000 个字符..."
+                    maxLength={5000}
+                    className="min-h-[100px] w-full resize-y rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 pr-10 text-sm text-white placeholder-white/30 transition-colors focus:border-[#ffcc33] focus:outline-none md:min-h-[140px]"
+                    style={{ resize: 'vertical' }}
+                  />
+                  <div className="flex justify-between text-xs">
+                    <button className="flex items-center gap-1 text-sm font-medium text-[#ffcc33] transition-colors hover:scale-105">
+                      <Sparkles className="h-4 w-4" /> AI 生成
+                    </button>
+                    <span className="text-white/40">{prompt.length}/5000</span>
+                  </div>
+                </div>
+
+                {/* Aspect ratio with shape previews */}
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-white">图片尺寸</label>
+                  <div className="grid grid-cols-5 gap-2">
+                    {ASPECT_RATIOS.map((r) => (
+                      <button
+                        key={r.label}
+                        onClick={() => setSelectedRatio(r.label)}
+                        className={`group relative rounded-lg px-1.5 py-2 transition-all duration-200 ${
+                          selectedRatio === r.label
+                            ? 'border-2 bg-[#1c2030] shadow-md'
+                            : 'border border-[#363b4e]/50 bg-[#1c2030] hover:border-[#363b4e] hover:bg-[#252a3d]'
+                        }`}
+                        style={selectedRatio === r.label ? {
+                          borderImage: 'linear-gradient(135deg, #ffcc33, #ff9900) 1',
+                        } : undefined}
+                      >
+                        <div
+                          className={`mx-auto mb-1.5 rounded border-2 transition-colors ${r.w} ${r.h} ${
+                            selectedRatio === r.label
+                              ? 'border-[#ffcc33]'
+                              : 'border-white/30 group-hover:border-white/60'
+                          }`}
+                        />
+                        <span className={`block text-xs font-medium leading-tight ${
+                          selectedRatio === r.label ? 'gradient-glow-text' : 'text-white/80'
+                        }`}>
+                          {r.label}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Resolution */}
+                <div>
+                  <div className="mb-2 flex items-center gap-1">
+                    <label className="text-sm font-medium text-white">分辨率</label>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 px-1">
+                    {RESOLUTIONS.map((r) => (
+                      <button
+                        key={r}
+                        onClick={() => setResolution(r)}
+                        className={`relative overflow-hidden rounded-md px-4 py-2 font-medium transition-all ${
+                          resolution === r
+                            ? 'border-2 bg-[#1c2030]'
+                            : 'border border-white/20 text-white/50 hover:border-[#ffcc33]/50 hover:text-white'
+                        }`}
+                        style={resolution === r ? {
+                          borderImage: 'linear-gradient(90deg, #ffcc33, #ff9900) 1',
+                        } : undefined}
+                      >
+                        <span className={`relative z-10 ${resolution === r ? 'gradient-glow-text' : ''}`}>
+                          {r}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quantity */}
+                <div>
+                  <div className="mb-2 flex items-center gap-1">
+                    <label className="text-sm font-medium text-white">图片数量</label>
+                    <Info className="h-4 w-4 cursor-help text-white/40" />
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 px-1">
+                    {QUANTITIES.map((q) => (
+                      <button
+                        key={q}
+                        onClick={() => setQuantity(q)}
+                        className={`relative overflow-hidden rounded-md px-4 py-2 font-medium transition-all ${
+                          quantity === q
+                            ? 'border-2 bg-[#1c2030]'
+                            : 'border border-white/20 text-white/50 hover:border-[#ffcc33]/50 hover:text-white'
+                        }`}
+                        style={quantity === q ? {
+                          borderImage: 'linear-gradient(90deg, #ffcc33, #ff9900) 1',
+                        } : undefined}
+                      >
+                        <span className={`relative z-10 ${quantity === q ? 'gradient-glow-text' : ''}`}>
+                          {q}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Public visibility toggle */}
+                <div className="mt-4 pt-2">
+                  <div className="mb-1 flex items-center justify-between gap-2">
+                    <span className="flex items-center gap-1 text-sm font-medium text-white">
+                      公开可见性
+                      <Info className="h-4 w-4 cursor-help text-white/40" />
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <Gem className="h-4 w-4 cursor-help text-[#ffcc33]" />
+                      <button
+                        onClick={() => setIsPublic(!isPublic)}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                          isPublic ? 'bg-gradient-to-r from-[#ffcc33] to-[#ff9900]' : 'bg-white/20'
+                        }`}
+                      >
+                        <span
+                          className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-lg transition-transform ${
+                            isPublic ? 'translate-x-5' : 'translate-x-0.5'
+                          }`}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom: credits + generate button */}
+              <div className="flex-shrink-0 border-t border-[#363b4e] pt-4">
+                <div className="space-y-4">
+                  {/* Credits display */}
+                  <div className="rounded-lg border border-[#ffcc33]/30 bg-gradient-to-r from-[#ffcc33]/10 to-[#ffcc33]/5">
+                    <div className="flex items-center justify-between p-3">
+                      <div className="flex items-center gap-2">
+                        <Coins className="h-4 w-4 text-[#ffcc33]" />
+                        <span className="text-sm font-medium text-white">所需点数</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white/40 line-through">20</span>
+                        <span className="text-base font-bold text-[#ffcc33]">10</span>
+                        <span className="rounded-md border border-[#ffcc33]/20 bg-[#ffcc33]/10 px-1.5 py-0.5 text-[10px] font-medium text-[#ffcc33]">
+                          50% 折扣
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Generate button */}
                   <button
-                    onClick={() => setUploadedFile(null)}
-                    className="absolute top-2 right-2 bg-black/60 rounded-full p-1 hover:bg-black/80 transition-colors"
+                    onClick={handleGenerate}
+                    disabled={generateState === 'loading'}
+                    className="w-full rounded-md px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-70"
+                    style={{
+                      background: generateState === 'done'
+                        ? 'rgba(74,222,128,0.2)'
+                        : 'linear-gradient(135deg, #ffcc33, #ff9900)',
+                      color: generateState === 'done' ? '#4ade80' : '#000',
+                    }}
                   >
-                    <X className="w-4 h-4 text-white" />
+                    {generateState === 'loading' ? (
+                      <span className="flex items-center justify-center gap-2"><Loader2 className="h-4 w-4 animate-spin" />生成中...</span>
+                    ) : generateState === 'done' ? (
+                      <span className="flex items-center justify-center gap-2"><CheckCircle className="h-4 w-4" />生成完成！</span>
+                    ) : (
+                      '生成 图片'
+                    )}
                   </button>
                 </div>
-              ) : (
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  onDrop={handleDrop}
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                  className={`flex flex-col items-center justify-center gap-2 w-full min-h-[140px] rounded-xl border-2 border-dashed cursor-pointer transition-all duration-200 ${
-                    isDragging
-                      ? 'border-[#ffcc33] bg-[#ffcc33]/5'
-                      : 'border-[#363b4e] bg-[#0f1117] hover:border-[#ffcc33]/50 hover:bg-[#ffcc33]/[0.02]'
-                  }`}
-                >
-                  <Upload className="w-8 h-8 text-white/30" />
-                  <span className="text-sm text-white/50">拖拽图片或点击选择</span>
-                  <span className="text-xs text-white/30">JPG / PNG（最大 10MB）</span>
-                </div>
-              )}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleFileChange(file);
-                }}
-              />
-            </div>
-          )}
-
-          {/* Prompt */}
-          <div>
-            <label className="block text-sm font-medium text-white/70 mb-2">提示词</label>
-            <textarea
-              ref={textareaRef}
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="描述你想要生成的图像..."
-              rows={3}
-              className="w-full resize-none overflow-hidden bg-[#0f1117] border border-[#363b4e] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#ffcc33]/50 transition-colors"
-            />
-          </div>
-
-          {/* Aspect ratio */}
-          <div>
-            <label className="block text-sm font-medium text-white/70 mb-2">图片尺寸</label>
-            <div className="grid grid-cols-5 gap-1.5">
-              {ASPECT_RATIOS.map((ratio) => (
-                <button
-                  key={ratio}
-                  onClick={() => setSelectedRatio(ratio)}
-                  className={`py-1.5 px-1 rounded-lg text-xs font-medium transition-all duration-150 ${
-                    selectedRatio === ratio
-                      ? 'bg-[#ffcc33] text-black font-bold'
-                      : 'bg-[#1c2030] text-white hover:bg-[#252a3d] hover:text-white'
-                  }`}
-                >
-                  {ratio}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Generate button */}
-          <button
-            onClick={handleGenerate}
-            disabled={generateState === 'loading'}
-            className={`w-full flex items-center justify-center py-3 rounded-xl text-sm font-bold transition-all duration-200 mt-auto ${
-              generateState === 'done'
-                ? 'bg-green-500/20 border border-green-500/30 text-green-400'
-                : 'bg-gradient-to-r from-[#ffcc33] to-[#ff9f43] text-black hover:opacity-90 active:scale-[0.98] disabled:opacity-70'
-            }`}
-          >
-            {getButtonContent()}
-          </button>
-        </div>
-
-        {/* Right panel ~60% */}
-        <div className="w-full lg:w-[60%] p-5 flex flex-col gap-3">
-          <h3 className="text-sm font-semibold text-white/70">🖼 示例图片</h3>
-          <div className="grid grid-cols-3 gap-2">
-            {SAMPLE_IMAGES.map((src, i) => (
-              <div
-                key={i}
-                className="relative aspect-square rounded-xl overflow-hidden bg-[#0f1117] group cursor-pointer"
-              >
-                <Image
-                  src={src}
-                  alt={`示例图片 ${i + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
               </div>
-            ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ Right: Example Images Panel ═══ */}
+      <div className="w-full min-w-0">
+        <div className="flex h-full rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow">
+          <div className="flex h-full flex-1 flex-col">
+            {/* Header */}
+            <div className="flex-shrink-0 p-5">
+              <div className="flex items-center gap-2 font-semibold">
+                <Images className="h-5 w-5 text-[#ffcc33]" />
+                <span className="gradient-glow-text">示例图片</span>
+              </div>
+            </div>
+
+            {/* Before/After showcase */}
+            <div className="flex-1 overflow-hidden px-5 pb-0">
+              <div className="relative flex h-full w-full flex-col rounded-xl bg-[#0f1117]/30">
+                {/* Images */}
+                <div className="flex flex-1 items-center justify-center gap-2 overflow-hidden p-4 sm:gap-4 sm:p-8">
+                  {/* Before */}
+                  <div className="relative flex h-full w-full max-w-[48%] items-center justify-end">
+                    <div className="flex h-full min-h-[20rem] w-full items-center justify-end overflow-hidden rounded-2xl bg-white/5 sm:min-h-[24rem] md:min-h-[28rem]">
+                      <div className="relative">
+                        <Image
+                          src={ex.before}
+                          alt="Before"
+                          width={400}
+                          height={600}
+                          className="max-h-[20rem] max-w-[9rem] rounded-2xl object-contain sm:max-h-[24rem] sm:max-w-[18rem] md:max-h-[24rem] md:max-w-[21rem] lg:max-h-[26rem] lg:max-w-[22rem] xl:max-h-[30rem] xl:max-w-[24rem]"
+                        />
+                        <div className="absolute left-1 top-1 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 shadow-2xl backdrop-blur-md sm:left-2 sm:top-2 sm:px-5 sm:py-2.5 sm:text-base">
+                          之前
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* After */}
+                  <div className="relative flex h-full w-full max-w-[48%] items-center justify-start">
+                    <div className="flex h-full min-h-[20rem] w-full items-center justify-start overflow-hidden rounded-2xl bg-white/5 sm:min-h-[24rem] md:min-h-[28rem]">
+                      <div className="relative">
+                        <Image
+                          src={ex.after}
+                          alt="After"
+                          width={400}
+                          height={600}
+                          className="max-h-[20rem] max-w-[9rem] rounded-2xl object-contain sm:max-h-[24rem] sm:max-w-[18rem] md:max-h-[24rem] md:max-w-[21rem] lg:max-h-[26rem] lg:max-w-[22rem] xl:max-h-[30rem] xl:max-w-[24rem]"
+                        />
+                        <div className="absolute right-1 top-1 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 shadow-2xl backdrop-blur-md sm:right-2 sm:top-2 sm:px-5 sm:py-2.5 sm:text-base">
+                          之后
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dots + prompt + button */}
+                <div className="flex h-auto flex-shrink-0 flex-col gap-3 px-4 pb-4 sm:px-8 sm:pb-8">
+                  {/* Pagination dots */}
+                  <div className="flex items-center justify-center gap-2">
+                    {EXAMPLES.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setExampleIdx(i)}
+                        aria-label={`Go to sample ${i + 1}`}
+                        className={`rounded-full transition-all duration-300 ${
+                          i === exampleIdx
+                            ? 'h-3 w-10 shadow-lg'
+                            : 'h-2.5 w-2.5 bg-white/30 hover:scale-125 hover:bg-white/50'
+                        }`}
+                        style={i === exampleIdx ? {
+                          background: 'linear-gradient(to right, #ffcc33, #ff9900)',
+                        } : undefined}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Prompt + try button */}
+                  <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+                    <p className="line-clamp-2 flex-1 text-sm leading-relaxed text-white/70">
+                      {ex.prompt}
+                    </p>
+                    <button
+                      onClick={() => setPrompt(ex.prompt)}
+                      className="highlight-button flex-shrink-0 whitespace-nowrap px-6 py-2.5 text-sm font-medium"
+                    >
+                      试用示例
+                    </button>
+                  </div>
+                </div>
+
+                {/* Nav arrows */}
+                <button
+                  onClick={() => setExampleIdx((exampleIdx - 1 + EXAMPLES.length) % EXAMPLES.length)}
+                  className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e]/40 bg-[#1c2030]/90 shadow-xl backdrop-blur-md transition-all hover:scale-110 hover:border-[#ffcc33]/50"
+                >
+                  <ChevronLeft className="h-6 w-6 text-white" />
+                </button>
+                <button
+                  onClick={() => setExampleIdx((exampleIdx + 1) % EXAMPLES.length)}
+                  className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e]/40 bg-[#1c2030]/90 shadow-xl backdrop-blur-md transition-all hover:scale-110 hover:border-[#ffcc33]/50"
+                >
+                  <ChevronRight className="h-6 w-6 text-white" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

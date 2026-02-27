@@ -6,7 +6,7 @@ import Footer from '@/components/banana/Footer';
 import PromoBanner from '@/components/banana/PromoBanner';
 import ScrollFadeGlobal from '@/components/banana/ScrollFadeGlobal';
 
-const BANNER_HEIGHT = 34;
+const BANNER_HEIGHT = 46; // Banner height (matches original's ~56px with padding)
 
 export default function LandingShell({ children }: { children: ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
