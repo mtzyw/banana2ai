@@ -10,6 +10,7 @@ import {
   Banana,
   Sparkles,
 } from 'lucide-react';
+import LoginModal from '@/components/banana/LoginModal';
 
 interface TopNavbarProps {
   sidebarOpen?: boolean;
@@ -19,6 +20,7 @@ interface TopNavbarProps {
 
 export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 }: TopNavbarProps) {
   const [credits] = useState(0);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   return (
     <header
@@ -62,11 +64,16 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 
           <span className="text-white/80 text-xs font-medium tabular-nums">{credits}</span>
         </div>
 
-        <button className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md bg-[#f8d24b] text-black text-xs font-semibold hover:bg-yellow-300 transition-colors">
+        <button
+          onClick={() => setLoginOpen(true)}
+          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md bg-[#f8d24b] text-black text-xs font-semibold hover:bg-yellow-300 transition-colors"
+        >
           <LogIn className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">登录</span>
         </button>
       </div>
+
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
     </header>
   );
 }

@@ -48,7 +48,7 @@ export default function LandingShell({ children }: { children: ReactNode }) {
 
           <main
             className="flex-1 min-h-[calc(100vh-64px)] overflow-auto transition-[margin] duration-300"
-            style={{ marginLeft: sidebarOpen && !isMobile ? 240 : 0 }}
+            style={{ marginLeft: sidebarOpen && !isMobile ? 240 : (!isMobile ? 64 : 0) }}
           >
             {children}
             <Footer />

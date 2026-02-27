@@ -114,6 +114,39 @@ function NavItemRow({
   );
 }
 
+/* ── Icon-only rail item ── */
+function RailIcon({
+  item,
+  isActive,
+  badge,
+}: {
+  item: NavItem;
+  isActive: boolean;
+  badge?: string;
+}) {
+  const Icon = item.icon;
+  return (
+    <li className="relative">
+      <Link
+        href={item.href}
+        className={`flex items-center justify-center rounded-md px-2 py-2 transition-colors ${
+          isActive
+            ? 'border-l-2 border-white bg-[hsl(220,15%,28%)] text-white'
+            : 'border-l-2 border-transparent hover:bg-[hsl(220,15%,28%)] hover:text-white text-white/50'
+        }`}
+        title={item.label}
+      >
+        <Icon className="h-5 w-5" />
+      </Link>
+      {badge && (
+        <span className="absolute -right-0.5 -top-0.5 rounded-full bg-gradient-to-r from-[#ffcc33] to-[#ff9900] px-1 py-px text-[8px] font-bold leading-none text-black">
+          {badge}
+        </span>
+      )}
+    </li>
+  );
+}
+
 interface SidebarProps {
   open?: boolean;
   isMobile?: boolean;
@@ -139,6 +172,13 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
     if (isMobile) onClose?.();
   };
 
+  /* All nav items for the collapsed icon rail */
+  const allRailItems: Array<NavItem & { badge?: string }> = [
+    ...mainNav.map(n => ({ ...n, badge: n.badges?.[0]?.text })),
+    ...aiGenNav,
+    ...modelsNav.map(n => ({ ...n, badge: n.badges?.[0]?.text })),
+  ];
+
   return (
     <>
       {/* Mobile overlay backdrop */}
@@ -149,7 +189,41 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
         />
       )}
 
-      {/* Sidebar */}
+      {/* Collapsed icon rail — desktop only, visible when sidebar is closed */}
+      {!open && !isMobile && (
+        <div
+          className="fixed left-0 z-30 hidden w-16 flex-col border-r border-white/[0.06] bg-[#111111] text-white/70 xl:flex overflow-y-auto"
+          style={{
+            top: topOffset,
+            height: `calc(100vh - ${topOffset}px)`,
+          }}
+        >
+          <nav className="flex-1 space-y-1 p-1.5">
+            <ul className="space-y-1">
+              {allRailItems.map((item) => (
+                <RailIcon
+                  key={item.href + item.label}
+                  item={item}
+                  isActive={item.label === 'Flux AI 图像生成器' ? isFluxActive : isActive(item)}
+                  badge={item.badge}
+                />
+              ))}
+            </ul>
+          </nav>
+          {/* Pricing at bottom */}
+          <div className="border-t border-white/[0.06] p-1.5">
+            <Link
+              href="/pricing"
+              className="flex items-center justify-center rounded-md px-2 py-2 text-[#ffcc33] transition-colors hover:bg-[hsl(220,15%,28%)]"
+              title="升级套餐"
+            >
+              <Diamond className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Full sidebar */}
       <aside
         className="fixed left-0 z-40 w-[240px] bg-[#111111] border-r border-white/[0.06] flex flex-col overflow-y-auto transition-[transform,top,height] duration-300 ease-in-out"
         style={{
