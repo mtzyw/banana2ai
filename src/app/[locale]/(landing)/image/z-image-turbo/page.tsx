@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageGenerator from '@/components/banana/ImageGenerator';
@@ -114,6 +114,93 @@ function FAQItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean
       </button>
       <div ref={ref} className="overflow-hidden transition-all duration-400 ease-in-out" style={{ maxHeight: open ? (ref.current?.scrollHeight ?? 300) + 'px' : '0px', opacity: open ? 1 : 0 }}>
         <div className="px-5 pb-4 text-sm leading-relaxed text-white/60">{a}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Testimonial Single-Card Carousel ─── */
+function TestimonialCarousel() {
+  const [idx, setIdx] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const total = TESTIMONIALS.length;
+  const t = TESTIMONIALS[idx];
+
+  const go = useCallback((n: number) => {
+    if (animating) return;
+    setAnimating(true);
+    setTimeout(() => { setIdx((n + total) % total); setAnimating(false); }, 400);
+  }, [animating, total]);
+
+  // Auto-rotate
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimer = useCallback(() => { timerRef.current = setInterval(() => setIdx(prev => (prev + 1) % total), 6000); }, [total]);
+  const stopTimer = useCallback(() => { if (timerRef.current) clearInterval(timerRef.current); }, []);
+
+  useEffect(() => { startTimer(); return () => stopTimer(); }, [startTimer, stopTimer]);
+
+  return (
+    <div className="relative mx-auto max-w-4xl">
+      {/* Card */}
+      <div
+        className="relative overflow-hidden rounded-xl border border-[#363b4e] bg-[#13151f] p-6 shadow-lg md:p-12"
+        style={{ opacity: animating ? 0 : 1, transform: animating ? 'translateY(8px)' : 'none', transition: 'opacity 0.4s ease, transform 0.4s ease' }}
+      >
+        {/* Decorative background */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-[#ffcc33]/5 blur-3xl" />
+          <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-[#ff9900]/5 blur-3xl" />
+        </div>
+
+        <div className="relative z-10 flex flex-col">
+          {/* Stars */}
+          <div className="mb-4 flex gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span key={i} className="text-lg text-[#ffcc33]">★</span>
+            ))}
+          </div>
+          {/* Quote */}
+          <div className="mb-6 h-[220px] overflow-y-auto md:h-auto md:min-h-[120px] md:overflow-visible">
+            <p className="text-base leading-relaxed text-white/80 md:text-lg">&ldquo;{t.quote}&rdquo;</p>
+          </div>
+          {/* Author */}
+          <div className="relative z-10 flex items-center gap-4">
+            <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#ffcc33]/30 md:h-12 md:w-12">
+              <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+            </div>
+            <div>
+              <div className="font-semibold text-white">{t.name}</div>
+              <div className="text-sm text-white/40">{t.role}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation arrows */}
+      <button
+        onClick={() => { stopTimer(); go(idx - 1); startTimer(); }}
+        className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e] bg-[#0f1117]/80 text-white/60 backdrop-blur-sm transition-all hover:border-[#ffcc33]/50 hover:text-[#ffcc33] md:-left-4"
+      >
+        ←
+      </button>
+      <button
+        onClick={() => { stopTimer(); go(idx + 1); startTimer(); }}
+        className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e] bg-[#0f1117]/80 text-white/60 backdrop-blur-sm transition-all hover:border-[#ffcc33]/50 hover:text-[#ffcc33] md:-right-4"
+      >
+        →
+      </button>
+
+      {/* Dots */}
+      <div className="mt-6 flex items-center justify-center gap-2">
+        {TESTIMONIALS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => { stopTimer(); go(i); startTimer(); }}
+            className={`rounded-full transition-all duration-300 ${
+              i === idx ? 'h-2 w-6 bg-[#ffcc33]' : 'h-2 w-2 bg-white/20 hover:bg-[#ffcc33]/30'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
@@ -291,7 +378,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Use Cases (alternating image + text) ── */}
+      {/* ── Use Cases (icon + title + desc, 2-col grid) ── */}
       <section className="relative px-4 py-16 md:py-24">
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
@@ -303,22 +390,20 @@ export default function Page() {
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
             {USE_CASES.map((uc, i) => (
-              <div key={i} className={`group overflow-hidden rounded-2xl border border-[#363b4e] bg-[#13151f] transition-all duration-300 hover:-translate-y-1 hover:border-[#ffcc33]/40 hover:shadow-lg scroll-fade-in stagger-${Math.min(i + 1, 6)}`}>
-                <div className="relative aspect-[16/9] overflow-hidden">
-                  <Image src={uc.image} alt={uc.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#13151f] via-transparent to-transparent" />
+              <div key={i} className={`group rounded-2xl border border-[#363b4e] bg-[#13151f] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#ffcc33]/40 hover:shadow-lg hover:shadow-[#ffcc33]/5 scroll-fade-in stagger-${Math.min(i + 1, 6)}`}>
+                {/* Icon box */}
+                <div className="mb-5 inline-flex items-center justify-center rounded-lg border border-[#363b4e]/40 bg-[#1c2030] p-2.5">
+                  <Image src={uc.image} alt={uc.title} width={48} height={48} className="h-12 w-12" />
                 </div>
-                <div className="p-6">
-                  <h3 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-[#ffcc33]">{uc.title}</h3>
-                  <p className="text-sm leading-relaxed text-white/60">{uc.desc}</p>
-                </div>
+                <h3 className="mb-3 text-xl font-bold text-white transition-colors group-hover:text-[#ffcc33]">{uc.title}</h3>
+                <p className="text-sm leading-relaxed text-white/60">{uc.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Testimonials (with avatars) ── */}
+      {/* ── Testimonials (single-card carousel) ── */}
       <section className="relative px-4 py-16 md:py-24">
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
@@ -328,27 +413,7 @@ export default function Page() {
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
             加入全球成千上万名创作者、企业和机构的行列，探索闪电般的写实生成如何加速工作流并降低各行业成本。
           </p>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className={`relative overflow-hidden rounded-2xl border border-[#363b4e] bg-[#13151f] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#ffcc33]/30 hover:shadow-lg scroll-fade-in stagger-${Math.min(i + 1, 6)}`}>
-                {/* Top accent */}
-                <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-[#ffcc33] to-[#ff9900] opacity-0 transition-opacity group-hover:opacity-100" />
-                {/* Quote */}
-                <div className="mb-4 text-3xl text-[#ffcc33]/30">&ldquo;</div>
-                <p className="mb-6 text-sm leading-relaxed text-white/70">{t.quote}</p>
-                {/* Author */}
-                <div className="flex items-center gap-3">
-                  <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border border-[#363b4e]">
-                    <Image src={t.avatar} alt={t.name} fill className="object-cover" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-white">{t.name}</div>
-                    <div className="text-xs text-white/40">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TestimonialCarousel />
         </div>
       </section>
 
