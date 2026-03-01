@@ -24,19 +24,19 @@ const QUANTITIES = [1, 2, 3, 4];
 /* ── Example slides ── */
 const EXAMPLES = [
   {
-    before: 'https://static.banana2ai.net/images/generator/before-sketch.webp',
-    after:  'https://static.banana2ai.net/images/generator/after-photo.webp',
-    prompt: 'Use this photo to make a 3×3 photo booth grid. Each photo should have a different pose and expression. No repetition allowed.',
+    before: 'https://static.banana2ai.net/images/generator/example-v3-before-1.webp',
+    after:  'https://static.banana2ai.net/images/generator/example-v3-after-1.webp',
+    prompt: 'Turn this selfie into a 3D collectible blind box figure — keep my features, place in clear acrylic packaging with miniature accessories and studio lighting.',
   },
   {
-    before: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp',
-    after:  'https://static.banana2ai.net/images/showcase/ai-models.webp',
-    prompt: 'Transform this portrait into a cinematic movie poster with dramatic lighting and color grading.',
+    before: 'https://static.banana2ai.net/images/generator/example-v3-before-2.webp',
+    after:  'https://static.banana2ai.net/images/generator/example-v3-after-2.webp',
+    prompt: 'Reimagine this street photo in Studio Ghibli anime style — same person and composition, hand-painted watercolor textures, magical golden-hour atmosphere.',
   },
   {
-    before: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
-    after:  'https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp',
-    prompt: 'Reimagine this scene in a Studio Ghibli anime art style with soft watercolor textures.',
+    before: 'https://static.banana2ai.net/images/generator/example-v3-before-3.webp',
+    after:  'https://static.banana2ai.net/images/generator/example-v3-after-3.webp',
+    prompt: 'Upgrade this couple photo to a cinematic magazine cover — dramatic rim lighting, rich color grading, shallow depth of field, editorial quality.',
   },
 ];
 
@@ -81,9 +81,9 @@ export default function ImageGenerator() {
   const ex = EXAMPLES[exampleIdx];
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6 lg:flex-row" style={{ height: 'calc(100vh - 180px)', maxHeight: '750px' }}>
+    <div className="flex flex-col gap-4 md:gap-6 lg:flex-row lg:h-[calc(100vh-180px)] lg:max-h-[750px]">
       {/* ═══ Left: AI Image Generator Panel ═══ */}
-      <div className="w-full flex-shrink-0 lg:w-[380px] xl:w-[420px]">
+      <div className="w-full lg:flex-shrink-0 lg:w-[380px] xl:w-[420px]">
         <div className="flex h-full flex-col rounded-xl border border-[#363b4e]/50 bg-[#13151f] shadow-lg">
           {/* Header + Model selector */}
           <div className="flex-shrink-0 p-5 pb-2">
@@ -356,10 +356,9 @@ export default function ImageGenerator() {
 
       {/* ═══ Right: Example Images Panel ═══ */}
       <div className="w-full min-w-0">
-        <div className="flex h-full rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow">
-          <div className="flex h-full flex-1 flex-col">
+        <div className="relative overflow-hidden rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow">
             {/* Header */}
-            <div className="flex-shrink-0 p-5">
+            <div className="p-5 pb-3">
               <div className="flex items-center gap-2 font-semibold">
                 <Images className="h-5 w-5 text-[#ffcc33]" />
                 <span className="gradient-glow-text">示例图片</span>
@@ -367,49 +366,40 @@ export default function ImageGenerator() {
             </div>
 
             {/* Before/After showcase */}
-            <div className="flex-1 overflow-hidden px-5 pb-0">
-              <div className="relative flex h-full w-full flex-col rounded-xl bg-[#0f1117]/30">
+            <div className="relative mx-5 rounded-xl bg-[#0f1117]/30">
                 {/* Images */}
-                <div className="flex flex-1 items-center justify-center gap-2 overflow-hidden p-4 sm:gap-4 sm:p-8">
+                <div className="grid grid-cols-2 gap-3 p-4 sm:gap-4 sm:p-6">
                   {/* Before */}
-                  <div className="relative flex h-full w-full max-w-[48%] items-center justify-end">
-                    <div className="flex h-full min-h-[20rem] w-full items-center justify-end overflow-hidden rounded-2xl bg-white/5 sm:min-h-[24rem] md:min-h-[28rem]">
-                      <div className="relative">
-                        <Image
-                          src={ex.before}
-                          alt="Before"
-                          width={400}
-                          height={600}
-                          className="max-h-[20rem] max-w-[9rem] rounded-2xl object-contain sm:max-h-[24rem] sm:max-w-[18rem] md:max-h-[24rem] md:max-w-[21rem] lg:max-h-[26rem] lg:max-w-[22rem] xl:max-h-[30rem] xl:max-w-[24rem]"
-                        />
-                        <div className="absolute left-1 top-1 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 shadow-2xl backdrop-blur-md sm:left-2 sm:top-2 sm:px-5 sm:py-2.5 sm:text-base">
-                          之前
-                        </div>
-                      </div>
+                  <div className="relative overflow-hidden rounded-2xl bg-white/5">
+                    <Image
+                      src={ex.before}
+                      alt="Before"
+                      width={400}
+                      height={533}
+                      className="h-auto w-full rounded-2xl object-cover"
+                    />
+                    <div className="absolute left-2 top-2 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 backdrop-blur-md sm:px-4 sm:py-2 sm:text-sm">
+                      之前
                     </div>
                   </div>
 
                   {/* After */}
-                  <div className="relative flex h-full w-full max-w-[48%] items-center justify-start">
-                    <div className="flex h-full min-h-[20rem] w-full items-center justify-start overflow-hidden rounded-2xl bg-white/5 sm:min-h-[24rem] md:min-h-[28rem]">
-                      <div className="relative">
-                        <Image
-                          src={ex.after}
-                          alt="After"
-                          width={400}
-                          height={600}
-                          className="max-h-[20rem] max-w-[9rem] rounded-2xl object-contain sm:max-h-[24rem] sm:max-w-[18rem] md:max-h-[24rem] md:max-w-[21rem] lg:max-h-[26rem] lg:max-w-[22rem] xl:max-h-[30rem] xl:max-w-[24rem]"
-                        />
-                        <div className="absolute right-1 top-1 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 shadow-2xl backdrop-blur-md sm:right-2 sm:top-2 sm:px-5 sm:py-2.5 sm:text-base">
-                          之后
-                        </div>
-                      </div>
+                  <div className="relative overflow-hidden rounded-2xl bg-white/5">
+                    <Image
+                      src={ex.after}
+                      alt="After"
+                      width={400}
+                      height={533}
+                      className="h-auto w-full rounded-2xl object-cover"
+                    />
+                    <div className="absolute right-2 top-2 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 backdrop-blur-md sm:px-4 sm:py-2 sm:text-sm">
+                      之后
                     </div>
                   </div>
                 </div>
 
                 {/* Dots + prompt + button */}
-                <div className="flex h-auto flex-shrink-0 flex-col gap-3 px-4 pb-4 sm:px-8 sm:pb-8">
+                <div className="flex flex-col gap-3 px-4 pb-4 sm:px-8 sm:pb-8">
                   {/* Pagination dots */}
                   <div className="flex items-center justify-center gap-2">
                     {EXAMPLES.map((_, i) => (
@@ -443,22 +433,21 @@ export default function ImageGenerator() {
                   </div>
                 </div>
 
-                {/* Nav arrows */}
-                <button
-                  onClick={() => setExampleIdx((exampleIdx - 1 + EXAMPLES.length) % EXAMPLES.length)}
-                  className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e]/40 bg-[#1c2030]/90 shadow-xl backdrop-blur-md transition-all hover:scale-110 hover:border-[#ffcc33]/50"
-                >
-                  <ChevronLeft className="h-6 w-6 text-white" />
-                </button>
-                <button
-                  onClick={() => setExampleIdx((exampleIdx + 1) % EXAMPLES.length)}
-                  className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e]/40 bg-[#1c2030]/90 shadow-xl backdrop-blur-md transition-all hover:scale-110 hover:border-[#ffcc33]/50"
-                >
-                  <ChevronRight className="h-6 w-6 text-white" />
-                </button>
               </div>
-            </div>
-          </div>
+
+            {/* Nav arrows */}
+            <button
+              onClick={() => setExampleIdx((exampleIdx - 1 + EXAMPLES.length) % EXAMPLES.length)}
+              className="absolute left-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e]/40 bg-[#1c2030]/90 shadow-xl backdrop-blur-md transition-all hover:scale-110 hover:border-[#ffcc33]/50"
+            >
+              <ChevronLeft className="h-5 w-5 text-white" />
+            </button>
+            <button
+              onClick={() => setExampleIdx((exampleIdx + 1) % EXAMPLES.length)}
+              className="absolute right-3 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e]/40 bg-[#1c2030]/90 shadow-xl backdrop-blur-md transition-all hover:scale-110 hover:border-[#ffcc33]/50"
+            >
+              <ChevronRight className="h-5 w-5 text-white" />
+            </button>
         </div>
       </div>
     </div>

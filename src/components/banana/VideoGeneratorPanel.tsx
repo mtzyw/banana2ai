@@ -15,9 +15,9 @@ export default function VideoGeneratorPanel({
   sampleVideoPoster = 'https://static.banana2ai.net/images/video/default-poster.webp',
 }: VideoGeneratorPanelProps) {
   return (
-    <div className="flex flex-col gap-4 px-4 py-6 md:gap-6 md:px-6 lg:flex-row" style={{ minHeight: 'min(calc(100vh - 120px), 800px)' }}>
+    <div className="flex flex-col gap-4 px-4 py-6 md:gap-6 md:px-6 lg:flex-row lg:min-h-[min(calc(100vh-120px),800px)]">
       {/* Left: Generator Form */}
-      <div className="w-full flex-shrink-0 lg:w-[380px] xl:w-[420px]">
+      <div className="w-full lg:flex-shrink-0 lg:w-[380px] xl:w-[420px]">
         <div className="flex h-full flex-col rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow-lg">
           <div className="flex-shrink-0 border-b border-[#363b4e]/30 p-5 pb-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
