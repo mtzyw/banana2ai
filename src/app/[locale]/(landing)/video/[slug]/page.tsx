@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import VideoGeneratorPanel from '@/components/banana/VideoGeneratorPanel';
 import Image from 'next/image';
 import { videoTools } from '@/data/video-tools';
 
@@ -105,6 +106,12 @@ export default async function VideoToolPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Video Generator */}
+      <VideoGeneratorPanel
+        sampleVideoSrc="https://static.banana2ai.net/videos/sample-subpage.mp4"
+        sampleVideoPoster="https://static.banana2ai.net/images/video/default-poster.webp"
+      />
 
       {/* Steps Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">

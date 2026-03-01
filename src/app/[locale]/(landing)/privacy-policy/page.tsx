@@ -88,7 +88,7 @@ export default function PrivacyPolicyPage() {
             <p className="text-white/60">
               公司：WhaleSwing LLC<br />
               地址：30 N GOULD ST, STE N, SHERIDAN, WY 82801<br />
-              网站：bananaproai.com
+              网站：banana2ai.net
             </p>
           </section>
 

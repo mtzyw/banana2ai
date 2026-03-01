@@ -10,17 +10,17 @@ import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 const FEATURES = [
   {
     title: '革命性的写实主义与表面渲染',
-    image: '/images/banana/d4j74diw3h7n.jpeg',
+    image: 'https://static.banana2ai.net/images/features/d4j74diw3h7n.webp',
     body: 'Flux AI 图像生成器的真正实力在于其对光学物理和材料属性的深入理解。当您使用我们的专业系统时，您正在接入一个经过数百万张专业照片训练的神经网络。这使得系统能够模拟复杂的视觉现象，如皮肤的次表面散射、玻璃上的焦散反射以及纺织品的精细织纹。Flux AI 图像生成器确保每个阴影在数学上保持一致，每个高光都自然摆放。此外，它还能以电影级的质量处理景深和虚化效果。',
   },
   {
     title: '无与伦比的排版与解剖准确性',
-    image: '/images/banana/6nemc9rfeqe0.jpeg',
+    image: 'https://static.banana2ai.net/images/features/6nemc9rfeqe0.webp',
     body: 'Flux AI 图像生成器成功征服了人工智能领域的巨大挑战。使用 Flux AI 图像生成器，您可以直接将特定的单词或品牌名称融入图像中，并保持完美的拼写和字体一致性。这种能力使其成为创建海报和社交媒体横幅（文字整合至关重要）的必备资产。此外，Flux AI 图像生成器已经掌握了复杂的人体解剖学。手指畸形的时代已经过去，该模型能生成自然、富有表现力的姿势，传达真实的情感和动态。',
   },
   {
     title: '先进的语义理解与空间逻辑',
-    image: '/images/banana/o6onuv78986b.jpeg',
+    image: 'https://static.banana2ai.net/images/features/o6onuv78986b.webp',
     body: 'Flux AI 图像生成器最深远的优势之一在于其复杂的双架构方法，它将基于 Transformer 的主干网络与先进的潜在扩散技术相结合。这使得 Flux AI 图像生成器能够保持惊人的空间逻辑，确保提示词中提到的物体不仅具有高保真度，而且在物理关系上摆放正确。如果您描述一个玻璃杯放在红木桌上，背景是模糊的热带叶子，Flux AI 图像生成器能完美理解该场景的深度、分层和物体关系。',
   },
 ];
@@ -31,28 +31,28 @@ const USE_CASE_TABS = [
     label: '建筑设计',
     title: '电影级建筑可视化',
     highlight: '精确空间',
-    image: '/images/banana/an4kmo2ls0qy.jpeg',
+    image: 'https://static.banana2ai.net/images/features/an4kmo2ls0qy.webp',
     body: '建筑师现在可以使用 Flux AI 图像生成器在创纪录的时间内将蓝图转化为写实的视觉环境。无论是需要沐浴在晨光中的极简主义斯堪的纳维亚客厅，还是带有戏剧性阴影的宏伟粗犷主义大厅，Flux AI 图像生成器都能以惊人的准确度捕捉空间逻辑和材料纹理。这使得设计公司能够实验不同的建筑材料——如拉丝钢、橡木或抛光大理石——并观察它们与复杂光线的交互。通过使用 Flux AI 图像生成器进行快速原型设计，创意团队可以大幅压缩从概念到落地的周期。',
   },
   {
     label: '电子商务',
     title: '高端电子商务与产品营销',
     highlight: '影棚级质量',
-    image: '/images/banana/ikszunvda943.jpeg',
+    image: 'https://static.banana2ai.net/images/features/ikszunvda943.webp',
     body: '在竞争激烈的在线零售世界中，Flux AI 图像生成器为昂贵的实物拍摄提供了一个极具性价比的替代方案。领先企业使用我们的 Flux AI 图像生成器套件，以影棚级的精度将产品放置在高端生活方式场景中。营销团队利用 Flux AI 图像生成器在不同的数字平台上保持一致的美学风格。此外，Flux AI 图像生成器支持即时创建本地化营销内容，允许企业通过简单的提示词调整来适配全球不同市场的产品视觉效果。',
   },
   {
     label: '游戏设计',
     title: '专业游戏概念艺术与世界观构建',
     highlight: '世界构建',
-    image: '/images/banana/88bqx2sf400h.jpeg',
+    image: 'https://static.banana2ai.net/images/features/88bqx2sf400h.webp',
     body: '对于游戏行业的概念艺术家来说，Flux AI 图像生成器是构建沉浸式虚拟世界的得力创作伙伴。该引擎擅长生成复杂的环境细节，从拥有生物发光植物的迷幻森林到扩张的废土都市。通过将 Flux AI 图像生成器集成到前期制作流程中，开发人员可以快速迭代角色剪影、盔甲设计和生物概念。Flux AI 图像生成器确保所有资产在满足现代游戏引擎高分辨率要求的同时，保持一致的艺术风格。',
   },
   {
     label: '时尚',
     title: '社论与时尚插画',
     highlight: '高级时尚美学',
-    image: '/images/banana/93enwhj5jmuw.jpeg',
+    image: 'https://static.banana2ai.net/images/features/93enwhj5jmuw.webp',
     body: 'Flux AI 图像生成器正在彻底改变时尚品牌和社论设计师处理视觉叙事的方式。插画家使用 Flux AI 图像生成器将概念服装设计可视化，并探索不同面料在各种影棚光线条件下的垂坠感。该引擎在丝绸光泽、复杂的刺绣图案和精细的蕾丝纹理等领域提供了极高的细节。通过利用 Flux AI 图像生成器，时尚品牌可以制作出具有冲击力的活动图像和数字画册，突破传统风格的界限。',
   },
 ];
@@ -81,22 +81,22 @@ const STEPS = [
 const ADVANTAGES = [
   {
     title: '精通文本生成图像',
-    image: '/images/banana/6d5lxu1obr5p.png',
+    image: 'https://static.banana2ai.net/images/icons/step-upload.webp',
     desc: 'Flux AI 图像生成器让用户见证他们的灵感转化为令人惊叹的视觉效果。经过优化，可以处理包含构图和光影特定指令的复杂提示词。这意味着您将获得一个完全尊重每一个细节要求的定制视觉响应。Flux AI 图像生成器的高效率确保您可以在几秒钟内从概念过渡到最终打磨的资产，大幅缩短交付周期。',
   },
   {
     title: '高级光影与氛围',
-    image: '/images/banana/opc4fw6wpeuu.png',
+    image: 'https://static.banana2ai.net/images/icons/step-describe.webp',
     desc: 'Flux AI 图像生成器的一个显著特点是其能够精准模拟专业摄影灯光。用户可以指挥系统应用高调照明或黑色电影阴影等风格。Flux AI 图像生成器理解光影与大气条件的相互作用，允许您生成带有真实雾气或黄金时段光辉的图像。这种级别的控制对于使用该技术预演项目的摄影师来说至关重要。',
   },
   {
     title: '品牌化的可扩展视觉资产',
-    image: '/images/banana/m49d1so8oys6.png',
+    image: 'https://static.banana2ai.net/images/icons/step-generate.webp',
     desc: '对于希望在不牺牲质量的情况下扩大内容生产规模的品牌来说，Flux AI 图像生成器是终极工具。在当今的数字经济中，对高质量视觉效果的需求是持续不断的。我们的 Flux AI 图像生成器允许营销团队以惊人的速度生产符合品牌风格的图像，保持统一的视觉语言，同时为不同的受众群体量身定制图像。',
   },
   {
     title: '智能工作流与生产力',
-    image: '/images/banana/hpqjrdyh4g83.png',
+    image: 'https://static.banana2ai.net/images/icons/step-prompt.webp',
     desc: '我们的工作空间旨在将 Flux AI 图像生成器无缝集成到您现有的创意流程中。界面针对速度和易用性优化，每一项功能都非常直观，让您可以专注于创作本身。支持快速迭代，让您通过调整提示词来细化和完善图像，并允许批量生成，轻松找到最完美的一张。',
   },
 ];
@@ -106,25 +106,25 @@ const TESTIMONIALS = [
   {
     name: 'Sarah Jenkins',
     role: '独立设计师',
-    avatar: '/images/banana/0chf3prv2avy.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/0chf3prv2avy.webp',
     quote: 'Flux AI 图像生成器的引入彻底改变了我的日常工作流。现在，我只需向 Flux AI 图像生成器描述我的构想，就能获得完全符合需求的保真结果。文字排版的准确性尤其令人印象深刻，我从未见过 AI 能如此完美地处理文字。它已成为我专业工具箱中不可或缺的一部分。',
   },
   {
     name: 'David Chen',
     role: '商业摄影师',
-    avatar: '/images/banana/xrzla888hnj4.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/xrzla888hnj4.webp',
     quote: '作为一名专业摄影师，我使用 Flux AI 图像生成器来实验灯光布局和调色板。系统产生的真实感简直令人震惊。它让我能向团队展示我追求的精确效果。Flux AI 图像生成器是高分辨率视觉合成和分镜工作的金标准。',
   },
   {
     name: 'Elena Rodriguez',
     role: '高级营销经理',
-    avatar: '/images/banana/9eyq4zr370bs.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/9eyq4zr370bs.webp',
     quote: '在社交媒体营销领域，Flux AI 图像生成器完全改变了游戏规则。我的团队每周必须制作数十个视觉内容，而这个工具让我们在没有高昂成本的情况下保持高端质感。Flux AI 图像生成器的一致性至关重要，我们每次生成图像时都知道引擎会交付 4K 级别的画质。',
   },
   {
     name: 'Mark Thompson',
     role: '游戏概念艺术家',
-    avatar: '/images/banana/yqnbz7lctilz.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/yqnbz7lctilz.webp',
     quote: 'Flux AI 图像生成器的技术精度使其脱颖而出。作为概念艺术家，我需要一个理解角色解剖细节的工具。该模型在这方面表现卓越。它处理复杂提示词的速度极大地提升了我的生产力，让我能更快地迭代设计。',
   },
 ];
@@ -339,7 +339,7 @@ export default function Page() {
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="/images/banana/3rh7in3ztrd9.jpeg" alt="Flux AI 图像生成器" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/showcase/ai-models.webp" alt="Flux AI 图像生成器" fill className="object-cover" />
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import LazyVideo from '@/components/banana/LazyVideo';
 
 interface LoginModalProps {
   open: boolean;
@@ -44,12 +45,12 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
           {/* Left — video/image */}
           <div className="hidden w-[40%] p-6 md:block">
             <video
-              src="/images/banana/login.mp4"
+              src="https://static.banana2ai.net/videos/login-panel.mp4"
               autoPlay
               loop
               muted
               playsInline
-              poster="/images/banana/login.jpg"
+              poster="https://static.banana2ai.net/images/ui/login-poster.webp"
               className="h-full w-full rounded-xl object-contain lg:object-cover"
             />
           </div>

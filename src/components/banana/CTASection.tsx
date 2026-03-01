@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
+import LazyVideo from '@/components/banana/LazyVideo';
 
 export default function CTASection() {
   const ref = useScrollFade();
@@ -33,13 +34,9 @@ export default function CTASection() {
 
         {/* Right: Video showcase */}
         <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-2xl scroll-fade-right">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
+          <LazyVideo
             className="h-full w-full object-cover"
-            src="/images/banana/cta.mp4"
+            src="https://static.banana2ai.net/videos/cta-bg.mp4"
           />
           {/* Subtle gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />

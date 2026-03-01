@@ -11,7 +11,7 @@ export default function DisclaimerPage() {
           <section className="bg-[#13151f] border border-[#363b4e] rounded-xl p-6">
             <h2 className="text-xl font-bold text-[#ffcc33] mb-4">1. 独立平台声明</h2>
             <p className="text-white/70 leading-relaxed mb-4">
-              Banana Pro AI (bananaproai.com) 作为一个独立的 AI 创意平台运营，提供视频和图像生成服务。我们通过官方 API 集成各种 AI 技术，包括但不限于 Google Veo、OpenAI Sora 2、Nano Banana 以及其他领先的 AI 提供商，为我们的创意工具提供支持。
+              Banana Pro AI (banana2ai.net) 作为一个独立的 AI 创意平台运营，提供视频和图像生成服务。我们通过官方 API 集成各种 AI 技术，包括但不限于 Google Veo、OpenAI Sora 2、Nano Banana 以及其他领先的 AI 提供商，为我们的创意工具提供支持。
             </p>
             <p className="text-white/70 leading-relaxed">
               我们的平台、用户界面、积分系统、客户支持和业务运营均由 Banana Pro AI 独立开发和管理。
@@ -69,7 +69,7 @@ export default function DisclaimerPage() {
             <p className="text-white/60 mb-4">
               公司：WhaleSwing LLC<br />
               地址：30 N GOULD ST, STE N, SHERIDAN, WY 82801<br />
-              网站：bananaproai.com
+              网站：banana2ai.net
             </p>
             <p className="text-white/60 text-sm">
               我们保留定期更新本免责声明以反映服务集成或业务模式变化的权利。我们鼓励用户定期查看本页面以了解任何变化。

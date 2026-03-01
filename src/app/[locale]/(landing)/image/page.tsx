@@ -14,14 +14,14 @@ import ImageGenerator from '@/components/banana/ImageGenerator';
 /* ──────────────────────────── Data ──────────────────────────── */
 
 const MODEL_GRID = [
-  { slug: 'flux-ai-image-generator', name: 'Flux AI 图像生成器', image: '/images/banana/3rh7in3ztrd9.jpeg' },
-  { slug: 'seedream-ai', name: 'Seedream AI', image: '/images/banana/5aqwpua9noqi.jpeg' },
-  { slug: 'z-image-turbo', name: 'Z Image Turbo', image: '/images/banana/b88usp2lk4ef.jpeg' },
-  { slug: 'qwen-image-edit', name: 'Qwen Image Edit', image: '/images/banana/d5gn3mlwmm7n.jpeg' },
-  { slug: 'grok-imagine', name: 'Grok Imagine', image: '/images/banana/8pk4idwouhh0.jpeg' },
-  { slug: 'banana-pro-ai', name: 'Banana Pro AI 图片', image: '/images/banana/1tpln4as6p33.jpeg' },
-  { slug: 'banana-pro-ai', name: 'Banana AI Image', image: '/images/banana/f4ru78usquup.jpeg' },
-  { slug: 'banana-pro-ai', name: 'Banana Pro AI 图片', image: '/images/banana/j3znhyr1jyn8.jpeg' },
+  { slug: 'flux-ai-image-generator', name: 'Flux AI 图像生成器', image: 'https://static.banana2ai.net/images/showcase/ai-models.webp' },
+  { slug: 'seedream-ai', name: 'Seedream AI', image: 'https://static.banana2ai.net/images/showcase/video-generation.webp' },
+  { slug: 'z-image-turbo', name: 'Z Image Turbo', image: 'https://static.banana2ai.net/images/avatars/b88usp2lk4ef.webp' },
+  { slug: 'qwen-image-edit', name: 'Qwen Image Edit', image: 'https://static.banana2ai.net/images/showcase/interactive-tools.webp' },
+  { slug: 'grok-imagine', name: 'Grok Imagine', image: 'https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp' },
+  { slug: 'banana-pro-ai', name: 'Banana Pro AI 图片', image: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp' },
+  { slug: 'banana-pro-ai', name: 'Banana AI Image', image: 'https://static.banana2ai.net/images/showcase/image-gallery.webp' },
+  { slug: 'banana-pro-ai', name: 'Banana Pro AI 图片', image: 'https://static.banana2ai.net/images/avatars/j3znhyr1jyn8.webp' },
 ];
 
 const STEPS = [
@@ -151,17 +151,17 @@ const USE_CASES = [
   {
     title: '营销与社交媒体团队',
     desc: '双重AI能力助力内容生产提速增效。通过图生图功能从单张照片创建数十种变体。使用文生图生成符合品牌调性的图形和营销素材。在保持跨平台一致性的同时，将设计成本降低75%。',
-    image: '/images/banana/nmodnhmzoinn.jpeg',
+    image: 'https://static.banana2ai.net/images/features/nmodnhmzoinn.webp',
   },
   {
     title: '电子商务与在线商店',
     desc: '利用图生图技术改造产品视觉效果。移除背景、更换场景，无需拍摄即可创建生活方式图像。从单张照片生成多个角度。搭配文生图功能制作营销素材，提升转化率。',
-    image: '/images/banana/oymo6e4j50qi.jpeg',
+    image: 'https://static.banana2ai.net/images/features/oymo6e4j50qi.webp',
   },
   {
     title: '内容创作者与数字出版商',
     desc: '借助 AI 工具激发无限创作。使用文本生成图像创建自定义插图。通过图像生成图像将库存照片转换为独特的品牌视觉内容。保持稳定的发布节奏并提升互动率，无需订阅费用。',
-    image: '/images/banana/ldvemdrtofq8.jpeg',
+    image: 'https://static.banana2ai.net/images/features/ldvemdrtofq8.webp',
   },
 ];
 
@@ -193,25 +193,25 @@ const TESTIMONIALS = [
     quote: 'Banana Pro AI 的图生图功能彻底改变了我们整个产品摄影工作流程。现在我们只需几秒钟就能从基础产品照片生成专业的生活场景图。免费的文生图工具为我们创建营销活动图形和季节性促销素材。我们削减了 70% 的摄影成本，同时实际上还提升了视觉质量。',
     name: 'Jessica Chen',
     role: 'TechStyle Online 电商总监',
-    avatar: '/images/banana/sw79fczaphwe.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/sw79fczaphwe.webp',
   },
   {
     quote: '作为一名艺术家，Banana Pro AI 的图生图和文生图组合功能为我带来了前所未有的创作自由。在最终确定作品之前，我会使用图生图探索数十种风格变化。文生图帮助我即时将客户的概念可视化。我的创作产出增加了两倍，并且赢得了更大的委托项目。',
     name: 'Marcus Rodriguez',
     role: '数字插画师与独立艺术家',
-    avatar: '/images/banana/k1zo5dpjyh3y.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/k1zo5dpjyh3y.webp',
   },
   {
     quote: '我们的代理公司需要扩大视觉内容规模，但又不想增加设计师人手。Banana Pro AI 就是我们的解决方案。图生图转换质量可媲美昂贵的替代产品，而文生图功能可以处理从主视觉到社交媒体帖子的所有内容。客户视觉内容产出提升了 400%。',
     name: 'Sarah Mitchell',
     role: 'GrowthHub Agency 营销经理',
-    avatar: '/images/banana/l8af5arb7l0d.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/l8af5arb7l0d.webp',
   },
   {
     quote: '每天创作内容让我精疲力竭，直到我发现了 Banana Pro AI。图生图功能将我的旧照片转换成新风格，适配不同平台。文生图功能在我缺乏灵感时生成原创图形。我的互动率提升了 55%，因为我的视觉内容现在始终保持专业且独特。',
     name: 'David Park',
     role: '内容创作者 @DavidCreates · 50万粉丝',
-    avatar: '/images/banana/w09plbs60v32.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/w09plbs60v32.webp',
   },
 ];
 
@@ -408,7 +408,7 @@ export default function ImageListPage() {
               <div className="group relative overflow-hidden rounded-2xl md:rounded-3xl">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/images/banana/1tpln4as6p33.jpeg"
+                    src="https://static.banana2ai.net/images/showcase/canvas-workflow.webp"
                     alt="AI 图像创作"
                     fill
                     className="object-cover"
@@ -695,10 +695,10 @@ export default function ImageListPage() {
                           onMouseDown={() => { isDragging.current = true; }}
                           onTouchStart={() => { isDragging.current = true; }}
                         >
-                          <Image src="/images/banana/oymo6e4j50qi.jpeg" alt="之前" fill className="object-cover" />
+                          <Image src="https://static.banana2ai.net/images/features/oymo6e4j50qi.webp" alt="之前" fill className="object-cover" />
                           <div className="absolute bottom-4 left-4 rounded-full bg-black/70 px-3 py-1 text-sm">之前</div>
                           <div className="absolute inset-0" style={{ clipPath: `inset(0 0 0 ${comparePos}%)` }}>
-                            <Image src="/images/banana/nmodnhmzoinn.jpeg" alt="之后" fill className="object-cover" />
+                            <Image src="https://static.banana2ai.net/images/features/nmodnhmzoinn.webp" alt="之后" fill className="object-cover" />
                             <div className="absolute bottom-4 right-4 rounded-full bg-black/70 px-3 py-1 text-sm">之后</div>
                           </div>
                           <div
@@ -938,7 +938,7 @@ export default function ImageListPage() {
                 }}
               >
                 <Image
-                  src="/images/banana/cta-cover.jpeg"
+                  src="https://static.banana2ai.net/images/cta-cover.webp"
                   alt="开始创作"
                   fill
                   className="object-cover"

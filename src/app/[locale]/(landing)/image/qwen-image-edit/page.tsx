@@ -12,28 +12,28 @@ const WHY_TABS = [
     label: '双通道能力',
     title: '双通道编辑架构，带来灵活而强大的控制能力',
     highlight: '语义控制 + 外观精度的完美结合',
-    image: '/images/banana/vedawlqv8ef3.jpeg',
+    image: 'https://static.banana2ai.net/images/features/vedawlqv8ef3.webp',
     body: 'Qwen Image Edit 的双通道架构融合 Qwen2.5-VL 的语义控制与 VAE Encoder 的精度编辑能力。既能完成风格迁移、艺术化渲染等概念级修改，也能实现对象移除、颜色调整等像素级操作，在创意理解与技术准确性之间取得平衡。',
   },
   {
     label: '文本编辑能力',
     title: '卓越的中英文双语文本渲染与编辑能力',
     highlight: '精准支持英文与中文文本',
-    image: '/images/banana/eixtuh6n1bpv.jpeg',
+    image: 'https://static.banana2ai.net/images/features/eixtuh6n1bpv.webp',
     body: 'Qwen Image Edit 在中英文文本编辑方面表现出色，可添加、修改或移除文字，并自动匹配字体、字号与样式。轻松应对复杂书法、混合语言设计和高排版要求的项目，是跨文化内容与国际品牌的理想选择。',
   },
   {
     label: '智能对象',
     title: '具备上下文理解的高级对象编辑能力',
     highlight: '自然添加与无痕移除',
-    image: '/images/banana/9q60mvfjf1qo.jpeg',
+    image: 'https://static.banana2ai.net/images/features/9q60mvfjf1qo.webp',
     body: 'Qwen Image Edit 通过上下文智能，实现自然的对象添加与移除。模型理解光照、透视与场景关系，生成协调统一的视觉效果，非常适合电商、房地产、人像摄影和创意合成。',
   },
   {
     label: '开源优势',
     title: '基于 Apache 2.0 的开源创新与商业自由',
     highlight: '完全的商业使用权限',
-    image: '/images/banana/2ns20ij2z7ne.jpeg',
+    image: 'https://static.banana2ai.net/images/features/2ns20ij2z7ne.webp',
     body: 'Qwen Image Edit 采用 Apache 2.0 协议，允许无限制的商业使用。可在 Hugging Face 上获取并进行微调、定制和部署，无需支付授权费用，适合初创团队、创意机构和企业级应用。',
   },
 ];
@@ -42,17 +42,17 @@ const WHY_TABS = [
 const TECHNOLOGIES = [
   {
     title: 'Qwen2.5-VL 语义理解引擎',
-    image: '/images/banana/tykdsai2nagx.jpeg',
+    image: 'https://static.banana2ai.net/images/features/tykdsai2nagx.webp',
     desc: 'Qwen Image Edit 基于 Qwen2.5-VL 视觉语言模型，实现高层次语义理解与控制。能够解析自然语言指令，完成风格迁移、艺术渲染和氛围调整，在尊重画面构图的前提下进行智能修改。',
   },
   {
     title: 'VAE Encoder 外观精度控制',
-    image: '/images/banana/tukqrbgb08om.jpeg',
+    image: 'https://static.banana2ai.net/images/features/tukqrbgb08om.webp',
     desc: 'VAE Encoder 为 Qwen Image Edit 提供像素级外观控制能力，实现精确的颜色调整、纹理修改与细节润色。配合语义理解，确保创意表达与技术精度高度一致。',
   },
   {
     title: '200 亿参数的基础模型架构',
-    image: '/images/banana/9rjkyxfadlm4.jpeg',
+    image: 'https://static.banana2ai.net/images/features/9rjkyxfadlm4.webp',
     desc: 'Qwen Image Edit 构建于阿里巴巴 200 亿参数基础模型之上，具备企业级理解能力，能够处理复杂视觉关系和多样化场景，支持云端与本地部署。',
   },
 ];
@@ -81,32 +81,32 @@ const STEPS = [
 const USE_CASES = [
   {
     title: '电商商品优化与背景替换',
-    image: '/images/banana/7s1xvycd3qom.png',
+    image: 'https://static.banana2ai.net/images/features/7s1xvycd3qom.webp',
     desc: '使用 Qwen Image Edit 优化商品图片，快速去除背景、替换为棚拍场景，并修改文字标签以保持品牌一致性，无需重新拍摄即可提升商品表现力。',
   },
   {
     title: '营销活动适配与本地化',
-    image: '/images/banana/09syt7q0cucl.png',
+    image: 'https://static.banana2ai.net/images/features/09syt7q0cucl.webp',
     desc: '借助 Qwen Image Edit 快速完成营销素材的本地化，将文本在中英文之间切换，同时保持设计风格一致，实现季节性与区域化营销。',
   },
   {
     title: '社交媒体内容优化与个性化',
-    image: '/images/banana/5uutmp5oh4qb.png',
+    image: 'https://static.banana2ai.net/images/features/5uutmp5oh4qb.webp',
     desc: 'Qwen Image Edit 针对不同平台快速调整图片背景、文字与光效，从一张原图生成适配 Instagram、TikTok、YouTube 的多种版本，提升内容表现力。',
   },
   {
     title: '房地产与建筑可视化增强',
-    image: '/images/banana/txo0xsz0o0vj.png',
+    image: 'https://static.banana2ai.net/images/features/txo0xsz0o0vj.webp',
     desc: 'Qwen Image Edit 通过智能去除杂物、改善光照与虚拟布置，提升房产图片质量，无需昂贵实景布置即可呈现理想效果。',
   },
   {
     title: '出版与编辑设计优化',
-    image: '/images/banana/6i2y44p0n2cx.png',
+    image: 'https://static.banana2ai.net/images/features/6i2y44p0n2cx.webp',
     desc: 'Qwen Image Edit 用于封面设计迭代、文字调整与系列视觉统一，支持中英双语内容，适合出版社、编辑团队与独立作者。',
   },
   {
     title: '创意作品集与艺术探索',
-    image: '/images/banana/l26x71ggyfqt.png',
+    image: 'https://static.banana2ai.net/images/features/l26x71ggyfqt.webp',
     desc: '快速尝试不同风格与构图方案，提升作品集质量。开源特性鼓励艺术家与创作者进行更多实验与创新。',
   },
 ];
@@ -116,31 +116,31 @@ const TESTIMONIALS = [
   {
     name: 'Jennifer Wang',
     role: '全球零售品牌 电商运营总监',
-    avatar: '/images/banana/3wl0yjqm80wt.webp',
+    avatar: 'https://static.banana2ai.net/images/avatars/3wl0yjqm80wt.webp',
     quote: 'Qwen Image Edit 彻底改变了我们的电商流程！管理 5000 多张商品图片变得非常轻松，中英文标签切换精准无误。背景移除节省了大量拍摄成本，转化率提升了 28%。',
   },
   {
     name: 'Marcus Thompson',
     role: '国际营销机构 创意总监',
-    avatar: '/images/banana/eke14nbac7uz.webp',
+    avatar: 'https://static.banana2ai.net/images/avatars/eke14nbac7uz.webp',
     quote: '快速迭代和本地化不可或缺的工具。双通道架构同时应对创意与技术需求，两天内完成整套亚洲市场活动物料，制作周期缩短 60%。',
   },
   {
     name: 'Yuki Tanaka',
     role: '自由平面设计师 / 书籍封面设计师',
-    avatar: '/images/banana/3pyj6cjs2k8z.webp',
+    avatar: 'https://static.banana2ai.net/images/avatars/3pyj6cjs2k8z.webp',
     quote: 'Qwen Image Edit 彻底革新了我的书籍封面设计流程。中英文排版效果非常出色，语义模式激发创意，精度控制确保专业度，效率提升了 40%。',
   },
   {
     name: 'David Martinez',
     role: '房地产经纪人 / 机构负责人',
-    avatar: '/images/banana/sihu3aashtj0.webp',
+    avatar: 'https://static.banana2ai.net/images/avatars/sihu3aashtj0.webp',
     quote: 'Qwen Image Edit 对房地产来说是颠覆性的工具。无需昂贵布置就能提升照片品质，房源更具吸引力，成交速度提升了 35%。',
   },
   {
     name: 'Sarah Chen',
     role: '社交媒体博主 / 多平台内容创作者',
-    avatar: '/images/banana/x4wcrhme4pmi.webp',
+    avatar: 'https://static.banana2ai.net/images/avatars/x4wcrhme4pmi.webp',
     quote: 'Qwen Image Edit 让多平台内容创作变得高效一致。快速适配不同平台风格，在保证专业度的同时测试创意，粉丝增长了 150%。',
   },
 ];
@@ -377,7 +377,7 @@ export default function Page() {
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="/images/banana/f4ru78usquup.jpeg" alt="Qwen Image Edit" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/showcase/image-gallery.webp" alt="Qwen Image Edit" fill className="object-cover" />
             </div>
           </div>
         </div>

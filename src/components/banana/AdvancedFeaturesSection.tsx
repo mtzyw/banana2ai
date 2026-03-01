@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Shield, Image as ImageIcon, Layers, Zap, Gift, Star } from 'lucide-react';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
+import LazyVideo from '@/components/banana/LazyVideo';
 
 const features = [
   {
@@ -38,12 +39,12 @@ const features = [
 ];
 
 const showcaseMedia: Array<{ type: 'video' | 'image'; src: string }> = [
-  { type: 'video', src: '/images/banana/27z9t8c071ab.mp4' },
-  { type: 'image', src: '/images/banana/j3znhyr1jyn8.jpeg' },
-  { type: 'video', src: '/images/banana/r259rnys4r88.mp4' },
-  { type: 'image', src: '/images/banana/k1zo5dpjyh3y.jpeg' },
-  { type: 'video', src: '/images/banana/8vu9fpet1i3t.mp4' },
-  { type: 'image', src: '/images/banana/nmodnhmzoinn.jpeg' },
+  { type: 'video', src: 'https://static.banana2ai.net/videos/showcase-2.mp4' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/avatars/j3znhyr1jyn8.webp' },
+  { type: 'video', src: 'https://static.banana2ai.net/videos/showcase-3.mp4' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/avatars/k1zo5dpjyh3y.webp' },
+  { type: 'video', src: 'https://static.banana2ai.net/videos/showcase-4.mp4' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/features/nmodnhmzoinn.webp' },
 ];
 
 export default function AdvancedFeaturesSection() {
@@ -90,11 +91,7 @@ export default function AdvancedFeaturesSection() {
             {showcaseMedia.map((item, i) => (
               <div key={i} className="relative aspect-[4/5] rounded-xl overflow-hidden image-hover-zoom">
                 {item.type === 'video' ? (
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+                  <LazyVideo
                     className="h-full w-full object-cover"
                     src={item.src}
                   />

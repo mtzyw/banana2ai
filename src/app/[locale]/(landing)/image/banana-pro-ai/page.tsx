@@ -7,7 +7,7 @@ const modelData = {
   heroSubtitle: '以革命性 AI 技术驱动你的创意',
   heroDescription:
     '基于 Google 最新多模态大模型，Banana Pro AI 提供业界领先的文生图与图生图能力。无论是品牌设计、产品渲染还是艺术创作，均可一键完成。',
-  heroImage: '/images/banana/1tpln4as6p33.jpeg',
+  heroImage: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp',
   features: [
     {
       icon: '⚡',

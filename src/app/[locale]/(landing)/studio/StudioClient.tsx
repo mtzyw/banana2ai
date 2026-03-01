@@ -43,32 +43,32 @@ const FEATURES_DETAIL = [
   {
     title: '无限画布与可视化节点工作流',
     desc: '在无限、可缩放的画布上工作，每个创意素材都以节点形式呈现。拖拽定位、连接构建工作流，放大缩小一览完整创意流水线。可视化方式让复杂的多步骤生成变得直观——没有隐藏菜单，没有线性限制。',
-    image: '/images/banana/1tpln4as6p33.jpeg',
+    image: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp',
   },
   {
     title: '多模型 AI 图像生成',
     desc: '在画布上直接使用 9+ 先进 AI 图像模型。用 Nano Banana Pro、Z-Image Turbo、Seedream 或 GPT-4o Image 从文本提示生成。上传参考图像，使用 Flux Kontext Pro、Qwen Image Edit 和 Grok Imagine 进行风格转换。支持 1:1 到 21:9 的宽高比，分辨率最高 4K。',
-    image: '/images/banana/3rh7in3ztrd9.jpeg',
+    image: 'https://static.banana2ai.net/images/showcase/ai-models.webp',
   },
   {
     title: 'Veo 3 & Veo 3.1 AI 视频生成',
     desc: '在画布工作流中直接创建 AI 视频。Veo 3.1 Premium 和 Basic 模型可从文本描述或参考图像生成高质量视频。选择 16:9 或 9:16 宽高比，适配横屏或竖屏内容。将图像节点连接到视频节点，以 AI 生成的画作作为起始帧。',
-    image: '/images/banana/5aqwpua9noqi.jpeg',
+    image: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
   },
   {
     title: '智能节点连接与创意流水线',
     desc: '从一个节点的输出端拖拽到另一个节点的输入端即可建立依赖关系。文本节点提供提示词，图像节点提供参考视觉，视频节点接收两者。系统自动验证连接——确保输入兼容，防止错误。通过简单的拖放操作，构建文本→图像→视频等复杂多步骤工作流。',
-    image: '/images/banana/8pk4idwouhh0.jpeg',
+    image: 'https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp',
   },
   {
     title: '项目管理：自动保存与版本历史',
     desc: '每项更改都实时自动保存——永不丢失您的作品。在专用历史面板中按图像和视频分类浏览生成历史。每个项目追踪所有节点、连接和输出。自由撤销和重做。在仪表盘上创建、重命名和管理多个项目。',
-    image: '/images/banana/b88usp2lk4ef.jpeg',
+    image: 'https://static.banana2ai.net/images/avatars/b88usp2lk4ef.webp',
   },
   {
     title: '丰富交互：右键菜单、键盘快捷键与批量操作',
     desc: '右键点击画布快速操作：添加节点、上传、撤销、重做、粘贴。使用键盘快捷键——Cmd/Ctrl+Z 撤销、Cmd/Ctrl+C 复制、Delete 删除。批量生成变体、复制节点、从已有结果衍生新节点。专为创意速度打造的专业级工具。',
-    image: '/images/banana/d5gn3mlwmm7n.jpeg',
+    image: 'https://static.banana2ai.net/images/showcase/interactive-tools.webp',
   },
 ];
 
@@ -349,7 +349,7 @@ export default function StudioClient() {
             </FadeIn>
             <FadeIn className="relative mx-auto w-full max-w-md lg:max-w-none" delay={0.15}>
               <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-2xl" style={{ maskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)', WebkitMaskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)' }}>
-                <Image src="/images/banana/cta-cover.jpeg" alt="Studio" fill className="object-cover" />
+                <Image src="https://static.banana2ai.net/images/cta-cover.webp" alt="Studio" fill className="object-cover" />
               </div>
             </FadeIn>
           </div>

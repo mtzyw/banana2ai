@@ -9,22 +9,22 @@ import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 /* ─── Why Section (icon-box cards 2-col, no tabs) ─── */
 const WHY_CARDS = [
   {
-    icon: '/images/banana/ytcjavlmqr9i.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-video.webp',
     title: '智能文本到图像生成',
     desc: '这项技术允许您输入详细的提示词并接收准确、高保真的图像。Seedream AI 旨在理解细微差别，确保即使是最抽象的概念也能清晰呈现。无论是写实肖像还是复杂的工程图，系统都能专业应对，是所有用户值得信赖的 Seedream AI 生成器。',
   },
   {
-    icon: '/images/banana/m49d1so8oys6.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
     title: '排版与布局精度',
     desc: 'Seedream AI 通过集成先进的文本渲染技术，解决了文本乱码的常见问题。创建海报、书籍封面和社交媒体横幅，使其排版与背景一样精美。我们的系统确保您的信息无缝融入视觉构图，提供无需额外编辑的专业成品。',
   },
   {
-    icon: '/images/banana/6d5lxu1obr5p.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
     title: '可扩展的 4K 专业输出',
     desc: '该引擎专为追求规模的专业输出而构建。通过 Seedream AI 框架生成的每张图像都可以放大到 4K 分辨率，且不丢失关键细节。这种可扩展性使 Seedream AI 适用于专业印刷媒体和高清数字显示。',
   },
   {
-    icon: '/images/banana/opc4fw6wpeuu.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-describe.webp',
     title: '创意资产管理',
     desc: '管理您的 Seedream AI 作品非常简单。生成的每张图像都存储在您的个人云端库中，方便随时访问。组织您的创意项目，优化之前的生成内容，并与同事或客户分享您的专业作品集。',
   },
@@ -34,17 +34,17 @@ const WHY_CARDS = [
 const FEATURES = [
   {
     title: '革命性的文生图精度',
-    image: '/images/banana/5odukgz1kwh1.jpeg',
+    image: 'https://static.banana2ai.net/images/features/5odukgz1kwh1.webp',
     desc: '我们的平台利用 Seedream AI 先进的 4.0 架构，重新定义了文本概念转化为艺术的方式。与标准视觉模型不同，该技术能理解深层语境，从而以像素级的准确度生成复杂的图表、数学公式和错综复杂的有机纹理。Seedream AI 确保您的创意愿景在转化过程中永不失真。',
   },
   {
     title: '原生 4K 超高清输出',
-    image: '/images/banana/b7x76vc0165t.jpeg',
+    image: 'https://static.banana2ai.net/images/features/b7x76vc0165t.webp',
     desc: '在我们的平台上，输出质量是不容妥协的。Seedream AI 框架专为生产原生 4K 分辨率图像而设计，即使在为专业用途放大时也能保持惊人的锐度。这使得 Seedream AI 工具成为大规模印刷、高端广告和专业 UI/UX 设计的完美选择。该模型在模拟真实光照、景深和复杂色彩渐变方面表现卓越。',
   },
   {
     title: '高级逻辑与排版',
-    image: '/images/banana/cl4059dlq53y.jpeg',
+    image: 'https://static.banana2ai.net/images/features/cl4059dlq53y.webp',
     desc: 'Seedream AI 的一个突出特点是其处理复杂排版和结构化逻辑布局的能力。无论您是需要带有特定文字的宣传海报，还是带有精确标注的科学插图，生成引擎都能交付专业的结果。该模型理解元素间的空间关系，确保文字清晰可辨且布局美观平衡。',
   },
 ];
@@ -61,19 +61,19 @@ const USE_CASE_TABS = [
   {
     label: '营销',
     title: 'Seedream AI 营销解决方案',
-    image: '/images/banana/5n49h9o8u5jc.jpeg',
+    image: 'https://static.banana2ai.net/images/features/5n49h9o8u5jc.webp',
     desc: 'Seedream AI 引擎是营销机构和增长团队的游戏规则改变者。在数秒内生成高转化率的广告创意、社交媒体视觉效果和品牌资产。我们的集成支持视觉活动的快速原型设计，让您无需承担传统制作的高昂成本即可测试多种审美风格。',
   },
   {
     label: '艺术与设计',
     title: '概念艺术与原型设计',
-    image: '/images/banana/e0pf3x87pvqw.jpeg',
+    image: 'https://static.banana2ai.net/images/features/e0pf3x87pvqw.webp',
     desc: '对于游戏和电影行业的概念艺术家，Seedream AI 可作为无限的情绪板进行快速迭代。利用生成器快速可视化环境设计、角色剪影和光影基调。底层模型经过大量艺术风格训练，允许您将传统技法与未来感概念完美融合。',
   },
   {
     label: '建筑',
     title: '空间可视化与渲染',
-    image: '/images/banana/1ocx4fy5iztz.jpeg',
+    image: 'https://static.banana2ai.net/images/features/1ocx4fy5iztz.webp',
     desc: 'Seedream AI 内部的技术在空间推理方面表现出色，使其成为室内设计师和建筑师的得力工具。输入您的尺寸和风格偏好，系统将生成生活空间、办公室或景观设计的写实渲染图。Seedream AI 帮助客户在施工开始前就预见最终效果。',
   },
 ];
@@ -83,25 +83,25 @@ const TESTIMONIALS = [
   {
     name: 'Mike',
     role: '设计机构创始人',
-    avatar: '/images/banana/95ls4obu8n1r.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/95ls4obu8n1r.webp',
     quote: 'Seedream AI 彻底改变了我机构的设计工作流。Seedream AI 中的文本渲染比我用过的任何工具都要先进。我们现在可以在几分钟内生成过去需要数小时手动排版的海报概念。',
   },
   {
     name: 'Fiona',
     role: '建筑可视化师',
-    avatar: '/images/banana/ffer5qw3809o.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/ffer5qw3809o.webp',
     quote: 'Seedream AI 的分辨率简直令人惊叹。我将其用于建筑可视化，4K 输出的清晰度足以直接进行客户演示。该模型对光照和材质的理解甚至优于大多数渲染软件。它非常高效，每次都能产出惊艳的效果。',
   },
   {
     name: 'Elena',
     role: '社交媒体策略师',
-    avatar: '/images/banana/b2rbrxlowmmw.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/b2rbrxlowmmw.webp',
     quote: '作为一名社交媒体经理，我每天都需要高质量的内容。Seedream AI 让我能够创建看起来非常专业的独特、高保真图像。我喜欢 Seedream AI 处理复杂提示词并将其转化为爆款艺术的能力。它确实让我的品牌在数字领域拥有了竞争优势。',
   },
   {
     name: 'Marcus',
     role: '教育内容创作者',
-    avatar: '/images/banana/8wokupsy7u34.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/8wokupsy7u34.webp',
     quote: 'Seedream AI 是我用过的第一个真正理解逻辑图表的工具。我用它来创建教育内容，准确性是无与伦比的。我们的平台为 Seedream AI 提供了稳定的基础，使我的研究和可视化任务变得轻而易举。如果你需要专业的 AI 艺术，Seedream AI 是唯一选择。',
   },
 ];
@@ -280,7 +280,7 @@ export default function Page() {
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="/images/banana/8pk4idwouhh0.jpeg" alt="Seedream AI" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp" alt="Seedream AI" fill className="object-cover" />
             </div>
           </div>
         </div>

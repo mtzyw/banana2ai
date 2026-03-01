@@ -12,28 +12,28 @@ const WHY_TABS = [
     label: '闪电级速度',
     title: '基于 60 亿参数模型的亚秒级生成速度',
     highlight: '革命性的 8 步图像生成技术',
-    image: '/images/banana/bwt679t7lek1.jpg',
+    image: 'https://static.banana2ai.net/images/features/bwt679t7lek1.webp',
     body: 'Z Image Turbo 以亚秒级的创作时间重新定义了 AI 图像生成器的性能。我们的 60 亿参数模型仅需 8 步推理，是目前最快的文生图方案之一。PrunaAI 优化结合了缓存、编译和量化技术，在不降低质量的情况下实现了极致速度。无论是快速原型设计、创意探索还是高产量制作工作流，都能瞬间生成写实级图像。',
   },
   {
     label: '文字表现力',
     title: '卓越的双语文字渲染技术',
     highlight: '完美的中英文文本呈现',
-    image: '/images/banana/t8xs09rhgv8l.jpg',
+    image: 'https://static.banana2ai.net/images/features/t8xs09rhgv8l.webp',
     body: 'Z Image Turbo 在 AI 图像生成器中脱颖而出，具有非凡的文字渲染能力。生成的图像可包含清晰的中英文字符——非常适合标牌、海报、书封、产品标签和品牌材料。在其他模型还在为文字清晰度挣扎时，Z Image Turbo 已能提供准确、优美且与写实场景自然融合的排版设计。',
   },
   {
     label: '写实主义',
     title: '具有自然光影的写实级画质',
     highlight: '影棚级的视觉真实感',
-    image: '/images/banana/kp8s3k2546hs.jpg',
+    image: 'https://static.banana2ai.net/images/features/kp8s3k2546hs.webp',
     body: 'Z Image Turbo 擅长创建具有真实纹理和自然光影的写实图像。这款 AI 图像生成器能以惊人的真实感处理人像、环境和物体——真实的肤色、精准的材质属性和电影级的光效。无论是生成产品摄影、建筑可视化还是角色肖像，Z Image Turbo 都能提供适用于商业用途、广告宣传和创意作品集的专业品质。',
   },
   {
     label: '开放且实惠',
     title: '高性价比，基于 Apache 2.0 开源协议',
     highlight: '免费的商业使用权',
-    image: '/images/banana/rghnloqczfqg.jpg',
+    image: 'https://static.banana2ai.net/images/features/rghnloqczfqg.webp',
     body: 'Z Image Turbo 在 Apache 2.0 协议下运行，提供完全的商业使用自由。这款 AI 图像生成器以传统成本的一小部分提供企业级性能——更快的生成速度意味着更低的计算支出。非常适合每月需生成数千张图像的初创公司、代理机构和大型企业。',
   },
 ];
@@ -42,17 +42,17 @@ const WHY_TABS = [
 const TECHNOLOGIES = [
   {
     title: 'Decoupled-DMD 技术实现效率最大化',
-    image: '/images/banana/qw2gx2wclo80.jpg',
+    image: 'https://static.banana2ai.net/images/features/qw2gx2wclo80.webp',
     desc: 'Z Image Turbo 采用了先进的解耦分布匹配蒸馏（Decoupled-DMD）技术，这是一种精密的压缩技术，能将大型模型蒸馏成更快的版本而不损失画质。结合 DMD 与 PrunaAI 的优化层，实现了前所未有的速度。',
   },
   {
     title: '单流扩散 Transformer 架构',
-    image: '/images/banana/wnml1jjnz4nm.jpg',
+    image: 'https://static.banana2ai.net/images/features/wnml1jjnz4nm.webp',
     desc: 'Z Image Turbo 采用了尖端的单流扩散 Transformer 架构，同步处理文本提示词和视觉信息。这种统一的处理方式确保了生成的图像逻辑连贯，每一个元素都与你的描述完美对齐。',
   },
   {
     title: '针对 1024×1024 高分辨率输出优化',
-    image: '/images/banana/y7nbiswp7bfa.jpg',
+    image: 'https://static.banana2ai.net/images/features/y7nbiswp7bfa.webp',
     desc: 'Z Image Turbo 生成 1024×1024 的最佳分辨率图像，提供适用于专业用途的细腻细节。高分辨率结合极速生成的特性，使其成为快速原型设计和最终生产资产生成的理想选择。',
   },
 ];
@@ -67,21 +67,21 @@ const STEPS = [
 
 /* ─── Use Cases ─── */
 const USE_CASES = [
-  { title: '营销素材与品牌内容创作', image: '/images/banana/7s1xvycd3qom.png', desc: '营销团队利用 Z Image Turbo 快速创建活动资产。通过精准的文字渲染生成产品样机、主视角图像、社交媒体图形和广告视觉素材。极速生成支持快速 A/B 测试和迭代，大幅降低制作成本和周期。' },
-  { title: '创作者与红人的社交媒体内容', image: '/images/banana/09syt7q0cucl.png', desc: '内容创作者使用 Z Image Turbo 每日产出极具吸引力的视觉内容。瞬间生成吸睛的 Instagram 帖子、YouTube 缩略图、TikTok 背景和个人主页图形。写实级品质确保专业观感。' },
-  { title: '产品设计与快速原型制作', image: '/images/banana/5uutmp5oh4qb.png', desc: '产品设计师利用 Z Image Turbo 进行快速视觉化和方案探索。可在数秒内创建写实的产品渲染图、包装设计和界面样机。快速迭代多种设计变体，无需昂贵的 3D 建模即可展示写实概念。' },
-  { title: '电子商务与网店视觉', image: '/images/banana/txo0xsz0o0vj.png', desc: '电商企业采用 Z Image Turbo 作为产品摄影和生活方式图片的替代方案。生成包含准确文字的情境产品图、横幅图像和类目焦点图。这是拥有海量库存店铺的高性价比解决方案。' },
-  { title: '社论与出版项目', image: '/images/banana/6i2y44p0n2cx.png', desc: '出版和编辑团队使用 Z Image Turbo 制作文章插图、书籍封面和杂志排版。擅长创建与文字内容匹配的情境图像，卓越的文字渲染能力支持制作集成精美排版的杂志封面和海报设计。' },
-  { title: '创意作品集与艺术探索', image: '/images/banana/l26x71ggyfqt.png', desc: '艺术家和设计师利用 Z Image Turbo 进行创意实验和作品集开发。探索多样化的艺术风格，测试构图创意并快速生成概念草图。写实级能力助你打造专业级的作品集展示。' },
+  { title: '营销素材与品牌内容创作', image: 'https://static.banana2ai.net/images/features/7s1xvycd3qom.webp', desc: '营销团队利用 Z Image Turbo 快速创建活动资产。通过精准的文字渲染生成产品样机、主视角图像、社交媒体图形和广告视觉素材。极速生成支持快速 A/B 测试和迭代，大幅降低制作成本和周期。' },
+  { title: '创作者与红人的社交媒体内容', image: 'https://static.banana2ai.net/images/features/09syt7q0cucl.webp', desc: '内容创作者使用 Z Image Turbo 每日产出极具吸引力的视觉内容。瞬间生成吸睛的 Instagram 帖子、YouTube 缩略图、TikTok 背景和个人主页图形。写实级品质确保专业观感。' },
+  { title: '产品设计与快速原型制作', image: 'https://static.banana2ai.net/images/features/5uutmp5oh4qb.webp', desc: '产品设计师利用 Z Image Turbo 进行快速视觉化和方案探索。可在数秒内创建写实的产品渲染图、包装设计和界面样机。快速迭代多种设计变体，无需昂贵的 3D 建模即可展示写实概念。' },
+  { title: '电子商务与网店视觉', image: 'https://static.banana2ai.net/images/features/txo0xsz0o0vj.webp', desc: '电商企业采用 Z Image Turbo 作为产品摄影和生活方式图片的替代方案。生成包含准确文字的情境产品图、横幅图像和类目焦点图。这是拥有海量库存店铺的高性价比解决方案。' },
+  { title: '社论与出版项目', image: 'https://static.banana2ai.net/images/features/6i2y44p0n2cx.webp', desc: '出版和编辑团队使用 Z Image Turbo 制作文章插图、书籍封面和杂志排版。擅长创建与文字内容匹配的情境图像，卓越的文字渲染能力支持制作集成精美排版的杂志封面和海报设计。' },
+  { title: '创意作品集与艺术探索', image: 'https://static.banana2ai.net/images/features/l26x71ggyfqt.webp', desc: '艺术家和设计师利用 Z Image Turbo 进行创意实验和作品集开发。探索多样化的艺术风格，测试构图创意并快速生成概念草图。写实级能力助你打造专业级的作品集展示。' },
 ];
 
 /* ─── Testimonials ─── */
 const TESTIMONIALS = [
-  { name: 'Marcus Chen', role: '数字营销机构创意总监', avatar: '/images/banana/cv3ypbf94ef5.jpg', quote: 'Z Image Turbo 彻底改变了我们的内容生产流！作为一家营销机构，我们每月需要生成数百个活动资产。亚秒级的生成速度太惊人了——过去需要几小时的工作现在几分钟就能完成。写实画质足以媲美专业摄影，我们的客户完全看不出差别。' },
-  { name: 'Sofia Rodriguez', role: '电商视觉内容经理', avatar: '/images/banana/zrkrexmu2koo.jpg', quote: 'Z Image Turbo 的文字渲染能力无与伦比！我为我们的国际电商平台创建双语营销材料。终于有一款 AI 图像生成器能完美渲染中英文字符了。产品标签、标识和促销图形看起来非常专业。' },
-  { name: 'James Patterson', role: '自由数字艺术家与插画师', avatar: '/images/banana/q0sy9gl2cw07.jpg', quote: 'Z Image Turbo 完全重塑了我的创作过程。作为一名自由插画师，我使用它进行快速方案探索和客户演示。8 步生成让我能即时迭代。写实级输出意味着我在初次会议就能展示精美的方案。项目周期缩短了 60%。' },
-  { name: 'Priya Sharma', role: '科技初创公司创始人', avatar: '/images/banana/edssw31z3vjs.jpg', quote: 'Z Image Turbo 对我们初创公司的精益运营至关重要。我们需要专业的产品图但付不起昂贵的拍摄费用。这款工具能即时创建写实的产品图、社媒内容和官网横幅。Apache 2.0 协议让我们无需担心法律风险。' },
-  { name: 'Alexandra Kim', role: '社交媒体博主与内容创作者', avatar: '/images/banana/zpbjfchv5agj.jpg', quote: 'Z Image Turbo 的速度支撑起了我的日常内容更新节奏。我每天在各平台发三次帖，这款 AI 工具让这变得可持续。写实画质让我的 20 万粉丝保持活跃。快速迭代让我能测试不同风格并优化互动。博主必备神器。' },
+  { name: 'Marcus Chen', role: '数字营销机构创意总监', avatar: 'https://static.banana2ai.net/images/avatars/cv3ypbf94ef5.webp', quote: 'Z Image Turbo 彻底改变了我们的内容生产流！作为一家营销机构，我们每月需要生成数百个活动资产。亚秒级的生成速度太惊人了——过去需要几小时的工作现在几分钟就能完成。写实画质足以媲美专业摄影，我们的客户完全看不出差别。' },
+  { name: 'Sofia Rodriguez', role: '电商视觉内容经理', avatar: 'https://static.banana2ai.net/images/avatars/zrkrexmu2koo.webp', quote: 'Z Image Turbo 的文字渲染能力无与伦比！我为我们的国际电商平台创建双语营销材料。终于有一款 AI 图像生成器能完美渲染中英文字符了。产品标签、标识和促销图形看起来非常专业。' },
+  { name: 'James Patterson', role: '自由数字艺术家与插画师', avatar: 'https://static.banana2ai.net/images/avatars/q0sy9gl2cw07.webp', quote: 'Z Image Turbo 完全重塑了我的创作过程。作为一名自由插画师，我使用它进行快速方案探索和客户演示。8 步生成让我能即时迭代。写实级输出意味着我在初次会议就能展示精美的方案。项目周期缩短了 60%。' },
+  { name: 'Priya Sharma', role: '科技初创公司创始人', avatar: 'https://static.banana2ai.net/images/avatars/edssw31z3vjs.webp', quote: 'Z Image Turbo 对我们初创公司的精益运营至关重要。我们需要专业的产品图但付不起昂贵的拍摄费用。这款工具能即时创建写实的产品图、社媒内容和官网横幅。Apache 2.0 协议让我们无需担心法律风险。' },
+  { name: 'Alexandra Kim', role: '社交媒体博主与内容创作者', avatar: 'https://static.banana2ai.net/images/avatars/zpbjfchv5agj.webp', quote: 'Z Image Turbo 的速度支撑起了我的日常内容更新节奏。我每天在各平台发三次帖，这款 AI 工具让这变得可持续。写实画质让我的 20 万粉丝保持活跃。快速迭代让我能测试不同风格并优化互动。博主必备神器。' },
 ];
 
 /* ─── FAQs ─── */
@@ -256,7 +256,7 @@ export default function Page() {
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="/images/banana/b88usp2lk4ef.jpeg" alt="Z Image Turbo" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/avatars/b88usp2lk4ef.webp" alt="Z Image Turbo" fill className="object-cover" />
             </div>
           </div>
         </div>

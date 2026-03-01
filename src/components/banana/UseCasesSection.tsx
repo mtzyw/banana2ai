@@ -9,7 +9,7 @@ const tabs = [
   {
     id: 'marketing',
     label: '营销人员',
-    image: '/images/banana/nmodnhmzoinn.jpeg',
+    image: 'https://static.banana2ai.net/images/features/nmodnhmzoinn.webp',
     heading: '面向营销人员和广告专业人士',
     desc: 'Banana Pro AI 可在几分钟内生成高转化率的广告创意、引人注目的营销视觉素材和专业的营销物料。使用 Banana Pro AI 可同时测试多个创意方向，基于效果数据进行迭代优化，无需昂贵的摄影拍摄即可扩展营销活动。',
     features: [
@@ -22,7 +22,7 @@ const tabs = [
   {
     id: 'creator',
     label: '内容创作者',
-    image: '/images/banana/oymo6e4j50qi.jpeg',
+    image: 'https://static.banana2ai.net/images/features/oymo6e4j50qi.webp',
     heading: '面向内容创作者和社交媒体运营者',
     desc: 'Banana Pro AI 通过我们的 AI 图像生成器为您的内容日历持续提供新鲜、引人入胜的视觉内容。即时生成自定义 YouTube 缩略图、Instagram 帖子、博客特色图片等。有了 Banana Pro AI，您再也不会缺少视觉内容。',
     features: [
@@ -35,7 +35,7 @@ const tabs = [
   {
     id: 'ecommerce',
     label: '电商卖家',
-    image: '/images/banana/sw79fczaphwe.jpeg',
+    image: 'https://static.banana2ai.net/images/avatars/sw79fczaphwe.webp',
     heading: '适用于电商与产品卖家',
     desc: 'Banana Pro AI 可将基础产品照片转化为极具吸引力的生活场景图像，助力销售转化。图生图功能可将产品置于精美场景中、更换背景、创建季节性变体。我们的 AI 图像生成器帮助在线卖家提升转化率、降低摄影成本。',
     features: [
@@ -48,7 +48,7 @@ const tabs = [
   {
     id: 'game',
     label: '游戏设计师',
-    image: '/images/banana/w09plbs60v32.jpeg',
+    image: 'https://static.banana2ai.net/images/avatars/w09plbs60v32.webp',
     heading: '适合平面设计师和创意机构',
     desc: 'Banana Pro AI 通过我们的 AI 图像生成器加速创意工作流程，扩展您可以交付给客户的内容。使用图像到图像功能进行风格探索、创建变体和艺术实验。Banana Pro AI 是您的创意合作伙伴，让您专注于高价值的创意决策。',
     features: [

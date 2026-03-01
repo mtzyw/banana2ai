@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { CheckCircle } from 'lucide-react';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
+import LazyVideo from '@/components/banana/LazyVideo';
 
 const features = [
   { title: '照片级画质', desc: '以惊人的清晰度渲染每一个细节——自然光照、逼真纹理、完美构图和专业级品质。' },
@@ -13,12 +14,12 @@ const features = [
 
 /* 原站用 3 video + 3 image 交替展示 */
 const media: Array<{ type: 'video' | 'image'; src: string }> = [
-  { type: 'video', src: '/images/banana/i2vuvmfyggea.mp4' },
-  { type: 'image', src: '/images/banana/1tpln4as6p33.jpeg' },
-  { type: 'image', src: '/images/banana/l8af5arb7l0d.jpeg' },
-  { type: 'image', src: '/images/banana/8pk4idwouhh0.jpeg' },
-  { type: 'image', src: '/images/banana/3rh7in3ztrd9.jpeg' },
-  { type: 'image', src: '/images/banana/oymo6e4j50qi.jpeg' },
+  { type: 'video', src: 'https://static.banana2ai.net/videos/showcase-1.mp4' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/avatars/l8af5arb7l0d.webp' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/showcase/ai-models.webp' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/features/oymo6e4j50qi.webp' },
 ];
 
 export default function ShowcaseSection() {
@@ -56,11 +57,7 @@ export default function ShowcaseSection() {
             {media.map((item, i) => (
               <div key={i} className="relative aspect-square rounded-xl overflow-hidden image-hover-zoom gradient-glow-bg">
                 {item.type === 'video' ? (
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+                  <LazyVideo
                     className="h-full w-full object-cover"
                     src={item.src}
                   />

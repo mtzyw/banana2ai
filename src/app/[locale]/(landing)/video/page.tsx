@@ -9,6 +9,7 @@ import {
   Zap, Video, Film, Share2,
   Megaphone, Instagram, GraduationCap, Building2, Clapperboard, BookOpen,
 } from 'lucide-react';
+import VideoGeneratorPanel from '@/components/banana/VideoGeneratorPanel';
 
 /* ──────────────────────────── Data ──────────────────────────── */
 
@@ -136,22 +137,22 @@ const FEATURES_DETAIL = [
   {
     title: '专业文本转视频和图片转视频生成',
     desc: '使用 Banana Pro 的 AI 视频生成器转换任何创意概念。输入脚本即可实现文本到视频的创作，或上传图片进行图片到视频的转换。我们先进的 AI 视频生成器提供专业级效果——广播级质量、零水印、即时生成。',
-    image: '/images/banana/video-media04.jpg',
+    image: 'https://static.banana2ai.net/images/features/video-media04.webp',
   },
   {
     title: '可自定义的AI视频生成器控制选项',
     desc: '精细调整视频创作的每个细节。我们的AI视频生成器为文本转视频和图片转视频提供广泛的自定义选项——风格、分辨率、宽高比。通过Banana Pro灵活的控制功能，完美匹配您的品牌形象。',
-    image: '/images/banana/w09plbs60v32.jpeg',
+    image: 'https://static.banana2ai.net/images/avatars/w09plbs60v32.webp',
   },
   {
     title: '多种AI视频生成模型',
     desc: '使用5个强大的AI视频生成模型。从Veo 3/3.1的电影级画质到Sora 2的照片级真实感，为您的项目选择完美的文本生成视频或图像生成视频引擎。每个模型都针对特定创作需求进行了优化。',
-    image: '/images/banana/k1zo5dpjyh3y.jpeg',
+    image: 'https://static.banana2ai.net/images/avatars/k1zo5dpjyh3y.webp',
   },
   {
     title: '云存储与资产管理',
     desc: '我们的AI视频生成器生成的每个视频都会自动保存到您的安全云端库中。随时访问所有文本转视频和图片转视频的创作内容。无水印下载、重复使用素材，并保持工作流程井然有序。',
-    image: '/images/banana/ldvemdrtofq8.jpeg',
+    image: 'https://static.banana2ai.net/images/features/ldvemdrtofq8.webp',
   },
 ];
 
@@ -193,25 +194,25 @@ const TESTIMONIALS = [
     quote: 'Banana Pro的AI视频生成器真是改变游戏规则的利器！文本转视频功能可以快速将脚本转换为高质量视频，图片转视频则能轻松将照片转换为动态广告。我的每周视频产出增加了40%，互动率也提升了。',
     name: 'Maria Rodriguez',
     role: '社交媒体策略师',
-    avatar: '/images/banana/sw79fczaphwe.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/sw79fczaphwe.webp',
   },
   {
     quote: 'Banana Pro AI视频生成器效果惊艳！图片转视频功能可以制作动态产品展示，文字转视频能快速将广告文案转化为视觉内容。这款AI视频生成器为我节省了外包费用，帮助我更快地推出广告。',
     name: 'David Chen',
     role: '小企业主',
-    avatar: '/images/banana/k1zo5dpjyh3y.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/k1zo5dpjyh3y.webp',
   },
   {
     quote: 'Banana Pro AI视频生成器彻底改变了我的课程制作方式！文本转视频让教学计划变得生动活泼，图片转视频将静态图表转化为引人入胜的视觉内容。制作时间缩短了50%，学生参与度显著提升。',
     name: 'Sophia Miller',
     role: '在线教育工作者',
-    avatar: '/images/banana/l8af5arb7l0d.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/l8af5arb7l0d.webp',
   },
   {
     quote: 'Banana Pro AI视频生成器彻底改变了我的影视制作流程！我可以通过文本生成视频功能即时将脚本可视化，并通过图片生成视频功能轻松创建故事板动画。高效性大幅加快了前期制作速度。',
     name: 'James Williams',
     role: '独立电影制作人',
-    avatar: '/images/banana/w09plbs60v32.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/w09plbs60v32.webp',
   },
 ];
 
@@ -380,9 +381,9 @@ export default function VideoListPage() {
                   muted
                   playsInline
                   className="aspect-[4/3] w-full object-cover"
-                  poster="/images/banana/video-media04.jpg"
+                  poster="https://static.banana2ai.net/images/features/video-media04.webp"
                 >
-                  <source src="/images/banana/27z9t8c071ab.mp4" type="video/mp4" />
+                  <source src="https://static.banana2ai.net/videos/showcase-2.mp4" type="video/mp4" />
                 </video>
                 <div className="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-inset ring-[#ffcc33]/20 md:rounded-3xl" />
               </div>
@@ -391,7 +392,47 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 2. Four Steps ─── */}
+      {/* ─── 2. Video Generator Panel ─── */}
+      <VideoGeneratorPanel />
+
+      {/* ─── 3. More AI Video Generators ─── */}
+      <section className="w-full px-4 py-8 md:py-16">
+        <div className="mx-auto max-w-6xl text-center">
+          <FadeIn>
+            <p className="gradient-glow-text mb-2 text-lg font-bold sm:text-xl md:mb-4 md:text-2xl lg:text-3xl xl:text-4xl">
+              更多 AI 视频生成器
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <p className="mx-auto mb-4 max-w-4xl text-xs text-white/50 sm:text-sm md:mb-10 md:text-base lg:text-lg">
+              探索我们的专业AI视频生成器合集，专为不同的创意需求和风格而设计
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-4 md:gap-6">
+              {[
+                { name: 'Veo 3.1', href: '/zh/video/veo-3-1/', img: 'https://static.banana2ai.net/images/showcase/veo-thumb.webp' },
+                { name: 'Veo 3 视频生成器', href: '/zh/video/veo-3-video-generator/', img: 'https://static.banana2ai.net/images/showcase/veo-thumb.webp' },
+                { name: 'Seedance 1.5 Pro', href: '/zh/video/seedance-1-5-pro/', img: 'https://static.banana2ai.net/images/showcase/seedance-thumb.webp' },
+                { name: 'Sora 2', href: '/zh/video/sora-2/', img: 'https://static.banana2ai.net/images/showcase/sora-thumb.webp' },
+              ].map((m) => (
+                <Link key={m.name} href={m.href} className="group flex cursor-pointer flex-col overflow-hidden rounded-lg border border-[#363b4e] shadow-lg transition-all duration-300 hover:scale-105">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#ffcc33]/60">
+                    <Image src={m.img} alt={m.name} fill className="object-cover" />
+                  </div>
+                  <div className="flex h-8 items-center justify-center bg-[#1c2030] px-1 py-1 sm:h-10 md:h-12 lg:h-14">
+                    <span className="text-xs font-bold text-white transition-colors group-hover:text-[#ffcc33] sm:text-sm md:text-base">
+                      {m.name}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── 4. Four Steps ─── */}
       <section className="relative px-4 py-16 md:py-24">
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
@@ -440,7 +481,7 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 3. AI Video Models Explorer ─── */}
+      {/* ─── 5. AI Video Models Explorer ─── */}
       <section className="relative bg-gradient-to-b from-[#0f1117] via-[#161926] to-[#0f1117] px-4 py-12 md:py-24">
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-8 text-center md:mb-16">
@@ -519,7 +560,7 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 4. Why Choose (Tabs) ─── */}
+      {/* ─── 6. Why Choose (Tabs) ─── */}
       <section className="relative px-4 py-12 md:py-24">
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
@@ -581,7 +622,7 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 5. Features Detail (alternating rows) ─── */}
+      {/* ─── 7. Features Detail (alternating rows) ─── */}
       <section className="relative px-4 py-16 md:py-24">
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
@@ -625,7 +666,7 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 6. Industries ─── */}
+      {/* ─── 8. Industries ─── */}
       <section className="relative px-4 py-16 md:py-24">
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
@@ -658,7 +699,7 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 7. Testimonials ─── */}
+      {/* ─── 9. Testimonials ─── */}
       <section className="relative px-4 py-16 md:py-24">
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
@@ -736,7 +777,7 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 8. FAQ ─── */}
+      {/* ─── 10. FAQ ─── */}
       <section className="relative px-4 py-16 md:py-24">
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
@@ -784,7 +825,7 @@ export default function VideoListPage() {
         </div>
       </section>
 
-      {/* ─── 9. CTA Section ─── */}
+      {/* ─── 11. CTA Section ─── */}
       <section className="relative px-4 py-20 md:py-28">
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
@@ -815,7 +856,7 @@ export default function VideoListPage() {
                   WebkitMaskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)',
                 }}
               >
-                <Image src="/images/banana/cta-cover.jpeg" alt="开始创作" fill className="object-cover" />
+                <Image src="https://static.banana2ai.net/images/cta-cover.webp" alt="开始创作" fill className="object-cover" />
                 <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
               </div>
             </FadeIn>

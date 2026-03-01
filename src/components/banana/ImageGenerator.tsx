@@ -24,18 +24,18 @@ const QUANTITIES = [1, 2, 3, 4];
 /* ── Example slides ── */
 const EXAMPLES = [
   {
-    before: '/images/banana/98spck2jk4rw.jpeg',
-    after:  '/images/banana/gb44amf4y760.jpeg',
+    before: 'https://static.banana2ai.net/images/generator/before-sketch.webp',
+    after:  'https://static.banana2ai.net/images/generator/after-photo.webp',
     prompt: 'Use this photo to make a 3×3 photo booth grid. Each photo should have a different pose and expression. No repetition allowed.',
   },
   {
-    before: '/images/banana/1tpln4as6p33.jpeg',
-    after:  '/images/banana/3rh7in3ztrd9.jpeg',
+    before: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp',
+    after:  'https://static.banana2ai.net/images/showcase/ai-models.webp',
     prompt: 'Transform this portrait into a cinematic movie poster with dramatic lighting and color grading.',
   },
   {
-    before: '/images/banana/5aqwpua9noqi.jpeg',
-    after:  '/images/banana/8pk4idwouhh0.jpeg',
+    before: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
+    after:  'https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp',
     prompt: 'Reimagine this scene in a Studio Ghibli anime art style with soft watercolor textures.',
   },
 ];
@@ -90,7 +90,7 @@ export default function ImageGenerator() {
             <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-base font-bold text-white sm:text-lg">AI图像生成器</span>
               <button className="flex w-full items-center gap-1 rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm transition-colors hover:bg-[#252a3d] sm:w-auto">
-                <Image src="/images/banana/google-icon.svg" alt="Google" width={24} height={24} className="h-6 w-6 flex-shrink-0" />
+                <Image src="https://static.banana2ai.net/images/icons/google-icon.svg" alt="Google" width={24} height={24} className="h-6 w-6 flex-shrink-0" />
                 <span className="truncate text-[#ffcc33]">Nano Banana Pro</span>
                 <ChevronDown className="h-4 w-4 text-white/50" />
               </button>

@@ -12,28 +12,28 @@ const WHY_TABS = [
     label: '完美的文本生成',
     title: '完美的文本生成：告别乱码排版',
     highlight: '精准渲染每一个字符',
-    image: '/images/banana/ih5x64wsr0qe.jpeg',
+    image: 'https://static.banana2ai.net/images/features/ih5x64wsr0qe.webp',
     body: 'Grok Imagine 通过消除设计中的乱码文本彻底改变了排版。由 Grok 上精密的 FLUX.1 模型驱动，此功能对于 Logo 创作者和品牌设计师至关重要。无论您是制作朗朗上口的商品标语还是专业徽章，Grok Imagine 都能确保每个字符都以绝对的精度渲染。体验当今最可靠的、适用于重文本创意项目的 Grok AI 艺术生成器带来的差异。',
   },
   {
     label: '超写实 AI 照片',
     title: '超写实 AI 照片，单反级画质',
     highlight: '与现实无法区分的图像保真度',
-    image: '/images/banana/uj3azsxcbjmm.jpeg',
+    image: 'https://static.banana2ai.net/images/features/uj3azsxcbjmm.webp',
     body: '使用 Grok Imagine 获得单反级画质。我们的 Grok AI 艺术生成器利用 Grok 上 FLUX.1 模型的深度学习能力，制作出与现实无法区分的照片级图像。捕捉真实的皮肤纹理、自然光线和微妙的瑕疵，为您的肖像注入生命。此功能非常适合创建虚拟网红或高端图库摄影替代品。',
   },
   {
     label: '无过滤的创意',
     title: '无过滤的创意，释放真正艺术潜能',
     highlight: '超越限制的创作自由',
-    image: '/images/banana/1da9l0hqw37c.jpeg',
+    image: 'https://static.banana2ai.net/images/features/1da9l0hqw37c.webp',
     body: '使用 Grok Imagine 释放您真正的艺术潜能。与其他受限平台不同，这款 Grok AI 艺术生成器提供更广泛的创作自由，允许您探索前卫的概念和幽默。Grok 上的 FLUX.1 模型经过调优，能够理解流行文化和迷因，赋予您生成能够引起共鸣的病毒式内容的能力。Grok Imagine 是那些拒绝被严格审查过滤器限制的艺术家的终极游乐场。',
   },
   {
     label: '精准的指令遵循',
     title: '精准的指令遵循，告别随机结果',
     highlight: '复杂指令精确执行',
-    image: '/images/banana/2rdnu2zvwpxo.jpeg',
+    image: 'https://static.banana2ai.net/images/features/2rdnu2zvwpxo.webp',
     body: 'Grok Imagine 擅长以极高的精准度遵循复杂、多层次的指令。得益于 Grok 上 FLUX.1 模型的高级逻辑，您可以自信地描述特定的空间布局、相机角度和复杂的细节。这使得 Grok Imagine 成为需要精准执行愿景的游戏开发者、概念艺术家和建筑师的首选 Grok AI 艺术生成器。告别随机结果，迎接精准。',
   },
 ];
@@ -42,17 +42,17 @@ const WHY_TABS = [
 const TECHNOLOGIES = [
   {
     title: 'FLUX.1 模型：次世代图像生成引擎',
-    image: '/images/banana/ih5x64wsr0qe.jpeg',
+    image: 'https://static.banana2ai.net/images/features/ih5x64wsr0qe.webp',
     desc: 'Grok Imagine 由 Grok 上的先进 FLUX.1 模型驱动，提供无与伦比的图像保真度和精准的文本渲染。FLUX.1 在文字渲染、照片写实感和提示词遵循方面优于竞争对手，是目前功能最强大的开源图像生成框架。',
   },
   {
     title: '深度学习驱动的照片级写实',
-    image: '/images/banana/uj3azsxcbjmm.jpeg',
+    image: 'https://static.banana2ai.net/images/features/uj3azsxcbjmm.webp',
     desc: '利用 FLUX.1 模型的深度学习能力，Grok Imagine 制作出与现实无法区分的照片级图像。捕捉真实的皮肤纹理、自然光线和微妙的场景细节，每张图像都达到工作室级的视觉标准。',
   },
   {
     title: '高级语言理解与空间推理',
-    image: '/images/banana/2rdnu2zvwpxo.jpeg',
+    image: 'https://static.banana2ai.net/images/features/2rdnu2zvwpxo.webp',
     desc: 'Grok 上的 FLUX.1 模型具备高级自然语言理解能力，能够解析复杂的空间描述和多层次指令。无论是赛博朋克城市景观还是精准标注的产品图，系统都能以极高精度呈现您的创意构想。',
   },
 ];
@@ -76,32 +76,32 @@ const STEPS = [
 /* ─── Use Cases (icon box 2-col grid) ─── */
 const USE_CASES = [
   {
-    icon: '/images/banana/m49d1so8oys6.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
     title: '排版与 Logo 设计',
     desc: '生成真正可读的文本。与旧的 AI 模型不同，Grok Imagine 擅长渲染正确的拼写和排版。使用我们强大的 Grok AI 艺术生成器，无需担心乱码，即可瞬间创建专业的 Logo、徽章和书法艺术。',
   },
   {
-    icon: '/images/banana/6d5lxu1obr5p.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
     title: '超写实摄影',
     desc: '使用 Grok 上的 FLUX.1 模型创建与现实无法区分的照片。生成具有自然皮肤纹理、逼真光线和瑕疵的高保真库存照片。非常适合创建看起来像是由单反或 iPhone 拍摄的 AI 网红或生活方式内容。',
   },
   {
-    icon: '/images/banana/sq83p2lacqxc.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-share.webp',
     title: '病毒式迷因与社交内容',
     desc: '使用 Grok Imagine 以更少的限制释放您的幽默感。利用当前趋势，创建引人入胜的迷因、讽刺艺术或有趣的社交媒体帖子。这款 Grok AI 艺术生成器理解流行文化引用，并能轻松处理文本叠加。',
   },
   {
-    icon: '/images/banana/opc4fw6wpeuu.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-describe.webp',
     title: '按需打印 (POD) 商品',
     desc: '使用 Grok Imagine 设计畅销的 T 恤和贴纸。生成干净、独立的艺术品，适合印在服装、杯子和海报上。使用最好的免费在线 AI 工具，将创意视觉效果与准确的标语相结合，加速您的 POD 业务。',
   },
   {
-    icon: '/images/banana/hpqjrdyh4g83.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-prompt.webp',
     title: '概念艺术与游戏资产',
     desc: '轻松可视化复杂世界。无论您需要赛博朋克城市景观还是 3D 角色设计，Grok Imagine 都能精确遵循复杂的空间指令，这使其成为利用 Grok 上 FLUX.1 模型进行创作的游戏开发者和概念艺术家的理想选择。',
   },
   {
-    icon: '/images/banana/bjguqlyvzkdf.png',
+    icon: 'https://static.banana2ai.net/images/icons/step-enhance.webp',
     title: '营销与广告创意',
     desc: '使用 Grok Imagine 提高您的点击率 (CTR)。在几秒钟内创建引人注目的横幅、YouTube 缩略图和社交媒体广告。使用这款顶级 Grok AI 艺术生成器生成符合您品牌风格的定制营销视觉效果，从而节省数千美元的拍摄费用。',
   },
@@ -112,25 +112,25 @@ const TESTIMONIALS = [
   {
     name: '张伟',
     role: 'Logo 设计师',
-    avatar: '/images/banana/95ls4obu8n1r.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/95ls4obu8n1r.webp',
     quote: '我使用过很多工具，但 Grok Imagine 是唯一每次都能正确生成文本的工具。Grok 上的 FLUX.1 模型对于我的 Logo 设计业务来说是一个改变游戏规则的东西。它非常易于使用，而且免费在线访问对于自由职业者来说是一个巨大的优势。',
   },
   {
     name: '李晓梅',
     role: '社媒经理',
-    avatar: '/images/banana/ffer5qw3809o.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/ffer5qw3809o.webp',
     quote: '作为一名社交媒体经理，我需要快速且具有病毒传播性的内容。Grok Imagine 让我能够创作出真正有趣且相关的迷因，而无需经过繁重的审查。这绝对是用于创作互动内容的最佳 Grok AI 艺术生成器。',
   },
   {
     name: '王芳',
     role: '摄影师',
-    avatar: '/images/banana/b2rbrxlowmmw.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/b2rbrxlowmmw.webp',
     quote: '照片写实感令人震惊。我使用 Grok Imagine 为客户网站生成库存照片，他们根本看不出区别。Grok 上的 FLUX.1 模型处理光线的能力比我尝试过的任何其他 AI 都要好。强烈推荐。',
   },
   {
     name: '陈明',
     role: '概念艺术家',
-    avatar: '/images/banana/8wokupsy7u34.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/8wokupsy7u34.webp',
     quote: '我喜欢它精准的指令遵循能力。其他工具会忽略我一半的提示词，但 Grok Imagine 会倾听每一个细节。这是终极的概念艺术 AI 工具。能够如此流畅地运行 Grok 上的 FLUX.1 模型真是太棒了。',
   },
 ];
@@ -309,7 +309,7 @@ export default function Page() {
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="/images/banana/d5gn3mlwmm7n.jpeg" alt="Grok Imagine" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/showcase/interactive-tools.webp" alt="Grok Imagine" fill className="object-cover" />
             </div>
           </div>
         </div>

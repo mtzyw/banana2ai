@@ -20,18 +20,18 @@ const FEATURES = [
 ];
 
 const SAMPLE_IMAGES = [
-  'https://static.bananaproai.com/files/xemk5igdslyy.webp',
-  'https://static.bananaproai.com/files/94xi4e385y5p.jpeg',
-  'https://static.bananaproai.com/files/rh3qj90a2dvh.webp',
-  'https://static.bananaproai.com/files/3v2z36udzbss.webp',
-  'https://static.bananaproai.com/files/2qc5odwjkjjo.jpeg',
-  'https://static.bananaproai.com/files/vcxetk2f3r3e.webp',
-  'https://static.bananaproai.com/files/ud5bmgnt8f17.png',
-  'https://static.bananaproai.com/files/lti5o9223ftb.png',
-  'https://static.bananaproai.com/files/d4j74diw3h7n.jpeg',
-  'https://static.bananaproai.com/files/6nemc9rfeqe0.jpeg',
-  'https://static.bananaproai.com/files/o6onuv78986b.jpeg',
-  'https://static.bananaproai.com/files/an4kmo2ls0qy.jpeg',
+  'https://static.banana2ai.net/images/samples/xemk5igdslyy.webp',
+  'https://static.banana2ai.net/images/samples/94xi4e385y5p.webp',
+  'https://static.banana2ai.net/images/samples/rh3qj90a2dvh.webp',
+  'https://static.banana2ai.net/images/samples/3v2z36udzbss.webp',
+  'https://static.banana2ai.net/images/samples/2qc5odwjkjjo.webp',
+  'https://static.banana2ai.net/images/samples/vcxetk2f3r3e.webp',
+  'https://static.banana2ai.net/images/samples/ud5bmgnt8f17.webp',
+  'https://static.banana2ai.net/images/samples/lti5o9223ftb.webp',
+  'https://static.banana2ai.net/images/features/d4j74diw3h7n.webp',
+  'https://static.banana2ai.net/images/features/6nemc9rfeqe0.webp',
+  'https://static.banana2ai.net/images/features/o6onuv78986b.webp',
+  'https://static.banana2ai.net/images/features/an4kmo2ls0qy.webp',
 ];
 
 const GENERATION_MODELS = [

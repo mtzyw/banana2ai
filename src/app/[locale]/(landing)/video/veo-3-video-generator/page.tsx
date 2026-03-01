@@ -1,0 +1,526 @@
+'use client';
+
+import { useState, useRef, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import VideoGeneratorPanel from '@/components/banana/VideoGeneratorPanel';
+import Image from 'next/image';
+import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
+
+/* ─── Steps ─── */
+const STEPS = [
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
+    step: '01',
+    title: '输入您的构想',
+    desc: '输入详细的文本提示或上传参考图像，在 Veo 3 仪表板中描述您的场景、角色和运镜，即可立即开始您的创作之旅，毫无技术门槛。',
+  },
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
+    step: '02',
+    title: '自定义设置',
+    desc: '调整宽高比和风格参数，以匹配您特定的创意需求，并确保您所有项目拥有完美的视觉一致性，每一帧都符合您的创作愿景。',
+  },
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-share.webp',
+    step: '03',
+    title: '生成并下载',
+    desc: '点击生成，观看 Veo 3 渲染出带有同步音频的高清视频，随时可以下载并在任何社交平台上与您的观众分享，一键完成整个创作流程。',
+  },
+];
+
+/* ─── Features (tabs) ─── */
+const FEATURES = [
+  {
+    label: '音视频同步',
+    title: '革命性的音视频同步技术',
+    highlight: '精确同步，超越旧模型极限',
+    desc: 'Veo 3 通过提供旧模型无法实现的精确音视频同步，为内容注入生命力。Google Veo 3 在生成视觉流的同时，创造复杂的声音景观，包括对话和环境噪音。确保视频中的每一个唇部动作和环境声音都完美契合，将叙事提升至专业电影标准，实现真正的沉浸式体验。',
+  },
+  {
+    label: '电影级画质',
+    title: '电影级视觉质量与艺术一致性',
+    highlight: '专业胶片质感，1080p 高清输出',
+    desc: 'Veo 3 能够渲染出具有专业胶片相机细腻质感的 1080p 高清视频，实现令人惊叹的效果。Google Veo 3 掌握了光影的复杂相互作用，捕捉水面和皮肤上的逼真反射。确保生成的每一帧都保持连贯的、类似电影的美学风格，非常适合纪录片和高端广告制作。',
+  },
+  {
+    label: '物理真实感',
+    title: '基于物理的真实感模拟',
+    highlight: '精准物理引擎，消除恐怖谷效应',
+    desc: 'Veo 3 超越了像素预测，使用先进的引擎精确模拟现实世界的流体动力学和重力。Google Veo 3 模型确保角色和物体的移动具有真实的重量感，有效消除了恐怖谷效应。无论是织物中的风还是复杂的动作，Veo 3 保证所有的阴影和物理互动都严格遵守科学定律。',
+  },
+  {
+    label: '企业级能力',
+    title: '企业级能力与安全保障',
+    highlight: '可扩展集成，负责任的内容生成',
+    desc: 'Veo 3 专为可扩展性设计，与 Vertex AI 无缝集成，非常适合企业培训和大规模广告制作。Google Veo 3 结合了先进的安全过滤器和 SynthID 水印技术，以确保合规且负责任的内容生成，满足企业在安全性和可追溯性方面的严格要求。',
+  },
+];
+
+/* ─── Use Cases (2-col icon grid) ─── */
+const USE_CASES = [
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-describe.webp',
+    title: '数字营销广告',
+    desc: '使用 Veo 3 瞬间制作病毒式社交媒体广告。营销人员使用 Google Veo 3 生成高转化率的视频内容，无需昂贵的制作团队即可抓住眼球并推动销售，显著最大化广告活动的投资回报率。',
+  },
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-prompt.webp',
+    title: '电影预演',
+    desc: '电影制作人利用 Veo 3 进行快速故事板制作和预演。Veo 3 帮助在拍摄前可视化复杂的场景和摄像机角度，节省片场的时间和预算，确保整个制作团队与导演的艺术愿景保持一致。',
+  },
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-enhance.webp',
+    title: '教育内容',
+    desc: '教育工作者用 Veo 3 变革课程。使用 Google Veo 3 生成历史重演或科学模拟，使复杂的学科变得引人入胜且易于学生理解，培养对学习材料的更深层联系并提高记忆率。',
+  },
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-video.webp',
+    title: '电商展示',
+    desc: '使用 Veo 3 动态展示产品。卖家使用 Veo 3 生成逼真的产品视频，在真实环境中演示功能以增强买家信心和在线转化率，创造一种触手可及、互动性强的购物体验。',
+  },
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
+    title: '社交媒体增长',
+    desc: '网红利用 Veo 3 增长受众。使用 Google Veo 3 每天生成一致的高质量视频片段，毫不费力地保持粉丝参与度并领先于算法趋势，维持稳定的新鲜内容流以保持个人资料热度。',
+  },
+  {
+    icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
+    title: '企业培训',
+    desc: '人力资源部门使用 Veo 3 简化入职流程。使用 Veo 3 制作一致的多语言培训视频，确保所有员工都能快速安全地获得标准化且引人入胜的学习材料，消除语言障碍。',
+  },
+];
+
+/* ─── Testimonials ─── */
+const TESTIMONIALS = [
+  {
+    name: 'Emily Carter',
+    role: '内容创作者',
+    avatar: 'https://static.banana2ai.net/images/avatars/bzj3qje3ijz7.webp',
+    quote: '我试过市面上所有的 AI 工具，但 Veo 3 独树一帜。Google Veo 3 的音频同步功能简直完美无瑕，为我节省了数小时的剪辑时间，让我能在不牺牲质量的情况下制作更多内容。',
+  },
+  {
+    name: 'David Chen',
+    role: '数字营销人员',
+    avatar: 'https://static.banana2ai.net/images/avatars/sv7s90civ0n2.webp',
+    quote: 'Google Veo 3 彻底改变了我们的整个营销工作流程。我们现在可以使用 Veo 3 在几分钟内制作出工作室品质的广告，显著降低了制作成本，并使我们能够灵活地快速尝试不同的创意概念。',
+  },
+  {
+    name: 'Michael Ross',
+    role: 'VFX 艺术家',
+    avatar: 'https://static.banana2ai.net/images/avatars/f2gxbdnt7si8.webp',
+    quote: 'Veo 3 中的物理引擎令人大开眼界。Google Veo 3 真正理解物体在现实世界中如何移动，这使得生成的视频看起来极其真实，超越了我之前用于视觉特效的任何其他生成式视频工具。',
+  },
+  {
+    name: 'Lucyka Lee',
+    role: '首席动画师',
+    avatar: 'https://static.banana2ai.net/images/avatars/spbaurgotgng.webp',
+    quote: '图生视频功能对我的动画工作来说是一个游戏规则改变者。我只需将静态角色设计上传到 Veo 3，它就能赋予它们完美自然的动作，为我节省了数周的手工关键帧制作精力。',
+  },
+  {
+    name: 'Sarah Jenkins',
+    role: '独立制作人',
+    avatar: 'https://static.banana2ai.net/images/avatars/wur60e4yhiaf.webp',
+    quote: '我曾对 AI 视频持怀疑态度，但 Veo 3 证明我错了。上传我们的产品照片并看着它们变成电影般的商业广告简直太神奇了。Google Veo 3 在添加动态逼真运动的同时，完美保留了图像的保真度。',
+  },
+];
+
+/* ─── FAQs ─── */
+const FAQS = [
+  {
+    q: '什么是 Veo 3？',
+    a: 'Veo 3 是最新的最先进生成式视频模型，旨在将文本提示转化为高质量的 1080p 视频片段。由 Google Veo 3 技术驱动，它擅长理解自然语言、电影术语和物理定律。与之前的迭代不同，Veo 3 提供集成的音频生成，在生成视觉画面的同时，还能创造同步的声音、对话和音乐，专为内容创作者、营销人员和企业设计。',
+  },
+  {
+    q: '如何使用 Google Veo 3？',
+    a: '要使用 Google Veo 3，只需通过我们的指定界面访问平台。在 Veo 3 输入框中输入高度描述性的文本提示即可开始。您可以指定摄像机角度、光照条件和角色动作。Veo 3 还支持图生视频功能，允许您上传参考图像。设置好参数后点击生成，Veo 3 引擎将渲染出以惊人准确度遵守您创意指令的视频。',
+  },
+  {
+    q: 'Veo 3 免费使用吗？',
+    a: '许多用户问 Veo 3 是否免费。虽然有限制的免费试用选项或基于积分的系统供新用户测试 Veo 3 的功能，但要全面访问 Google Veo 3 的高清生成和高级功能，通常需要订阅或购买积分。免费层通常允许生成较短的片段或带水印的导出，而高级计划则解锁 Veo 3 的全部潜力，包括商业使用权和更高分辨率。',
+  },
+  {
+    q: '如何访问 Veo 3？',
+    a: '您可以直接通过我们的网页平台访问 Veo 3，该平台为 Google Veo 3 模型提供了用户友好的界面。只需注册账户，验证您的详细信息，您将立即获得 Veo 3 的创造力。无论是桌面端还是移动端，访问 Veo 3 都旨在实现无缝连接，让您可以在世界任何地方开始创作专业视频。',
+  },
+];
+
+/* ─── Inline Components ─── */
+function GlowOrbs() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute left-[16%] top-1/4 h-64 w-64 rounded-full bg-gradient-to-r from-[#ffcc33] to-[#ff9900] opacity-[0.06] blur-3xl" />
+      <div className="absolute bottom-1/4 right-[16%] h-64 w-64 rounded-full bg-gradient-to-r from-[#ff9900] to-[#ffcc33] opacity-[0.06] blur-3xl" />
+    </div>
+  );
+}
+
+function FAQItem({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  return (
+    <div className="overflow-hidden rounded-xl border border-[#363b4e] bg-[#13151f] transition-colors hover:border-[#ffcc33]/30">
+      <button
+        onClick={onToggle}
+        className={`flex w-full items-center justify-between px-5 py-4 text-left text-sm font-semibold transition-colors ${open ? 'text-[#ffcc33]' : 'text-white hover:text-[#ffcc33]'}`}
+      >
+        {q}
+        <span
+          className="ml-4 flex-shrink-0 text-white/40 transition-transform duration-300"
+          style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+        >
+          ▼
+        </span>
+      </button>
+      <div
+        ref={ref}
+        className="overflow-hidden transition-all duration-400 ease-in-out"
+        style={{ maxHeight: open ? (ref.current?.scrollHeight ?? 300) + 'px' : '0px', opacity: open ? 1 : 0 }}
+      >
+        <div className="px-5 pb-4 text-sm leading-relaxed text-white/60">{a}</div>
+      </div>
+    </div>
+  );
+}
+
+function TestimonialCarousel() {
+  const [idx, setIdx] = useState(0);
+  const [animating, setAnimating] = useState(false);
+  const total = TESTIMONIALS.length;
+  const t = TESTIMONIALS[idx];
+
+  const go = useCallback(
+    (n: number) => {
+      if (animating) return;
+      setAnimating(true);
+      setTimeout(() => {
+        setIdx((n + total) % total);
+        setAnimating(false);
+      }, 400);
+    },
+    [animating, total],
+  );
+
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimer = useCallback(() => {
+    timerRef.current = setInterval(() => setIdx(prev => (prev + 1) % total), 6000);
+  }, [total]);
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+  }, []);
+
+  useEffect(() => {
+    startTimer();
+    return () => stopTimer();
+  }, [startTimer, stopTimer]);
+
+  return (
+    <div className="relative mx-auto max-w-4xl">
+      <div
+        className="relative overflow-hidden rounded-xl border border-[#363b4e] bg-[#13151f] p-6 shadow-lg md:p-12"
+        style={{
+          opacity: animating ? 0 : 1,
+          transform: animating ? 'translateY(8px)' : 'none',
+          transition: 'opacity 0.4s ease, transform 0.4s ease',
+        }}
+      >
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-[#ffcc33]/5 blur-3xl" />
+          <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-[#ff9900]/5 blur-3xl" />
+        </div>
+        <div className="relative z-10 flex flex-col">
+          <div className="mb-4 flex gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span key={i} className="text-lg text-[#ffcc33]">★</span>
+            ))}
+          </div>
+          <div className="mb-6 h-[220px] overflow-y-auto md:h-auto md:min-h-[120px] md:overflow-visible">
+            <p className="text-base leading-relaxed text-white/80 md:text-lg">&ldquo;{t.quote}&rdquo;</p>
+          </div>
+          <div className="relative z-10 flex items-center gap-4">
+            <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-[#ffcc33]/30 md:h-12 md:w-12">
+              <Image src={t.avatar} alt={t.name} fill className="object-cover" />
+            </div>
+            <div>
+              <div className="font-semibold text-white">{t.name}</div>
+              <div className="text-sm text-white/40">{t.role}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        onClick={() => { stopTimer(); go(idx - 1); startTimer(); }}
+        className="absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e] bg-[#0f1117]/80 text-white/60 backdrop-blur-sm transition-all hover:border-[#ffcc33]/50 hover:text-[#ffcc33] md:-left-4"
+      >
+        ←
+      </button>
+      <button
+        onClick={() => { stopTimer(); go(idx + 1); startTimer(); }}
+        className="absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-[#363b4e] bg-[#0f1117]/80 text-white/60 backdrop-blur-sm transition-all hover:border-[#ffcc33]/50 hover:text-[#ffcc33] md:-right-4"
+      >
+        →
+      </button>
+      <div className="mt-6 flex items-center justify-center gap-2">
+        {TESTIMONIALS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => { stopTimer(); go(i); startTimer(); }}
+            className={`rounded-full transition-all duration-300 ${i === idx ? 'h-2 w-6 bg-[#ffcc33]' : 'h-2 w-2 bg-white/20 hover:bg-[#ffcc33]/30'}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ────────────────────────── PAGE ────────────────────────── */
+export default function Page() {
+  const fadeRef = useScrollFade();
+  const [featTab, setFeatTab] = useState(0);
+  const [featVisible, setFeatVisible] = useState(true);
+  const [openFaq, setOpenFaq] = useState(0);
+
+  const switchFeat = (i: number) => {
+    if (i === featTab) return;
+    setFeatVisible(false);
+    setTimeout(() => { setFeatTab(i); setFeatVisible(true); }, 250);
+  };
+
+  const feat = FEATURES[featTab];
+
+  return (
+    <div ref={fadeRef} className="min-h-screen bg-[#0f1117] text-white">
+
+      {/* ── Breadcrumb ── */}
+      <div className="mx-auto max-w-7xl px-4 py-4">
+        <nav className="flex items-center gap-2 text-sm text-white/40">
+          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <span>/</span>
+          <Link href="/zh/video/" className="transition-colors hover:text-white/70">AI视频生成器</Link>
+          <span>/</span>
+          <span className="text-[#ffcc33]">Veo 3 视频生成器</span>
+        </nav>
+      </div>
+
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden px-4 py-12 md:py-16">
+        <GlowOrbs />
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+            <div>
+              <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
+                体验 Google Veo 3 模型的突破性力量
+              </h1>
+              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">
+                Veo 3 视频生成器：终极 AI 创作平台
+              </h2>
+              <p className="mb-6 leading-relaxed text-white/60">
+                体验 Veo 3 带来的内容创作未来，这是专为电影制作人和营销人员设计的先进 Google Veo 3 模型。将文本提示或静态图像转化为带有同步音频的高清 1080p 视频。这款 Veo 3 AI 工具确保角色一致性、逼真的物理效果以及令人惊叹的视觉质量，助力您的下一个大项目。
+              </p>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即免费体验</Link>
+              <ul className="mt-8 space-y-2">
+                {[
+                  '🎬 高清 1080p 视频，同步音频生成',
+                  '🎥 电影级视觉质量与逼真物理效果',
+                  '🖼️ 支持文生视频与图生视频两种模式',
+                  '🔒 企业级安全，SynthID 水印保护',
+                ].map((f, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
+              <Image src="https://static.banana2ai.net/images/video/veo3gen-showcase.webp" alt="Veo 3 视频生成器" fill className="object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Video Generator ── */}
+      <VideoGeneratorPanel
+        sampleVideoSrc="https://static.banana2ai.net/videos/sample-subpage.mp4"
+        sampleVideoPoster="https://static.banana2ai.net/images/showcase/veo-thumb.webp"
+      />
+
+      {/* ── Steps ── */}
+      <section className="relative px-4 py-16 md:py-24">
+        <GlowOrbs />
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
+            如何使用 <span className="text-[#ffcc33]">Veo 3 视频生成器</span>
+          </h2>
+          <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
+            使用我们直观的 Veo 3 界面，只需三个简单步骤即可制作工作室品质的视频。
+          </p>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {STEPS.map((step, i) => (
+              <div
+                key={i}
+                className={`group relative flex flex-col items-center overflow-hidden rounded-2xl border border-[#363b4e] bg-[#13151f] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-[#ffcc33]/40 hover:shadow-lg hover:shadow-[#ffcc33]/10 scroll-fade-in stagger-${i + 1}`}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="mb-4 flex items-center justify-center rounded-xl border border-[#363b4e]/40 bg-[#1c2030] p-3">
+                    <Image src={step.icon} alt={step.title} width={40} height={40} className="h-10 w-10" />
+                  </div>
+                  <div className="badge-gradient mb-3 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-black shadow-lg">
+                    {step.step}
+                  </div>
+                  <h3 className="mb-2 font-semibold text-[#ffcc33]">{step.title}</h3>
+                  <p className="text-sm leading-relaxed text-white/60">{step.desc}</p>
+                </div>
+                {i < STEPS.length - 1 && (
+                  <div className="absolute -right-3 top-6 z-10 hidden items-center justify-center sm:flex">
+                    <span className="text-lg font-bold text-[#ffcc33]/60">→</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features (tabs) ── */}
+      <section className="relative px-4 py-12 md:py-24">
+        <GlowOrbs />
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
+            <span className="text-[#ffcc33]">Veo 3</span> 的突破性功能
+          </h2>
+          <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
+            探索让 Veo 3 成为 AI 视频生成行业领导者的突破性功能。
+          </p>
+
+          {/* Mobile tabs */}
+          <div className="mb-6 flex flex-col gap-2 md:hidden">
+            {FEATURES.map((f, i) => (
+              <button
+                key={i}
+                onClick={() => switchFeat(i)}
+                className={`rounded-lg border px-4 py-3 text-left text-sm font-medium transition-all ${featTab === i ? 'border-[#ffcc33]/30 bg-[#ffcc33]/10 text-[#ffcc33]' : 'border-transparent bg-[#1c2030] text-white/50'}`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Desktop tabs */}
+          <div className="mb-10 hidden justify-center gap-4 md:flex">
+            {FEATURES.map((f, i) => (
+              <button
+                key={i}
+                onClick={() => switchFeat(i)}
+                className={`relative px-6 py-3 text-base font-medium transition-all duration-300 ${featTab === i ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+              >
+                {f.label}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-[#ffcc33] transition-all duration-300"
+                  style={{ opacity: featTab === i ? 1 : 0, transform: featTab === i ? 'scaleX(1)' : 'scaleX(0)' }}
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Feature content */}
+          <div className="relative min-h-[280px]">
+            <div
+              className="mx-auto max-w-3xl rounded-2xl border border-[#363b4e] bg-[#13151f] p-8 md:p-12"
+              style={{
+                opacity: featVisible ? 1 : 0,
+                transform: featVisible ? 'none' : 'translateY(8px)',
+                transition: 'opacity 0.4s ease, transform 0.4s ease',
+              }}
+            >
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+                <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#ffcc33]/5 blur-3xl" />
+              </div>
+              <h3 className="mb-3 text-2xl font-bold text-white">{feat.title}</h3>
+              <div className="mb-4 flex items-center gap-2">
+                <div className="h-1 w-8 rounded-full bg-gradient-to-r from-[#ffcc33] to-[#ff9900]" />
+                <span className="gradient-glow-text text-sm font-semibold">{feat.highlight}</span>
+              </div>
+              <p className="leading-relaxed text-white/60">{feat.desc}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Use Cases (2-col icon grid) ── */}
+      <section className="relative px-4 py-16 md:py-24">
+        <GlowOrbs />
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
+            释放 <span className="text-[#ffcc33]">Veo 3</span> 的潜力
+          </h2>
+          <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
+            看看各行各业的专业人士如何利用 Veo 3 改变他们的工作流程。
+          </p>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {USE_CASES.map((uc, i) => (
+              <div
+                key={i}
+                className={`group rounded-2xl border border-[#363b4e] bg-[#13151f] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#ffcc33]/40 hover:shadow-lg hover:shadow-[#ffcc33]/5 scroll-fade-in stagger-${Math.min(i + 1, 6)}`}
+              >
+                <div className="mb-5 inline-flex items-center justify-center rounded-lg border border-[#363b4e]/40 bg-[#1c2030] p-2.5">
+                  <Image src={uc.icon} alt={uc.title} width={48} height={48} className="h-12 w-12" />
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-white transition-colors group-hover:text-[#ffcc33]">{uc.title}</h3>
+                <p className="text-sm leading-relaxed text-white/60">{uc.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Testimonials ── */}
+      <section className="relative px-4 py-16 md:py-24">
+        <GlowOrbs />
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
+            用户对 Veo 3 的评价
+          </h2>
+          <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
+            加入成千上万信赖 Veo 3 满足其视频生成需求的创作者行列。
+          </p>
+          <TestimonialCarousel />
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="px-4 py-16 md:py-24">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
+            常见问题解答
+          </h2>
+          <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
+            关于 Veo 3 AI 视频生成器您需要了解的一切。
+          </p>
+          <div className="space-y-3">
+            {FAQS.map((faq, i) => (
+              <FAQItem
+                key={i}
+                q={faq.q}
+                a={faq.a}
+                open={openFaq === i}
+                onToggle={() => setOpenFaq(openFaq === i ? -1 : i)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="group relative overflow-hidden border-t border-[#363b4e] bg-gradient-to-br from-[#1c2030] to-[#13151f] px-4 py-20 md:py-28">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="relative mx-auto max-w-3xl text-center">
+          <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
+            立即开始使用 Veo 3 创作
+          </h2>
+          <p className="mb-8 text-lg text-white/60">
+            不要在快速发展的数字环境中落后。立即加入 AI 视频革命，利用 Google Veo 3 的变革力量释放您无限的创造力，将您的故事变为现实。
+          </p>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即免费开始创作</Link>
+        </div>
+      </section>
+
+    </div>
+  );
+}

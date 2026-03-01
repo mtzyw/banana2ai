@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import LazyVideo from '@/components/banana/LazyVideo';
 import {
   ImageIcon,
   ChevronDown,
@@ -89,13 +90,10 @@ export default function HeroSection() {
     <div className="relative flex min-h-screen w-full flex-col items-center justify-center">
       {/* Video Background */}
       <div className="absolute inset-0 z-0 h-full w-full overflow-hidden bg-gradient-to-b from-black/40 to-black/60">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
+        <LazyVideo
+          eager
           className="h-full w-full object-cover"
-          src="/images/banana/index-video05.mp4"
+          src="https://static.banana2ai.net/videos/hero-bg.mp4"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
       </div>

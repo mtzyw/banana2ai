@@ -13,14 +13,14 @@ import {
 /* ──────────────────────────── Data ──────────────────────────── */
 
 const EXAMPLE_PROMPTS = [
-  { id: 1, prompt: 'Do this for the Bleach. Input Variable: [INSERT TITLE] (e.g., The Terminator, Dune, The Matrix). System Prompt: Create a collection of six anime-styled movie posters arranged in a 3x2 grid layout.', model: 'Nano Banana', image: '/images/banana/i59ggw75r8an.jpeg', tags: ['动漫', '海报', '网格'] },
-  { id: 2, prompt: 'Cinematic film still of the protagonist in a dimly lit, ancient private library, caught in a decisive moment while researching late at night. Shot on an Arri Alexa Mini with a Cooke S4/i 50mm Prime lens at T2.0.', model: 'Nano Banana Pro', image: '/images/banana/wp5zy2q1v2qt.png', tags: ['电影', '人像', '写实'] },
-  { id: 3, prompt: 'Create a hyper-realistic 3D render of a transparent twitter profile card, designed like a futuristic holographic ID badge held between fingers against a dark background.', model: 'Nano Banana', image: '/images/banana/759tq1o4hsw5.jpeg', tags: ['3D', '未来', '卡片'] },
-  { id: 4, prompt: 'Oil on Canvas, A view of the bay from an upstairs window. In a impressionism, new media art style. A breathtaking sunset with warm golden and amber tones illuminating the scene.', model: 'Nano Banana Pro', image: '/images/banana/8ohkeheuu9j9.jpeg', tags: ['油画', '风景', '印象派'] },
-  { id: 5, prompt: 'Highly detailed close-up photograph, ultra-photorealistic, 8K resolution shot on a digital camera with cinematic lighting and dramatic shadows. Portrait of a man with sunglasses.', model: 'Nano Banana', image: '/images/banana/4guxonqg3xs4.jpeg', tags: ['人像', '摄影', '特写'] },
-  { id: 6, prompt: 'Cinematic 90s film still of a stunning young man with messy wet-look dark hair strands falling across forehead, photographed on Kodak Vision3 500T film stock emulation.', model: 'Nano Banana Pro', image: '/images/banana/hgxvzwze7bds.png', tags: ['电影', '复古', '90年代'] },
-  { id: 7, prompt: 'Beautiful redheaded woman with a perfectly proportioned figure, smiling happily and naturally, posing on a tropical beach at golden hour with soft warm lighting.', model: 'Nano Banana', image: '/images/banana/d6uhgzt4yofk.png', tags: ['人像', '海滩', '自然'] },
-  { id: 8, prompt: 'Ultra-viral recipe infographic. Showcase a FOOD with melted cheese, crispy edges and fresh herbs. Include step-by-step visual guide with ingredients list and cooking time.', model: 'Nano Banana Pro', image: '/images/banana/mhrfjpmo7n24.jpeg', tags: ['美食', '信息图', '食谱'] },
+  { id: 1, prompt: 'Do this for the Bleach. Input Variable: [INSERT TITLE] (e.g., The Terminator, Dune, The Matrix). System Prompt: Create a collection of six anime-styled movie posters arranged in a 3x2 grid layout.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/anime-posters.webp', tags: ['动漫', '海报', '网格'] },
+  { id: 2, prompt: 'Cinematic film still of the protagonist in a dimly lit, ancient private library, caught in a decisive moment while researching late at night. Shot on an Arri Alexa Mini with a Cooke S4/i 50mm Prime lens at T2.0.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/researcher-night.webp', tags: ['电影', '人像', '写实'] },
+  { id: 3, prompt: 'Create a hyper-realistic 3D render of a transparent twitter profile card, designed like a futuristic holographic ID badge held between fingers against a dark background.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/holographic-id.webp', tags: ['3D', '未来', '卡片'] },
+  { id: 4, prompt: 'Oil on Canvas, A view of the bay from an upstairs window. In a impressionism, new media art style. A breathtaking sunset with warm golden and amber tones illuminating the scene.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/sunset-art.webp', tags: ['油画', '风景', '印象派'] },
+  { id: 5, prompt: 'Highly detailed close-up photograph, ultra-photorealistic, 8K resolution shot on a digital camera with cinematic lighting and dramatic shadows. Portrait of a man with sunglasses.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/portrait-sunglasses.webp', tags: ['人像', '摄影', '特写'] },
+  { id: 6, prompt: 'Cinematic 90s film still of a stunning young man with messy wet-look dark hair strands falling across forehead, photographed on Kodak Vision3 500T film stock emulation.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/dark-hair-portrait.webp', tags: ['电影', '复古', '90年代'] },
+  { id: 7, prompt: 'Beautiful redheaded woman with a perfectly proportioned figure, smiling happily and naturally, posing on a tropical beach at golden hour with soft warm lighting.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/beach-figure.webp', tags: ['人像', '海滩', '自然'] },
+  { id: 8, prompt: 'Ultra-viral recipe infographic. Showcase a FOOD with melted cheese, crispy edges and fresh herbs. Include step-by-step visual guide with ingredients list and cooking time.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/food-recipe.webp', tags: ['美食', '信息图', '食谱'] },
 ];
 
 const HOW_IT_WORKS = [
@@ -45,17 +45,17 @@ const FEATURES_DETAIL = [
   {
     title: '海量精选提示词库',
     desc: '收录数千条经过专家筛选的高质量提示词，涵盖照片写实、数字艺术、插画、概念设计等各种风格和应用场景。每日持续更新，紧跟最新 AI 艺术趋势。',
-    image: '/images/banana/1tpln4as6p33.jpeg',
+    image: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp',
   },
   {
     title: '真实生成结果预览',
     desc: '每个提示词都附有真实的 AI 生成图像预览，所见即所得。帮助您在使用前准确了解生成效果的风格和质量，节省试错时间和积分。',
-    image: '/images/banana/3rh7in3ztrd9.jpeg',
+    image: 'https://static.banana2ai.net/images/showcase/ai-models.webp',
   },
   {
     title: 'AI驱动的提示词生成器',
     desc: '用自然语言描述您的想法，AI 自动生成专业级提示词。该生成器理解艺术术语、风格偏好、构图原则和技术参数，生成的提示词能够精准呈现您的创意愿景。',
-    image: '/images/banana/5aqwpua9noqi.jpeg',
+    image: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
   },
 ];
 
@@ -92,10 +92,10 @@ const BENEFITS = [
 ];
 
 const TESTIMONIALS = [
-  { quote: '作为一名自由插画师，Banana Prompts 彻底改变了我的创作方式。以前我花数小时调试提示词，现在直接浏览精选库就能找到完美的起点。AI 提示词生成器更是锦上添花——它理解我描述的艺术风格，并生成我自己可能永远想不到的精妙提示词。', name: 'Alex Rivera', role: '自由插画师', avatar: '/images/banana/sw79fczaphwe.jpeg' },
-  { quote: '作为五个不同品牌的内容管理者，Banana Prompts 对我的工作流程至关重要。我可以快速找到热门的提示词风格，精确预览生成效果，并在几秒钟内生成符合品牌调性的图片。与 Banana Pro AI 的"立即使用"集成非常流畅——我曾在一小时内创建了整整一周的社交媒体内容。', name: 'Jessica Park', role: '社交媒体管理员', avatar: '/images/banana/k1zo5dpjyh3y.jpeg' },
-  { quote: 'Banana Prompts 已经取代了我们昂贵的图库订阅服务。使用这些精选提示词生成的图像质量可媲美专业摄影作品，而我们只需花费传统方法的零头成本。AI 生成器功能让我们能够创建符合品牌特色的提示词，在各个营销活动中保持统一的视觉形象。', name: 'Marcus Chen', role: '营销总监', avatar: '/images/banana/l8af5arb7l0d.jpeg' },
-  { quote: '我每天都在使用 Banana Prompts 进行网页设计项目。它能够生成完美契合客户品牌指南的主视觉图像。AI 提示词生成器能够理解设计术语，并可以针对特定的配色方案、构图和风格创建提示词。我可以在几分钟内向客户展示多个视觉方向。', name: 'Sarah Thompson', role: 'UX/UI 设计师', avatar: '/images/banana/w09plbs60v32.jpeg' },
+  { quote: '作为一名自由插画师，Banana Prompts 彻底改变了我的创作方式。以前我花数小时调试提示词，现在直接浏览精选库就能找到完美的起点。AI 提示词生成器更是锦上添花——它理解我描述的艺术风格，并生成我自己可能永远想不到的精妙提示词。', name: 'Alex Rivera', role: '自由插画师', avatar: 'https://static.banana2ai.net/images/avatars/sw79fczaphwe.webp' },
+  { quote: '作为五个不同品牌的内容管理者，Banana Prompts 对我的工作流程至关重要。我可以快速找到热门的提示词风格，精确预览生成效果，并在几秒钟内生成符合品牌调性的图片。与 Banana Pro AI 的"立即使用"集成非常流畅——我曾在一小时内创建了整整一周的社交媒体内容。', name: 'Jessica Park', role: '社交媒体管理员', avatar: 'https://static.banana2ai.net/images/avatars/k1zo5dpjyh3y.webp' },
+  { quote: 'Banana Prompts 已经取代了我们昂贵的图库订阅服务。使用这些精选提示词生成的图像质量可媲美专业摄影作品，而我们只需花费传统方法的零头成本。AI 生成器功能让我们能够创建符合品牌特色的提示词，在各个营销活动中保持统一的视觉形象。', name: 'Marcus Chen', role: '营销总监', avatar: 'https://static.banana2ai.net/images/avatars/l8af5arb7l0d.webp' },
+  { quote: '我每天都在使用 Banana Prompts 进行网页设计项目。它能够生成完美契合客户品牌指南的主视觉图像。AI 提示词生成器能够理解设计术语，并可以针对特定的配色方案、构图和风格创建提示词。我可以在几分钟内向客户展示多个视觉方向。', name: 'Sarah Thompson', role: 'UX/UI 设计师', avatar: 'https://static.banana2ai.net/images/avatars/w09plbs60v32.webp' },
 ];
 
 const FAQ_ITEMS = [
@@ -514,7 +514,7 @@ export default function BananaPromptsClient() {
             </FadeIn>
             <FadeIn className="relative mx-auto w-full max-w-md lg:max-w-none" delay={0.15}>
               <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-2xl" style={{ maskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)', WebkitMaskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)' }}>
-                <Image src="/images/banana/cta-cover.jpeg" alt="开始创作" fill className="object-cover" />
+                <Image src="https://static.banana2ai.net/images/cta-cover.webp" alt="开始创作" fill className="object-cover" />
               </div>
             </FadeIn>
           </div>

@@ -10,7 +10,7 @@ const testimonials = [
       'Banana Pro AI 彻底革新了我们的内容创作方式。AI 图像生成器速度极快，质量出众。使用 Banana Pro AI 后，我们的视觉内容制作时间缩短了 70%，同时质量反而得到了提升。AI 图像处理技术能够完美保持品牌一致性，并即时创建定制图形。Banana Pro AI 已成为我们整个团队不可或缺的工具！',
     name: 'Sarah Mitchell',
     role: '社交媒体管理员',
-    avatar: '/images/banana/j3znhyr1jyn8.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/j3znhyr1jyn8.webp',
     stagger: 'stagger-1',
   },
   {
@@ -18,7 +18,7 @@ const testimonials = [
       '我无法为整个产品目录支付专业摄影费用。Banana Pro AI 的图生图功能彻底改变了这一切。我使用这个 AI 图像生成器将基础产品照片转化为精美的场景化图片，效果堪比专业摄影。我的转化率提升了 35%！Banana Pro AI 免费使用，却能带来价值数千美元的效果。每个电商卖家都需要它！',
     name: 'Marcus Chen',
     role: '电商店主',
-    avatar: '/images/banana/k1zo5dpjyh3y.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/k1zo5dpjyh3y.webp',
     stagger: 'stagger-2',
   },
   {
@@ -26,7 +26,7 @@ const testimonials = [
       '我曾对AI图像生成器取代设计师持怀疑态度，但Banana Pro AI反而成为了我的秘密武器。我用它进行快速概念开发、情绪板制作和参考图像生成。Banana Pro AI的图生图功能帮助我在几秒钟内探索各种风格，而文生图的质量更是出色。使用Banana Pro AI后，我的创作产出增加了两倍。这是能力的放大，而非替代！',
     name: 'Elena Rodriguez',
     role: '自由设计师',
-    avatar: '/images/banana/b88usp2lk4ef.jpeg',
+    avatar: 'https://static.banana2ai.net/images/avatars/b88usp2lk4ef.webp',
     stagger: 'stagger-3',
   },
 ];

@@ -283,8 +283,8 @@ export default function PricingClient() {
         </p>
         <p className="mt-2 text-sm text-white/30 scroll-fade-in stagger-1">
           有问题？联系我们：
-          <a href="mailto:support@bananaproai.com" className="ml-1 text-[#ffcc33] hover:underline">
-            support@bananaproai.com
+          <a href="mailto:hi@banana2ai.net" className="ml-1 text-[#ffcc33] hover:underline">
+            hi@banana2ai.net
           </a>
         </p>
       </section>

@@ -12,7 +12,7 @@ interface Feature {
 const TABS = [
   {
     label: '先进 AI 引擎',
-    image: '/images/banana/gnp61umatcle.jpeg',
+    image: 'https://static.banana2ai.net/images/models/ai-engine.webp',
     imageAlt: '以革命性 AI 技术驱动你的创意',
     heading: '以革命性 AI 技术驱动你的创意',
     highlight: '下一代神经网络架构',
@@ -20,7 +20,7 @@ const TABS = [
   },
   {
     label: '完美一致性',
-    image: '/images/banana/3c4y2msray7n.jpeg',
+    image: 'https://static.banana2ai.net/images/models/consistency.webp',
     imageAlt: '无与伦比的角色与风格一致性',
     heading: '无与伦比的角色与风格一致性',
     highlight: '高级视觉记忆系统',
@@ -28,7 +28,7 @@ const TABS = [
   },
   {
     label: '两种强大模式',
-    image: '/images/banana/xpee3k37jl8p.jpeg',
+    image: 'https://static.banana2ai.net/images/models/dual-mode.webp',
     imageAlt: '多场景适配的双模式创作系统',
     heading: '多场景适配的双模式创作系统',
     highlight: '文生图 + 图生图双引擎',
@@ -36,7 +36,7 @@ const TABS = [
   },
   {
     label: '永久免费',
-    image: '/images/banana/96equhxq2u7i.jpeg',
+    image: 'https://static.banana2ai.net/images/models/free-tier.webp',
     imageAlt: '真正永久免费且附带完整商用权利',
     heading: '真正永久免费且附带完整商用权利',
     highlight: '零成本启动，无隐藏收费',
