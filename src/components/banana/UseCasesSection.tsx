@@ -113,8 +113,8 @@ export default function UseCasesSection() {
             <h3 className="text-white text-xl font-bold mb-4">{active.heading}</h3>
             <p className="text-white/60 text-sm leading-relaxed mb-6">{active.desc}</p>
             <ul className="flex flex-col gap-3">
-              {active.features.map((feat) => (
-                <li key={feat} className="flex items-start gap-3">
+              {active.features.map((feat, fi) => (
+                <li key={fi} className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-[#ffcc33] flex-shrink-0 mt-0.5" />
                   <span className="text-white/80 text-sm">{feat}</span>
                 </li>

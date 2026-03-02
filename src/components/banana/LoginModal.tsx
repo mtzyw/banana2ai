@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -12,7 +12,7 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ open, onClose }: LoginModalProps) {
-  const isZh = typeof window !== 'undefined' && window.location.pathname.startsWith('/zh');
+  const isZh = useLocale() === 'zh';
   const t = useTranslations('banana.login');
   const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(59);
