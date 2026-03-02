@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
@@ -50,19 +50,23 @@ interface Plan {
 }
 
 
-const FAQS = [
-  { question: '如何更改我的订阅计划？', answer: '你可以随时在账户设置中升级或降级订阅计划。升级立即生效，降级将在下个计费周期生效。' },
-  { question: '未使用的积分会过期吗？', answer: '订阅积分每月重置，但永久积分不会过期。我们建议在计费周期内充分利用订阅积分。' },
-  { question: '可以随时取消订阅吗？', answer: '是的，你可以随时取消订阅。取消后你仍可使用剩余的订阅期限，到期后不再续费。' },
-  { question: '支持哪些支付方式？', answer: '支持信用卡（Visa、Mastercard、American Express）和 PayPal 支付。' },
-  { question: '年付和月付有什么区别？', answer: '年付可享受最高 50% 的折扣优惠，按年一次性扣费。月付按月扣费，灵活性更高。' },
-  { question: '如果对服务不满意，可以退款吗？', answer: '我们提供 7 天无理由退款保障。如有退款需求，请联系客服处理。' },
-  { question: '企业用户有专属方案吗？', answer: '有的。如需企业定制方案，请通过邮件联系我们，我们会根据你的需求提供专属报价。' },
-  { question: '免费版有哪些功能限制？', answer: '免费版仅提供 10 次免费额度，不支持下载、私密生成等高级功能。注册后可立即免费体验。' },
-];
 
 export default function PricingClient() {
   const t = useTranslations('banana.pricing');
+  const locale = useLocale();
+  const isZh = locale === 'zh';
+
+  const FAQS = [
+  { question: isZh ? '如何更改我的订阅计划？' : 'How do I change my subscription plan?', answer: isZh ? '你可以随时在账户设置中升级或降级订阅计划。升级立即生效，降级将在下个计费周期生效。' : 'You can upgrade or downgrade anytime in account settings. Upgrades take effect immediately, downgrades apply next billing cycle.' },
+  { question: isZh ? '未使用的积分会过期吗？' : 'Do unused credits expire?', answer: isZh ? '订阅积分每月重置，但永久积分不会过期。我们建议在计费周期内充分利用订阅积分。' : 'Subscription credits reset monthly, but permanent credits never expire.' },
+  { question: isZh ? '可以随时取消订阅吗？' : 'Can I cancel anytime?', answer: isZh ? '是的，你可以随时取消订阅。取消后你仍可使用剩余的订阅期限，到期后不再续费。' : 'Yes, cancel anytime. You keep access until the end of your current billing period.' },
+  { question: isZh ? '支持哪些支付方式？' : 'What payment methods are supported?', answer: isZh ? '支持信用卡（Visa、Mastercard、American Express）和 PayPal 支付。' : 'We accept Visa, Mastercard, American Express, and PayPal.' },
+  { question: isZh ? '年付和月付有什么区别？' : "What's the difference between monthly and annual billing?", answer: isZh ? '年付可享受最高 50% 的折扣优惠，按年一次性扣费。月付按月扣费，灵活性更高。' : 'Annual billing saves up to 50%. Monthly billing offers more flexibility.' },
+  { question: isZh ? '如果对服务不满意，可以退款吗？' : 'Can I get a refund?', answer: isZh ? '我们提供 7 天无理由退款保障。如有退款需求，请联系客服处理。' : 'We offer a 7-day money-back guarantee. Contact support for refund requests.' },
+  { question: isZh ? '企业用户有专属方案吗？' : 'Do you offer enterprise plans?', answer: isZh ? '有的。如需企业定制方案，请通过邮件联系我们，我们会根据你的需求提供专属报价。' : 'Yes! Contact us via email for custom enterprise pricing.' },
+  { question: isZh ? '免费版有哪些功能限制？' : 'What are the free plan limitations?', answer: isZh ? '免费版仅提供 10 次免费额度，不支持下载、私密生成等高级功能。注册后可立即免费体验。' : 'Free plan includes 10 credits. Downloads, private generation, and other premium features require a paid plan.' },
+  ];
+
 
   const PLANS: Plan[] = [
   {
@@ -75,142 +79,142 @@ export default function PricingClient() {
     cta: t('plans.1.cta'),
     yearlyTotal: 100,
     features: [
-      { text: '积分/年', included: true, highlight: '2,400' },
+      { text: isZh ? '积分/年' : 'Credits/Year', included: true, highlight: '2,400' },
       {
-        text: '最多生成图片',
+        text: isZh ? '最多生成图片' : 'Max Images',
         included: true,
         tags: ['Banana Pro'],
         subItems: [
-          { text: 'Nano Banana：最多 {n} 张图片', highlight: '600' },
-          { text: 'Nano Banana Pro：最多 {n} 张图片', highlight: '240' },
+          { text: isZh ? 'Nano Banana：最多 {n} 张图片' : 'Nano Banana: up to {n} images', highlight: '600' },
+          { text: isZh ? 'Nano Banana Pro：最多 {n} 张图片' : 'Nano Banana Pro: up to {n} images', highlight: '240' },
         ],
       },
       {
-        text: '最多生成视频',
+        text: isZh ? '最多生成视频' : 'Max Videos',
         included: true,
         tags: ['Veo 3.1', 'Sora 2'],
         subItems: [
-          { text: 'Veo3 Basic：最多 {n} 个视频', highlight: '240' },
-          { text: 'Veo3.1 Basic：最多 {n} 个视频', highlight: '120' },
-          { text: 'Seedance 1.5 Pro：最多 {n} 个视频', highlight: '75' },
-          { text: 'Sora 2 Pro Video：最多 {n} 个视频', highlight: '16' },
-          { text: 'Sora 2 Pro Storyboard：最多 {n} 个视频', highlight: '16' },
+          { text: isZh ? 'Veo3 Basic：最多 {n} 个视频' : 'Veo3 Basic: up to {n} videos', highlight: '240' },
+          { text: isZh ? 'Veo3.1 Basic：最多 {n} 个视频' : 'Veo3.1 Basic: up to {n} videos', highlight: '120' },
+          { text: isZh ? 'Seedance 1.5 Pro：最多 {n} 个视频' : 'Seedance 1.5 Pro: up to {n} videos', highlight: '75' },
+          { text: isZh ? 'Sora 2 Pro Video：最多 {n} 个视频' : 'Sora 2 Pro Video: up to {n} videos', highlight: '16' },
+          { text: isZh ? 'Sora 2 Pro Storyboard：最多 {n} 个视频' : 'Sora 2 Pro Storyboard: up to {n} videos', highlight: '16' },
         ],
       },
-      { text: '下载结果', included: true },
-      { text: '高清、无水印下载', included: true },
-      { text: '私密生成', included: true },
-      { text: '无广告体验', included: true },
-      { text: '无限存储空间', included: true },
+      { text: isZh ? '下载结果' : 'Download Results', included: true },
+      { text: isZh ? '高清、无水印下载' : 'HD, Watermark-free Downloads', included: true },
+      { text: isZh ? '私密生成' : 'Private Generation', included: true },
+      { text: isZh ? '无广告体验' : 'Ad-free Experience', included: true },
+      { text: isZh ? '无限存储空间' : 'Unlimited Storage', included: true },
     ],
   },
   {
     name: 'Pro',
     price: { monthly: 49.9, annual: 30.0 },
     originalPrice: { monthly: null, annual: 49.9 },
-    description: '适合专业创作团队',
-    badge: '热门',
+    description: isZh ? '适合专业创作团队' : 'For professional creative teams',
+    badge: isZh ? '热门' : 'Popular',
     highlight: false,
     cta: t('plans.1.cta'),
     yearlyTotal: 360,
     discount: '40% OFF',
     saveAmount: 238.8,
     features: [
-      { text: '积分/年', included: true, highlight: '21,600' },
+      { text: isZh ? '积分/年' : 'Credits/Year', included: true, highlight: '21,600' },
       {
-        text: '最多生成图片',
+        text: isZh ? '最多生成图片' : 'Max Images',
         included: true,
         tags: ['Banana Pro'],
         subItems: [
-          { text: 'Nano Banana：最多 {n} 张图片', highlight: '5,400' },
-          { text: 'Nano Banana Pro：最多 {n} 张图片', highlight: '2,160' },
+          { text: isZh ? 'Nano Banana：最多 {n} 张图片' : 'Nano Banana: up to {n} images', highlight: '5,400' },
+          { text: isZh ? 'Nano Banana Pro：最多 {n} 张图片' : 'Nano Banana Pro: up to {n} images', highlight: '2,160' },
         ],
       },
       {
-        text: '最多生成视频',
+        text: isZh ? '最多生成视频' : 'Max Videos',
         included: true,
         tags: ['Veo 3.1', 'Sora 2'],
         subItems: [
-          { text: 'Veo3 Basic：最多 {n} 个视频', highlight: '2,160' },
-          { text: 'Veo3.1 Basic：最多 {n} 个视频', highlight: '1,080' },
-          { text: 'Seedance 1.5 Pro：最多 {n} 个视频', highlight: '675' },
-          { text: 'Sora 2 Pro Video：最多 {n} 个视频', highlight: '144' },
-          { text: 'Sora 2 Pro Storyboard：最多 {n} 个视频', highlight: '144' },
+          { text: isZh ? 'Veo3 Basic：最多 {n} 个视频' : 'Veo3 Basic: up to {n} videos', highlight: '2,160' },
+          { text: isZh ? 'Veo3.1 Basic：最多 {n} 个视频' : 'Veo3.1 Basic: up to {n} videos', highlight: '1,080' },
+          { text: isZh ? 'Seedance 1.5 Pro：最多 {n} 个视频' : 'Seedance 1.5 Pro: up to {n} videos', highlight: '675' },
+          { text: isZh ? 'Sora 2 Pro Video：最多 {n} 个视频' : 'Sora 2 Pro Video: up to {n} videos', highlight: '144' },
+          { text: isZh ? 'Sora 2 Pro Storyboard：最多 {n} 个视频' : 'Sora 2 Pro Storyboard: up to {n} videos', highlight: '144' },
         ],
       },
-      { text: '下载结果', included: true },
-      { text: '高清、无水印下载', included: true },
-      { text: '私密生成', included: true },
-      { text: '无广告体验', included: true },
-      { text: '无限存储空间', included: true },
+      { text: isZh ? '下载结果' : 'Download Results', included: true },
+      { text: isZh ? '高清、无水印下载' : 'HD, Watermark-free Downloads', included: true },
+      { text: isZh ? '私密生成' : 'Private Generation', included: true },
+      { text: isZh ? '无广告体验' : 'Ad-free Experience', included: true },
+      { text: isZh ? '无限存储空间' : 'Unlimited Storage', included: true },
     ],
   },
   {
     name: 'Ultra',
     price: { monthly: 99.9, annual: 49.9 },
     originalPrice: { monthly: null, annual: 99.9 },
-    description: '适合高频专业用户',
-    badge: '超值之选',
+    description: isZh ? '适合高频专业用户' : 'For power users',
+    badge: isZh ? '超值之选' : 'Best Value',
     highlight: true,
     cta: t('plans.1.cta'),
     yearlyTotal: 599,
     discount: '50% OFF',
     saveAmount: 599.8,
     features: [
-      { text: '积分/年', included: true, highlight: '48,000' },
+      { text: isZh ? '积分/年' : 'Credits/Year', included: true, highlight: '48,000' },
       {
-        text: '最多生成图片',
+        text: isZh ? '最多生成图片' : 'Max Images',
         included: true,
         tags: ['Banana Pro'],
         subItems: [
-          { text: 'Nano Banana：最多 {n} 张图片', highlight: '12,000' },
-          { text: 'Nano Banana Pro：最多 {n} 张图片', highlight: '4,800' },
+          { text: isZh ? 'Nano Banana：最多 {n} 张图片' : 'Nano Banana: up to {n} images', highlight: '12,000' },
+          { text: isZh ? 'Nano Banana Pro：最多 {n} 张图片' : 'Nano Banana Pro: up to {n} images', highlight: '4,800' },
         ],
       },
       {
-        text: '最多生成视频',
+        text: isZh ? '最多生成视频' : 'Max Videos',
         included: true,
         tags: ['Veo 3.1', 'Sora 2'],
         subItems: [
-          { text: 'Veo3 Basic：最多 {n} 个视频', highlight: '4,800' },
-          { text: 'Veo3.1 Basic：最多 {n} 个视频', highlight: '2,400' },
-          { text: 'Seedance 1.5 Pro：最多 {n} 个视频', highlight: '1,500' },
-          { text: 'Sora 2 Pro Video：最多 {n} 个视频', highlight: '320' },
-          { text: 'Sora 2 Pro Storyboard：最多 {n} 个视频', highlight: '320' },
+          { text: isZh ? 'Veo3 Basic：最多 {n} 个视频' : 'Veo3 Basic: up to {n} videos', highlight: '4,800' },
+          { text: isZh ? 'Veo3.1 Basic：最多 {n} 个视频' : 'Veo3.1 Basic: up to {n} videos', highlight: '2,400' },
+          { text: isZh ? 'Seedance 1.5 Pro：最多 {n} 个视频' : 'Seedance 1.5 Pro: up to {n} videos', highlight: '1,500' },
+          { text: isZh ? 'Sora 2 Pro Video：最多 {n} 个视频' : 'Sora 2 Pro Video: up to {n} videos', highlight: '320' },
+          { text: isZh ? 'Sora 2 Pro Storyboard：最多 {n} 个视频' : 'Sora 2 Pro Storyboard: up to {n} videos', highlight: '320' },
         ],
       },
-      { text: '下载结果', included: true },
-      { text: '高清、无水印下载', included: true },
-      { text: '私密生成', included: true },
-      { text: '无广告体验', included: true },
-      { text: '无限存储空间', included: true },
+      { text: isZh ? '下载结果' : 'Download Results', included: true },
+      { text: isZh ? '高清、无水印下载' : 'HD, Watermark-free Downloads', included: true },
+      { text: isZh ? '私密生成' : 'Private Generation', included: true },
+      { text: isZh ? '无广告体验' : 'Ad-free Experience', included: true },
+      { text: isZh ? '无限存储空间' : 'Unlimited Storage', included: true },
     ],
   },
   {
-    name: '免费计划',
+    name: isZh ? '免费计划' : 'Free Plan',
     price: { monthly: 0, annual: 0 },
     originalPrice: { monthly: null, annual: null },
-    description: '适合入门体验',
+    description: isZh ? '适合入门体验' : 'Get started for free',
     badge: null,
     highlight: false,
-    cta: '登录以访问',
+    cta: isZh ? '登录以访问' : 'Sign In to Access',
     features: [
-      { text: '登录即享 10 次免费额度', included: true },
+      { text: isZh ? '登录即享 10 次免费额度' : '10 Free Credits on Sign Up', included: true },
       {
-        text: '最多生成 2 张图片',
+        text: isZh ? '最多生成 2 张图片' : 'Up to 2 Images',
         included: true,
         tags: ['Banana'],
       },
       {
-        text: '最多生成 1 个视频',
+        text: isZh ? '最多生成 1 个视频' : 'Up to 1 Video',
         included: true,
         tags: ['Veo 3', 'Sora 2'],
       },
-      { text: '下载结果', included: false },
-      { text: '高清、无水印下载', included: false },
-      { text: '私密生成', included: false },
-      { text: '无广告体验', included: false },
-      { text: '无限存储空间', included: false },
+      { text: isZh ? '下载结果' : 'Download Results', included: false },
+      { text: isZh ? '高清、无水印下载' : 'HD, Watermark-free Downloads', included: false },
+      { text: isZh ? '私密生成' : 'Private Generation', included: false },
+      { text: isZh ? '无广告体验' : 'Ad-free Experience', included: false },
+      { text: isZh ? '无限存储空间' : 'Unlimited Storage', included: false },
     ],
   },
   ];
@@ -224,7 +228,7 @@ export default function PricingClient() {
       {/* Header */}
       <section className="mx-auto max-w-[1920px] px-4 py-12 text-center sm:px-6 lg:px-8">
         <h1 className="gradient-glow-text mb-4 text-4xl font-bold tracking-tight scroll-fade-in sm:text-5xl lg:text-6xl">
-          Banana Pro AI 的定价方案
+          {isZh ? 'Banana Pro AI 的定价方案' : 'Banana Pro AI Pricing'}
         </h1>
 
         {/* Billing toggle */}
@@ -240,7 +244,7 @@ export default function PricingClient() {
               background: 'linear-gradient(to right, #ffcc33, #ff9900)',
             } : undefined}
           >
-            按月计费
+            {isZh ? "按月计费" : "Monthly"}
           </button>
 
           <div className="relative">
@@ -266,7 +270,7 @@ export default function PricingClient() {
                 background: 'linear-gradient(to right, #ffcc33, #ff9900)',
               } : undefined}
             >
-              按年计费
+              {isZh ? "按年计费" : "Annual"}
             </button>
           </div>
         </div>
@@ -275,7 +279,7 @@ export default function PricingClient() {
         <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
           {PLANS.map((plan, i) => (
             <div key={i} className={`scroll-fade-in stagger-${Math.min(i + 1, 6)}`}>
-              <PlanCard plan={plan} billing={billing} />
+              <PlanCard plan={plan} billing={billing} isZh={isZh} />
             </div>
           ))}
         </div>
@@ -284,10 +288,10 @@ export default function PricingClient() {
       {/* Footer note */}
       <section className="mx-auto max-w-4xl px-4 py-16 text-center">
         <p className="text-sm text-white/50 scroll-fade-in">
-          所有付费计划均享有：无广告体验 · 无限存储 · 私密生成 · 高清无水印下载 · 优先生成队列
+          {isZh ? '所有付费计划均享有：无广告体验 · 无限存储 · 私密生成 · 高清无水印下载 · 优先生成队列' : 'All paid plans include: Ad-free · Unlimited storage · Private generation · HD watermark-free downloads · Priority queue'}
         </p>
         <p className="mt-2 text-sm text-white/30 scroll-fade-in stagger-1">
-          有问题？联系我们：
+          {isZh ? '有问题？联系我们：' : 'Questions? Contact us:'}
           <a href="mailto:hi@banana2ai.net" className="ml-1 text-[#ffcc33] hover:underline">
             hi@banana2ai.net
           </a>
@@ -297,7 +301,7 @@ export default function PricingClient() {
       {/* FAQ */}
       <section className="mx-auto max-w-4xl px-4 pb-8">
         <h2 className="gradient-glow-text mb-10 text-center text-2xl font-bold scroll-fade-in md:text-3xl">
-          常见问题
+          {isZh ? "常见问题" : "FAQ"}
         </h2>
         <div className="space-y-3">
           {FAQS.map((faq, i) => (
@@ -329,7 +333,7 @@ function FAQItem({ faq, open, onToggle }: { faq: { question: string; answer: str
 }
 
 /* ── Plan Card ── */
-function PlanCard({ plan, billing }: { plan: Plan; billing: BillingPeriod }) {
+function PlanCard({ plan, billing, isZh }: { plan: Plan; billing: BillingPeriod; isZh: boolean }) {
   const price = plan.price[billing];
   const originalPrice = plan.originalPrice[billing];
   const isFree = price === 0;
@@ -375,7 +379,7 @@ function PlanCard({ plan, billing }: { plan: Plan; billing: BillingPeriod }) {
           <div className="mb-4">
             <h3 className="mb-1 text-xl font-bold text-white">{plan.name}</h3>
             <p className="mb-4 text-sm text-white/50">{plan.description}</p>
-            <div className="gradient-glow-text text-4xl font-bold tracking-tight">免费</div>
+            <div className="gradient-glow-text text-4xl font-bold tracking-tight">{isZh ? '免费' : 'Free'}</div>
           </div>
         ) : (
           <div className="mb-4">
@@ -383,16 +387,16 @@ function PlanCard({ plan, billing }: { plan: Plan; billing: BillingPeriod }) {
             <p className="mb-4 text-sm text-white/50">{plan.description}</p>
             <div className="flex items-baseline gap-1">
               <span className="gradient-glow-text text-4xl font-bold tracking-tight">${price}</span>
-              <span className="text-xl text-white/40">/月</span>
+              <span className="text-xl text-white/40">{isZh ? '/月' : '/mo'}</span>
             </div>
             {originalPrice && (
               <div className="mt-1 text-sm text-white/30">
                 <span className="line-through">${originalPrice}</span>
-                <span className="ml-1 text-xs text-white/30">/月</span>
+                <span className="ml-1 text-xs text-white/30">{isZh ? '/月' : '/mo'}</span>
               </div>
             )}
             {billing === 'annual' && plan.yearlyTotal && (
-              <div className="mt-1 text-sm text-white/40">${plan.yearlyTotal}/年 按年计费</div>
+              <div className="mt-1 text-sm text-white/40">${plan.yearlyTotal}{isZh ? '/年 按年计费' : '/yr billed annually'}</div>
             )}
           </div>
         )}

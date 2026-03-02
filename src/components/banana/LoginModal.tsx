@@ -12,6 +12,7 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ open, onClose }: LoginModalProps) {
+  const isZh = typeof window !== 'undefined' && window.location.pathname.startsWith('/zh');
   const t = useTranslations('banana.login');
   const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(59);
@@ -128,7 +129,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                         </div>
                         <div className="text-start text-base text-white/50">
                           <span>Annual plan from </span>
-                          <strong className="text-yellow-400">$8.3/月</strong>
+                          <strong className="text-yellow-400">$8.3{isZh ? '/月' : '/mo'}</strong>
                           <span>（save up to </span>
                           <strong className="text-yellow-400">40%</strong>
                           <span>）</span>
@@ -175,7 +176,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                 <p className="text-white">{t('google_login')}</p>
               </button>
               <a href="/zh/privacy-policy/" className="mt-3 block text-center text-xs text-white/40">
-                继续即表示您同意我们的{t('terms_link')}和{t('privacy_link')}。
+                {isZh ? '继续即表示您同意我们的' : 'By continuing, you agree to our '}{t('terms_link')}和{t('privacy_link')}。
               </a>
             </div>
           </div>

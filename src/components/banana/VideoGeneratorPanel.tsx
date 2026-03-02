@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import Image from 'next/image';
 import {
@@ -17,6 +17,7 @@ export default function VideoGeneratorPanel({
   sampleVideoPoster = 'https://static.banana2ai.net/images/video/default-poster.webp',
 }: VideoGeneratorPanelProps) {
   const t = useTranslations('banana.videoGenerator');
+  const isZh = useLocale() === 'zh';
   return (
     <div className="flex flex-col gap-4 px-4 py-6 md:gap-6 md:px-6 lg:flex-row lg:min-h-[min(calc(100vh-120px),800px)]">
       {/* Left: Generator Form */}
@@ -49,7 +50,7 @@ export default function VideoGeneratorPanel({
                   <label className="text-sm font-medium">{t('prompt_label')}</label>
                   <Info className="h-4 w-4 text-white/30" />
                 </div>
-                <textarea className="w-full resize-y rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm placeholder:text-white/30 focus:border-[#ffcc33] focus:outline-none" style={{ minHeight: 140 }} placeholder=" 描述您想要创建的内容 最多 10000 个字符..." maxLength={10000} readOnly />
+                <textarea className="w-full resize-y rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm placeholder:text-white/30 focus:border-[#ffcc33] focus:outline-none" style={{ minHeight: 140 }} placeholder={isZh ? "描述您想要创建的内容..." : "Describe what you want to create..."} maxLength={10000} readOnly />
                 <div className="flex justify-between text-xs">
                   <button className="flex items-center gap-1 text-sm font-medium text-[#ffcc33]">
                     <Sparkles className="h-4 w-4" /> {t('generate')}
@@ -72,7 +73,7 @@ export default function VideoGeneratorPanel({
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <label className="text-sm font-medium">种子</label>
+                  <label className="text-sm font-medium">{isZh ? '种子' : 'Seed'}</label>
                   <Info className="h-4 w-4 text-white/30" />
                 </div>
                 <div className="flex">
@@ -88,7 +89,7 @@ export default function VideoGeneratorPanel({
               <div className="pt-2">
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-1 text-sm font-medium">
-                    公开可见性
+                    {isZh ? '公开可见性' : 'Public'}
                     <Info className="h-4 w-4 text-white/30" />
                   </span>
                   <div className="flex items-center gap-2">
@@ -104,12 +105,12 @@ export default function VideoGeneratorPanel({
               <div className="mb-3 flex items-center justify-between rounded-lg border border-[#ffcc33]/10 bg-[#ffcc33]/5 p-3">
                 <div className="flex items-center gap-2">
                   <Coins className="h-4 w-4 text-[#ffcc33]" />
-                  <span className="text-sm font-medium">所需点数</span>
+                  <span className="text-sm font-medium">{isZh ? '所需点数' : 'Credits'}</span>
                 </div>
                 <span className="font-bold text-[#ffcc33]">20</span>
               </div>
               <button className="w-full rounded-md py-2 text-sm font-semibold text-black" style={{ background: 'linear-gradient(to right, #ffcc33, #ff9900)' }}>
-                生成 视频
+                {isZh ? '生成视频' : 'Generate Video'}
               </button>
             </div>
           </div>
@@ -121,7 +122,7 @@ export default function VideoGeneratorPanel({
           <div className="flex-shrink-0 p-6">
             <div className="flex items-center gap-2 font-semibold">
               <Film className="h-5 w-5 text-[#ffcc33]" />
-              <span className="gradient-text">示例视频</span>
+              <span className="gradient-text">{isZh ? '示例视频' : 'Example Videos'}</span>
             </div>
           </div>
           <div className="flex-1 overflow-hidden p-6 pt-0">

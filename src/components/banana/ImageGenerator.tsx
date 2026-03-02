@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
@@ -57,6 +57,7 @@ interface ImageGeneratorProps {
 
 export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const t = useTranslations('banana.imageGenerator');
+  const isZh = useLocale() === 'zh';
   const EXAMPLES = examples ?? DEFAULT_EXAMPLES;
   const [mode, setMode] = useState<Mode>('text');
   const [prompt, setPrompt] = useState('');
@@ -354,7 +355,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                     }}
                   >
                     {generateState === 'loading' ? (
-                      <span className="flex items-center justify-center gap-2"><Loader2 className="h-4 w-4 animate-spin" />生成中...</span>
+                      <span className="flex items-center justify-center gap-2"><Loader2 className="h-4 w-4 animate-spin" />{isZh ? '生成中...' : 'Generating...'}</span>
                     ) : generateState === 'done' ? (
                       <span className="flex items-center justify-center gap-2"><CheckCircle className="h-4 w-4" />Done!</span>
                     ) : (
@@ -393,7 +394,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                       className="h-auto w-full rounded-2xl object-cover"
                     />
                     <div className="absolute left-2 top-2 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 backdrop-blur-md sm:px-4 sm:py-2 sm:text-sm">
-                      之前
+                      {isZh ? '之前' : 'Before'}
                     </div>
                   </div>
 
@@ -407,7 +408,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                       className="h-auto w-full rounded-2xl object-cover"
                     />
                     <div className="absolute right-2 top-2 z-10 rounded-lg bg-black/60 px-3 py-1.5 text-xs font-bold text-white/90 backdrop-blur-md sm:px-4 sm:py-2 sm:text-sm">
-                      之后
+                      {isZh ? '之后' : 'After'}
                     </div>
                   </div>
                 </div>

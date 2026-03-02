@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import {
   Home,
   Lightbulb,
@@ -22,48 +23,6 @@ interface NavItem {
   badges?: Array<{ text: string; color: 'green' | 'orange' | 'red' | 'blue' }>;
   exact?: boolean;
 }
-
-const mainNav: NavItem[] = [
-  { icon: Home, label: '首页', href: '/', exact: true },
-  { icon: Lightbulb, label: 'Banana 提示词', href: '/banana-prompts' },
-  {
-    icon: Workflow,
-    label: 'AI 工作流工作室',
-    href: '/studio',
-    badges: [{ text: '新功能', color: 'green' }],
-  },
-];
-
-const aiGenNav: NavItem[] = [
-  { icon: Image, label: 'AI 图像制作', href: '/image', exact: true },
-  { icon: Video, label: 'AI 视频制作', href: '/video', exact: true },
-];
-
-const modelsNav: NavItem[] = [
-  {
-    icon: Sparkles,
-    label: 'Banana Pro AI',
-    href: '/image/banana-pro-ai',
-    badges: [
-      { text: '新功能', color: 'green' },
-      { text: '热门', color: 'orange' },
-    ],
-  },
-  {
-    icon: Zap,
-    label: 'Z Image Turbo',
-    href: '/image/z-image-turbo',
-    badges: [{ text: '新功能', color: 'green' }],
-  },
-  { icon: Eye, label: 'Seedream AI 图像', href: '/image/seedream-ai' },
-  { icon: Wand2, label: 'Grok 图像制作', href: '/image/grok-imagine' },
-  { icon: Wand2, label: 'Qwen 图像编辑', href: '/image/qwen-image-edit' },
-  {
-    icon: Zap,
-    label: 'Flux AI 图像生成器',
-    href: '/image/flux-ai-image-generator',
-  },
-];
 
 const BadgeColors: Record<string, string> = {
   green: 'bg-green-500/20 text-green-400 border border-green-500/30',
@@ -114,7 +73,6 @@ function NavItemRow({
   );
 }
 
-/* ── Icon-only rail item ── */
 function RailIcon({
   item,
   isActive,
@@ -156,7 +114,56 @@ interface SidebarProps {
 
 export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: SidebarProps) {
   const pathname = usePathname();
+  const locale = useLocale();
+  const isZh = locale === 'zh';
   const normalizedPath = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
+
+  const NEW = isZh ? '新功能' : 'New';
+  const HOT = isZh ? '热门' : 'Hot';
+
+  const mainNav: NavItem[] = [
+    { icon: Home, label: isZh ? '首页' : 'Home', href: '/', exact: true },
+    { icon: Lightbulb, label: 'Banana Prompts', href: '/banana-prompts' },
+    {
+      icon: Workflow,
+      label: isZh ? 'AI 工作流工作室' : 'AI Workflow Studio',
+      href: '/studio',
+      badges: [{ text: NEW, color: 'green' }],
+    },
+  ];
+
+  const aiGenNav: NavItem[] = [
+    { icon: Image, label: isZh ? 'AI 图像制作' : 'AI Image', href: '/image', exact: true },
+    { icon: Video, label: isZh ? 'AI 视频制作' : 'AI Video', href: '/video', exact: true },
+  ];
+
+  const modelsNav: NavItem[] = [
+    {
+      icon: Sparkles,
+      label: 'Banana Pro AI',
+      href: '/image/banana-pro-ai',
+      badges: [
+        { text: NEW, color: 'green' },
+        { text: HOT, color: 'orange' },
+      ],
+    },
+    {
+      icon: Zap,
+      label: 'Z Image Turbo',
+      href: '/image/z-image-turbo',
+      badges: [{ text: NEW, color: 'green' }],
+    },
+    { icon: Eye, label: isZh ? 'Seedream AI 图像' : 'Seedream AI', href: '/image/seedream-ai' },
+    { icon: Wand2, label: isZh ? 'Grok 图像制作' : 'Grok Imagine', href: '/image/grok-imagine' },
+    { icon: Wand2, label: isZh ? 'Qwen 图像编辑' : 'Qwen Image Edit', href: '/image/qwen-image-edit' },
+    {
+      icon: Zap,
+      label: isZh ? 'Flux AI 图像生成器' : 'Flux AI Generator',
+      href: '/image/flux-ai-image-generator',
+    },
+  ];
+
+  const FLUX_LABEL = isZh ? 'Flux AI 图像生成器' : 'Flux AI Generator';
 
   const isActive = (item: NavItem) => {
     if (item.exact) {
@@ -167,12 +174,10 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
 
   const isFluxActive = normalizedPath.startsWith('/image/flux-ai-image-generator');
 
-  // Only close sidebar on mobile when a nav link is clicked
   const handleNavClick = () => {
     if (isMobile) onClose?.();
   };
 
-  /* All nav items for the collapsed icon rail */
   const allRailItems: Array<NavItem & { badge?: string }> = [
     ...mainNav.map(n => ({ ...n, badge: n.badges?.[0]?.text })),
     ...aiGenNav,
@@ -181,7 +186,6 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
 
   return (
     <>
-      {/* Mobile overlay backdrop */}
       {open && isMobile && (
         <div
           className="fixed inset-0 z-40 bg-black/60"
@@ -189,7 +193,6 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
         />
       )}
 
-      {/* Collapsed icon rail — desktop only, visible when sidebar is closed */}
       {!open && !isMobile && (
         <div
           className="fixed left-0 z-30 hidden w-16 flex-col border-r border-white/[0.06] bg-[#111111] text-white/70 xl:flex overflow-y-auto"
@@ -204,18 +207,17 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
                 <RailIcon
                   key={item.href + item.label}
                   item={item}
-                  isActive={item.label === 'Flux AI 图像生成器' ? isFluxActive : isActive(item)}
+                  isActive={item.label === FLUX_LABEL ? isFluxActive : isActive(item)}
                   badge={item.badge}
                 />
               ))}
             </ul>
           </nav>
-          {/* Pricing at bottom */}
           <div className="border-t border-white/[0.06] p-1.5">
             <Link
               href="/pricing"
               className="flex items-center justify-center rounded-md px-2 py-2 text-[#ffcc33] transition-colors hover:bg-[hsl(220,15%,28%)]"
-              title="升级套餐"
+              title={isZh ? '升级套餐' : 'Upgrade'}
             >
               <Diamond className="h-5 w-5" />
             </Link>
@@ -223,7 +225,6 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
         </div>
       )}
 
-      {/* Full sidebar */}
       <aside
         className="fixed left-0 z-40 w-[240px] bg-[#111111] border-r border-white/[0.06] flex flex-col overflow-y-auto transition-[transform,top,height] duration-300 ease-in-out"
         style={{
@@ -240,7 +241,7 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
           <div className="pt-3 pb-1 px-1">
             <div className="h-px bg-white/[0.06] mb-2" />
             <span className="px-2 text-[10px] font-semibold uppercase tracking-widest text-white/30">
-              AI 生成
+              {isZh ? 'AI 生成' : 'AI Generate'}
             </span>
           </div>
 
@@ -251,7 +252,7 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
           <div className="pt-3 pb-1 px-1">
             <div className="h-px bg-white/[0.06] mb-2" />
             <span className="px-2 text-[10px] font-semibold uppercase tracking-widest text-white/30">
-              模型
+              {isZh ? '模型' : 'Models'}
             </span>
           </div>
 
@@ -259,7 +260,7 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
             <NavItemRow
               key={item.label}
               item={item}
-              isActive={item.label === 'Flux AI 图像生成器' ? isFluxActive : isActive(item)}
+              isActive={item.label === FLUX_LABEL ? isFluxActive : isActive(item)}
               onClick={handleNavClick}
             />
           ))}
@@ -272,9 +273,11 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
             className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md bg-gradient-to-r from-yellow-500/15 to-orange-500/10 border border-yellow-500/20 hover:border-yellow-500/40 transition-colors"
           >
             <Diamond className="w-4 h-4 text-yellow-400 flex-shrink-0" />
-            <span className="flex-1 text-sm text-white/80 font-medium text-left">升级套餐</span>
+            <span className="flex-1 text-sm text-white/80 font-medium text-left">
+              {isZh ? '升级套餐' : 'Upgrade Plan'}
+            </span>
             <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-red-500/20 text-red-400 border border-red-500/30">
-              5折优惠
+              {isZh ? '5折优惠' : '50% OFF'}
             </span>
           </Link>
         </div>

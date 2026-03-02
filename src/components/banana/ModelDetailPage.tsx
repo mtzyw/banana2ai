@@ -108,7 +108,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       <section className="bg-[#13151f] py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in">
-            为什么 <span className="text-[#ffcc33]">{modelName}</span> {t('why_title_suffix')}
+            {t('why_prefix')} <span className="text-[#ffcc33]">{modelName}</span> {t('why_title_suffix')}
           </h2>
           <ModelDetailClient features={features} />
         </div>
