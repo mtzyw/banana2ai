@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale } from 'next-intl';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,183 +10,16 @@ import { QWEN_IMAGE_EDIT_EXAMPLES } from '@/data/page-examples';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
 /* ─── Why Section Tabs Data ─── */
-const WHY_TABS = [
-  {
-    label: '双通道能力',
-    title: '双通道编辑架构，带来灵活而强大的控制能力',
-    highlight: '语义控制 + 外观精度的完美结合',
-    image: 'https://static.banana2ai.net/images/features/vedawlqv8ef3.webp',
-    body: 'Qwen Image Edit 的双通道架构融合 Qwen2.5-VL 的语义控制与 VAE Encoder 的精度编辑能力。既能完成风格迁移、艺术化渲染等概念级修改，也能实现对象移除、颜色调整等像素级操作，在创意理解与技术准确性之间取得平衡。',
-  },
-  {
-    label: '文本编辑能力',
-    title: '卓越的中英文双语文本渲染与编辑能力',
-    highlight: '精准支持英文与中文文本',
-    image: 'https://static.banana2ai.net/images/features/eixtuh6n1bpv.webp',
-    body: 'Qwen Image Edit 在中英文文本编辑方面表现出色，可添加、修改或移除文字，并自动匹配字体、字号与样式。轻松应对复杂书法、混合语言设计和高排版要求的项目，是跨文化内容与国际品牌的理想选择。',
-  },
-  {
-    label: '智能对象',
-    title: '具备上下文理解的高级对象编辑能力',
-    highlight: '自然添加与无痕移除',
-    image: 'https://static.banana2ai.net/images/features/9q60mvfjf1qo.webp',
-    body: 'Qwen Image Edit 通过上下文智能，实现自然的对象添加与移除。模型理解光照、透视与场景关系，生成协调统一的视觉效果，非常适合电商、房地产、人像摄影和创意合成。',
-  },
-  {
-    label: '开源优势',
-    title: '基于 Apache 2.0 的开源创新与商业自由',
-    highlight: '完全的商业使用权限',
-    image: 'https://static.banana2ai.net/images/features/2ns20ij2z7ne.webp',
-    body: 'Qwen Image Edit 采用 Apache 2.0 协议，允许无限制的商业使用。可在 Hugging Face 上获取并进行微调、定制和部署，无需支付授权费用，适合初创团队、创意机构和企业级应用。',
-  },
-];
 
 /* ─── Technology ─── */
-const TECHNOLOGIES = [
-  {
-    title: 'Qwen2.5-VL 语义理解引擎',
-    image: 'https://static.banana2ai.net/images/features/tykdsai2nagx.webp',
-    desc: 'Qwen Image Edit 基于 Qwen2.5-VL 视觉语言模型，实现高层次语义理解与控制。能够解析自然语言指令，完成风格迁移、艺术渲染和氛围调整，在尊重画面构图的前提下进行智能修改。',
-  },
-  {
-    title: 'VAE Encoder 外观精度控制',
-    image: 'https://static.banana2ai.net/images/features/tukqrbgb08om.webp',
-    desc: 'VAE Encoder 为 Qwen Image Edit 提供像素级外观控制能力，实现精确的颜色调整、纹理修改与细节润色。配合语义理解，确保创意表达与技术精度高度一致。',
-  },
-  {
-    title: '200 亿参数的基础模型架构',
-    image: 'https://static.banana2ai.net/images/features/9rjkyxfadlm4.webp',
-    desc: 'Qwen Image Edit 构建于阿里巴巴 200 亿参数基础模型之上，具备企业级理解能力，能够处理复杂视觉关系和多样化场景，支持云端与本地部署。',
-  },
-];
 
 /* ─── Steps ─── */
-const STEPS = [
-  {
-    title: '上传图片并描述你的编辑需求',
-    desc: '将图片上传至 Qwen Image Edit，用自然语言描述你想要的修改内容。无论是添加文字、更换背景、风格转换还是对象调整，Qwen Image Edit 都能理解英文和中文的语义与外观层级指令。',
-  },
-  {
-    title: 'Qwen Image Edit 智能解析你的请求',
-    desc: 'Qwen Image Edit 的 200 亿参数模型通过双通道架构处理输入。Qwen2.5-VL 负责语义理解与风格层面的修改，VAE Encoder 则实现像素级精细控制，全面分析画面构图、光照与上下文，确保编辑自然无缝。',
-  },
-  {
-    title: '高级 AI 处理完成图像变换',
-    desc: 'Qwen Image Edit 结合扩散模型等先进算法，在保持画质的同时完成编辑。文本渲染精准匹配字体与样式，对象移除采用智能填充，新元素通过上下文理解自然融合。',
-  },
-  {
-    title: '下载专业级编辑后的图像',
-    desc: '下载无明显瑕疵的高分辨率成品图像，适用于电商、营销推广、社交媒体或创意作品集。Qwen Image Edit 采用 Apache 2.0 协议，支持完全自由的商业使用。',
-  },
-];
 
 /* ─── Use Cases ─── */
-const USE_CASES = [
-  {
-    title: '电商商品优化与背景替换',
-    image: 'https://static.banana2ai.net/images/features/7s1xvycd3qom.webp',
-    desc: '使用 Qwen Image Edit 优化商品图片，快速去除背景、替换为棚拍场景，并修改文字标签以保持品牌一致性，无需重新拍摄即可提升商品表现力。',
-  },
-  {
-    title: '营销活动适配与本地化',
-    image: 'https://static.banana2ai.net/images/features/09syt7q0cucl.webp',
-    desc: '借助 Qwen Image Edit 快速完成营销素材的本地化，将文本在中英文之间切换，同时保持设计风格一致，实现季节性与区域化营销。',
-  },
-  {
-    title: '社交媒体内容优化与个性化',
-    image: 'https://static.banana2ai.net/images/features/5uutmp5oh4qb.webp',
-    desc: 'Qwen Image Edit 针对不同平台快速调整图片背景、文字与光效，从一张原图生成适配 Instagram、TikTok、YouTube 的多种版本，提升内容表现力。',
-  },
-  {
-    title: '房地产与建筑可视化增强',
-    image: 'https://static.banana2ai.net/images/features/txo0xsz0o0vj.webp',
-    desc: 'Qwen Image Edit 通过智能去除杂物、改善光照与虚拟布置，提升房产图片质量，无需昂贵实景布置即可呈现理想效果。',
-  },
-  {
-    title: '出版与编辑设计优化',
-    image: 'https://static.banana2ai.net/images/features/6i2y44p0n2cx.webp',
-    desc: 'Qwen Image Edit 用于封面设计迭代、文字调整与系列视觉统一，支持中英双语内容，适合出版社、编辑团队与独立作者。',
-  },
-  {
-    title: '创意作品集与艺术探索',
-    image: 'https://static.banana2ai.net/images/features/l26x71ggyfqt.webp',
-    desc: '快速尝试不同风格与构图方案，提升作品集质量。开源特性鼓励艺术家与创作者进行更多实验与创新。',
-  },
-];
 
 /* ─── Testimonials ─── */
-const TESTIMONIALS = [
-  {
-    name: 'Jennifer Wang',
-    role: '全球零售品牌 电商运营总监',
-    avatar: 'https://static.banana2ai.net/images/avatars/3wl0yjqm80wt.webp',
-    quote: 'Qwen Image Edit 彻底改变了我们的电商流程！管理 5000 多张商品图片变得非常轻松，中英文标签切换精准无误。背景移除节省了大量拍摄成本，转化率提升了 28%。',
-  },
-  {
-    name: 'Marcus Thompson',
-    role: '国际营销机构 创意总监',
-    avatar: 'https://static.banana2ai.net/images/avatars/eke14nbac7uz.webp',
-    quote: '快速迭代和本地化不可或缺的工具。双通道架构同时应对创意与技术需求，两天内完成整套亚洲市场活动物料，制作周期缩短 60%。',
-  },
-  {
-    name: 'Yuki Tanaka',
-    role: '自由平面设计师 / 书籍封面设计师',
-    avatar: 'https://static.banana2ai.net/images/avatars/3pyj6cjs2k8z.webp',
-    quote: 'Qwen Image Edit 彻底革新了我的书籍封面设计流程。中英文排版效果非常出色，语义模式激发创意，精度控制确保专业度，效率提升了 40%。',
-  },
-  {
-    name: 'David Martinez',
-    role: '房地产经纪人 / 机构负责人',
-    avatar: 'https://static.banana2ai.net/images/avatars/sihu3aashtj0.webp',
-    quote: 'Qwen Image Edit 对房地产来说是颠覆性的工具。无需昂贵布置就能提升照片品质，房源更具吸引力，成交速度提升了 35%。',
-  },
-  {
-    name: 'Sarah Chen',
-    role: '社交媒体博主 / 多平台内容创作者',
-    avatar: 'https://static.banana2ai.net/images/avatars/x4wcrhme4pmi.webp',
-    quote: 'Qwen Image Edit 让多平台内容创作变得高效一致。快速适配不同平台风格，在保证专业度的同时测试创意，粉丝增长了 150%。',
-  },
-];
 
 /* ─── FAQs ─── */
-const FAQS = [
-  {
-    q: '什么是 Qwen Image Edit？它是如何工作的？',
-    a: 'Qwen Image Edit 是阿里巴巴 Qwen 团队推出的 200 亿参数开源 AI 图像编辑模型，采用双通道架构。只需上传图片并用自然语言描述修改需求，即可完成文本编辑、风格转换与对象操作。',
-  },
-  {
-    q: 'Qwen Image Edit 的双语文本编辑有什么优势？',
-    a: 'Qwen Image Edit 在中英文文本编辑方面表现卓越，可精准匹配字体、字号与样式，支持复杂书法与混合语言设计，非常适合跨文化营销与设计项目。',
-  },
-  {
-    q: 'Qwen Image Edit 的双通道架构是如何工作的？',
-    a: '语义模式（Qwen2.5-VL）负责风格与创意层面的理解，外观模式（VAE Encoder）负责像素级精细控制，两者结合实现创意与精度兼顾。',
-  },
-  {
-    q: 'Qwen Image Edit 的编辑质量如何？',
-    a: 'Qwen Image Edit 适用于电商、营销、出版与房地产等专业场景，保持原始分辨率的同时实现自然、真实的修改效果。',
-  },
-  {
-    q: '我可以将 Qwen Image Edit 用于商业项目吗？',
-    a: '可以。Qwen Image Edit 的 Apache 2.0 协议允许完全自由的商业使用，无需额外授权费用，适合商业项目与客户服务。',
-  },
-  {
-    q: '如何为 Qwen Image Edit 编写高质量的编辑提示词？',
-    a: '建议为 Qwen Image Edit 使用清晰、具体的描述，例如指定颜色、位置与风格，就像在向一位设计师下达需求一样。',
-  },
-  {
-    q: 'Qwen Image Edit 背后采用了哪些先进技术？',
-    a: 'Qwen Image Edit 基于 200 亿参数模型，融合 Qwen2.5-VL、VAE Encoder、扩散模型与智能填充等先进技术。',
-  },
-  {
-    q: 'Qwen Image Edit 最适合哪些使用场景？',
-    a: '非常适合电商、营销本地化、社交媒体、房地产、出版与创意设计等领域，尤其适用于跨语言与国际化项目。',
-  },
-  {
-    q: '我该如何获取并部署 Qwen Image Edit？',
-    a: 'Qwen Image Edit 可通过 Hugging Face、GitHub 及官方 Qwen 仓库获取，支持本地部署或云端 API 使用，并可进行定制与集成。',
-  },
-];
 
 /* ─── Shared Components ─── */
 function GlowOrbs() {
@@ -322,7 +157,182 @@ function TestimonialCarousel() {
 }
 
 /* ────────────────────────── PAGE ────────────────────────── */
+const TESTIMONIALS = [
+  {
+    name: 'Jennifer Wang',
+    role: '全球零售品牌 电商运营总监',
+    avatar: 'https://static.banana2ai.net/images/avatars/3wl0yjqm80wt.webp',
+    quote: 'Qwen Image Edit 彻底改变了我们的电商流程！管理 5000 多张商品图片变得非常轻松，中英文标签切换精准无误。背景移除节省了大量拍摄成本，转化率提升了 28%。',
+  },
+  {
+    name: 'Marcus Thompson',
+    role: '国际营销机构 创意总监',
+    avatar: 'https://static.banana2ai.net/images/avatars/eke14nbac7uz.webp',
+    quote: '快速迭代和本地化不可或缺的工具。双通道架构同时应对创意与技术需求，两天内完成整套亚洲市场活动物料，制作周期缩短 60%。',
+  },
+  {
+    name: 'Yuki Tanaka',
+    role: '自由平面设计师 / 书籍封面设计师',
+    avatar: 'https://static.banana2ai.net/images/avatars/3pyj6cjs2k8z.webp',
+    quote: 'Qwen Image Edit 彻底革新了我的书籍封面设计流程。中英文排版效果非常出色，语义模式激发创意，精度控制确保专业度，效率提升了 40%。',
+  },
+  {
+    name: 'David Martinez',
+    role: '房地产经纪人 / 机构负责人',
+    avatar: 'https://static.banana2ai.net/images/avatars/sihu3aashtj0.webp',
+    quote: 'Qwen Image Edit 对房地产来说是颠覆性的工具。无需昂贵布置就能提升照片品质，房源更具吸引力，成交速度提升了 35%。',
+  },
+  {
+    name: 'Sarah Chen',
+    role: '社交媒体博主 / 多平台内容创作者',
+    avatar: 'https://static.banana2ai.net/images/avatars/x4wcrhme4pmi.webp',
+    quote: 'Qwen Image Edit 让多平台内容创作变得高效一致。快速适配不同平台风格，在保证专业度的同时测试创意，粉丝增长了 150%。',
+  },
+];
+
 export default function Page() {
+  const isZh = useLocale() === 'zh';
+  const WHY_TABS = [
+    {
+      label: isZh ? '双通道能力' : 'Dual-channel capability',
+      title: isZh ? '双通道编辑架构，带来灵活而强大的控制能力' : 'Dual-channel editing architecture, providing flexible and powerful control',
+      highlight: isZh ? '语义控制 + 外观精度的完美结合' : 'The perfect combination of semantic control + appearance precision',
+      image: 'https://static.banana2ai.net/images/features/vedawlqv8ef3.webp',
+      body: isZh ? 'Qwen Image Edit 的双通道架构融合 Qwen2.5-VL 的语义控制与 VAE Encoder 的精度编辑能力。既能完成风格迁移、艺术化渲染等概念级修改，也能实现对象移除、颜色调整等像素级操作，在创意理解与技术准确性之间取得平衡。' : 'Qwen Image Edit’s dual-channel architecture integrates Qwen2.5-VL’s semantic control with VAE Encoder’s precision editing capabilities. It can perform conceptual modifications like style transfer and artistic rendering, as well as pixel-level operations such as object removal and color adjustment, striking a balance between creative understanding and technical accuracy.',
+    },
+    {
+      label: isZh ? '文本编辑能力' : 'Text editing capability',
+      title: isZh ? '卓越的中英文双语文本渲染与编辑能力' : 'Excellent bilingual Chinese and English text rendering and editing capabilities',
+      highlight: isZh ? '精准支持英文与中文文本' : 'Precisely supports English and Chinese text',
+      image: 'https://static.banana2ai.net/images/features/eixtuh6n1bpv.webp',
+      body: isZh ? 'Qwen Image Edit 在中英文文本编辑方面表现出色，可添加、修改或移除文字，并自动匹配字体、字号与样式。轻松应对复杂书法、混合语言设计和高排版要求的项目，是跨文化内容与国际品牌的理想选择。' : 'Qwen Image Edit excels in Chinese and English text editing, allowing users to add, modify, or remove text, and automatically matching fonts, sizes, and styles. It easily handles projects with complex calligraphy, mixed-language designs, and high typesetting requirements, making it an ideal choice for cross-cultural content and international brands.',
+    },
+    {
+      label: isZh ? '智能对象' : 'Smart Objects',
+      title: isZh ? '具备上下文理解的高级对象编辑能力' : 'Advanced object editing capabilities with contextual understanding',
+      highlight: isZh ? '自然添加与无痕移除' : 'Natural addition and seamless removal',
+      image: 'https://static.banana2ai.net/images/features/9q60mvfjf1qo.webp',
+      body: isZh ? 'Qwen Image Edit 通过上下文智能，实现自然的对象添加与移除。模型理解光照、透视与场景关系，生成协调统一的视觉效果，非常适合电商、房地产、人像摄影和创意合成。' : 'Qwen Image Edit achieves natural object addition and removal through contextual intelligence. The model understands lighting, perspective, and scene relationships, generating harmonious and unified visual effects, making it highly suitable for e-commerce, real estate, portrait photography, and creative compositing.',
+    },
+    {
+      label: isZh ? '开源优势' : 'Open-source advantages',
+      title: isZh ? '基于 Apache 2.0 的开源创新与商业自由' : 'Open-source innovation and commercial freedom based on Apache 2.0',
+      highlight: isZh ? '完全的商业使用权限' : 'Full commercial use rights',
+      image: 'https://static.banana2ai.net/images/features/2ns20ij2z7ne.webp',
+      body: isZh ? 'Qwen Image Edit 采用 Apache 2.0 协议，允许无限制的商业使用。可在 Hugging Face 上获取并进行微调、定制和部署，无需支付授权费用，适合初创团队、创意机构和企业级应用。' : 'Qwen Image Edit adopts the Apache 2.0 license, allowing unlimited commercial use. It can be obtained on Hugging Face for fine-tuning, customization, and deployment without license fees, making it suitable for startup teams, creative agencies, and enterprise-level applications.',
+    },
+  ];
+
+  const TECHNOLOGIES = [
+    {
+      title: isZh ? 'Qwen2.5-VL 语义理解引擎' : 'Qwen2.5-VL Semantic Understanding Engine',
+      image: 'https://static.banana2ai.net/images/features/tykdsai2nagx.webp',
+      desc: isZh ? 'Qwen Image Edit 基于 Qwen2.5-VL 视觉语言模型，实现高层次语义理解与控制。能够解析自然语言指令，完成风格迁移、艺术渲染和氛围调整，在尊重画面构图的前提下进行智能修改。' : 'Qwen Image Edit is based on the Qwen2.5-VL visual language model, achieving high-level semantic understanding and control. It can parse natural language instructions to perform style transfer, artistic rendering, and atmosphere adjustment, making intelligent modifications while respecting the image composition.',
+    },
+    {
+      title: isZh ? 'VAE Encoder 外观精度控制' : 'VAE Encoder Appearance Precision Control',
+      image: 'https://static.banana2ai.net/images/features/tukqrbgb08om.webp',
+      desc: isZh ? 'VAE Encoder 为 Qwen Image Edit 提供像素级外观控制能力，实现精确的颜色调整、纹理修改与细节润色。配合语义理解，确保创意表达与技术精度高度一致。' : 'VAE Encoder provides Qwen Image Edit with pixel-level appearance control capabilities, enabling precise color adjustment, texture modification, and detail refinement. Combined with semantic understanding, it ensures high consistency between creative expression and technical accuracy.',
+    },
+    {
+      title: isZh ? '200 亿参数的基础模型架构' : '20 Billion Parameter Base Model Architecture',
+      image: 'https://static.banana2ai.net/images/features/9rjkyxfadlm4.webp',
+      desc: isZh ? 'Qwen Image Edit 构建于阿里巴巴 200 亿参数基础模型之上，具备企业级理解能力，能够处理复杂视觉关系和多样化场景，支持云端与本地部署。' : 'Qwen Image Edit is built upon Alibaba’s 20 billion parameter base model, possessing enterprise-level understanding capabilities to handle complex visual relationships and diverse scenarios, supporting both cloud and local deployment.',
+    },
+  ];
+
+  const STEPS = [
+    {
+      title: isZh ? '上传图片并描述你的编辑需求' : 'Upload an image and describe your editing needs',
+      desc: isZh ? '将图片上传至 Qwen Image Edit，用自然语言描述你想要的修改内容。无论是添加文字、更换背景、风格转换还是对象调整，Qwen Image Edit 都能理解英文和中文的语义与外观层级指令。' : 'Upload your image to Qwen Image Edit and describe your desired modifications using natural language. Whether it is adding text, changing backgrounds, style transfer, or object adjustment, Qwen Image Edit can understand semantic and appearance-level instructions in both English and Chinese.',
+    },
+    {
+      title: isZh ? 'Qwen Image Edit 智能解析你的请求' : 'Qwen Image Edit intelligently parses your request',
+      desc: isZh ? 'Qwen Image Edit 的 200 亿参数模型通过双通道架构处理输入。Qwen2.5-VL 负责语义理解与风格层面的修改，VAE Encoder 则实现像素级精细控制，全面分析画面构图、光照与上下文，确保编辑自然无缝。' : 'Qwen Image Edit’s 20 billion parameter model processes input through a dual-channel architecture. Qwen2.5-VL is responsible for semantic understanding and style-level modifications, while VAE Encoder achieves pixel-level fine control, comprehensively analyzing image composition, lighting, and context to ensure natural and seamless editing.',
+    },
+    {
+      title: isZh ? '高级 AI 处理完成图像变换' : 'Advanced AI processing completes image transformation',
+      desc: isZh ? 'Qwen Image Edit 结合扩散模型等先进算法，在保持画质的同时完成编辑。文本渲染精准匹配字体与样式，对象移除采用智能填充，新元素通过上下文理解自然融合。' : 'Qwen Image Edit combines advanced algorithms such as diffusion models to complete edits while maintaining image quality. Text rendering precisely matches fonts and styles, object removal uses intelligent infilling, and new elements naturally blend through contextual understanding.',
+    },
+    {
+      title: isZh ? '下载专业级编辑后的图像' : 'Download professionally edited images',
+      desc: isZh ? '下载无明显瑕疵的高分辨率成品图像，适用于电商、营销推广、社交媒体或创意作品集。Qwen Image Edit 采用 Apache 2.0 协议，支持完全自由的商业使用。' : 'Download high-resolution finished images without noticeable flaws, suitable for e-commerce, marketing promotions, social media, or creative portfolios. Qwen Image Edit adopts the Apache 2.0 license, supporting full commercial use freedom.',
+    },
+  ];
+
+  const USE_CASES = [
+    {
+      title: isZh ? '电商商品优化与背景替换' : 'E-commerce Product Optimization and Background Replacement',
+      image: 'https://static.banana2ai.net/images/features/7s1xvycd3qom.webp',
+      desc: isZh ? '使用 Qwen Image Edit 优化商品图片，快速去除背景、替换为棚拍场景，并修改文字标签以保持品牌一致性，无需重新拍摄即可提升商品表现力。' : 'Use Qwen Image Edit to optimize product images, quickly remove backgrounds, replace them with studio-shot scenes, and modify text labels to maintain brand consistency, enhancing product appeal without reshooting.',
+    },
+    {
+      title: isZh ? '营销活动适配与本地化' : 'Marketing Campaign Adaptation and Localization',
+      image: 'https://static.banana2ai.net/images/features/09syt7q0cucl.webp',
+      desc: isZh ? '借助 Qwen Image Edit 快速完成营销素材的本地化，将文本在中英文之间切换，同时保持设计风格一致，实现季节性与区域化营销。' : 'Leverage Qwen Image Edit to quickly localize marketing materials, switch text between Chinese and English, while maintaining consistent design styles, enabling seasonal and regional marketing.',
+    },
+    {
+      title: isZh ? '社交媒体内容优化与个性化' : 'Social Media Content Optimization and Personalization',
+      image: 'https://static.banana2ai.net/images/features/5uutmp5oh4qb.webp',
+      desc: isZh ? 'Qwen Image Edit 针对不同平台快速调整图片背景、文字与光效，从一张原图生成适配 Instagram、TikTok、YouTube 的多种版本，提升内容表现力。' : 'Qwen Image Edit quickly adjusts image backgrounds, text, and lighting effects for different platforms, generating multiple versions adapted for Instagram, TikTok, and YouTube from a single original image, enhancing content performance.',
+    },
+    {
+      title: isZh ? '房地产与建筑可视化增强' : 'Real Estate and Architectural Visualization Enhancement',
+      image: 'https://static.banana2ai.net/images/features/txo0xsz0o0vj.webp',
+      desc: isZh ? 'Qwen Image Edit 通过智能去除杂物、改善光照与虚拟布置，提升房产图片质量，无需昂贵实景布置即可呈现理想效果。' : 'Qwen Image Edit enhances property image quality by intelligently removing clutter, improving lighting, and adding virtual staging, presenting ideal effects without expensive physical staging.',
+    },
+    {
+      title: isZh ? '出版与编辑设计优化' : 'Publishing and Editorial Design Optimization',
+      image: 'https://static.banana2ai.net/images/features/6i2y44p0n2cx.webp',
+      desc: isZh ? 'Qwen Image Edit 用于封面设计迭代、文字调整与系列视觉统一，支持中英双语内容，适合出版社、编辑团队与独立作者。' : 'Qwen Image Edit is used for cover design iteration, text adjustment, and visual consistency across series, supporting bilingual Chinese and English content, suitable for publishers, editorial teams, and independent authors.',
+    },
+    {
+      title: isZh ? '创意作品集与艺术探索' : 'Creative Portfolio and Artistic Exploration',
+      image: 'https://static.banana2ai.net/images/features/l26x71ggyfqt.webp',
+      desc: isZh ? '快速尝试不同风格与构图方案，提升作品集质量。开源特性鼓励艺术家与创作者进行更多实验与创新。' : 'Quickly experiment with different styles and composition schemes to improve portfolio quality. Its open-source nature encourages artists and creators to conduct more experiments and innovations.',
+    },
+  ];
+
+
+  const FAQS = [
+    {
+      q: isZh ? '什么是 Qwen Image Edit？它是如何工作的？' : 'What is Qwen Image Edit? How does it work?',
+      a: isZh ? 'Qwen Image Edit 是阿里巴巴 Qwen 团队推出的 200 亿参数开源 AI 图像编辑模型，采用双通道架构。只需上传图片并用自然语言描述修改需求，即可完成文本编辑、风格转换与对象操作。' : 'Qwen Image Edit is a 20-billion-parameter open-source AI image editing model launched by Alibaba’s Qwen team, featuring a dual-channel architecture. Simply upload an image and describe your modification needs using natural language to perform text editing, style transfer, and object manipulation.',
+    },
+    {
+      q: isZh ? 'Qwen Image Edit 的双语文本编辑有什么优势？' : 'What are the advantages of Qwen Image Edit’s bilingual text editing?',
+      a: isZh ? 'Qwen Image Edit 在中英文文本编辑方面表现卓越，可精准匹配字体、字号与样式，支持复杂书法与混合语言设计，非常适合跨文化营销与设计项目。' : 'Qwen Image Edit excels in Chinese and English text editing, precisely matching fonts, sizes, and styles, supporting complex calligraphy and mixed-language designs, making it ideal for cross-cultural marketing and design projects.',
+    },
+    {
+      q: isZh ? 'Qwen Image Edit 的双通道架构是如何工作的？' : 'How does Qwen Image Edit’s dual-channel architecture work?',
+      a: isZh ? '语义模式（Qwen2.5-VL）负责风格与创意层面的理解，外观模式（VAE Encoder）负责像素级精细控制，两者结合实现创意与精度兼顾。' : 'The semantic mode (Qwen2.5-VL) is responsible for understanding style and creative aspects, while the appearance mode (VAE Encoder) handles pixel-level fine control. Their combination achieves a balance of creativity and precision.',
+    },
+    {
+      q: isZh ? 'Qwen Image Edit 的编辑质量如何？' : 'What is the editing quality of Qwen Image Edit?',
+      a: isZh ? 'Qwen Image Edit 适用于电商、营销、出版与房地产等专业场景，保持原始分辨率的同时实现自然、真实的修改效果。' : 'Qwen Image Edit is suitable for professional scenarios such as e-commerce, marketing, publishing, and real estate, achieving natural and realistic modification effects while maintaining original resolution.',
+    },
+    {
+      q: isZh ? '我可以将 Qwen Image Edit 用于商业项目吗？' : 'Can I use Qwen Image Edit for commercial projects?',
+      a: isZh ? '可以。Qwen Image Edit 的 Apache 2.0 协议允许完全自由的商业使用，无需额外授权费用，适合商业项目与客户服务。' : 'Yes. The Apache 2.0 license for Qwen Image Edit allows completely free commercial use, without additional licensing fees, suitable for commercial projects and customer service.',
+    },
+    {
+      q: isZh ? '如何为 Qwen Image Edit 编写高质量的编辑提示词？' : 'How to write high-quality editing prompts for Qwen Image Edit?',
+      a: isZh ? '建议为 Qwen Image Edit 使用清晰、具体的描述，例如指定颜色、位置与风格，就像在向一位设计师下达需求一样。' : 'It is recommended to use clear, specific descriptions for Qwen Image Edit, such as specifying colors, positions, and styles, just like giving requirements to a designer.',
+    },
+    {
+      q: isZh ? 'Qwen Image Edit 背后采用了哪些先进技术？' : 'What advanced technologies are used behind Qwen Image Edit?',
+      a: isZh ? 'Qwen Image Edit 基于 200 亿参数模型，融合 Qwen2.5-VL、VAE Encoder、扩散模型与智能填充等先进技术。' : 'Qwen Image Edit is based on a 20 billion parameter model, integrating advanced technologies such as Qwen2.5-VL, VAE Encoder, diffusion models, and intelligent infilling.',
+    },
+    {
+      q: isZh ? 'Qwen Image Edit 最适合哪些使用场景？' : 'Which usage scenarios are most suitable for Qwen Image Edit?',
+      a: isZh ? '非常适合电商、营销本地化、社交媒体、房地产、出版与创意设计等领域，尤其适用于跨语言与国际化项目。' : 'It is very suitable for e-commerce, marketing localization, social media, real estate, publishing, and creative design, especially for cross-language and international projects.',
+    },
+    {
+      q: isZh ? '我该如何获取并部署 Qwen Image Edit？' : 'How can I obtain and deploy Qwen Image Edit?',
+      a: isZh ? 'Qwen Image Edit 可通过 Hugging Face、GitHub 及官方 Qwen 仓库获取，支持本地部署或云端 API 使用，并可进行定制与集成。' : 'Qwen Image Edit can be obtained through Hugging Face, GitHub, and the official Qwen repository, supporting local deployment or cloud API use, and can be customized and integrated.',
+    },
+  ];
+
   const fadeRef = useScrollFade();
   const [whyTab, setWhyTab] = useState(0);
   const [whyVisible, setWhyVisible] = useState(true);

@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale } from 'next-intl';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import VideoGeneratorPanel from '@/components/banana/VideoGeneratorPanel';
@@ -7,128 +9,14 @@ import Image from 'next/image';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
 /* ─── Features ─── */
-const FEATURES = [
-  {
-    title: '长时段且连贯的电影级视频结构',
-    desc: 'Veo 3.1 可以生成超越短片段限制的高质量 1080p 视频序列，支持具备一致风格、空间构图持续演进以及叙事连贯性的长视频输出。这对正在做概念原型、预可视化与基于运动内容规划的创作者尤为有吸引力，让画面随时间推进，而不是陷入重复生成的循环。',
-  },
-  {
-    title: '镜头运动、视角变化与物理一致性',
-    desc: '官方 Veo 页面强调电影级镜头运动、连贯动作表现与平滑的视角变化。它能够呈现具备物理感知的视觉行为——反射、水体、烟雾、玻璃以及自然光照。用户可以用文字描述动作并看到画面响应，真正实现"摄影指导"特性——用语言设计镜头，而不是依赖时间轴。',
-  },
-  {
-    title: '多镜头创作与文本驱动剪辑',
-    desc: 'Veo 3.1 支持通过文本指令进行叙事剪辑。用户可以延展镜头、调整运动方式，或通过描述性提示重构场景。在我们的环境中，Veo 3.1 有助于实现多镜头合成——场景 A 过渡到场景 B，角色保持可识别性，视觉风格持续一致，同时掌控构图与叙事。',
-  },
-];
 
 /* ─── Steps (tab + image layout) ─── */
-const STEPS = [
-  {
-    label: '步骤 1：用自然语言描述场景',
-    title: '提示词结构',
-    image: 'https://static.banana2ai.net/images/features/314i9xc9veiz.webp',
-    desc: '写出对动作、空间语境、环境材质或镜头角度的文字描述。描述性语言——例如光照、运动行为、转场方式——能够驱动结构化输出。用户可以提及视角、演员动作、风的状态或水下扭曲效果。用文字描述镜头，而不是编辑关键帧。',
-  },
-  {
-    label: '步骤 2：生成并延展',
-    title: '使用 Veo 3.1 构建时长',
-    image: 'https://static.banana2ai.net/images/features/qa4lfqspyuzg.webp',
-    desc: '当初始画面生成后，用户可以延展视频片段的不同阶段。Veo 3.1 具备结构持续性以及跨镜头的叙事延续能力。在我们的平台中，Veo 3.1 成为"演进工具"——从几秒扩展到具备连贯分钟级结构的内容，对营销、预可视化与 IP 开发工作流具有战略价值。',
-  },
-  {
-    label: '步骤 3：修改、重写、重新构想',
-    title: '基于文本的画面重构',
-    image: 'https://static.banana2ai.net/images/features/rltfglk5u3vj.webp',
-    desc: 'Veo 3.1 支持基于文本的修改能力，创作者可以请求新的运动行为——更快的跟拍摇移、更慢的航拍拉远，或重新定义视觉风格。写下请求、更新镜头、锁定一致性、导出结构化素材。对许多创作者而言，这替代了昂贵的原型制作阶段。',
-  },
-];
 
 /* ─── Workflow (2-col icon grid) ─── */
-const WORKFLOW = [
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-prompt.webp',
-    title: '短片预可视化',
-    desc: '影视制作团队可以描述三个场景转场，并期望 Veo 3.1 在 1080p 渲染中保持动作连贯性。他们可以撰写旁白、让镜头环绕运动，并请求在环境中缓慢漂移，在投入实体拍摄前显著降低不确定性。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-customize.webp',
-    title: '长叙事品牌内容',
-    desc: '营销团队希望为活动制作叙事驱动的发布片段。Veo 3.1 可以让运动持续演进——产品穿梭镜头、观众视角旋转、地点切换与一致的视觉身份。目标是进行可迭代的方案探索，而非一次生成最终广告。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
-    title: '场景延展与角色一致性',
-    desc: '编剧可以基于前序画面请求更多镜头素材。Veo 3.1 跨镜头保持一致性，对角色驱动的叙事作品在结构上非常重要，帮助创作者持续推进故事情节而不失去视觉连贯感。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-download.webp',
-    title: '概念设计中的镜头运动探索',
-    desc: '艺术家希望获得摇臂角度、水下漂移、航拍扫掠与视差叙事等运动效果。Veo 3.1 将这些需求转化为语言指令，而非 3D 绑定与复杂镜头设定，大幅降低技术门槛。',
-  },
-];
 
 /* ─── Testimonials ─── */
-const TESTIMONIALS = [
-  {
-    name: 'Daniel Foster',
-    role: '独立电影制作人',
-    avatar: 'https://static.banana2ai.net/images/avatars/x17b6f0kapj8.webp',
-    quote: '在这个页面里使用 Veo 3.1，彻底改变了我做场景原型的方式。我可以描述镜头运动、延展镜头、测试节奏，而不用碰时间轴。对正在探索 Veo 3.1 工作流的电影人来说，这更像是在写视觉调度，而不是剪辑素材。',
-  },
-  {
-    name: 'Isabella Conti',
-    role: '品牌活动策略师',
-    avatar: 'https://static.banana2ai.net/images/avatars/zrwyalsqygtm.webp',
-    quote: '我用 Veo 3.1 来探索产品活动的叙事节奏。生成更长、更连贯的序列，让我能更早测试转场与情绪。这个平台让我清楚理解 Veo 3.1 如何融入创作流程，而不只是一个 AI 视频演示。',
-  },
-  {
-    name: 'Marcus Lee',
-    role: '游戏过场动画设计师',
-    avatar: 'https://static.banana2ai.net/images/avatars/n2lf5ciih5o2.webp',
-    quote: 'Veo 3.1 很适合用来测试游戏内过场动画思路。我可以用文字描述动作、环境行为与镜头视角，并立刻看到结果。对于强调运动与连贯性的视频创作来说，这套流程很实用，也更接近制作标准。',
-  },
-  {
-    name: 'Olivia Ramirez',
-    role: '动态设计负责人',
-    avatar: 'https://static.banana2ai.net/images/avatars/p2oz67swj6ax.webp',
-    quote: 'Veo 3.1 最让我印象深刻的是场景一致性。我可以围绕同一个视觉想法反复迭代，微调运动，并保持风格稳定。这个平台把 Veo 3.1 如何支持更长叙事讲得很清楚，这正是创意团队做早期概念开发最需要的。',
-  },
-  {
-    name: 'Ethan Novak',
-    role: '数字内容制作人',
-    avatar: 'https://static.banana2ai.net/images/avatars/o1r99ex3i9fb.webp',
-    quote: '我用 Veo 3.1 做镜头运动研究与视觉节奏测试。用文本来调整镜头的方式出乎意料地高效。这个平台展示了如何把 Veo 3.1 落地到真实工作流中，对电影级运动实验非常有价值。',
-  },
-];
 
 /* ─── FAQs ─── */
-const FAQS = [
-  {
-    q: 'Veo 3.1 和官方 Google 产品页面是同一个模型吗？',
-    a: '当然是！Veo 3.1 由 Google 官方服务提供支持。你可以在这里直接使用官方 Google Veo 3.1 AI 视频模型，体验与官方同等的生成质量。',
-  },
-  {
-    q: 'Veo 3.1 能生成带声音的视频吗？',
-    a: '是的！Veo 3.1 可以生成带声音的视频。Veo 3.1 AI 视频模型是从 Veo 3 升级而来，而 Veo 3 是第一个能够生成带音频视频的视频模型，实现真正的音画同步体验。',
-  },
-  {
-    q: '使用这款 Veo 3.1 视频工具时，我的内容与数据安全吗？',
-    a: '是的。隐私与数据安全对我们来说至关重要。在我们的平台内，使用 Veo 3.1 生成的所有视频都会以安全方式处理，确保你的创作内容受到妥善保护。',
-  },
-  {
-    q: '在这个平台上，Veo 3.1 真的可以免费用吗？',
-    a: '是的。我们提供免费使用入口，让用户无需预付费用即可体验 Veo 3.1。新用户可以直接开始创作，探索模型的核心能力。',
-  },
-  {
-    q: '如何去除 Veo 3.1 生成视频的水印？',
-    a: '升级为我们的订阅方案即可去除水印。成为订阅会员后，你可以导出干净、无水印的 Veo 3.1 视频，满足专业与商业使用需求。',
-  },
-  {
-    q: '我可以将 Veo 3.1 生成的视频用于商业项目吗？',
-    a: '商业用途取决于你的订阅等级。免费用户可以探索并测试 Veo 3.1 的能力，而订阅会员可获得更适合商业使用的导出选项，包括无水印高清导出与更多生成配额。',
-  },
-];
 
 /* ─── Inline Components ─── */
 function GlowOrbs() {
@@ -258,7 +146,128 @@ function TestimonialCarousel() {
 }
 
 /* ────────────────────────── PAGE ────────────────────────── */
+const TESTIMONIALS = [
+  {
+    name: 'Daniel Foster',
+    role: '独立电影制作人',
+    avatar: 'https://static.banana2ai.net/images/avatars/x17b6f0kapj8.webp',
+    quote: '在这个页面里使用 Veo 3.1，彻底改变了我做场景原型的方式。我可以描述镜头运动、延展镜头、测试节奏，而不用碰时间轴。对正在探索 Veo 3.1 工作流的电影人来说，这更像是在写视觉调度，而不是剪辑素材。',
+  },
+  {
+    name: 'Isabella Conti',
+    role: '品牌活动策略师',
+    avatar: 'https://static.banana2ai.net/images/avatars/zrwyalsqygtm.webp',
+    quote: '我用 Veo 3.1 来探索产品活动的叙事节奏。生成更长、更连贯的序列，让我能更早测试转场与情绪。这个平台让我清楚理解 Veo 3.1 如何融入创作流程，而不只是一个 AI 视频演示。',
+  },
+  {
+    name: 'Marcus Lee',
+    role: '游戏过场动画设计师',
+    avatar: 'https://static.banana2ai.net/images/avatars/n2lf5ciih5o2.webp',
+    quote: 'Veo 3.1 很适合用来测试游戏内过场动画思路。我可以用文字描述动作、环境行为与镜头视角，并立刻看到结果。对于强调运动与连贯性的视频创作来说，这套流程很实用，也更接近制作标准。',
+  },
+  {
+    name: 'Olivia Ramirez',
+    role: '动态设计负责人',
+    avatar: 'https://static.banana2ai.net/images/avatars/p2oz67swj6ax.webp',
+    quote: 'Veo 3.1 最让我印象深刻的是场景一致性。我可以围绕同一个视觉想法反复迭代，微调运动，并保持风格稳定。这个平台把 Veo 3.1 如何支持更长叙事讲得很清楚，这正是创意团队做早期概念开发最需要的。',
+  },
+  {
+    name: 'Ethan Novak',
+    role: '数字内容制作人',
+    avatar: 'https://static.banana2ai.net/images/avatars/o1r99ex3i9fb.webp',
+    quote: '我用 Veo 3.1 做镜头运动研究与视觉节奏测试。用文本来调整镜头的方式出乎意料地高效。这个平台展示了如何把 Veo 3.1 落地到真实工作流中，对电影级运动实验非常有价值。',
+  },
+];
+
 export default function Page() {
+  const isZh = useLocale() === 'zh';
+  const FEATURES = [
+    {
+      title: isZh ? '长时段且连贯的电影级视频结构' : 'Long-duration and Coherent Cinematic Video Structure',
+      desc: isZh ? 'Veo 3.1 可以生成超越短片段限制的高质量 1080p 视频序列，支持具备一致风格、空间构图持续演进以及叙事连贯性的长视频输出。这对正在做概念原型、预可视化与基于运动内容规划的创作者尤为有吸引力，让画面随时间推进，而不是陷入重复生成的循环。' : 'Veo 3.1 can generate high-quality 1080p video sequences that go beyond the limitations of short clips, supporting long video outputs with consistent style, continuously evolving spatial composition, and narrative coherence. This is particularly attractive to creators working on concept prototyping, pre-visualization, and motion-based content planning, allowing scenes to progress over time instead of getting stuck in a loop of repetitive generation.',
+    },
+    {
+      title: isZh ? '镜头运动、视角变化与物理一致性' : 'Camera Movement, Perspective Changes, and Physical Consistency',
+      desc: isZh ? '官方 Veo 页面强调电影级镜头运动、连贯动作表现与平滑的视角变化。它能够呈现具备物理感知的视觉行为——反射、水体、烟雾、玻璃以及自然光照。用户可以用文字描述动作并看到画面响应，真正实现"摄影指导"特性——用语言设计镜头，而不是依赖时间轴。' : 'The official Veo page emphasizes cinematic camera movements, coherent action performance, and smooth perspective changes. It can present physically aware visual behaviors—reflections, water bodies, smoke, glass, and natural lighting. Users can describe actions with text and see the visual response, truly achieving the "cinematography director" feature—designing shots with language instead of relying on a timeline.',
+    },
+    {
+      title: isZh ? '多镜头创作与文本驱动剪辑' : 'Multi-shot Creation and Text-driven Editing',
+      desc: isZh ? 'Veo 3.1 支持通过文本指令进行叙事剪辑。用户可以延展镜头、调整运动方式，或通过描述性提示重构场景。在我们的环境中，Veo 3.1 有助于实现多镜头合成——场景 A 过渡到场景 B，角色保持可识别性，视觉风格持续一致，同时掌控构图与叙事。' : 'Veo 3.1 supports narrative editing through text commands. Users can extend shots, adjust motion, or reconstruct scenes through descriptive prompts. In our environment, Veo 3.1 helps achieve multi-shot composition—scene A transitions to scene B, characters maintain recognizability, visual style remains consistent, while controlling composition and narrative.',
+    },
+  ];
+
+  const STEPS = [
+    {
+      label: isZh ? '步骤 1：用自然语言描述场景' : 'Step 1: Describe the Scene with Natural Language',
+      title: isZh ? '提示词结构' : 'Prompt Structure',
+      image: 'https://static.banana2ai.net/images/features/314i9xc9veiz.webp',
+      desc: isZh ? '写出对动作、空间语境、环境材质或镜头角度的文字描述。描述性语言——例如光照、运动行为、转场方式——能够驱动结构化输出。用户可以提及视角、演员动作、风的状态或水下扭曲效果。用文字描述镜头，而不是编辑关键帧。' : 'Write a text description of actions, spatial context, environmental materials, or camera angles. Descriptive language—such as lighting, motion behavior, transition methods—can drive structured output. Users can mention perspectives, actor movements, wind conditions, or underwater distortion effects. Describe shots with text, do not edit keyframes.',
+    },
+    {
+      label: isZh ? '步骤 2：生成并延展' : 'Step 2: Generate and Extend',
+      title: isZh ? '使用 Veo 3.1 构建时长' : 'Use Veo 3.1 to Build Duration',
+      image: 'https://static.banana2ai.net/images/features/qa4lfqspyuzg.webp',
+      desc: isZh ? '当初始画面生成后，用户可以延展视频片段的不同阶段。Veo 3.1 具备结构持续性以及跨镜头的叙事延续能力。在我们的平台中，Veo 3.1 成为"演进工具"——从几秒扩展到具备连贯分钟级结构的内容，对营销、预可视化与 IP 开发工作流具有战略价值。' : 'After the initial footage is generated, users can extend different stages of the video clip. Veo 3.1 possesses structural continuity and narrative extension capabilities across shots. On our platform, Veo 3.1 becomes an "evolution tool"—expanding from a few seconds to content with coherent minute-level structures, holding strategic value for marketing, pre-visualization, and IP development workflows.',
+    },
+    {
+      label: isZh ? '步骤 3：修改、重写、重新构想' : 'Step 3: Modify, Rewrite, Re-imagine',
+      title: isZh ? '基于文本的画面重构' : 'Text-based Scene Reconstruction',
+      image: 'https://static.banana2ai.net/images/features/rltfglk5u3vj.webp',
+      desc: isZh ? 'Veo 3.1 支持基于文本的修改能力，创作者可以请求新的运动行为——更快的跟拍摇移、更慢的航拍拉远，或重新定义视觉风格。写下请求、更新镜头、锁定一致性、导出结构化素材。对许多创作者而言，这替代了昂贵的原型制作阶段。' : 'Veo 3.1 supports text-based modification capabilities, creators can request new motion behaviors—faster follow pans, slower aerial pull-backs, or redefine visual styles. Write down requests, update shots, lock consistency, export structured footage. For many creators, this replaces expensive prototyping stages.',
+    },
+  ];
+
+  const WORKFLOW = [
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-prompt.webp',
+      title: isZh ? '短片预可视化' : 'Short Film Pre-visualization',
+      desc: isZh ? '影视制作团队可以描述三个场景转场，并期望 Veo 3.1 在 1080p 渲染中保持动作连贯性。他们可以撰写旁白、让镜头环绕运动，并请求在环境中缓慢漂移，在投入实体拍摄前显著降低不确定性。' : 'Film and television production teams can describe three scene transitions and expect Veo 3.1 to maintain motion coherence in 1080p rendering. They can write narration, have the camera move around, and request a slow drift through the environment, significantly reducing uncertainty before committing to physical shooting.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-customize.webp',
+      title: isZh ? '长叙事品牌内容' : 'Long-form Narrative Brand Content',
+      desc: isZh ? '营销团队希望为活动制作叙事驱动的发布片段。Veo 3.1 可以让运动持续演进——产品穿梭镜头、观众视角旋转、地点切换与一致的视觉身份。目标是进行可迭代的方案探索，而非一次生成最终广告。' : 'Marketing teams want to produce narrative-driven launch clips for campaigns. Veo 3.1 can allow motion to continuously evolve—product fly-throughs, rotating audience perspectives, location changes, and consistent visual identity. The goal is to explore iterative solutions, not to generate a final advertisement in one go.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
+      title: isZh ? '场景延展与角色一致性' : 'Scene Extension and Character Consistency',
+      desc: isZh ? '编剧可以基于前序画面请求更多镜头素材。Veo 3.1 跨镜头保持一致性，对角色驱动的叙事作品在结构上非常重要，帮助创作者持续推进故事情节而不失去视觉连贯感。' : 'Screenwriters can request more footage based on preceding scenes. Veo 3.1 maintains consistency across shots, which is structurally very important for character-driven narrative works, helping creators advance storylines without losing visual coherence.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-download.webp',
+      title: isZh ? '概念设计中的镜头运动探索' : 'Camera Movement Exploration in Concept Design',
+      desc: isZh ? '艺术家希望获得摇臂角度、水下漂移、航拍扫掠与视差叙事等运动效果。Veo 3.1 将这些需求转化为语言指令，而非 3D 绑定与复杂镜头设定，大幅降低技术门槛。' : 'Artists want motion effects such as jib angles, underwater drifts, aerial sweeps, and parallax narratives. Veo 3.1 translates these requirements into language commands, rather than 3D rigging and complex camera setups, significantly lowering the technical barrier.',
+    },
+  ];
+
+
+  const FAQS = [
+    {
+      q: isZh ? 'Veo 3.1 和官方 Google 产品页面是同一个模型吗？' : 'Is Veo 3.1 the same model as on the official Google product page?',
+      a: isZh ? '当然是！Veo 3.1 由 Google 官方服务提供支持。你可以在这里直接使用官方 Google Veo 3.1 AI 视频模型，体验与官方同等的生成质量。' : 'Absolutely! Veo 3.1 is powered by official Google services. You can directly use the official Google Veo 3.1 AI video model here and experience the same generation quality as the official version.',
+    },
+    {
+      q: isZh ? 'Veo 3.1 能生成带声音的视频吗？' : 'Can Veo 3.1 generate videos with sound?',
+      a: isZh ? '是的！Veo 3.1 可以生成带声音的视频。Veo 3.1 AI 视频模型是从 Veo 3 升级而来，而 Veo 3 是第一个能够生成带音频视频的视频模型，实现真正的音画同步体验。' : 'Yes! Veo 3.1 can generate videos with sound. The Veo 3.1 AI video model is an upgrade from Veo 3, which was the first video model capable of generating videos with audio, achieving a truly synchronized audio-visual experience.',
+    },
+    {
+      q: isZh ? '使用这款 Veo 3.1 视频工具时，我的内容与数据安全吗？' : 'Is my content and data secure when using this Veo 3.1 video tool?',
+      a: isZh ? '是的。隐私与数据安全对我们来说至关重要。在我们的平台内，使用 Veo 3.1 生成的所有视频都会以安全方式处理，确保你的创作内容受到妥善保护。' : 'Yes. Privacy and data security are paramount to us. Within our platform, all videos generated using Veo 3.1 are processed securely, ensuring your creative content is properly protected.',
+    },
+    {
+      q: isZh ? '在这个平台上，Veo 3.1 真的可以免费用吗？' : 'Is Veo 3.1 truly free to use on this platform?',
+      a: isZh ? '是的。我们提供免费使用入口，让用户无需预付费用即可体验 Veo 3.1。新用户可以直接开始创作，探索模型的核心能力。' : 'Yes. We provide a free access point, allowing users to experience Veo 3.1 without upfront payment. New users can directly start creating and explore the core capabilities of the model.',
+    },
+    {
+      q: isZh ? '如何去除 Veo 3.1 生成视频的水印？' : 'How do I remove the watermark from Veo 3.1 generated videos?',
+      a: isZh ? '升级为我们的订阅方案即可去除水印。成为订阅会员后，你可以导出干净、无水印的 Veo 3.1 视频，满足专业与商业使用需求。' : 'Upgrade to our subscription plan to remove watermarks. As a subscriber, you can export clean, watermark-free Veo 3.1 videos, meeting professional and commercial use requirements.',
+    },
+    {
+      q: isZh ? '我可以将 Veo 3.1 生成的视频用于商业项目吗？' : 'Can I use Veo 3.1 generated videos for commercial projects?',
+      a: isZh ? '商业用途取决于你的订阅等级。免费用户可以探索并测试 Veo 3.1 的能力，而订阅会员可获得更适合商业使用的导出选项，包括无水印高清导出与更多生成配额。' : 'Commercial use depends on your subscription tier. Free users can explore and test Veo 3.1 capabilities, while subscribers gain export options more suitable for commercial use, including watermark-free HD export and more generation quota.',
+    },
+  ];
+
   const fadeRef = useScrollFade();
   const [stepTab, setStepTab] = useState(0);
   const [stepVisible, setStepVisible] = useState(true);

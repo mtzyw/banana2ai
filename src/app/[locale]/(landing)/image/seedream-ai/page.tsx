@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale } from 'next-intl';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,128 +10,16 @@ import { SEEDREAM_AI_EXAMPLES } from '@/data/page-examples';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
 /* ─── Why Section (icon-box cards 2-col, no tabs) ─── */
-const WHY_CARDS = [
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-video.webp',
-    title: '智能文本到图像生成',
-    desc: '这项技术允许您输入详细的提示词并接收准确、高保真的图像。Seedream AI 旨在理解细微差别，确保即使是最抽象的概念也能清晰呈现。无论是写实肖像还是复杂的工程图，系统都能专业应对，是所有用户值得信赖的 Seedream AI 生成器。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
-    title: '排版与布局精度',
-    desc: 'Seedream AI 通过集成先进的文本渲染技术，解决了文本乱码的常见问题。创建海报、书籍封面和社交媒体横幅，使其排版与背景一样精美。我们的系统确保您的信息无缝融入视觉构图，提供无需额外编辑的专业成品。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
-    title: '可扩展的 4K 专业输出',
-    desc: '该引擎专为追求规模的专业输出而构建。通过 Seedream AI 框架生成的每张图像都可以放大到 4K 分辨率，且不丢失关键细节。这种可扩展性使 Seedream AI 适用于专业印刷媒体和高清数字显示。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-describe.webp',
-    title: '创意资产管理',
-    desc: '管理您的 Seedream AI 作品非常简单。生成的每张图像都存储在您的个人云端库中，方便随时访问。组织您的创意项目，优化之前的生成内容，并与同事或客户分享您的专业作品集。',
-  },
-];
 
 /* ─── Features (alternating 2-col layout) ─── */
-const FEATURES = [
-  {
-    title: '革命性的文生图精度',
-    image: 'https://static.banana2ai.net/images/features/5odukgz1kwh1.webp',
-    desc: '我们的平台利用 Seedream AI 先进的 4.0 架构，重新定义了文本概念转化为艺术的方式。与标准视觉模型不同，该技术能理解深层语境，从而以像素级的准确度生成复杂的图表、数学公式和错综复杂的有机纹理。Seedream AI 确保您的创意愿景在转化过程中永不失真。',
-  },
-  {
-    title: '原生 4K 超高清输出',
-    image: 'https://static.banana2ai.net/images/features/b7x76vc0165t.webp',
-    desc: '在我们的平台上，输出质量是不容妥协的。Seedream AI 框架专为生产原生 4K 分辨率图像而设计，即使在为专业用途放大时也能保持惊人的锐度。这使得 Seedream AI 工具成为大规模印刷、高端广告和专业 UI/UX 设计的完美选择。该模型在模拟真实光照、景深和复杂色彩渐变方面表现卓越。',
-  },
-  {
-    title: '高级逻辑与排版',
-    image: 'https://static.banana2ai.net/images/features/cl4059dlq53y.webp',
-    desc: 'Seedream AI 的一个突出特点是其处理复杂排版和结构化逻辑布局的能力。无论您是需要带有特定文字的宣传海报，还是带有精确标注的科学插图，生成引擎都能交付专业的结果。该模型理解元素间的空间关系，确保文字清晰可辨且布局美观平衡。',
-  },
-];
 
 /* ─── Steps ─── */
-const STEPS = [
-  { title: '革命性的文生图精度', desc: '输入您的创意提示词，Seedream AI 的 4.0 架构将以像素级的准确度理解深层语境，生成高保真视觉效果。' },
-  { title: '原生 4K 超高清输出', desc: '选择分辨率和尺寸，系统将生成专为专业用途设计的原生 4K 图像，细节惊人、锐度卓越。' },
-  { title: '高级逻辑与排版', desc: '下载您的成品。Seedream AI 确保文字清晰可辨、布局美观平衡，无需额外编辑即可直接用于专业场景。' },
-];
 
 /* ─── Use Cases (tab + image layout) ─── */
-const USE_CASE_TABS = [
-  {
-    label: '营销',
-    title: 'Seedream AI 营销解决方案',
-    image: 'https://static.banana2ai.net/images/features/5n49h9o8u5jc.webp',
-    desc: 'Seedream AI 引擎是营销机构和增长团队的游戏规则改变者。在数秒内生成高转化率的广告创意、社交媒体视觉效果和品牌资产。我们的集成支持视觉活动的快速原型设计，让您无需承担传统制作的高昂成本即可测试多种审美风格。',
-  },
-  {
-    label: '艺术与设计',
-    title: '概念艺术与原型设计',
-    image: 'https://static.banana2ai.net/images/features/e0pf3x87pvqw.webp',
-    desc: '对于游戏和电影行业的概念艺术家，Seedream AI 可作为无限的情绪板进行快速迭代。利用生成器快速可视化环境设计、角色剪影和光影基调。底层模型经过大量艺术风格训练，允许您将传统技法与未来感概念完美融合。',
-  },
-  {
-    label: '建筑',
-    title: '空间可视化与渲染',
-    image: 'https://static.banana2ai.net/images/features/1ocx4fy5iztz.webp',
-    desc: 'Seedream AI 内部的技术在空间推理方面表现出色，使其成为室内设计师和建筑师的得力工具。输入您的尺寸和风格偏好，系统将生成生活空间、办公室或景观设计的写实渲染图。Seedream AI 帮助客户在施工开始前就预见最终效果。',
-  },
-];
 
 /* ─── Testimonials ─── */
-const TESTIMONIALS = [
-  {
-    name: 'Mike',
-    role: '设计机构创始人',
-    avatar: 'https://static.banana2ai.net/images/avatars/95ls4obu8n1r.webp',
-    quote: 'Seedream AI 彻底改变了我机构的设计工作流。Seedream AI 中的文本渲染比我用过的任何工具都要先进。我们现在可以在几分钟内生成过去需要数小时手动排版的海报概念。',
-  },
-  {
-    name: 'Fiona',
-    role: '建筑可视化师',
-    avatar: 'https://static.banana2ai.net/images/avatars/ffer5qw3809o.webp',
-    quote: 'Seedream AI 的分辨率简直令人惊叹。我将其用于建筑可视化，4K 输出的清晰度足以直接进行客户演示。该模型对光照和材质的理解甚至优于大多数渲染软件。它非常高效，每次都能产出惊艳的效果。',
-  },
-  {
-    name: 'Elena',
-    role: '社交媒体策略师',
-    avatar: 'https://static.banana2ai.net/images/avatars/b2rbrxlowmmw.webp',
-    quote: '作为一名社交媒体经理，我每天都需要高质量的内容。Seedream AI 让我能够创建看起来非常专业的独特、高保真图像。我喜欢 Seedream AI 处理复杂提示词并将其转化为爆款艺术的能力。它确实让我的品牌在数字领域拥有了竞争优势。',
-  },
-  {
-    name: 'Marcus',
-    role: '教育内容创作者',
-    avatar: 'https://static.banana2ai.net/images/avatars/8wokupsy7u34.webp',
-    quote: 'Seedream AI 是我用过的第一个真正理解逻辑图表的工具。我用它来创建教育内容，准确性是无与伦比的。我们的平台为 Seedream AI 提供了稳定的基础，使我的研究和可视化任务变得轻而易举。如果你需要专业的 AI 艺术，Seedream AI 是唯一选择。',
-  },
-];
 
 /* ─── FAQs ─── */
-const FAQS = [
-  {
-    q: '什么是 Seedream AI？',
-    a: 'Seedream AI 是一个前沿的多模态 AI 模型，旨在根据文本提示生成高质量的图像和设计。我们的平台集成了这项技术，为用户提供 4K 分辨率、精准的排版以及用于专业视觉内容的复杂逻辑渲染。',
-  },
-  {
-    q: 'Seedream AI 可以生成带有文字的图像吗？',
-    a: '是的，Seedream AI 以其在图像中渲染清晰、准确文本的能力而闻名。这使得 Seedream AI 非常适合制作海报、信息图表和横幅，在这些场景中，文本位置和拼写至关重要。',
-  },
-  {
-    q: 'Seedream AI 支持什么分辨率？',
-    a: '本平台支持原生高分辨率输出，您可以生成并放大图像至 4K 超高清。这确保了您的 Seedream AI 资产适用于专业印刷和数字显示。',
-  },
-  {
-    q: 'Seedream AI 的最佳用途是什么？',
-    a: 'Seedream AI 非常全面。它最擅长创建写实摄影、艺术插画、复杂图表、建筑渲染和专业平面设计。该引擎几乎可以适应您描述的任何风格。',
-  },
-  {
-    q: '使用 Seedream AI 时我的数据安全吗？',
-    a: '通过生成器处理的所有数据都经过加密，您的个人提示词和图像将保持私密。我们确保您使用 Seedream AI 的创作过程是安全且符合现代标准的。',
-  },
-];
 
 /* ─── Shared Components ─── */
 function GlowOrbs() {
@@ -232,7 +122,127 @@ function TestimonialCarousel() {
 }
 
 /* ────────────────────────── PAGE ────────────────────────── */
+const TESTIMONIALS = [
+  {
+    name: 'Mike',
+    role: '设计机构创始人',
+    avatar: 'https://static.banana2ai.net/images/avatars/95ls4obu8n1r.webp',
+    quote: 'Seedream AI 彻底改变了我机构的设计工作流。Seedream AI 中的文本渲染比我用过的任何工具都要先进。我们现在可以在几分钟内生成过去需要数小时手动排版的海报概念。',
+  },
+  {
+    name: 'Fiona',
+    role: '建筑可视化师',
+    avatar: 'https://static.banana2ai.net/images/avatars/ffer5qw3809o.webp',
+    quote: 'Seedream AI 的分辨率简直令人惊叹。我将其用于建筑可视化，4K 输出的清晰度足以直接进行客户演示。该模型对光照和材质的理解甚至优于大多数渲染软件。它非常高效，每次都能产出惊艳的效果。',
+  },
+  {
+    name: 'Elena',
+    role: '社交媒体策略师',
+    avatar: 'https://static.banana2ai.net/images/avatars/b2rbrxlowmmw.webp',
+    quote: '作为一名社交媒体经理，我每天都需要高质量的内容。Seedream AI 让我能够创建看起来非常专业的独特、高保真图像。我喜欢 Seedream AI 处理复杂提示词并将其转化为爆款艺术的能力。它确实让我的品牌在数字领域拥有了竞争优势。',
+  },
+  {
+    name: 'Marcus',
+    role: '教育内容创作者',
+    avatar: 'https://static.banana2ai.net/images/avatars/8wokupsy7u34.webp',
+    quote: 'Seedream AI 是我用过的第一个真正理解逻辑图表的工具。我用它来创建教育内容，准确性是无与伦比的。我们的平台为 Seedream AI 提供了稳定的基础，使我的研究和可视化任务变得轻而易举。如果你需要专业的 AI 艺术，Seedream AI 是唯一选择。',
+  },
+];
+
 export default function Page() {
+  const isZh = useLocale() === 'zh';
+  const WHY_CARDS = [
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-video.webp',
+      title: isZh ? '智能文本到图像生成' : 'Intelligent Text-to-Image Generation',
+      desc: isZh ? '这项技术允许您输入详细的提示词并接收准确、高保真的图像。Seedream AI 旨在理解细微差别，确保即使是最抽象的概念也能清晰呈现。无论是写实肖像还是复杂的工程图，系统都能专业应对，是所有用户值得信赖的 Seedream AI 生成器。' : 'This technology allows you to input detailed prompts and receive accurate, high-fidelity images. Seedream AI is designed to understand nuances, ensuring that even the most abstract concepts are clearly rendered. Whether it is a realistic portrait or a complex engineering drawing, the system handles it professionally, making it a trusted Seedream AI generator for all users.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
+      title: isZh ? '排版与布局精度' : 'Typography and Layout Precision',
+      desc: isZh ? 'Seedream AI 通过集成先进的文本渲染技术，解决了文本乱码的常见问题。创建海报、书籍封面和社交媒体横幅，使其排版与背景一样精美。我们的系统确保您的信息无缝融入视觉构图，提供无需额外编辑的专业成品。' : 'Seedream AI addresses the common issue of garbled text by integrating advanced text rendering technology. Create posters, book covers, and social media banners with typography as exquisite as the background. Our system ensures your message seamlessly integrates into the visual composition, providing professional finished products without additional editing.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
+      title: isZh ? '可扩展的 4K 专业输出' : 'Scalable 4K Professional Output',
+      desc: isZh ? '该引擎专为追求规模的专业输出而构建。通过 Seedream AI 框架生成的每张图像都可以放大到 4K 分辨率，且不丢失关键细节。这种可扩展性使 Seedream AI 适用于专业印刷媒体和高清数字显示。' : 'This engine is built for professional output that demands scale. Every image generated through the Seedream AI framework can be upscaled to 4K resolution without losing critical details. This scalability makes Seedream AI suitable for professional print media and high-definition digital displays.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-describe.webp',
+      title: isZh ? '创意资产管理' : 'Creative Asset Management',
+      desc: isZh ? '管理您的 Seedream AI 作品非常简单。生成的每张图像都存储在您的个人云端库中，方便随时访问。组织您的创意项目，优化之前的生成内容，并与同事或客户分享您的专业作品集。' : 'Managing your Seedream AI creations is straightforward. Every generated image is stored in your personal cloud library for easy access at any time. Organize your creative projects, optimize previous generations, and share your professional portfolio with colleagues or clients.',
+    },
+  ];
+
+  const FEATURES = [
+    {
+      title: isZh ? '革命性的文生图精度' : 'Revolutionary Text-to-Image Accuracy',
+      image: 'https://static.banana2ai.net/images/features/5odukgz1kwh1.webp',
+      desc: isZh ? '我们的平台利用 Seedream AI 先进的 4.0 架构，重新定义了文本概念转化为艺术的方式。与标准视觉模型不同，该技术能理解深层语境，从而以像素级的准确度生成复杂的图表、数学公式和错综复杂的有机纹理。Seedream AI 确保您的创意愿景在转化过程中永不失真。' : 'Our platform leverages Seedream AI advanced 4.0 architecture, redefining how textual concepts are transformed into art. Unlike standard visual models, this technology understands deep context, enabling the generation of complex diagrams, mathematical formulas, and intricate organic textures with pixel-level accuracy. Seedream AI ensures your creative vision is never distorted during transformation.',
+    },
+    {
+      title: isZh ? '原生 4K 超高清输出' : 'Native 4K Ultra HD Output',
+      image: 'https://static.banana2ai.net/images/features/b7x76vc0165t.webp',
+      desc: isZh ? '在我们的平台上，输出质量是不容妥协的。Seedream AI 框架专为生产原生 4K 分辨率图像而设计，即使在为专业用途放大时也能保持惊人的锐度。这使得 Seedream AI 工具成为大规模印刷、高端广告和专业 UI/UX 设计的完美选择。该模型在模拟真实光照、景深和复杂色彩渐变方面表现卓越。' : 'On our platform, output quality is non-negotiable. The Seedream AI framework is designed to produce native 4K resolution images, maintaining stunning sharpness even when upscaled for professional use. This makes Seedream AI tools perfect for large-scale printing, high-end advertising, and professional UI/UX design. The model excels at simulating realistic lighting, depth of field, and complex color gradients.',
+    },
+    {
+      title: isZh ? '高级逻辑与排版' : 'Advanced Logic and Typography',
+      image: 'https://static.banana2ai.net/images/features/cl4059dlq53y.webp',
+      desc: isZh ? 'Seedream AI 的一个突出特点是其处理复杂排版和结构化逻辑布局的能力。无论您是需要带有特定文字的宣传海报，还是带有精确标注的科学插图，生成引擎都能交付专业的结果。该模型理解元素间的空间关系，确保文字清晰可辨且布局美观平衡。' : 'A standout feature of Seedream AI is its ability to handle complex typography and structured logical layouts. Whether you need a promotional poster with specific text or a scientific illustration with precise annotations, the generation engine delivers professional results. The model understands spatial relationships between elements, ensuring text is legible and layouts are aesthetically balanced.',
+    },
+  ];
+
+  const STEPS = [
+    { title: isZh ? '革命性的文生图精度' : 'Revolutionary Text-to-Image Accuracy', desc: isZh ? '输入您的创意提示词，Seedream AI 的 4.0 架构将以像素级的准确度理解深层语境，生成高保真视觉效果。' : 'Input your creative prompts, and Seedream AI 4.0 architecture will understand deep context with pixel-level accuracy, generating high-fidelity visuals.' },
+    { title: isZh ? '原生 4K 超高清输出' : 'Native 4K Ultra HD Output', desc: isZh ? '选择分辨率和尺寸，系统将生成专为专业用途设计的原生 4K 图像，细节惊人、锐度卓越。' : 'Select resolution and dimensions, and the system will generate native 4K images designed for professional use, with stunning detail and exceptional sharpness.' },
+    { title: isZh ? '高级逻辑与排版' : 'Advanced Logic and Typography', desc: isZh ? '下载您的成品。Seedream AI 确保文字清晰可辨、布局美观平衡，无需额外编辑即可直接用于专业场景。' : 'Download your finished product. Seedream AI ensures text is legible and layouts are aesthetically balanced, ready for professional use without additional editing.' },
+  ];
+
+  const USE_CASE_TABS = [
+    {
+      label: isZh ? '营销' : 'Marketing',
+      title: isZh ? 'Seedream AI 营销解决方案' : 'Seedream AI Marketing Solutions',
+      image: 'https://static.banana2ai.net/images/features/5n49h9o8u5jc.webp',
+      desc: isZh ? 'Seedream AI 引擎是营销机构和增长团队的游戏规则改变者。在数秒内生成高转化率的广告创意、社交媒体视觉效果和品牌资产。我们的集成支持视觉活动的快速原型设计，让您无需承担传统制作的高昂成本即可测试多种审美风格。' : 'The Seedream AI engine is a game-changer for marketing agencies and growth teams. Generate high-converting ad creatives, social media visuals, and brand assets in seconds. Our integration supports rapid prototyping of visual campaigns, allowing you to test multiple aesthetic styles without the high costs of traditional production.',
+    },
+    {
+      label: isZh ? '艺术与设计' : 'Art and Design',
+      title: isZh ? '概念艺术与原型设计' : 'Concept Art and Prototyping',
+      image: 'https://static.banana2ai.net/images/features/e0pf3x87pvqw.webp',
+      desc: isZh ? '对于游戏和电影行业的概念艺术家，Seedream AI 可作为无限的情绪板进行快速迭代。利用生成器快速可视化环境设计、角色剪影和光影基调。底层模型经过大量艺术风格训练，允许您将传统技法与未来感概念完美融合。' : 'For concept artists in the gaming and film industries, Seedream AI serves as an infinite mood board for rapid iteration. Utilize the generator to quickly visualize environment designs, character silhouettes, and lighting and shadow tones. The underlying model is trained on a vast array of artistic styles, allowing you to seamlessly blend traditional techniques with futuristic concepts.',
+    },
+    {
+      label: isZh ? '建筑' : 'Architecture',
+      title: isZh ? '空间可视化与渲染' : 'Spatial Visualization and Rendering',
+      image: 'https://static.banana2ai.net/images/features/1ocx4fy5iztz.webp',
+      desc: isZh ? 'Seedream AI 内部的技术在空间推理方面表现出色，使其成为室内设计师和建筑师的得力工具。输入您的尺寸和风格偏好，系统将生成生活空间、办公室或景观设计的写实渲染图。Seedream AI 帮助客户在施工开始前就预见最终效果。' : 'The technology within Seedream AI excels at spatial reasoning, making it a powerful tool for interior designers and architects. Input your dimensions and style preferences, and the system will generate realistic renderings of living spaces, offices, or landscape designs. Seedream AI helps clients envision the final outcome before construction even begins.',
+    },
+  ];
+
+
+  const FAQS = [
+    {
+      q: isZh ? '什么是 Seedream AI？' : 'What is Seedream AI?',
+      a: isZh ? 'Seedream AI 是一个前沿的多模态 AI 模型，旨在根据文本提示生成高质量的图像和设计。我们的平台集成了这项技术，为用户提供 4K 分辨率、精准的排版以及用于专业视觉内容的复杂逻辑渲染。' : 'Seedream AI is a cutting-edge multimodal AI model designed to generate high-quality images and designs based on text prompts. Our platform integrates this technology, providing users with 4K resolution, precise typography, and complex logic rendering for professional visual content.',
+    },
+    {
+      q: isZh ? 'Seedream AI 可以生成带有文字的图像吗？' : 'Can Seedream AI generate images with text?',
+      a: isZh ? '是的，Seedream AI 以其在图像中渲染清晰、准确文本的能力而闻名。这使得 Seedream AI 非常适合制作海报、信息图表和横幅，在这些场景中，文本位置和拼写至关重要。' : 'Yes, Seedream AI is known for its ability to render clear, accurate text within images. This makes Seedream AI ideal for creating posters, infographics, and banners where text placement and spelling are crucial.',
+    },
+    {
+      q: isZh ? 'Seedream AI 支持什么分辨率？' : 'What resolutions does Seedream AI support?',
+      a: isZh ? '本平台支持原生高分辨率输出，您可以生成并放大图像至 4K 超高清。这确保了您的 Seedream AI 资产适用于专业印刷和数字显示。' : 'This platform supports native high-resolution output, allowing you to generate and upscale images to 4K Ultra HD. This ensures your Seedream AI assets are suitable for professional printing and digital display.',
+    },
+    {
+      q: isZh ? 'Seedream AI 的最佳用途是什么？' : 'What are the best uses for Seedream AI?',
+      a: isZh ? 'Seedream AI 非常全面。它最擅长创建写实摄影、艺术插画、复杂图表、建筑渲染和专业平面设计。该引擎几乎可以适应您描述的任何风格。' : 'Seedream AI is highly versatile. It excels at creating realistic photography, artistic illustrations, complex diagrams, architectural renderings, and professional graphic design. The engine can adapt to almost any style you describe.',
+    },
+    {
+      q: isZh ? '使用 Seedream AI 时我的数据安全吗？' : 'Is my data safe when using Seedream AI?',
+      a: isZh ? '通过生成器处理的所有数据都经过加密，您的个人提示词和图像将保持私密。我们确保您使用 Seedream AI 的创作过程是安全且符合现代标准的。' : 'All data processed through the generator is encrypted, and your personal prompts and images remain private. We ensure that your creative process with Seedream AI is secure and compliant with modern standards.',
+    },
+  ];
+
   const fadeRef = useScrollFade();
   const [useCaseTab, setUseCaseTab] = useState(0);
   const [ucVisible, setUcVisible] = useState(true);

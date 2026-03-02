@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale } from 'next-intl';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,124 +9,14 @@ import VideoGeneratorPanel from '@/components/banana/VideoGeneratorPanel';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
 /* ─── Steps ─── */
-const STEPS = [
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-download.webp',
-    title: '选择生成模式',
-    desc: '选择图片转视频或文字转视频，以开始你的创作项目。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-customize.webp',
-    title: '描述你的创意构思',
-    desc: '清晰地输入你的创作构思。通过精准的提示词来实现电影级别的细节效果。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
-    title: '点击生成',
-    desc: '让 Seedance 1.5 Pro 多镜头叙事 AI 处理你的提示词，实现完美的音视频对齐。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
-    title: '下载视频',
-    desc: '即刻从 Seedance 1.5 Pro 视频生成器导出你的杰作，与全世界分享。',
-  },
-];
 
 /* ─── Features ─── */
-const FEATURES = [
-  {
-    title: '精准音视频对齐',
-    desc: 'Seedance 1.5 Pro 最具突破性的进步之一，是其完美的音频集成能力。作为一流的口型同步视频生成器，AI 能实时将音素精准映射到复杂的面部肌肉运动上，无论是单人独白还是多人群戏，都能呈现极为自然的对话效果。',
-  },
-  {
-    title: '多语言多人对话',
-    desc: '借助 Seedance 1.5 Pro 的先进语言能力，打破全球语言壁垒。平台原生支持在单个生成场景中无缝呈现多语言、多人对话，让全球化内容创作触手可及。',
-  },
-  {
-    title: '电影叙事品质',
-    desc: '将你的视觉叙事提升至好莱坞水准。Seedance 1.5 Pro 搭载了基于海量影视数据训练的高级渲染引擎，确保每一帧都散发出专业艺术气质，帮你打造媲美商业大片的视频内容。',
-  },
-  {
-    title: '高精度提示词控制',
-    desc: '毫无妥协地实现你的创作愿景。Seedance 1.5 Pro 提供卓越的提示词遵循能力，AI 能以外科手术般的精准度解析并执行复杂的多层次指令，让创作结果与预期高度一致。',
-  },
-];
 
 /* ─── Why Choose ─── */
-const WHY_CARDS = [
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-download.webp',
-    title: '社交媒体博主和内容创作者',
-    desc: '告别昂贵设备和摄影棚租赁的烦恼。使用 Seedance 1.5 Pro，个人创作者每天都能产出极具吸引力的趋势内容，直觉化操作大幅降低了学习门槛。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-customize.webp',
-    title: '营销和广告机构',
-    desc: '最大化投资回报，大幅削减制作成本。机构可利用多镜头叙事 AI 快速制作广告活动的 A/B 测试版本，让图片转视频功能赋予静态素材全新生命力。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
-    title: '电影人和故事创作者',
-    desc: '以前所未有的速度将分镜脚本变为现实。独立电影人可使用电影级镜头提示词预览复杂场景，或生成高质量的补充镜头。',
-  },
-  {
-    icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
-    title: '在线教育和企业培训',
-    desc: '通过丰富的多媒体内容提升学习体验。课程创作者可利用口型同步功能创建能以多种语言授课的虚拟讲师，让教学内容跨越语言边界触达全球学员。',
-  },
-];
 
 /* ─── Testimonials ─── */
-const TESTIMONIALS = [
-  {
-    name: '林志远',
-    role: '独立电影导演',
-    avatar: 'https://static.banana2ai.net/images/avatars/dhp85zlyoefb.webp',
-    quote: 'Seedance 1.5 Pro 的精准提示词控制无与伦比。我可以用电影级镜头提示词获得追踪镜头，看起来像是用五万美元的摄影机拍摄的。它彻底改变了我处理独立电影制作的方式。',
-  },
-  {
-    name: '张雅婷',
-    role: '数字营销总监',
-    avatar: 'https://static.banana2ai.net/images/avatars/o2x1l23at94y.webp',
-    quote: '作为营销人员，交付速度就是一切。Seedance 1.5 Pro 让我们的团队能在数小时内将简单的广告文案转化为完整的视频宣传活动，文字转视频功能完全改变了游戏规则。',
-  },
-  {
-    name: '王建国',
-    role: '在线教育内容创作者',
-    avatar: 'https://static.banana2ai.net/images/avatars/obc2sna6dfu2.webp',
-    quote: '口型同步功能令人叹为观止。我现在为所有教育课程使用 Seedance 1.5 Pro 的口型同步功能。虚拟讲师看起来非常自然，多人对话处理也无缝流畅。',
-  },
-  {
-    name: '陈美玲',
-    role: '历史纪录片制作人',
-    avatar: 'https://static.banana2ai.net/images/avatars/x7tn1t9bnx5u.webp',
-    quote: '我们需要一个可靠的工具来为老旧的档案照片制作动画。图片转视频功能为平面照片增添了令人难以置信的深度，加入的环境音效让历史纪录片焕发了生机。',
-  },
-];
 
 /* ─── FAQs ─── */
-const FAQS = [
-  {
-    q: '什么是 Seedance 1.5 Pro？',
-    a: 'Seedance 1.5 Pro 是字节跳动推出的先进 AI 视频生成模型，专为电影级内容创作而设计，是业界领先的视频生成解决方案。',
-  },
-  {
-    q: 'Seedance 1.5 Pro 文字转视频（带音频）是如何工作的？',
-    a: '只需输入你的提示词，Seedance 1.5 Pro 引擎便会自动生成高保真视觉内容，并配以完美对齐的音轨，一次生成搞定所有。',
-  },
-  {
-    q: '我可以在视频中让角色说话吗？',
-    a: '可以！Seedance 1.5 Pro 的口型同步功能能为对话生成逼真且高度同步的口型动作，让角色自然地开口说话。',
-  },
-  {
-    q: '如何控制镜头运动？',
-    a: '使用 Seedance 1.5 Pro 的电影级镜头提示词，可以精准控制场景中的角度、平移和缩放，实现专业级的镜头语言。',
-  },
-  {
-    q: '它支持图片输入吗？',
-    a: '支持！Seedance 1.5 Pro 的图片转视频功能可以轻松将你的静态照片变为有声有色的动态视频。',
-  },
-];
 
 /* ─── Shared Components ─── */
 function GlowOrbs() {
@@ -258,7 +150,124 @@ function TestimonialCarousel() {
 }
 
 /* ────────────────────────── PAGE ────────────────────────── */
+const TESTIMONIALS = [
+  {
+    name: '林志远',
+    role: '独立电影导演',
+    avatar: 'https://static.banana2ai.net/images/avatars/dhp85zlyoefb.webp',
+    quote: 'Seedance 1.5 Pro 的精准提示词控制无与伦比。我可以用电影级镜头提示词获得追踪镜头，看起来像是用五万美元的摄影机拍摄的。它彻底改变了我处理独立电影制作的方式。',
+  },
+  {
+    name: '张雅婷',
+    role: '数字营销总监',
+    avatar: 'https://static.banana2ai.net/images/avatars/o2x1l23at94y.webp',
+    quote: '作为营销人员，交付速度就是一切。Seedance 1.5 Pro 让我们的团队能在数小时内将简单的广告文案转化为完整的视频宣传活动，文字转视频功能完全改变了游戏规则。',
+  },
+  {
+    name: '王建国',
+    role: '在线教育内容创作者',
+    avatar: 'https://static.banana2ai.net/images/avatars/obc2sna6dfu2.webp',
+    quote: '口型同步功能令人叹为观止。我现在为所有教育课程使用 Seedance 1.5 Pro 的口型同步功能。虚拟讲师看起来非常自然，多人对话处理也无缝流畅。',
+  },
+  {
+    name: '陈美玲',
+    role: '历史纪录片制作人',
+    avatar: 'https://static.banana2ai.net/images/avatars/x7tn1t9bnx5u.webp',
+    quote: '我们需要一个可靠的工具来为老旧的档案照片制作动画。图片转视频功能为平面照片增添了令人难以置信的深度，加入的环境音效让历史纪录片焕发了生机。',
+  },
+];
+
 export default function Page() {
+  const isZh = useLocale() === 'zh';
+  const STEPS = [
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-download.webp',
+      title: isZh ? '选择生成模式' : 'Select Generation Mode',
+      desc: isZh ? '选择图片转视频或文字转视频，以开始你的创作项目。' : 'Choose image-to-video or text-to-video to start your creative project.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-customize.webp',
+      title: isZh ? '描述你的创意构思' : 'Describe Your Creative Concept',
+      desc: isZh ? '清晰地输入你的创作构思。通过精准的提示词来实现电影级别的细节效果。' : 'Clearly input your creative concept. Achieve cinematic level detail with precise prompts.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
+      title: isZh ? '点击生成' : 'Click Generate',
+      desc: isZh ? '让 Seedance 1.5 Pro 多镜头叙事 AI 处理你的提示词，实现完美的音视频对齐。' : 'Let Seedance 1.5 Pro multi-shot narrative AI process your prompts for perfect audio-video alignment.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
+      title: isZh ? '下载视频' : 'Download Video',
+      desc: isZh ? '即刻从 Seedance 1.5 Pro 视频生成器导出你的杰作，与全世界分享。' : 'Instantly export your masterpiece from the Seedance 1.5 Pro video generator and share it with the world.',
+    },
+  ];
+
+  const FEATURES = [
+    {
+      title: isZh ? '精准音视频对齐' : 'Precise Audio-Video Alignment',
+      desc: isZh ? 'Seedance 1.5 Pro 最具突破性的进步之一，是其完美的音频集成能力。作为一流的口型同步视频生成器，AI 能实时将音素精准映射到复杂的面部肌肉运动上，无论是单人独白还是多人群戏，都能呈现极为自然的对话效果。' : 'One of Seedance 1.5 Pro’s most groundbreaking advancements is its perfect audio integration capability. As a leading lip-sync video generator, the AI can precisely map phonemes to complex facial muscle movements in real time, delivering extremely natural dialogue effects for both solo monologues and multi-character scenes.',
+    },
+    {
+      title: isZh ? '多语言多人对话' : 'Multi-language Multi-person Dialogue',
+      desc: isZh ? '借助 Seedance 1.5 Pro 的先进语言能力，打破全球语言壁垒。平台原生支持在单个生成场景中无缝呈现多语言、多人对话，让全球化内容创作触手可及。' : 'Break down global language barriers with Seedance 1.5 Pro’s advanced language capabilities. The platform natively supports seamless multi-language, multi-person dialogue within a single generation scene, making global content creation accessible.',
+    },
+    {
+      title: isZh ? '电影叙事品质' : 'Cinematic Narrative Quality',
+      desc: isZh ? '将你的视觉叙事提升至好莱坞水准。Seedance 1.5 Pro 搭载了基于海量影视数据训练的高级渲染引擎，确保每一帧都散发出专业艺术气质，帮你打造媲美商业大片的视频内容。' : 'Elevate your visual storytelling to Hollywood standards. Seedance 1.5 Pro is powered by an advanced rendering engine trained on massive film and television data, ensuring every frame exudes professional artistry and helps you create video content comparable to commercial blockbusters.',
+    },
+    {
+      title: isZh ? '高精度提示词控制' : 'High-Precision Prompt Control',
+      desc: isZh ? '毫无妥协地实现你的创作愿景。Seedance 1.5 Pro 提供卓越的提示词遵循能力，AI 能以外科手术般的精准度解析并执行复杂的多层次指令，让创作结果与预期高度一致。' : 'Realize your creative vision without compromise. Seedance 1.5 Pro offers exceptional prompt adherence, allowing the AI to parse and execute complex multi-layered instructions with surgical precision, ensuring creative results align perfectly with expectations.',
+    },
+  ];
+
+  const WHY_CARDS = [
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-download.webp',
+      title: isZh ? '社交媒体博主和内容创作者' : 'Social Media Bloggers and Content Creators',
+      desc: isZh ? '告别昂贵设备和摄影棚租赁的烦恼。使用 Seedance 1.5 Pro，个人创作者每天都能产出极具吸引力的趋势内容，直觉化操作大幅降低了学习门槛。' : 'Say goodbye to the hassle of expensive equipment and studio rentals. With Seedance 1.5 Pro, individual creators can produce highly engaging trending content daily, and intuitive operation significantly lowers the learning curve.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-customize.webp',
+      title: isZh ? '营销和广告机构' : 'Marketing and Advertising Agencies',
+      desc: isZh ? '最大化投资回报，大幅削减制作成本。机构可利用多镜头叙事 AI 快速制作广告活动的 A/B 测试版本，让图片转视频功能赋予静态素材全新生命力。' : 'Maximize ROI and significantly cut production costs. Agencies can leverage multi-shot narrative AI to quickly produce A/B test versions for ad campaigns, and the image-to-video feature breathes new life into static assets.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-generate.webp',
+      title: isZh ? '电影人和故事创作者' : 'Filmmakers and Story Creators',
+      desc: isZh ? '以前所未有的速度将分镜脚本变为现实。独立电影人可使用电影级镜头提示词预览复杂场景，或生成高质量的补充镜头。' : 'Bring storyboards to life at unprecedented speed. Independent filmmakers can use cinematic shot prompts to preview complex scenes or generate high-quality supplementary shots.',
+    },
+    {
+      icon: 'https://static.banana2ai.net/images/icons/step-upload.webp',
+      title: isZh ? '在线教育和企业培训' : 'Online Education and Corporate Training',
+      desc: isZh ? '通过丰富的多媒体内容提升学习体验。课程创作者可利用口型同步功能创建能以多种语言授课的虚拟讲师，让教学内容跨越语言边界触达全球学员。' : 'Enhance the learning experience with rich multimedia content. Course creators can use lip-sync functionality to create virtual instructors who can teach in multiple languages, allowing educational content to reach global learners across language barriers.',
+    },
+  ];
+
+
+  const FAQS = [
+    {
+      q: isZh ? '什么是 Seedance 1.5 Pro？' : 'What is Seedance 1.5 Pro?',
+      a: isZh ? 'Seedance 1.5 Pro 是字节跳动推出的先进 AI 视频生成模型，专为电影级内容创作而设计，是业界领先的视频生成解决方案。' : 'Seedance 1.5 Pro is an advanced AI video generation model launched by ByteDance, designed for cinematic content creation, making it an industry-leading video generation solution.',
+    },
+    {
+      q: isZh ? 'Seedance 1.5 Pro 文字转视频（带音频）是如何工作的？' : 'How does Seedance 1.5 Pro Text-to-Video (with audio) work?',
+      a: isZh ? '只需输入你的提示词，Seedance 1.5 Pro 引擎便会自动生成高保真视觉内容，并配以完美对齐的音轨，一次生成搞定所有。' : 'Simply input your prompt, and the Seedance 1.5 Pro engine will automatically generate high-fidelity visual content with perfectly aligned audio tracks, handling everything in one go.',
+    },
+    {
+      q: isZh ? '我可以在视频中让角色说话吗？' : 'Can I make characters speak in my videos?',
+      a: isZh ? '可以！Seedance 1.5 Pro 的口型同步功能能为对话生成逼真且高度同步的口型动作，让角色自然地开口说话。' : 'Yes! Seedance 1.5 Pro’s lip-sync feature generates realistic and highly synchronized lip movements for dialogue, allowing characters to speak naturally.',
+    },
+    {
+      q: isZh ? '如何控制镜头运动？' : 'How do I control camera movement?',
+      a: isZh ? '使用 Seedance 1.5 Pro 的电影级镜头提示词，可以精准控制场景中的角度、平移和缩放，实现专业级的镜头语言。' : 'Using Seedance 1.5 Pro’s cinematic camera prompts, you can precisely control angles, pans, and zooms within your scene, achieving professional-grade camera language.',
+    },
+    {
+      q: isZh ? '它支持图片输入吗？' : 'Does it support image input?',
+      a: isZh ? '支持！Seedance 1.5 Pro 的图片转视频功能可以轻松将你的静态照片变为有声有色的动态视频。' : 'Yes! Seedance 1.5 Pro’s image-to-video feature can easily transform your static photos into vibrant, dynamic videos with sound.',
+    },
+  ];
+
   const fadeRef = useScrollFade();
   const [openFaq, setOpenFaq] = useState(0);
 

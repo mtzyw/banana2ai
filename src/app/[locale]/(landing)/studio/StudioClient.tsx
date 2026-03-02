@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale } from 'next-intl';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
@@ -11,97 +13,8 @@ import {
 
 /* ──────────────────────────── Data ──────────────────────────── */
 
-const STEPS = [
-  {
-    num: 1, icon: FolderOpen,
-    title: '创建新项目并打开画布',
-    desc: '从 Studio 仪表盘创建新项目，或使用快速创建表单即时描述您的创意。每个项目都会打开一个无限画布——您的专属创作空间，所有节点、连接和生成结果都会实时自动保存。',
-  },
-  {
-    num: 2, icon: Plus,
-    title: '添加节点：图像、视频、文本或上传',
-    desc: '从侧边栏点击或拖拽添加节点到画布上。可选择图像生成、视频生成、文本提示或上传素材节点。图像节点支持 9+ AI 模型，视频节点支持 Veo 3 和 Veo 3.1 生成。',
-  },
-  {
-    num: 3, icon: Link2,
-    title: '连接节点，构建创意工作流',
-    desc: '在节点之间拖拽连接以建立依赖关系。将文本节点的提示词输入图像节点，或将图像输出链接到视频节点作为参考帧。这种节点化工作流让您以可视化方式构建多步骤创意流水线——无需编码。',
-  },
-  {
-    num: 4, icon: Sparkles,
-    title: '即时生成、预览和迭代',
-    desc: '点击任意节点上的"生成"按钮，数秒内即可产出 AI 图像或视频。直接在画布上预览结果。不满意？调整提示词重新生成、尝试不同的 AI 模型，或使用"基于此创建"衍生新的变体。',
-  },
-  {
-    num: 5, icon: Download,
-    title: '管理、导出，持续创作',
-    desc: '每次生成都保存在项目历史中。在历史面板中浏览过往作品，将其添加回画布，或导出无水印的高分辨率成果。使用键盘快捷键提速，撤销/重做保障信心——一切为专业创意工作流而设计。',
-  },
-];
 
-const FEATURES_DETAIL = [
-  {
-    title: '无限画布与可视化节点工作流',
-    desc: '在无限、可缩放的画布上工作，每个创意素材都以节点形式呈现。拖拽定位、连接构建工作流，放大缩小一览完整创意流水线。可视化方式让复杂的多步骤生成变得直观——没有隐藏菜单，没有线性限制。',
-    image: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp',
-  },
-  {
-    title: '多模型 AI 图像生成',
-    desc: '在画布上直接使用 9+ 先进 AI 图像模型。用 Nano Banana Pro、Z-Image Turbo、Seedream 或 GPT-4o Image 从文本提示生成。上传参考图像，使用 Flux Kontext Pro、Qwen Image Edit 和 Grok Imagine 进行风格转换。支持 1:1 到 21:9 的宽高比，分辨率最高 4K。',
-    image: 'https://static.banana2ai.net/images/showcase/ai-models.webp',
-  },
-  {
-    title: 'Veo 3 & Veo 3.1 AI 视频生成',
-    desc: '在画布工作流中直接创建 AI 视频。Veo 3.1 Premium 和 Basic 模型可从文本描述或参考图像生成高质量视频。选择 16:9 或 9:16 宽高比，适配横屏或竖屏内容。将图像节点连接到视频节点，以 AI 生成的画作作为起始帧。',
-    image: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
-  },
-  {
-    title: '智能节点连接与创意流水线',
-    desc: '从一个节点的输出端拖拽到另一个节点的输入端即可建立依赖关系。文本节点提供提示词，图像节点提供参考视觉，视频节点接收两者。系统自动验证连接——确保输入兼容，防止错误。通过简单的拖放操作，构建文本→图像→视频等复杂多步骤工作流。',
-    image: 'https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp',
-  },
-  {
-    title: '项目管理：自动保存与版本历史',
-    desc: '每项更改都实时自动保存——永不丢失您的作品。在专用历史面板中按图像和视频分类浏览生成历史。每个项目追踪所有节点、连接和输出。自由撤销和重做。在仪表盘上创建、重命名和管理多个项目。',
-    image: 'https://static.banana2ai.net/images/avatars/b88usp2lk4ef.webp',
-  },
-  {
-    title: '丰富交互：右键菜单、键盘快捷键与批量操作',
-    desc: '右键点击画布快速操作：添加节点、上传、撤销、重做、粘贴。使用键盘快捷键——Cmd/Ctrl+Z 撤销、Cmd/Ctrl+C 复制、Delete 删除。批量生成变体、复制节点、从已有结果衍生新节点。专为创意速度打造的专业级工具。',
-    image: 'https://static.banana2ai.net/images/showcase/interactive-tools.webp',
-  },
-];
 
-const FAQ_ITEMS = [
-  {
-    q: '什么是 Banana Pro AI Studio？它是如何工作的？',
-    a: 'Banana Pro AI Studio 是一个免费的可视化工作流画布，专为 AI 内容创作设计。它让您使用多个 AI 模型生成图像和视频，所有内容都组织在一个无限、可缩放的画布上。创建项目 → 添加节点 → 连接工作流 → 生成并迭代 → 导出成果。一切实时自动保存，节点化的可视化方式让复杂的 AI 工作流变得直观易用。',
-  },
-  {
-    q: 'Banana Pro AI Studio 免费吗？',
-    a: '是的！Banana Pro AI Studio 凭您的 Banana Pro AI 账户即可免费使用。免费注册——无需信用卡——即可获得每日 AI 图像和视频生成积分。免费账户包括：无限画布和项目创建、所有 AI 模型访问权限、自动保存和版本历史、无水印高分辨率导出。高级计划为高频用户提供更多积分和优先处理。',
-  },
-  {
-    q: 'Banana Pro AI Studio 提供哪些 AI 模型？',
-    a: '图像生成模型：Nano Banana Pro（Google Gemini 驱动）、GPT-4o Image、Flux Kontext Pro/Max、Z-Image Turbo、Seedream、Qwen Image Edit、Grok Imagine 等 9+ 模型。视频生成模型：Veo 3.1 Premium、Veo 3.1 Basic。所有模型均可在画布上直接使用，只需从节点的下拉菜单中选择。',
-  },
-  {
-    q: '画布上的节点连接和工作流是如何运作的？',
-    a: '每个节点都有输入和输出端口（左右两侧的小圆圈）。从输出端拖拽到输入端即可建立连接。工作流示例：文本节点（提示词）→ 图像节点（生成图片）→ 视频节点（以图片为首帧生成视频）。系统自动验证连接兼容性，无需任何编码或技术配置即可构建复杂的创意工作流。',
-  },
-  {
-    q: '可以一次生成多个变体吗？',
-    a: '可以！Banana Pro AI Studio 支持批量生成。在节点设置中选择批量数量（最多 4 个），点击生成即可同时创建多个变体。结合"基于此创建"功能（从已有结果创建衍生的新节点），您可以快速迭代，直到找到完美的创意方向。',
-  },
-  {
-    q: '自动保存如何工作？会丢失进度吗？',
-    a: 'Banana Pro AI Studio 采用双层自动保存系统：本地优先保存（更改即时保存到浏览器）+ 云端同步（自动上传到服务器，跨设备同步）。此外，所有生成结果保存在云端资产库中，即使清除浏览器数据也不会丢失生成的图像和视频。您的创作在每一步都受到保护。',
-  },
-  {
-    q: 'Banana Pro AI Studio 有哪些键盘快捷键？',
-    a: '导航：滚轮缩放、空格+拖拽平移、Cmd/Ctrl+0 重置视图。编辑：Cmd/Ctrl+Z 撤销、Cmd/Ctrl+Shift+Z 重做、Cmd/Ctrl+C 复制、Cmd/Ctrl+V 粘贴、Delete/Backspace 删除。节点：双击画布创建新节点、Tab 打开快速添加菜单。',
-  },
-];
 
 /* ──────────────────────────── Shared ──────────────────────────── */
 
@@ -142,6 +55,99 @@ function FadeIn({ children, className = '', delay = 0 }: { children: React.React
 /* ──────────────────────────── PAGE ──────────────────────────── */
 
 export default function StudioClient() {
+  const isZh = useLocale() === 'zh';
+  const STEPS = [
+    {
+      num: 1, icon: FolderOpen,
+      title: isZh ? '创建新项目并打开画布' : 'Create a new project and open the canvas',
+      desc: isZh ? '从 Studio 仪表盘创建新项目，或使用快速创建表单即时描述您的创意。每个项目都会打开一个无限画布——您的专属创作空间，所有节点、连接和生成结果都会实时自动保存。' : 'Create a new project from the Studio dashboard, or use the quick creation form to instantly describe your ideas. Each project opens an infinite canvas—your dedicated creative space, where all nodes, connections, and generated results are automatically saved in real time.',
+    },
+    {
+      num: 2, icon: Plus,
+      title: isZh ? '添加节点：图像、视频、文本或上传' : 'Add nodes: Image, Video, Text, or Upload',
+      desc: isZh ? '从侧边栏点击或拖拽添加节点到画布上。可选择图像生成、视频生成、文本提示或上传素材节点。图像节点支持 9+ AI 模型，视频节点支持 Veo 3 和 Veo 3.1 生成。' : 'Click or drag from the sidebar to add nodes to the canvas. You can choose image generation, video generation, text prompt, or upload asset nodes. Image nodes support 9+ AI models, and video nodes support Veo 3 and Veo 3.1 generation.',
+    },
+    {
+      num: 3, icon: Link2,
+      title: isZh ? '连接节点，构建创意工作流' : 'Connect nodes, build creative workflows',
+      desc: isZh ? '在节点之间拖拽连接以建立依赖关系。将文本节点的提示词输入图像节点，或将图像输出链接到视频节点作为参考帧。这种节点化工作流让您以可视化方式构建多步骤创意流水线——无需编码。' : 'Drag connections between nodes to establish dependencies. Input text node prompts into image nodes, or link image outputs to video nodes as reference frames. This node-based workflow allows you to visually build multi-step creative pipelines—no coding required.',
+    },
+    {
+      num: 4, icon: Sparkles,
+      title: isZh ? '即时生成、预览和迭代' : 'Instant generation, preview, and iteration',
+      desc: isZh ? '点击任意节点上的"生成"按钮，数秒内即可产出 AI 图像或视频。直接在画布上预览结果。不满意？调整提示词重新生成、尝试不同的 AI 模型，或使用"基于此创建"衍生新的变体。' : 'Click the "Generate" button on any node to produce AI images or videos in seconds. Preview results directly on the canvas. Not satisfied? Adjust prompts to regenerate, try different AI models, or use "Create from this" to derive new variations.',
+    },
+    {
+      num: 5, icon: Download,
+      title: isZh ? '管理、导出，持续创作' : 'Manage, export, continue creating',
+      desc: isZh ? '每次生成都保存在项目历史中。在历史面板中浏览过往作品，将其添加回画布，或导出无水印的高分辨率成果。使用键盘快捷键提速，撤销/重做保障信心——一切为专业创意工作流而设计。' : 'Every generation is saved in the project history. Browse past creations in the history panel, add them back to the canvas, or export high-resolution, watermark-free results. Use keyboard shortcuts to speed up, undo/redo to ensure confidence—all designed for professional creative workflows.',
+    },
+  ];
+
+  const FEATURES_DETAIL = [
+    {
+      title: isZh ? '无限画布与可视化节点工作流' : 'Infinite Canvas and Visual Node Workflow',
+      desc: isZh ? '在无限、可缩放的画布上工作，每个创意素材都以节点形式呈现。拖拽定位、连接构建工作流，放大缩小一览完整创意流水线。可视化方式让复杂的多步骤生成变得直观——没有隐藏菜单，没有线性限制。' : 'Work on an infinite, scalable canvas where every creative asset is represented as a node. Drag to position, connect to build workflows, zoom in and out to view the complete creative pipeline. The visual approach makes complex multi-step generation intuitive—no hidden menus, no linear limitations.',
+      image: 'https://static.banana2ai.net/images/showcase/canvas-workflow.webp',
+    },
+    {
+      title: isZh ? '多模型 AI 图像生成' : 'Multi-model AI Image Generation',
+      desc: isZh ? '在画布上直接使用 9+ 先进 AI 图像模型。用 Nano Banana Pro、Z-Image Turbo、Seedream 或 GPT-4o Image 从文本提示生成。上传参考图像，使用 Flux Kontext Pro、Qwen Image Edit 和 Grok Imagine 进行风格转换。支持 1:1 到 21:9 的宽高比，分辨率最高 4K。' : 'Directly use 9+ advanced AI image models on the canvas. Generate from text prompts with Nano Banana Pro, Z-Image Turbo, Seedream, or GPT-4o Image. Upload reference images and use Flux Kontext Pro, Qwen Image Edit, and Grok Imagine for style transfer. Supports aspect ratios from 1:1 to 21:9, with resolutions up to 4K.',
+      image: 'https://static.banana2ai.net/images/showcase/ai-models.webp',
+    },
+    {
+      title: isZh ? 'Veo 3 & Veo 3.1 AI 视频生成' : 'Veo 3 & Veo 3.1 AI Video Generation',
+      desc: isZh ? '在画布工作流中直接创建 AI 视频。Veo 3.1 Premium 和 Basic 模型可从文本描述或参考图像生成高质量视频。选择 16:9 或 9:16 宽高比，适配横屏或竖屏内容。将图像节点连接到视频节点，以 AI 生成的画作作为起始帧。' : 'Directly create AI videos within your canvas workflow. Veo 3.1 Premium and Basic models can generate high-quality videos from text descriptions or reference images. Choose 16:9 or 9:16 aspect ratios for landscape or portrait content. Connect image nodes to video nodes to use AI-generated artwork as starting frames.',
+      image: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
+    },
+    {
+      title: isZh ? '智能节点连接与创意流水线' : 'Smart Node Connections and Creative Pipelines',
+      desc: isZh ? '从一个节点的输出端拖拽到另一个节点的输入端即可建立依赖关系。文本节点提供提示词，图像节点提供参考视觉，视频节点接收两者。系统自动验证连接——确保输入兼容，防止错误。通过简单的拖放操作，构建文本→图像→视频等复杂多步骤工作流。' : 'Drag from a node’s output port to another node’s input port to establish dependencies. Text nodes provide prompts, image nodes provide visual references, and video nodes receive both. The system automatically validates connections—ensuring input compatibility and preventing errors. Build complex multi-step workflows like text→image→video with simple drag-and-drop operations.',
+      image: 'https://static.banana2ai.net/images/avatars/8pk4idwouhh0.webp',
+    },
+    {
+      title: isZh ? '项目管理：自动保存与版本历史' : 'Project Management: Auto-Save and Version History',
+      desc: isZh ? '每项更改都实时自动保存——永不丢失您的作品。在专用历史面板中按图像和视频分类浏览生成历史。每个项目追踪所有节点、连接和输出。自由撤销和重做。在仪表盘上创建、重命名和管理多个项目。' : 'Every change is automatically saved in real time—never lose your work. Browse generation history categorized by images and videos in the dedicated history panel. Each project tracks all nodes, connections, and outputs. Freely undo and redo. Create, rename, and manage multiple projects on the dashboard.',
+      image: 'https://static.banana2ai.net/images/avatars/b88usp2lk4ef.webp',
+    },
+    {
+      title: isZh ? '丰富交互：右键菜单、键盘快捷键与批量操作' : 'Rich Interaction: Right-Click Menus, Keyboard Shortcuts, and Batch Operations',
+      desc: isZh ? '右键点击画布快速操作：添加节点、上传、撤销、重做、粘贴。使用键盘快捷键——Cmd/Ctrl+Z 撤销、Cmd/Ctrl+C 复制、Delete 删除。批量生成变体、复制节点、从已有结果衍生新节点。专为创意速度打造的专业级工具。' : 'Right-click the canvas for quick actions: add nodes, upload, undo, redo, paste. Use keyboard shortcuts—Cmd/Ctrl+Z for undo, Cmd/Ctrl+C for copy, Delete for delete. Batch generate variations, duplicate nodes, derive new nodes from existing results. Professional-grade tools built for creative speed.',
+      image: 'https://static.banana2ai.net/images/showcase/interactive-tools.webp',
+    },
+  ];
+
+  const FAQ_ITEMS = [
+    {
+      q: isZh ? '什么是 Banana Pro AI Studio？它是如何工作的？' : 'What is Banana Pro AI Studio? How does it work?',
+      a: isZh ? 'Banana Pro AI Studio 是一个免费的可视化工作流画布，专为 AI 内容创作设计。它让您使用多个 AI 模型生成图像和视频，所有内容都组织在一个无限、可缩放的画布上。创建项目 → 添加节点 → 连接工作流 → 生成并迭代 → 导出成果。一切实时自动保存，节点化的可视化方式让复杂的 AI 工作流变得直观易用。' : 'Banana Pro AI Studio is a free visual workflow canvas designed for AI content creation. It allows you to generate images and videos using multiple AI models, all organized on an infinite, scalable canvas. Create a project → add nodes → connect workflows → generate and iterate → export results. Everything is automatically saved in real time, and the node-based visual approach makes complex AI workflows intuitive and easy to use.',
+    },
+    {
+      q: isZh ? 'Banana Pro AI Studio 免费吗？' : 'Is Banana Pro AI Studio free?',
+      a: isZh ? '是的！Banana Pro AI Studio 凭您的 Banana Pro AI 账户即可免费使用。免费注册——无需信用卡——即可获得每日 AI 图像和视频生成积分。免费账户包括：无限画布和项目创建、所有 AI 模型访问权限、自动保存和版本历史、无水印高分辨率导出。高级计划为高频用户提供更多积分和优先处理。' : 'Yes! Banana Pro AI Studio is free to use with your Banana Pro AI account. Register for free—no credit card needed—to get daily AI image and video generation credits. Free accounts include: infinite canvas and project creation, access to all AI models, auto-save and version history, and watermark-free high-resolution exports. Premium plans offer more credits and priority processing for frequent users.',
+    },
+    {
+      q: isZh ? 'Banana Pro AI Studio 提供哪些 AI 模型？' : 'Which AI models does Banana Pro AI Studio offer?',
+      a: isZh ? '图像生成模型：Nano Banana Pro（Google Gemini 驱动）、GPT-4o Image、Flux Kontext Pro/Max、Z-Image Turbo、Seedream、Qwen Image Edit、Grok Imagine 等 9+ 模型。视频生成模型：Veo 3.1 Premium、Veo 3.1 Basic。所有模型均可在画布上直接使用，只需从节点的下拉菜单中选择。' : 'Image generation models: Nano Banana Pro (powered by Google Gemini), GPT-4o Image, Flux Kontext Pro/Max, Z-Image Turbo, Seedream, Qwen Image Edit, Grok Imagine, and 9+ other models. Video generation models: Veo 3.1 Premium, Veo 3.1 Basic. All models can be used directly on the canvas; simply select from the node’s dropdown menu.',
+    },
+    {
+      q: isZh ? '画布上的节点连接和工作流是如何运作的？' : 'How do node connections and workflows work on the canvas?',
+      a: isZh ? '每个节点都有输入和输出端口（左右两侧的小圆圈）。从输出端拖拽到输入端即可建立连接。工作流示例：文本节点（提示词）→ 图像节点（生成图片）→ 视频节点（以图片为首帧生成视频）。系统自动验证连接兼容性，无需任何编码或技术配置即可构建复杂的创意工作流。' : 'Each node has input and output ports (small circles on the left and right sides). Drag from an output port to an input port to establish a connection. Workflow example: Text node (prompt) → Image node (generate image) → Video node (generate video using the image as the first frame). The system automatically validates connection compatibility, allowing you to build complex creative workflows without any coding or technical configuration.',
+    },
+    {
+      q: isZh ? '可以一次生成多个变体吗？' : 'Can multiple variants be generated at once?',
+      a: isZh ? '可以！Banana Pro AI Studio 支持批量生成。在节点设置中选择批量数量（最多 4 个），点击生成即可同时创建多个变体。结合"基于此创建"功能（从已有结果创建衍生的新节点），您可以快速迭代，直到找到完美的创意方向。' : 'Yes! Banana Pro AI Studio supports batch generation. In the node settings, select the batch quantity (up to 4), click generate to create multiple variants simultaneously. Combined with the "Create from This" feature (creating new derivative nodes from existing results), you can quickly iterate until you find the perfect creative direction.',
+    },
+    {
+      q: isZh ? '自动保存如何工作？会丢失进度吗？' : 'How does auto-save work? Will I lose my progress?',
+      a: isZh ? 'Banana Pro AI Studio 采用双层自动保存系统：本地优先保存（更改即时保存到浏览器）+ 云端同步（自动上传到服务器，跨设备同步）。此外，所有生成结果保存在云端资产库中，即使清除浏览器数据也不会丢失生成的图像和视频。您的创作在每一步都受到保护。' : 'Banana Pro AI Studio uses a dual-layer auto-save system: local-first saving (changes are instantly saved to the browser) + cloud synchronization (automatically uploaded to the server, synchronized across devices). In addition, all generated results are saved in the cloud asset library, so even if you clear browser data, your generated images and videos will not be lost. Your creations are protected every step of the way.',
+    },
+    {
+      q: isZh ? 'Banana Pro AI Studio 有哪些键盘快捷键？' : 'What are the keyboard shortcuts for Banana Pro AI Studio?',
+      a: isZh ? '导航：滚轮缩放、空格+拖拽平移、Cmd/Ctrl+0 重置视图。编辑：Cmd/Ctrl+Z 撤销、Cmd/Ctrl+Shift+Z 重做、Cmd/Ctrl+C 复制、Cmd/Ctrl+V 粘贴、Delete/Backspace 删除。节点：双击画布创建新节点、Tab 打开快速添加菜单。' : 'Navigation: Scroll wheel zoom, Space + drag to pan, Cmd/Ctrl+0 to reset view. Editing: Cmd/Ctrl+Z undo, Cmd/Ctrl+Shift+Z redo, Cmd/Ctrl+C copy, Cmd/Ctrl+V paste, Delete/Backspace delete. Nodes: Double click canvas to create new node, Tab to open quick add menu.',
+    },
+  ];
+
   const [openFaq, setOpenFaq] = useState(0);
 
   return (

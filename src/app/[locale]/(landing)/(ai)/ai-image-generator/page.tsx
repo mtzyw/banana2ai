@@ -1,5 +1,7 @@
 'use client';
 
+import { useLocale } from 'next-intl';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import {
@@ -10,14 +12,6 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 
-const FEATURES = [
-  '精准控制的双架构系统',
-  '复杂空间逻辑处理',
-  '无瑕的文字渲染能力',
-  '商业级图像质量输出',
-  '支持多种图像尺寸',
-  '极速生成，无需等待',
-];
 
 const SAMPLE_IMAGES = [
   'https://static.banana2ai.net/images/samples/xemk5igdslyy.webp',
@@ -42,6 +36,16 @@ const GENERATION_MODELS = [
 ];
 
 export default function FluxAIImageGeneratorPage() {
+  const isZh = useLocale() === 'zh';
+  const FEATURES = [
+    '精准控制的双架构系统',
+    '复杂空间逻辑处理',
+    '无瑕的文字渲染能力',
+    '商业级图像质量输出',
+    '支持多种图像尺寸',
+    '极速生成，无需等待',
+  ];
+
   const [prompt, setPrompt] = useState('');
   const [selectedModel, setSelectedModel] = useState('Flux Schnell');
   const [isGenerating, setIsGenerating] = useState(false);
