@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageGenerator from '@/components/banana/ImageGenerator';
+import { GROK_IMAGINE_EXAMPLES } from '@/data/page-examples';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
 /* ─── Why / Features Section Tabs (tab + left image / right text) ─── */
@@ -318,7 +319,7 @@ export default function Page() {
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
         <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Grok Imagine</span> 图片</h2>
-        <ImageGenerator />
+        <ImageGenerator examples={GROK_IMAGINE_EXAMPLES} />
       </section>
 
       {/* ── Steps (3) ── */}

@@ -1,6 +1,21 @@
 import { notFound } from 'next/navigation';
 import ModelDetailPage from '@/components/banana/ModelDetailPage';
 import { imageTools } from '@/data/image-tools';
+import {
+  GENERIC_A_EXAMPLES,
+  GENERIC_B_EXAMPLES,
+  GENERIC_C_EXAMPLES,
+  GENERIC_D_EXAMPLES,
+  GENERIC_E_EXAMPLES,
+} from '@/data/page-examples';
+
+const GENERIC_SETS = [
+  GENERIC_A_EXAMPLES,
+  GENERIC_B_EXAMPLES,
+  GENERIC_C_EXAMPLES,
+  GENERIC_D_EXAMPLES,
+  GENERIC_E_EXAMPLES,
+];
 
 interface Props {
   params: Promise<{ slug: string; locale: string }>;
@@ -18,6 +33,10 @@ export default async function ImageToolPage({ params }: Props) {
     notFound();
   }
 
+  // Assign a unique example set based on slug hash
+  const slugIdx = Object.keys(imageTools).indexOf(slug);
+  const examples = GENERIC_SETS[slugIdx % GENERIC_SETS.length];
+
   return (
     <ModelDetailPage
       modelName={tool.modelName}
@@ -33,6 +52,7 @@ export default async function ImageToolPage({ params }: Props) {
       faqs={tool.faqs}
       ctaTitle={tool.ctaTitle}
       ctaDescription={tool.ctaDescription}
+      examples={examples}
     />
   );
 }

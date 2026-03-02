@@ -9,7 +9,7 @@ const tabs = [
   {
     id: 'marketing',
     label: '营销人员',
-    image: 'https://static.banana2ai.net/images/features/nmodnhmzoinn.webp',
+    image: 'https://static.banana2ai.net/images/features/usecase-marketing.webp',
     heading: '面向营销人员和广告专业人士',
     desc: 'Banana Pro AI 可在几分钟内生成高转化率的广告创意、引人注目的营销视觉素材和专业的营销物料。使用 Banana Pro AI 可同时测试多个创意方向，基于效果数据进行迭代优化，无需昂贵的摄影拍摄即可扩展营销活动。',
     features: [
@@ -22,7 +22,7 @@ const tabs = [
   {
     id: 'creator',
     label: '内容创作者',
-    image: 'https://static.banana2ai.net/images/features/oymo6e4j50qi.webp',
+    image: 'https://static.banana2ai.net/images/features/usecase-creator.webp',
     heading: '面向内容创作者和社交媒体运营者',
     desc: 'Banana Pro AI 通过我们的 AI 图像生成器为您的内容日历持续提供新鲜、引人入胜的视觉内容。即时生成自定义 YouTube 缩略图、Instagram 帖子、博客特色图片等。有了 Banana Pro AI，您再也不会缺少视觉内容。',
     features: [

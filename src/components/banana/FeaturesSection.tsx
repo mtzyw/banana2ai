@@ -18,14 +18,14 @@ const features = [
     title: '文生图',
     subtitle: '文字描述生成图像',
     desc: '只需输入文字描述，Banana Pro AI 即可将您的想象转化为高质量图像。支持多种风格，从写实摄影到动漫插画，满足各种创作需求。',
-    image: 'https://static.banana2ai.net/images/showcase/interactive-tools.webp',
+    image: 'https://static.banana2ai.net/images/features/text-to-image-concept.webp',
   },
   {
     id: 'image-to-image',
     title: '图生图',
     subtitle: '以图为参考生成变体',
     desc: '上传您的参考图片，Banana Pro AI 将智能分析并生成风格化变体。保留原图结构的同时，赋予全新的艺术风格和创意表达。',
-    image: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
+    image: 'https://static.banana2ai.net/images/features/image-to-image-concept.webp',
   },
   {
     id: 'ai-portrait',
@@ -39,14 +39,14 @@ const features = [
     title: 'AI头像',
     subtitle: '个性化头像生成',
     desc: '一键生成独具个性的AI头像，适用于社交媒体、游戏、职业档案等各种场景，展现您的独特风格。',
-    image: 'https://static.banana2ai.net/images/showcase/interactive-tools.webp',
+    image: 'https://static.banana2ai.net/images/features/ai-avatar-showcase.webp',
   },
   {
     id: 'style-transfer',
     title: '风格迁移',
     subtitle: '艺术风格自由切换',
     desc: 'Banana Pro AI 提供丰富的艺术风格库和专业预设模板。轻松自定义强度、组合风格，在照片写实主义和艺术化表现之间无缝切换，打造专属美学风格。',
-    image: 'https://static.banana2ai.net/images/showcase/video-generation.webp',
+    image: 'https://static.banana2ai.net/images/features/style-transfer-showcase.webp',
   },
 ];
 

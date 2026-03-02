@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageGenerator from '@/components/banana/ImageGenerator';
+import { QWEN_IMAGE_EDIT_EXAMPLES } from '@/data/page-examples';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
 /* ─── Why Section Tabs Data ─── */
@@ -388,7 +389,7 @@ export default function Page() {
         <h2 className="mb-6 text-2xl font-bold scroll-fade-in">
           <span className="gradient-glow-text">Qwen Image Edit</span> 图片
         </h2>
-        <ImageGenerator />
+        <ImageGenerator examples={QWEN_IMAGE_EDIT_EXAMPLES} />
       </section>
 
       {/* ── Steps (4) ── */}

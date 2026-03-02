@@ -22,7 +22,13 @@ const RESOLUTIONS = ['1K', '2K', '4K'];
 const QUANTITIES = [1, 2, 3, 4];
 
 /* ── Example slides ── */
-const EXAMPLES = [
+export type ExampleSlide = {
+  before: string;
+  after: string;
+  prompt: string;
+};
+
+const DEFAULT_EXAMPLES: ExampleSlide[] = [
   {
     before: 'https://static.banana2ai.net/images/generator/example-v3-before-1.webp',
     after:  'https://static.banana2ai.net/images/generator/example-v3-after-1.webp',
@@ -43,7 +49,12 @@ const EXAMPLES = [
 type Mode = 'text' | 'image';
 type GenerateState = 'idle' | 'loading' | 'done';
 
-export default function ImageGenerator() {
+interface ImageGeneratorProps {
+  examples?: ExampleSlide[];
+}
+
+export default function ImageGenerator({ examples }: ImageGeneratorProps) {
+  const EXAMPLES = examples ?? DEFAULT_EXAMPLES;
   const [mode, setMode] = useState<Mode>('text');
   const [prompt, setPrompt] = useState('');
   const [selectedRatio, setSelectedRatio] = useState('1:1');

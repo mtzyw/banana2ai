@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "ShipAny 模板二",
-    "description": "ShipAny 是用于构建 AI SaaS 创业项目的 NextJS 脚手架。提供丰富模板和组件，助您快速上线产品。",
-    "keywords": "shipany, shipany-boilerplate, shipany-template-two-demo"
+    "title": "Banana 2 AI - 免费AI图像生成器 | 文生图、图生图、AI写真",
+    "description": "Banana 2 AI 是最强大的免费AI图像生成器。支持文生图、图生图、AI写真、风格迁移等功能，几秒内获得工作室级品质图像，免费使用，含商业授权。",
+    "keywords": "AI图像生成器, 免费AI生图, 文生图, 图生图, AI写真, AI头像, 风格迁移, banana2ai"
   },
   "sign": {
     "sign_in_title": "登录",

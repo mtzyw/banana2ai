@@ -1,4 +1,5 @@
 import ModelDetailPage from '@/components/banana/ModelDetailPage';
+import { BANANA_PRO_AI_EXAMPLES } from '@/data/page-examples';
 
 const modelData = {
   modelName: 'Banana Pro AI',
@@ -128,5 +129,5 @@ const modelData = {
 };
 
 export default function Page() {
-  return <ModelDetailPage {...modelData} />;
+  return <ModelDetailPage {...modelData} examples={BANANA_PRO_AI_EXAMPLES} />;
 }

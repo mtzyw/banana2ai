@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageGenerator from '@/components/banana/ImageGenerator';
+import { Z_IMAGE_TURBO_EXAMPLES } from '@/data/page-examples';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
 /* ─── Why Section Tabs Data ─── */
@@ -265,7 +266,7 @@ export default function Page() {
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
         <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Z Image Turbo</span> 图片</h2>
-        <ImageGenerator />
+        <ImageGenerator examples={Z_IMAGE_TURBO_EXAMPLES} />
       </section>
 
       {/* ── Steps (4) ── */}

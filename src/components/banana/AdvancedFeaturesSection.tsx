@@ -40,11 +40,11 @@ const features = [
 
 const showcaseMedia: Array<{ type: 'video' | 'image'; src: string }> = [
   { type: 'video', src: 'https://static.banana2ai.net/videos/showcase-2.mp4' },
-  { type: 'image', src: 'https://static.banana2ai.net/images/avatars/j3znhyr1jyn8.webp' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/features/commercial-product-ai.webp' },
   { type: 'video', src: 'https://static.banana2ai.net/videos/showcase-3.mp4' },
-  { type: 'image', src: 'https://static.banana2ai.net/images/avatars/k1zo5dpjyh3y.webp' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/features/creative-workspace-ai.webp' },
   { type: 'video', src: 'https://static.banana2ai.net/videos/showcase-4.mp4' },
-  { type: 'image', src: 'https://static.banana2ai.net/images/features/nmodnhmzoinn.webp' },
+  { type: 'image', src: 'https://static.banana2ai.net/images/features/batch-generation-showcase.webp' },
 ];
 
 export default function AdvancedFeaturesSection() {

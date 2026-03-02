@@ -10,6 +10,7 @@ import {
   Palette, ShoppingBag, GraduationCap, Gamepad2,
 } from 'lucide-react';
 import ImageGenerator from '@/components/banana/ImageGenerator';
+import { IMAGE_LIST_EXAMPLES } from '@/data/page-examples';
 
 /* ──────────────────────────── Data ──────────────────────────── */
 
@@ -425,7 +426,7 @@ export default function ImageListPage() {
       {/* ─── 2. Image Generator ─── */}
       <section className="px-4 py-4">
         <div className="mx-auto max-w-[1400px]">
-          <ImageGenerator />
+          <ImageGenerator examples={IMAGE_LIST_EXAMPLES} />
         </div>
       </section>
 

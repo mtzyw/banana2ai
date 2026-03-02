@@ -2,10 +2,10 @@
   "header": {
     "id": "header",
     "brand": {
-      "title": "ShipAny Two",
+      "title": "Banana 2 AI",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny Two",
+        "alt": "Banana 2 AI",
         "width": 100,
         "height": 100
       },
@@ -107,17 +107,17 @@
     "show_theme": true,
     "show_locale": true,
     "topbanner": {
-      "text": "This website is a demo site for the ShipAny template. To purchase the ShipAny template, please visit the <a href='https://shipany.ai/pricing' class='text-orange-300' target='_blank'>ShipAny website</a>"
+      "text": "This website is a demo site for the Banana 2 AI template. To purchase the Banana 2 AI template, please visit the <a href='https://shipany.ai/pricing' class='text-orange-300' target='_blank'>Banana 2 AI website</a>"
     }
   },
   "footer": {
     "id": "footer",
     "brand": {
-      "title": "ShipAny Two",
-      "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
+      "title": "Banana 2 AI",
+      "description": "Banana 2 AI is a NextJS boilerplate for building AI SaaS startups. Ship Fast with a variety of templates and components.",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny Two",
+        "alt": "Banana 2 AI",
         "width": 1024,
         "height": 1024
       },
@@ -169,7 +169,7 @@
           "title": "Friends",
           "children": [
             {
-              "title": "ShipAny",
+              "title": "Banana 2 AI",
               "url": "https://shipany.ai",
               "target": "_blank"
             },

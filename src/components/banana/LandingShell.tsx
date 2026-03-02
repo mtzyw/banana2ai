@@ -5,6 +5,7 @@ import { TopNavbar, Sidebar } from '@/shared/components/layout';
 import Footer from '@/components/banana/Footer';
 import PromoBanner from '@/components/banana/PromoBanner';
 import ScrollFadeGlobal from '@/components/banana/ScrollFadeGlobal';
+import MobileBottomNav from '@/components/banana/MobileBottomNav';
 
 const BANNER_HEIGHT = 46; // Banner height (matches original's ~56px with padding)
 
@@ -52,9 +53,13 @@ export default function LandingShell({ children }: { children: ReactNode }) {
           >
             {children}
             <Footer />
+            {/* Spacer for mobile bottom nav */}
+            <div className="h-16 lg:hidden" />
           </main>
         </div>
       </div>
+
+      <MobileBottomNav />
     </div>
   );
 }

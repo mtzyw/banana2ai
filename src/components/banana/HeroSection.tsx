@@ -21,12 +21,20 @@ const MODELS = [
   { label: 'Veo', id: 'veo', icon: 'G' },
 ];
 
-const TYPEWRITER_PROMPTS = [
+const TYPEWRITER_PROMPTS_DESKTOP = [
   'The train moves forward through a bright forest, sunlight flickering through the leaves onto the windows. A girl leans out joyfully, her hair blowing in the wind. Soft anime lighting, vibrant colors, smooth gentle motion.',
   'Cyberpunk desert warrior woman with pink-turquoise ombre hair, golden futuristic armor, steampunk goggles, standing in red canyon desert, golden hour lighting, post-apocalyptic cinematic style.',
   'Gothic anime girl with split face (normal blue eye/glowing skull red eye), platinum twin braids, black chains outfit against bright pink background, kawaii-horror aesthetic.',
   'A cozy mountain cabin at sunset, warm golden light spilling from windows, snow-capped peaks in background, pine trees, a winding path with lanterns, Studio Ghibli style, peaceful atmosphere.',
   'Filling black and white portraits with appropriate colors can create a sense of realism.',
+];
+
+const TYPEWRITER_PROMPTS_MOBILE = [
+  '赛博朋克女战士，粉蓝渐变发色，金色铠甲，沙漠峡谷背景',
+  '吉卜力风格，山间小屋，温暖灯光，雪山松林',
+  '盲盒手办风格，可爱少女，3D渲染，柔和光影',
+  '电影感人像，黄金时段，逆光剪影，胶片质感',
+  '水彩风景画，樱花树下，春日午后，梦幻氛围',
 ];
 
 export default function HeroSection() {
@@ -42,13 +50,22 @@ export default function HeroSection() {
   // Typewriter
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const promptIdxRef = useRef(0);
   const charIdxRef = useRef(0);
   const userFocused = useRef(false);
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const doTypewriter = useCallback(() => {
     if (userFocused.current) return;
-    const currentPrompt = TYPEWRITER_PROMPTS[promptIdxRef.current];
+    const prompts = isMobile ? TYPEWRITER_PROMPTS_MOBILE : TYPEWRITER_PROMPTS_DESKTOP;
+    const currentPrompt = prompts[promptIdxRef.current % prompts.length];
     if (isTyping) {
       if (charIdxRef.current < currentPrompt.length) {
         charIdxRef.current++;
@@ -61,11 +78,12 @@ export default function HeroSection() {
         charIdxRef.current--;
         setDisplayText(currentPrompt.slice(0, charIdxRef.current));
       } else {
-        promptIdxRef.current = (promptIdxRef.current + 1) % TYPEWRITER_PROMPTS.length;
+        const prompts = isMobile ? TYPEWRITER_PROMPTS_MOBILE : TYPEWRITER_PROMPTS_DESKTOP;
+        promptIdxRef.current = (promptIdxRef.current + 1) % prompts.length;
         setIsTyping(true);
       }
     }
-  }, [isTyping]);
+  }, [isTyping, isMobile]);
 
   useEffect(() => {
     const speed = isTyping ? 35 : 15;
@@ -81,7 +99,8 @@ export default function HeroSection() {
     if (!prompt) {
       userFocused.current = false;
       charIdxRef.current = 0;
-      promptIdxRef.current = (promptIdxRef.current + 1) % TYPEWRITER_PROMPTS.length;
+      const prompts = isMobile ? TYPEWRITER_PROMPTS_MOBILE : TYPEWRITER_PROMPTS_DESKTOP;
+      promptIdxRef.current = (promptIdxRef.current + 1) % prompts.length;
       setIsTyping(true);
     }
   };
@@ -108,11 +127,11 @@ export default function HeroSection() {
             transform: titleVisible ? 'translateY(0)' : 'translateY(-20px)',
           }}
         >
-          <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">
-            Banana Pro AI:<span className="gradient-glow-text">最强大的免费 AI 图像生成器</span>
+          <h1 className="text-xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">
+            <span className="text-white">Banana 2 AI:</span><span className="gradient-glow-text">最强大的免费 AI 图像生成器</span>
           </h1>
-          <h2 className="gradient-text mt-2 text-xs font-bold sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl">
-            专业的图生图和文生图创作，适用于商业和艺术用途。几秒内获得工作室级品质，无任何附加条件。
+          <h2 className="gradient-text mt-2 text-[11px] font-bold leading-snug sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl">
+            专业的图生图和文生图创作，适用于商业和艺术用途。<br className="sm:hidden" />几秒内获得工作室级品质，无任何附加条件。
           </h2>
         </div>
 
@@ -153,9 +172,10 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Bottom Controls — no border-t like original */}
+            {/* Bottom Controls */}
             <div className="flex items-center justify-between gap-2 border-gray-400/20 pt-3">
-              <div className="flex items-center gap-2 sm:gap-3">
+              {/* Left selectors — hidden on mobile */}
+              <div className="hidden sm:flex items-center gap-2 sm:gap-3">
                 <button className="flex h-12 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
                   <ImageIcon className="h-4 w-4" />
                   <span>AI 图片</span>
@@ -166,13 +186,16 @@ export default function HeroSection() {
                   <ChevronDown className="h-4 w-4 text-white/40" />
                 </button>
               </div>
-              <div className="flex items-center gap-2">
-                <button className="flex h-12 items-center gap-2 rounded-md border border-[#2c2f3a] bg-black/40 px-4 text-sm font-medium text-white shadow-sm transition-transform hover:scale-105 hover:bg-white/[0.08] sm:px-6">
-                  <Sparkles className="h-4 w-4" />
+              {/* Generate buttons */}
+              <div className="flex w-full sm:w-auto items-center gap-2">
+                <button className="flex h-10 sm:h-12 flex-1 sm:flex-none items-center justify-center gap-2 rounded-md border border-[#2c2f3a] bg-black/40 px-4 sm:px-6 text-sm font-medium text-white shadow-sm transition-transform hover:scale-105 hover:bg-white/[0.08]"
+                  style={{ background: 'linear-gradient(135deg, rgba(255,204,51,0.15), rgba(255,153,0,0.1))' }}
+                >
+                  <Sparkles className="h-4 w-4 text-[#ffcc33]" />
                   <span>快速生成</span>
                 </button>
                 <button
-                  className="flex h-12 items-center gap-2 rounded-md px-4 text-sm font-semibold text-[#181d25] shadow-sm transition-transform hover:scale-105 sm:px-6"
+                  className="hidden sm:flex h-12 items-center gap-2 rounded-md px-6 text-sm font-semibold text-[#181d25] shadow-sm transition-transform hover:scale-105"
                   style={{ background: 'linear-gradient(to right, #ffde5c, #d7f4e1 50%, #e0d7ea)' }}
                 >
                   <LayoutDashboard className="h-4 w-4" />
@@ -184,10 +207,10 @@ export default function HeroSection() {
         </div>
 
         {/* Model Tags Bar — glass capsule like original */}
-        <div className="mt-6 w-full">
+        <div className="mt-4 sm:mt-6 w-full">
           <div className="flex w-full items-center justify-center px-2">
             <div
-              className="inline-flex flex-wrap items-center justify-center gap-2 rounded-full border border-gray-400/10 bg-black/10 px-3 py-2 backdrop-blur-sm sm:gap-3 sm:px-4 sm:py-2.5 md:gap-4 md:px-6 md:py-3 lg:px-8 lg:py-4"
+              className="inline-flex flex-wrap items-center justify-center gap-1.5 rounded-full border border-gray-400/10 bg-black/10 px-2 py-1.5 backdrop-blur-sm sm:gap-3 sm:px-4 sm:py-2.5 md:gap-4 md:px-6 md:py-3 lg:px-8 lg:py-4"
               style={{
                 boxShadow: `rgba(255, 218, 42, 0.1) -2px 2.4px 18px -2.6px inset,
                   rgb(255 255 255 / 40%) -5.7px -4px 3.4px -2.7px inset,
@@ -210,14 +233,14 @@ export default function HeroSection() {
         </div>
 
         {/* Bottom Notices — only here, not at top */}
-        <div className="mt-6 w-full">
-          <div className="flex w-full items-center justify-center gap-3">
-            <span className="flex items-center gap-1.5 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-xs text-red-300/80 transition-colors hover:bg-red-500/20 cursor-pointer">
-              🚫 严禁成人/NSFW 内容 →
+        <div className="mt-4 sm:mt-6 w-full">
+          <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:gap-3">
+            <span className="flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/10 px-2.5 py-1 text-[10px] sm:text-xs text-red-300/80 transition-colors hover:bg-red-500/20 cursor-pointer">
+              🚫 严禁NSFW内容
             </span>
-            <span className="text-white/20">|</span>
-            <span className="flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs text-blue-300/80 transition-colors hover:bg-blue-500/20 cursor-pointer">
-              ℹ️ Banana Pro AI 是一个独立平台... →
+            <span className="hidden sm:inline text-white/20">|</span>
+            <span className="flex items-center gap-1 rounded-full border border-blue-500/20 bg-blue-500/10 px-2.5 py-1 text-[10px] sm:text-xs text-blue-300/80 transition-colors hover:bg-blue-500/20 cursor-pointer">
+              ℹ️ 独立平台，与Google无关
             </span>
           </div>
         </div>

@@ -14,7 +14,7 @@ export default function CTASection() {
       <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center" ref={ref}>
         {/* Left: Text */}
         <div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-tight scroll-fade-in">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-tight scroll-fade-in">
             <span className="text-white">立即使用 Banana Pro AI </span>
             <span className="gradient-glow-text">开始创作精美图像</span>
           </h2>

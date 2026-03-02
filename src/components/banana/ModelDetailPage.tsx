@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import ImageGenerator from './ImageGenerator';
+import ImageGenerator, { type ExampleSlide } from './ImageGenerator';
 import ModelDetailClient from './ModelDetailClient';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
@@ -21,6 +21,7 @@ export interface ModelDetailPageProps {
   faqs: Array<{ question: string; answer: string }>;
   ctaTitle: string;
   ctaDescription: string;
+  examples?: ExampleSlide[];
 }
 
 export default function ModelDetailPage(props: ModelDetailPageProps) {
@@ -97,7 +98,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
             {modelName}
           </span>{' '}图片
         </h2>
-        <ImageGenerator />
+        <ImageGenerator examples={props.examples} />
       </section>
 
       {/* Why Leading Section */}
