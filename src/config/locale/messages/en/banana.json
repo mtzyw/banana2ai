@@ -1,0 +1,454 @@
+{
+  "hero": {
+    "title_prefix": "Banana 2 AI:",
+    "title_highlight": "The Most Powerful Free AI Image Generator",
+    "subtitle": "Professional image-to-image and text-to-image creation for commercial and artistic use.",
+    "subtitle_break": "Get studio-quality results in seconds, with no strings attached.",
+    "ai_image": "AI Image",
+    "quick_generate": "Quick Generate",
+    "create_workflow": "Create Workflow",
+    "nsfw_warning": "No NSFW Content",
+    "independent_notice": "Independent platform, not affiliated with Google",
+    "typewriter_mobile": [
+      "Cyberpunk warrior, pink-blue gradient hair, gold armor, desert canyon",
+      "Ghibli style, mountain cabin, warm lights, snowy pines",
+      "Blind box figurine, cute girl, 3D render, soft shadows",
+      "Cinematic portrait, golden hour, backlit silhouette, film grain",
+      "Watercolor landscape, cherry blossoms, spring afternoon, dreamy"
+    ]
+  },
+  "showcase": {
+    "items": [
+      {
+        "title": "Photorealistic Quality",
+        "desc": "Render every detail with stunning clarity — natural lighting, lifelike textures, perfect composition, and professional-grade quality."
+      },
+      {
+        "title": "Lightning Speed",
+        "desc": "Generate professional images in 5-10 seconds. Iterate quickly and keep your creative momentum flowing."
+      },
+      {
+        "title": "Zero Watermarks",
+        "desc": "All downloaded images are watermark-free with full commercial usage rights, ready to use immediately."
+      },
+      {
+        "title": "Free to Start",
+        "desc": "No credit card required, forever free tier with daily free credits to fuel your creativity."
+      }
+    ]
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "3 Simple Steps",
+    "steps": [
+      {
+        "title": "Describe or Upload",
+        "desc": "Banana Pro AI offers two powerful creative modes: upload existing photos for image-to-image transformation, or describe your vision for text-to-image generation. Our AI image generator understands your creative intent."
+      },
+      {
+        "title": "AI Processing",
+        "desc": "Banana Pro AI's advanced AI image generator instantly analyzes your input. Image-to-image converts your photos into artistic variations, while text-to-image creates original masterpieces from descriptions."
+      },
+      {
+        "title": "Download & Use",
+        "desc": "Get your high-quality AI-generated images watermark-free, ready for commercial projects, social media, or personal creative work."
+      }
+    ]
+  },
+  "features": {
+    "sectionTitle": "AI Image Generator",
+    "sectionSubtitle": "Core Features",
+    "sectionDesc": "At the heart of Banana Pro AI's creative capabilities. Our AI image generator offers dual functionality: image-to-image transforms existing photos through intelligent style transfer, while text-to-image creates stunning visuals from descriptions. Unlock creativity with features from auto background removal to advanced upscaling.",
+    "tabs": [
+      {
+        "title": "Text to Image",
+        "subtitle": "Generate images from text",
+        "desc": "Simply enter a text description and Banana Pro AI will transform your imagination into high-quality images. Supports multiple styles from realistic photography to anime illustration."
+      },
+      {
+        "title": "Image to Image",
+        "subtitle": "Generate variations from reference",
+        "desc": "Upload your reference image and Banana Pro AI will intelligently analyze and generate stylized variations. Preserve the original structure while adding entirely new artistic styles."
+      },
+      {
+        "title": "AI Portraits",
+        "subtitle": "Professional portrait generation",
+        "desc": "Generate high-quality portraits rivaling professional photography with Banana Pro AI. Supports various lighting styles and scene backgrounds for the perfect personal image."
+      },
+      {
+        "title": "AI Avatars",
+        "subtitle": "Personalized avatar generation",
+        "desc": "Generate unique personalized AI avatars with one click. Perfect for social media, gaming, professional profiles, and more — showcase your unique style."
+      },
+      {
+        "title": "Style Transfer",
+        "subtitle": "Switch artistic styles freely",
+        "desc": "Banana Pro AI offers a rich library of artistic styles and professional preset templates. Easily customize intensity, combine styles, and seamlessly switch between photorealism and artistic expression."
+      },
+      {
+        "title": "Video Generation",
+        "subtitle": "AI-powered video creation",
+        "desc": "Transform static images or text descriptions into dynamic video content. Banana Pro AI's video generation supports multiple styles and durations to bring your creativity to life."
+      }
+    ]
+  },
+  "advancedFeatures": {
+    "title": "Professional Features",
+    "subtitle": "Why Choose Banana Pro AI?",
+    "items": [
+      {
+        "title": "Commercial Rights Included",
+        "desc": "Fully own your creative output. Banana Pro AI provides complete commercial usage rights for every generated image at no extra cost. Use freely for client projects, advertising, social media, print materials, and more."
+      },
+      {
+        "title": "High-Resolution 4K Output",
+        "desc": "Banana Pro AI generates images up to 4K resolution with rich detail and outstanding clarity. Perfect for digital and print applications with sharp details, natural colors, and realistic lighting."
+      },
+      {
+        "title": "Multiple Image Sizes",
+        "desc": "Flexibly choose from multiple image sizes and aspect ratios: 1:1 square for social media, 16:9 widescreen for video covers, 4:5 portrait for Instagram, A4 for print, and more."
+      },
+      {
+        "title": "30+ AI Models",
+        "desc": "Harness the power of 30+ top AI models including Flux, Stable Diffusion, Midjourney, and more. Banana Pro AI offers the most comprehensive AI image generation model matrix in the industry."
+      }
+    ]
+  },
+  "useCases": {
+    "title": "Use Cases",
+    "subtitle": "For Every Industry",
+    "tabs": [
+      {
+        "label": "Marketers",
+        "heading": "For Marketers & Advertising Professionals",
+        "desc": "Banana Pro AI generates high-converting ad creatives, eye-catching marketing visuals, and professional marketing materials in minutes. Test multiple visual approaches simultaneously to dramatically boost marketing efficiency.",
+        "bullets": [
+          "Instantly generate ad creatives and marketing materials",
+          "Image-to-image adaptation for different markets and audiences",
+          "Batch generate social media marketing images"
+        ]
+      },
+      {
+        "label": "Creators",
+        "heading": "For Content Creators & Social Media Managers",
+        "desc": "Banana Pro AI helps content creators quickly generate eye-catching visual content — from YouTube thumbnails to Instagram posts. Maintain visual consistency while dramatically increasing content output.",
+        "bullets": [
+          "Batch generate social media graphics",
+          "One-click YouTube video thumbnails",
+          "Maintain consistent brand visual style"
+        ]
+      },
+      {
+        "label": "Designers",
+        "heading": "For Designers & Creative Professionals",
+        "desc": "Banana Pro AI is the ultimate inspiration assistant for designers. Use it for rapid concept exploration, mood board creation, and design prototype iteration — reduce time from inspiration to final product by 80%.",
+        "bullets": [
+          "Quick concept validation and visual exploration",
+          "Mood board and design reference generation",
+          "Style transfer for design iteration"
+        ]
+      },
+      {
+        "label": "E-commerce",
+        "heading": "For E-commerce Sellers & Product Teams",
+        "desc": "Banana Pro AI makes product photography simple and efficient. Transform ordinary product photos into professional-grade lifestyle images without expensive photography equipment and teams.",
+        "bullets": [
+          "Professional product image processing",
+          "Lifestyle product showcase generation",
+          "Multi-angle product rendering"
+        ]
+      },
+      {
+        "label": "Educators",
+        "heading": "For Educators & Students",
+        "desc": "Banana Pro AI provides rich visual support for education — from teaching slide illustrations to academic report graphics, making knowledge communication more vivid and intuitive.",
+        "bullets": [
+          "Teaching slides and presentation illustrations",
+          "Academic reports and paper graphics",
+          "Visual knowledge maps and concept diagrams"
+        ]
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "Real Feedback from Global Creators",
+    "items": [
+      {
+        "content": "Banana Pro AI has completely revolutionized our content creation. The AI image generator is incredibly fast with outstanding quality. Since using Banana Pro AI, our visual content production time decreased by 80% while quality reached new heights.",
+        "name": "Sarah Chen",
+        "role": "Social Media Manager"
+      },
+      {
+        "content": "I couldn't afford professional photography for my entire product catalog. Banana Pro AI's image-to-image feature changed everything. I use this AI image generator to transform basic product photos into beautiful lifestyle images, boosting conversion rates by 40%.",
+        "name": "Michael Park",
+        "role": "E-commerce Owner"
+      },
+      {
+        "content": "I was skeptical about AI image generators replacing designers, but Banana Pro AI became my secret weapon. I use it for rapid concept development, mood boards, and reference images. The variety of styles makes it indispensable in the creative industry.",
+        "name": "Jessica Liu",
+        "role": "Graphic Designer"
+      }
+    ]
+  },
+  "faq": {
+    "title": "FAQ",
+    "items": [
+      {
+        "q": "What is Banana Pro AI and how does the AI image generator work?",
+        "a": "Banana Pro AI is a cutting-edge AI image generation platform. Our AI image generator uses advanced machine learning models trained on millions of images to understand and create visual content. Simply provide a text description or upload a reference image, and our AI generates high-quality professional images in seconds."
+      },
+      {
+        "q": "How does Banana Pro AI's image generator work technically?",
+        "a": "Banana Pro AI's AI image generator uses advanced deep learning models trained on massive datasets of images and descriptions. Image-to-image: upload an image and specify desired modifications. Text-to-image: provide a text description and the AI creates matching images from scratch."
+      },
+      {
+        "q": "How is Banana Pro AI different from other AI image generators?",
+        "a": "Banana Pro AI stands out with 30+ top AI models, free commercial usage rights, 4K high-resolution output, and ultra-fast generation. We offer free credits with no credit card required to get started."
+      },
+      {
+        "q": "Can I use generated images commercially?",
+        "a": "Absolutely! All images generated by Banana Pro AI come with full commercial usage rights at no extra cost. You can freely use them in client projects, advertising, social media, and print materials."
+      },
+      {
+        "q": "What image sizes and formats are supported?",
+        "a": "Banana Pro AI supports multiple sizes: 1:1 square, 16:9 widescreen, 4:5 portrait, A4 print, and more. Output formats include PNG, JPEG, and WebP, with up to 4K resolution."
+      },
+      {
+        "q": "What are the limits for free users?",
+        "a": "Free users receive a daily allocation of free generation credits and can access all basic models and features. Premium users enjoy more credits, priority queue, and advanced model access."
+      },
+      {
+        "q": "How do I get more generation credits?",
+        "a": "You can get more credits by subscribing to a premium plan. We offer flexible monthly and annual plans for individual creators to enterprise teams."
+      },
+      {
+        "q": "How long does AI image generation take?",
+        "a": "Most images generate in 5-10 seconds. Complex images or high-resolution output may take slightly longer, but typically no more than 30 seconds."
+      }
+    ]
+  },
+  "cta": {
+    "title_1": "Start Using Banana Pro AI ",
+    "title_2": "Create Stunning Images Now",
+    "desc": "Join millions of creators, marketers, and artists who trust Banana Pro AI as their go-to AI image generator. Turn your ideas into reality in seconds — completely free, forever.",
+    "button": "Start Creating for Free"
+  },
+  "imageGenerator": {
+    "title": "AI Image Generator",
+    "powered_by": "Powered by Google Nano Banana Pro Model",
+    "mode_text": "Text to Image",
+    "mode_image": "Image to Image",
+    "upload_label": "Upload Reference Image",
+    "upload_hint": "Drag & drop or click to select",
+    "prompt_label": "Prompt",
+    "prompt_placeholder": "Describe the image you want to generate...",
+    "negative_prompt_label": "Negative Prompt",
+    "negative_prompt_placeholder": "Elements you don't want to appear...",
+    "aspect_ratio": "Aspect Ratio",
+    "style": "Style",
+    "style_auto": "Auto",
+    "generate": "Generate Image",
+    "generating": "AI is creating...",
+    "enhance_prompt": "Enhance Prompt",
+    "example_title": "Example Results",
+    "before": "Before",
+    "after": "After"
+  },
+  "videoGenerator": {
+    "title": "AI Video Generator",
+    "model": "Veo 3.1 Basic",
+    "mode_text": "Text to Video",
+    "mode_image": "Image to Video",
+    "prompt_label": "Prompt",
+    "prompt_placeholder": "Describe the video you want to generate...",
+    "duration": "Duration",
+    "resolution": "Resolution",
+    "generate": "Generate Video",
+    "generating": "AI is generating video..."
+  },
+  "login": {
+    "welcome": "Welcome to",
+    "countdown_prefix": "Complete login within the next",
+    "countdown_suffix": "",
+    "unlock": "Unlock:",
+    "credits_prefix": "Sign in to receive",
+    "credits_amount": "100",
+    "credits_suffix": "free credits",
+    "google_login": "Continue with Google",
+    "more_options": "More login options",
+    "email_placeholder": "Enter your email address",
+    "email_login": "Email Login",
+    "terms_prefix": "By signing in, you agree to our",
+    "terms_link": "Terms of Service",
+    "privacy_link": "Privacy Policy"
+  },
+  "footer": {
+    "products": "Products",
+    "product_links": [
+      {
+        "href": "/image/",
+        "label": "AI Image Maker"
+      },
+      {
+        "href": "/video/",
+        "label": "AI Video Maker"
+      },
+      {
+        "href": "/banana-prompts/",
+        "label": "Banana Prompts"
+      },
+      {
+        "href": "/studio/",
+        "label": "AI Workflow Studio"
+      },
+      {
+        "href": "/pricing/",
+        "label": "Pricing"
+      }
+    ],
+    "legal": "Legal",
+    "legal_links": [
+      {
+        "label": "Privacy Policy"
+      },
+      {
+        "label": "Terms of Service"
+      },
+      {
+        "label": "Cookie Policy"
+      },
+      {
+        "label": "Refund Policy"
+      }
+    ],
+    "contact": "Contact Us",
+    "copyright": "All rights reserved"
+  },
+  "promo": {
+    "advanced_ai": "Advanced AI — ",
+    "discount": "OFF",
+    "flash_sale": "Flash Sale",
+    "generate_now": "Generate stunning images — Save today",
+    "claim": "Claim Offer"
+  },
+  "mobileNav": {
+    "home": "Home",
+    "image": "Image",
+    "video": "Video",
+    "premium": "Premium"
+  },
+  "modelDetail": {
+    "home": "Home",
+    "ai_image": "AI Image Generator",
+    "try_now": "✨ Try Now",
+    "images": "images",
+    "why_title_prefix": "Why",
+    "why_title_suffix": "Leads the Industry",
+    "how_title": "How to Use",
+    "how_subtitle": "3 Simple Steps",
+    "use_cases_title": "Use Cases",
+    "reviews_title": "Reviews",
+    "faq_title": "FAQ"
+  },
+  "modelClient": {
+    "sections": [
+      {
+        "label": "Advanced AI Engine",
+        "imageAlt": "Power your creativity with revolutionary AI",
+        "heading": "Power Your Creativity with Revolutionary AI",
+        "highlight": "Next-Generation Neural Architecture",
+        "body": "Banana Pro AI leverages cutting-edge artificial intelligence technology for unprecedented image quality and generation speed. Our models are trained on vast visual concepts to realize your creative vision with outstanding fidelity."
+      },
+      {
+        "label": "Creative Expression",
+        "imageAlt": "Transform inspiration into visual masterpieces",
+        "heading": "Transform Inspiration into Visual Masterpieces",
+        "highlight": "Unlimited Styles, Unlimited Possibilities",
+        "body": "From realistic photography to abstract art, from anime illustration to concept design — support for 30+ artistic styles with precise control over every creative detail. Your imagination is the only limit."
+      },
+      {
+        "label": "Professional Output",
+        "imageAlt": "High-standard output for professional workflows",
+        "heading": "High-Standard Output for Professional Workflows",
+        "highlight": "Commercial-Grade Quality Guaranteed",
+        "body": "Support up to 4K resolution output with full commercial usage rights for all generated images. Whether for advertising, product showcases, or brand visuals, meet the strictest professional standards."
+      },
+      {
+        "label": "Perfect Consistency",
+        "imageAlt": "Unmatched character and style consistency",
+        "heading": "Unmatched Character & Style Consistency",
+        "highlight": "Advanced Visual Memory System",
+        "body": "Building visual narratives requires stable characters and unified styles. Banana Pro AI excels at maintaining visual identity with an advanced memory system that remembers character features, artistic styles, and composition preferences."
+      },
+      {
+        "label": "Two Powerful Modes",
+        "imageAlt": "Dual-mode creation system for every scenario",
+        "heading": "Dual-Mode Creation System for Every Scenario",
+        "highlight": "Text-to-Image + Image-to-Image Dual Engine",
+        "body": "Whether creating from scratch or performing style transfer and editing on existing images, Banana Pro AI adapts perfectly. Text-to-image mode lets you get professional images through natural language descriptions."
+      },
+      {
+        "label": "Forever Free",
+        "imageAlt": "Truly free forever with full commercial rights",
+        "heading": "Truly Free Forever with Full Commercial Rights",
+        "highlight": "Zero Cost to Start, No Hidden Fees",
+        "body": "Banana Pro AI promises forever-free basic features with no hidden restrictions. All images generated by free users come with full commercial licensing rights."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Flexible pricing for individual creators to enterprise teams",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "yearly_save": "Save 40%",
+    "plans": [
+      {
+        "name": "Free",
+        "description": "For individual creators",
+        "price_monthly": "0",
+        "price_yearly": "0",
+        "cta": "Get Started",
+        "features": [
+          "Daily free credits",
+          "Basic AI models",
+          "Standard resolution output",
+          "Community support"
+        ]
+      },
+      {
+        "name": "Pro",
+        "description": "For professional creators",
+        "price_monthly": "9.9",
+        "price_yearly": "99",
+        "cta": "Subscribe Now",
+        "popular": true,
+        "features": [
+          "2,400 credits/year",
+          "All AI models",
+          "4K high-resolution output",
+          "Commercial usage rights",
+          "Priority queue",
+          "Dedicated support"
+        ]
+      },
+      {
+        "name": "Enterprise",
+        "description": "For teams and businesses",
+        "price_monthly": "29.9",
+        "price_yearly": "299",
+        "cta": "Contact Us",
+        "features": [
+          "Unlimited credits",
+          "All AI models + exclusive models",
+          "4K+ ultra-high resolution",
+          "API access",
+          "Team collaboration",
+          "Dedicated account manager",
+          "SLA guarantee"
+        ]
+      }
+    ]
+  }
+}

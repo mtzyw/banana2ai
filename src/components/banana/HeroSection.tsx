@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState, useEffect, useRef, useCallback } from 'react';
 import LazyVideo from '@/components/banana/LazyVideo';
 import {
@@ -29,13 +31,7 @@ const TYPEWRITER_PROMPTS_DESKTOP = [
   'Filling black and white portraits with appropriate colors can create a sense of realism.',
 ];
 
-const TYPEWRITER_PROMPTS_MOBILE = [
-  '赛博朋克女战士，粉蓝渐变发色，金色铠甲，沙漠峡谷背景',
-  '吉卜力风格，山间小屋，温暖灯光，雪山松林',
-  '盲盒手办风格，可爱少女，3D渲染，柔和光影',
-  '电影感人像，黄金时段，逆光剪影，胶片质感',
-  '水彩风景画，樱花树下，春日午后，梦幻氛围',
-];
+// TYPEWRITER_PROMPTS_MOBILE loaded via i18n in component
 
 export default function HeroSection() {
   const [prompt, setPrompt] = useState('');
@@ -48,6 +44,7 @@ export default function HeroSection() {
   }, []);
 
   // Typewriter
+  const t = useTranslations('banana.hero');
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -64,7 +61,8 @@ export default function HeroSection() {
 
   const doTypewriter = useCallback(() => {
     if (userFocused.current) return;
-    const prompts = isMobile ? TYPEWRITER_PROMPTS_MOBILE : TYPEWRITER_PROMPTS_DESKTOP;
+    const mobilePrompts = [t('typewriter_mobile.0' as any), t('typewriter_mobile.1' as any), t('typewriter_mobile.2' as any), t('typewriter_mobile.3' as any), t('typewriter_mobile.4' as any)];
+    const prompts = isMobile ? mobilePrompts : TYPEWRITER_PROMPTS_DESKTOP;
     const currentPrompt = prompts[promptIdxRef.current % prompts.length];
     if (isTyping) {
       if (charIdxRef.current < currentPrompt.length) {
@@ -78,7 +76,8 @@ export default function HeroSection() {
         charIdxRef.current--;
         setDisplayText(currentPrompt.slice(0, charIdxRef.current));
       } else {
-        const prompts = isMobile ? TYPEWRITER_PROMPTS_MOBILE : TYPEWRITER_PROMPTS_DESKTOP;
+        const mobilePrompts = [t('typewriter_mobile.0' as any), t('typewriter_mobile.1' as any), t('typewriter_mobile.2' as any), t('typewriter_mobile.3' as any), t('typewriter_mobile.4' as any)];
+    const prompts = isMobile ? mobilePrompts : TYPEWRITER_PROMPTS_DESKTOP;
         promptIdxRef.current = (promptIdxRef.current + 1) % prompts.length;
         setIsTyping(true);
       }
@@ -99,7 +98,8 @@ export default function HeroSection() {
     if (!prompt) {
       userFocused.current = false;
       charIdxRef.current = 0;
-      const prompts = isMobile ? TYPEWRITER_PROMPTS_MOBILE : TYPEWRITER_PROMPTS_DESKTOP;
+      const mobilePrompts = [t('typewriter_mobile.0' as any), t('typewriter_mobile.1' as any), t('typewriter_mobile.2' as any), t('typewriter_mobile.3' as any), t('typewriter_mobile.4' as any)];
+    const prompts = isMobile ? mobilePrompts : TYPEWRITER_PROMPTS_DESKTOP;
       promptIdxRef.current = (promptIdxRef.current + 1) % prompts.length;
       setIsTyping(true);
     }
@@ -128,10 +128,10 @@ export default function HeroSection() {
           }}
         >
           <h1 className="text-xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">
-            <span className="text-white">Banana 2 AI:</span><span className="gradient-glow-text">最强大的免费 AI 图像生成器</span>
+            <span className="text-white">{t('title_prefix')}</span><span className="gradient-glow-text">{t('title_highlight')}</span>
           </h1>
           <h2 className="gradient-text mt-2 text-[11px] font-bold leading-snug sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl">
-            专业的图生图和文生图创作，适用于商业和艺术用途。<br className="sm:hidden" />几秒内获得工作室级品质，无任何附加条件。
+            {t('subtitle')}<br className="sm:hidden" />{t('subtitle_break')}
           </h2>
         </div>
 
@@ -178,7 +178,7 @@ export default function HeroSection() {
               <div className="hidden sm:flex items-center gap-2 sm:gap-3">
                 <button className="flex h-12 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
                   <ImageIcon className="h-4 w-4" />
-                  <span>AI 图片</span>
+                  <span>{t('ai_image')}</span>
                   <ChevronDown className="h-4 w-4 text-white/40" />
                 </button>
                 <button className="flex h-12 items-center justify-between gap-2 rounded-lg border border-gray-400/20 bg-black/20 px-3 text-sm text-white transition-colors hover:border-gray-300">
@@ -192,14 +192,14 @@ export default function HeroSection() {
                   style={{ background: 'linear-gradient(135deg, rgba(255,204,51,0.15), rgba(255,153,0,0.1))' }}
                 >
                   <Sparkles className="h-4 w-4 text-[#ffcc33]" />
-                  <span>快速生成</span>
+                  <span>{t('quick_generate')}</span>
                 </button>
                 <button
                   className="hidden sm:flex h-12 items-center gap-2 rounded-md px-6 text-sm font-semibold text-[#181d25] shadow-sm transition-transform hover:scale-105"
                   style={{ background: 'linear-gradient(to right, #ffde5c, #d7f4e1 50%, #e0d7ea)' }}
                 >
                   <LayoutDashboard className="h-4 w-4" />
-                  <span>创建工作流</span>
+                  <span>{t('create_workflow')}</span>
                 </button>
               </div>
             </div>
@@ -236,11 +236,11 @@ export default function HeroSection() {
         <div className="mt-4 sm:mt-6 w-full">
           <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:gap-3">
             <span className="flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/10 px-2.5 py-1 text-[10px] sm:text-xs text-red-300/80 transition-colors hover:bg-red-500/20 cursor-pointer">
-              🚫 严禁NSFW内容
+              🚫 {t('nsfw_warning')}
             </span>
             <span className="hidden sm:inline text-white/20">|</span>
             <span className="flex items-center gap-1 rounded-full border border-blue-500/20 bg-blue-500/10 px-2.5 py-1 text-[10px] sm:text-xs text-blue-300/80 transition-colors hover:bg-blue-500/20 cursor-pointer">
-              ℹ️ 独立平台，与Google无关
+              ℹ️ {t('independent_notice')}
             </span>
           </div>
         </div>

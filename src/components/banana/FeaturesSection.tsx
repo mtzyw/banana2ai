@@ -1,56 +1,61 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState } from 'react';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 
-const features = [
+// features array moved inside component
+
+export default function FeaturesSection() {
+  const t = useTranslations('banana.features');
+  const features = [
   {
     id: 'ai-gen',
-    title: 'AI图像生成器',
-    subtitle: '核心功能',
-    desc: 'Banana Pro AI创意能力的核心。我们的AI图像生成器提供双重功能：图像到图像可通过智能风格迁移转换现有照片，文本到图像可根据描述创建令人惊艳的原创图像。非常适合设计师、营销人员、内容创作者以及任何需要快速获取专业图像的用户。',
+    title: t('sectionTitle'),
+    subtitle: t('sectionSubtitle'),
+    desc: t('sectionDesc'),
     image: 'https://static.banana2ai.net/images/models/features-ai-gen.webp',
   },
   {
     id: 'text-to-image',
-    title: '文生图',
-    subtitle: '文字描述生成图像',
-    desc: '只需输入文字描述，Banana Pro AI 即可将您的想象转化为高质量图像。支持多种风格，从写实摄影到动漫插画，满足各种创作需求。',
+    title: t('tabs.0.title'),
+    subtitle: t('tabs.0.subtitle'),
+    desc: t('tabs.0.desc'),
     image: 'https://static.banana2ai.net/images/features/text-to-image-concept.webp',
   },
   {
     id: 'image-to-image',
-    title: '图生图',
-    subtitle: '以图为参考生成变体',
-    desc: '上传您的参考图片，Banana Pro AI 将智能分析并生成风格化变体。保留原图结构的同时，赋予全新的艺术风格和创意表达。',
+    title: t('tabs.1.title'),
+    subtitle: t('tabs.1.subtitle'),
+    desc: t('tabs.1.desc'),
     image: 'https://static.banana2ai.net/images/features/image-to-image-concept.webp',
   },
   {
     id: 'ai-portrait',
-    title: 'AI写真',
-    subtitle: '专业级人像生成',
-    desc: '使用 Banana Pro AI 生成媲美专业摄影的高质量人像写真，支持多种光影风格和场景背景，打造完美的个人形象。',
+    title: t('tabs.2.title'),
+    subtitle: t('tabs.2.subtitle'),
+    desc: t('tabs.2.desc'),
     image: 'https://static.banana2ai.net/images/avatars/i0ygz1dtdza3.webp',
   },
   {
     id: 'ai-avatar',
-    title: 'AI头像',
-    subtitle: '个性化头像生成',
-    desc: '一键生成独具个性的AI头像，适用于社交媒体、游戏、职业档案等各种场景，展现您的独特风格。',
+    title: t('tabs.3.title'),
+    subtitle: t('tabs.3.subtitle'),
+    desc: t('tabs.3.desc'),
     image: 'https://static.banana2ai.net/images/features/ai-avatar-showcase.webp',
   },
   {
     id: 'style-transfer',
-    title: '风格迁移',
-    subtitle: '艺术风格自由切换',
-    desc: 'Banana Pro AI 提供丰富的艺术风格库和专业预设模板。轻松自定义强度、组合风格，在照片写实主义和艺术化表现之间无缝切换，打造专属美学风格。',
+    title: t('tabs.4.title'),
+    subtitle: t('tabs.4.subtitle'),
+    desc: t('tabs.4.desc'),
     image: 'https://static.banana2ai.net/images/features/style-transfer-showcase.webp',
   },
 ];
 
-export default function FeaturesSection() {
   const [activeId, setActiveId] = useState('ai-gen');
   const active = features.find((f) => f.id === activeId) ?? features[0];
   const ref = useScrollFade();
@@ -60,12 +65,11 @@ export default function FeaturesSection() {
       <div className="max-w-6xl mx-auto" ref={ref}>
         <div className="text-center mb-12 scroll-fade-in">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
-            深入了解 Banana Pro AI：
-            <span className="text-[#ffcc33]">您的完整创意工具包</span>
+            {t('sectionTitle')}
+            <span className="text-[#ffcc33]">{t('sectionSubtitle')}</span>
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto text-sm md:text-base">
-            Banana Pro AI 提供强大的图像生成工具套件，具备图像到图像转换和文本到图像创建功能，并辅以多种创意能力。
-          </p>
+            {t('sectionDesc')}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">

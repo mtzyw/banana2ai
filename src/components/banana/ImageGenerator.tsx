@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { Upload, X, Loader2, CheckCircle, Sparkles, ChevronDown, ChevronLeft, ChevronRight, Info, Gem, Images, Coins } from 'lucide-react';
@@ -54,6 +56,7 @@ interface ImageGeneratorProps {
 }
 
 export default function ImageGenerator({ examples }: ImageGeneratorProps) {
+  const t = useTranslations('banana.imageGenerator');
   const EXAMPLES = examples ?? DEFAULT_EXAMPLES;
   const [mode, setMode] = useState<Mode>('text');
   const [prompt, setPrompt] = useState('');
@@ -99,7 +102,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
           {/* Header + Model selector */}
           <div className="flex-shrink-0 p-5 pb-2">
             <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <span className="text-base font-bold text-white sm:text-lg">AI图像生成器</span>
+              <span className="text-base font-bold text-white sm:text-lg">{t('title')}</span>
               <button className="flex w-full items-center gap-1 rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm transition-colors hover:bg-[#252a3d] sm:w-auto">
                 <Image src="https://static.banana2ai.net/images/icons/google-icon.svg" alt="Google" width={24} height={24} className="h-6 w-6 flex-shrink-0" />
                 <span className="truncate text-[#ffcc33]">Nano Banana Pro</span>
@@ -107,7 +110,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
               </button>
             </div>
             <div className="rounded-lg p-2">
-              <p className="text-sm font-semibold text-white/90">由 Google Nano Banana Pro 模型提供支持（第三方集成）。</p>
+              <p className="text-sm font-semibold text-white/90">{t('powered_by')}</p>
             </div>
           </div>
 
@@ -134,7 +137,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                         borderRadius: '6px',
                       } : undefined}
                     >
-                      {m === 'text' ? '文本转换为 图片' : '图片转 图片'}
+                      {m === 'text' ? t('mode_text') : t('mode_image')}
                     </button>
                   ))}
                 </div>
@@ -145,7 +148,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 {/* Image upload (image mode) */}
                 {mode === 'image' && (
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-white">上传参考图片</label>
+                    <label className="mb-2 block text-sm font-medium text-white">{t('upload_label')}</label>
                     {uploadedFile ? (
                       <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#0f1117]">
                         <img src={uploadedFile} alt="uploaded" className="h-full w-full object-contain" />
@@ -169,7 +172,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                         }`}
                       >
                         <Upload className="h-8 w-8 text-white/30" />
-                        <span className="text-sm text-white/50">拖拽图片或点击选择</span>
+                        <span className="text-sm text-white/50">{t('upload_hint')}</span>
                       </div>
                     )}
                     <input
@@ -185,19 +188,19 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 {/* Prompt */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between gap-2">
-                    <label className="text-sm font-medium text-white">提示词</label>
+                    <label className="text-sm font-medium text-white">{t('prompt_label')}</label>
                   </div>
                   <textarea
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
-                    placeholder=" 描述您想要生成的图像..., 最多 5000 个字符..."
+                    placeholder=" {t('prompt_placeholder')}, max 5000 chars..."
                     maxLength={5000}
                     className="min-h-[100px] w-full resize-y rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 pr-10 text-sm text-white placeholder-white/30 transition-colors focus:border-[#ffcc33] focus:outline-none md:min-h-[140px]"
                     style={{ resize: 'vertical' }}
                   />
                   <div className="flex justify-between text-xs">
                     <button className="flex items-center gap-1 text-sm font-medium text-[#ffcc33] transition-colors hover:scale-105">
-                      <Sparkles className="h-4 w-4" /> AI 生成
+                      <Sparkles className="h-4 w-4" /> {t('generate')}
                     </button>
                     <span className="text-white/40">{prompt.length}/5000</span>
                   </div>
@@ -205,7 +208,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
 
                 {/* Aspect ratio with shape previews */}
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-white">图片尺寸</label>
+                  <label className="text-sm font-medium text-white">{t('aspect_ratio')}</label>
                   <div className="grid grid-cols-5 gap-2">
                     {ASPECT_RATIOS.map((r) => (
                       <button
@@ -240,7 +243,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 {/* Resolution */}
                 <div>
                   <div className="mb-2 flex items-center gap-1">
-                    <label className="text-sm font-medium text-white">分辨率</label>
+                    <label className="text-sm font-medium text-white">{t('style')}</label>
                   </div>
                   <div className="grid grid-cols-3 gap-2 px-1">
                     {RESOLUTIONS.map((r) => (
@@ -267,7 +270,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 {/* Quantity */}
                 <div>
                   <div className="mb-2 flex items-center gap-1">
-                    <label className="text-sm font-medium text-white">图片数量</label>
+                    <label className="text-sm font-medium text-white">{t('style')}</label>
                     <Info className="h-4 w-4 cursor-help text-white/40" />
                   </div>
                   <div className="grid grid-cols-4 gap-2 px-1">
@@ -296,7 +299,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 <div className="mt-4 pt-2">
                   <div className="mb-1 flex items-center justify-between gap-2">
                     <span className="flex items-center gap-1 text-sm font-medium text-white">
-                      公开可见性
+                      Public
                       <Info className="h-4 w-4 cursor-help text-white/40" />
                     </span>
                     <div className="flex items-center gap-2">
@@ -326,13 +329,13 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                     <div className="flex items-center justify-between p-3">
                       <div className="flex items-center gap-2">
                         <Coins className="h-4 w-4 text-[#ffcc33]" />
-                        <span className="text-sm font-medium text-white">所需点数</span>
+                        <span className="text-sm font-medium text-white">Credits needed</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-white/40 line-through">20</span>
                         <span className="text-base font-bold text-[#ffcc33]">10</span>
                         <span className="rounded-md border border-[#ffcc33]/20 bg-[#ffcc33]/10 px-1.5 py-0.5 text-[10px] font-medium text-[#ffcc33]">
-                          50% 折扣
+                          50% OFF
                         </span>
                       </div>
                     </div>
@@ -353,9 +356,9 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                     {generateState === 'loading' ? (
                       <span className="flex items-center justify-center gap-2"><Loader2 className="h-4 w-4 animate-spin" />生成中...</span>
                     ) : generateState === 'done' ? (
-                      <span className="flex items-center justify-center gap-2"><CheckCircle className="h-4 w-4" />生成完成！</span>
+                      <span className="flex items-center justify-center gap-2"><CheckCircle className="h-4 w-4" />Done!</span>
                     ) : (
-                      '生成 图片'
+                      t('generate')
                     )}
                   </button>
                 </div>
@@ -372,7 +375,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
             <div className="p-5 pb-3">
               <div className="flex items-center gap-2 font-semibold">
                 <Images className="h-5 w-5 text-[#ffcc33]" />
-                <span className="gradient-glow-text">示例图片</span>
+                <span className="gradient-glow-text">{t('example_title')}</span>
               </div>
             </div>
 
@@ -439,7 +442,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                       onClick={() => setPrompt(ex.prompt)}
                       className="highlight-button flex-shrink-0 whitespace-nowrap px-6 py-2.5 text-sm font-medium"
                     >
-                      试用示例
+                      {t('example_title')}
                     </button>
                   </div>
                 </div>

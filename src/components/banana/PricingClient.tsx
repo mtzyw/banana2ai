@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Check, X, Star, Info } from 'lucide-react';
@@ -47,15 +49,30 @@ interface Plan {
   features: Feature[];
 }
 
-const PLANS: Plan[] = [
+
+const FAQS = [
+  { question: '如何更改我的订阅计划？', answer: '你可以随时在账户设置中升级或降级订阅计划。升级立即生效，降级将在下个计费周期生效。' },
+  { question: '未使用的积分会过期吗？', answer: '订阅积分每月重置，但永久积分不会过期。我们建议在计费周期内充分利用订阅积分。' },
+  { question: '可以随时取消订阅吗？', answer: '是的，你可以随时取消订阅。取消后你仍可使用剩余的订阅期限，到期后不再续费。' },
+  { question: '支持哪些支付方式？', answer: '支持信用卡（Visa、Mastercard、American Express）和 PayPal 支付。' },
+  { question: '年付和月付有什么区别？', answer: '年付可享受最高 50% 的折扣优惠，按年一次性扣费。月付按月扣费，灵活性更高。' },
+  { question: '如果对服务不满意，可以退款吗？', answer: '我们提供 7 天无理由退款保障。如有退款需求，请联系客服处理。' },
+  { question: '企业用户有专属方案吗？', answer: '有的。如需企业定制方案，请通过邮件联系我们，我们会根据你的需求提供专属报价。' },
+  { question: '免费版有哪些功能限制？', answer: '免费版仅提供 10 次免费额度，不支持下载、私密生成等高级功能。注册后可立即免费体验。' },
+];
+
+export default function PricingClient() {
+  const t = useTranslations('banana.pricing');
+
+  const PLANS: Plan[] = [
   {
     name: 'Basic',
     price: { monthly: 16.6, annual: 8.3 },
     originalPrice: { monthly: null, annual: null },
-    description: '适合个人创作者',
+    description: t('plans.0.description'),
     badge: null,
     highlight: false,
-    cta: '立即订阅',
+    cta: t('plans.1.cta'),
     yearlyTotal: 100,
     features: [
       { text: '积分/年', included: true, highlight: '2,400' },
@@ -94,7 +111,7 @@ const PLANS: Plan[] = [
     description: '适合专业创作团队',
     badge: '热门',
     highlight: false,
-    cta: '立即订阅',
+    cta: t('plans.1.cta'),
     yearlyTotal: 360,
     discount: '40% OFF',
     saveAmount: 238.8,
@@ -135,7 +152,7 @@ const PLANS: Plan[] = [
     description: '适合高频专业用户',
     badge: '超值之选',
     highlight: true,
-    cta: '立即订阅',
+    cta: t('plans.1.cta'),
     yearlyTotal: 599,
     discount: '50% OFF',
     saveAmount: 599.8,
@@ -196,20 +213,8 @@ const PLANS: Plan[] = [
       { text: '无限存储空间', included: false },
     ],
   },
-];
+  ];
 
-const FAQS = [
-  { question: '如何更改我的订阅计划？', answer: '你可以随时在账户设置中升级或降级订阅计划。升级立即生效，降级将在下个计费周期生效。' },
-  { question: '未使用的积分会过期吗？', answer: '订阅积分每月重置，但永久积分不会过期。我们建议在计费周期内充分利用订阅积分。' },
-  { question: '可以随时取消订阅吗？', answer: '是的，你可以随时取消订阅。取消后你仍可使用剩余的订阅期限，到期后不再续费。' },
-  { question: '支持哪些支付方式？', answer: '支持信用卡（Visa、Mastercard、American Express）和 PayPal 支付。' },
-  { question: '年付和月付有什么区别？', answer: '年付可享受最高 50% 的折扣优惠，按年一次性扣费。月付按月扣费，灵活性更高。' },
-  { question: '如果对服务不满意，可以退款吗？', answer: '我们提供 7 天无理由退款保障。如有退款需求，请联系客服处理。' },
-  { question: '企业用户有专属方案吗？', answer: '有的。如需企业定制方案，请通过邮件联系我们，我们会根据你的需求提供专属报价。' },
-  { question: '免费版有哪些功能限制？', answer: '免费版仅提供 10 次免费额度，不支持下载、私密生成等高级功能。注册后可立即免费体验。' },
-];
-
-export default function PricingClient() {
   const [billing, setBilling] = useState<BillingPeriod>('annual');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const fadeRef = useScrollFade();

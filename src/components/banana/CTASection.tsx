@@ -1,11 +1,14 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { useScrollFade } from '@/shared/hooks/use-scroll-fade';
 import LazyVideo from '@/components/banana/LazyVideo';
 
 export default function CTASection() {
+  const t = useTranslations('banana.cta');
   const ref = useScrollFade();
 
   return (
@@ -15,18 +18,18 @@ export default function CTASection() {
         {/* Left: Text */}
         <div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-tight scroll-fade-in">
-            <span className="text-white">立即使用 Banana Pro AI </span>
-            <span className="gradient-glow-text">开始创作精美图像</span>
+            <span className="text-white">{t('title_1')}</span>
+            <span className="gradient-glow-text">{t('title_2')}</span>
           </h2>
           <p className="text-white/70 text-base md:text-lg mb-8 scroll-fade-in stagger-2">
-            加入数百万信赖 Banana Pro AI 作为首选 AI 图像生成器的创作者、营销人员和艺术家行列。在几秒内将您的创意转化为现实——完全免费，永久可用。
+            {t('desc')}
           </p>
           <div className="scroll-fade-in stagger-3">
             <a
               href="#"
               className="highlight-button gap-2 shadow-lg shadow-[#ffcc33]/20"
             >
-              免费开始创作
+              {t('button')}
               <ArrowRight className="w-5 h-5" />
             </a>
           </div>

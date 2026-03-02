@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import LazyVideo from '@/components/banana/LazyVideo';
@@ -10,6 +12,7 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ open, onClose }: LoginModalProps) {
+  const t = useTranslations('banana.login');
   const [minutes, setMinutes] = useState(9);
   const [seconds, setSeconds] = useState(59);
 
@@ -61,14 +64,14 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
               <div className="mt-3 text-center md:mt-6 md:pt-12">
                 {/* Title */}
                 <h3 className="flex items-end justify-center text-2xl md:items-start md:text-3xl">
-                  <span className="text-2xl text-white md:text-4xl">欢迎来到&nbsp;</span>
+                  <span className="text-2xl text-white md:text-4xl">{t('welcome')}&nbsp;</span>
                   <span className="gradient-glow-text text-2xl font-bold md:text-4xl">BANANA PRO AI</span>
                 </h3>
 
                 {/* Countdown */}
                 <div className="mt-6 md:mt-10">
                   <div className="text-lg font-medium text-white md:text-xl">
-                    请在接下来的&nbsp;
+                    {t('countdown_prefix')}&nbsp;
                     <div className="inline-flex items-center">
                       <div className="flex flex-col items-center">
                         <div className="group relative flex h-full w-16 items-center justify-center overflow-hidden rounded-md text-2xl font-bold text-[#ffcc33] shadow-lg" style={{ background: 'linear-gradient(to bottom, #262626, #171717)' }}>
@@ -86,7 +89,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                         </div>
                       </div>
                     </div>
-                    &nbsp;解锁:
+                    &nbsp;{t('unlock')}
                   </div>
 
                   {/* Benefits list */}
@@ -95,9 +98,9 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                     <div className="flex items-start">
                       <div className="mr-2 text-[#ffcc33]">✓</div>
                       <div>
-                        <span className="text-white">登录即可立即获得 </span>
+                        <span className="text-white">{t('credits_prefix')} </span>
                         <strong className="text-yellow-400">10</strong>
-                        <span className="text-white"> 免费积分</span>
+                        <span className="text-white"> {t('credits_suffix')}</span>
                       </div>
                     </div>
                     {/* 2 */}
@@ -105,8 +108,8 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                       <div className="mr-2 text-[#ffcc33]">✓</div>
                       <div className="flex flex-col items-start">
                         <div>
-                          <span className="text-[#ffcc33]">完全访问权限</span>{' '}
-                          <span className="text-white">使用高级 AI 模型</span>
+                          <span className="text-[#ffcc33]">Full Access</span>{' '}
+                          <span className="text-white">Premium AI Models</span>
                         </div>
                         <div className="text-start text-base text-white/50">
                           <strong className="text-yellow-400">Nano Banana</strong>,{' '}
@@ -121,12 +124,12 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                       <div className="mr-2 text-[#ffcc33]">✓</div>
                       <div className="flex flex-col items-start">
                         <div>
-                          <span className="text-[#ffcc33]">会员专享价格</span>
+                          <span className="text-[#ffcc33]">Member Pricing</span>
                         </div>
                         <div className="text-start text-base text-white/50">
-                          <span>年度计划低至 </span>
+                          <span>Annual plan from </span>
                           <strong className="text-yellow-400">$8.3/月</strong>
-                          <span>（最高可省 </span>
+                          <span>（save up to </span>
                           <strong className="text-yellow-400">40%</strong>
                           <span>）</span>
                         </div>
@@ -137,10 +140,10 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                       <div className="mr-2 text-[#ffcc33]">✓</div>
                       <div className="flex flex-col items-start">
                         <div>
-                          <span className="text-[#ffcc33]">无限存储空间</span>
+                          <span className="text-[#ffcc33]">Unlimited Storage</span>
                         </div>
                         <div className="text-start text-base text-white/50">
-                          保存和管理您所有AI生成的作品
+                          Save & manage all AI creations
                         </div>
                       </div>
                     </div>
@@ -148,7 +151,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                     <div className="flex items-start">
                       <div className="mr-2 text-[#ffcc33]">✓</div>
                       <div>
-                        <span className="text-[#ffcc33]">优先支持和更快生成速度</span>
+                        <span className="text-[#ffcc33]">Priority support & faster generation</span>
                       </div>
                     </div>
                   </div>
@@ -169,10 +172,10 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                   <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" />
                   <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" />
                 </svg>
-                <p className="text-white">使用 Google 登录</p>
+                <p className="text-white">{t('google_login')}</p>
               </button>
               <a href="/zh/privacy-policy/" className="mt-3 block text-center text-xs text-white/40">
-                继续即表示您同意我们的服务条款和隐私政策。
+                继续即表示您同意我们的{t('terms_link')}和{t('privacy_link')}。
               </a>
             </div>
           </div>

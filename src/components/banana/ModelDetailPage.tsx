@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
@@ -41,15 +43,16 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
   } = props;
 
   const fadeRef = useScrollFade();
+  const t = useTranslations('banana.modelDetail');
 
   return (
     <div ref={fadeRef} className="min-h-screen bg-[#0f1117] text-white">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="hover:text-white/70 transition-colors">首页</Link>
+          <Link href="/" className="hover:text-white/70 transition-colors">{t('home')}</Link>
           <span>/</span>
-          <Link href="/zh/image/" className="hover:text-white/70 transition-colors">AI图像生成器</Link>
+          <Link href="/image/" className="hover:text-white/70 transition-colors">{t('ai_image')}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">{modelName}</span>
         </nav>
@@ -68,7 +71,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
               href="/zh/pricing/"
               className="highlight-button mb-8 inline-flex"
             >
-              ✨ 立即体验
+              {t('try_now')}
             </Link>
             {/* Feature bullets */}
             <ul className="space-y-2 mt-8">
@@ -96,7 +99,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
         <h2 className="text-2xl font-bold mb-6 scroll-fade-in">
           <span className="gradient-glow-text">
             {modelName}
-          </span>{' '}图片
+          </span>{' '}{t('images')}
         </h2>
         <ImageGenerator examples={props.examples} />
       </section>
@@ -105,7 +108,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       <section className="bg-[#13151f] py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in">
-            为什么 <span className="text-[#ffcc33]">{modelName}</span> 引领行业
+            为什么 <span className="text-[#ffcc33]">{modelName}</span> {t('why_title_suffix')}
           </h2>
           <ModelDetailClient features={features} />
         </div>
@@ -114,7 +117,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       {/* Core Features Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in gradient-glow-text">
-          定义卓越的核心能力
+          {t('why_title_suffix')}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((f, i) => (
@@ -136,7 +139,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       <section className="bg-[#13151f] py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in gradient-glow-text">
-            四个简单步骤，完成专业视觉创作
+            {t('how_subtitle')}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((step, i) => (
@@ -160,7 +163,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       {/* Use Cases Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in gradient-glow-text">
-          {modelName}：驱动各行业的创意生产
+          {modelName} - {t('use_cases_title')}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {useCases.map((uc, i) => (
@@ -183,7 +186,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       <section className="bg-[#13151f] py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in gradient-glow-text">
-            真实创作者的真实成果
+            {t('reviews_title')}
           </h2>
           <TestimonialsCarousel testimonials={testimonials} />
         </div>
@@ -192,7 +195,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       {/* FAQ Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in gradient-glow-text">
-          关于 {modelName} 的常见问题
+          关于 {modelName} 的{t('faq_title')}
         </h2>
         <FAQAccordion faqs={faqs} />
       </section>
@@ -212,7 +215,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
             href="/zh/pricing/"
             className="highlight-button text-lg"
           >
-            ✨ 立即开始免费使用
+            {t('try_now')}
           </Link>
         </div>
       </section>

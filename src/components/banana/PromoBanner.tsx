@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState, useEffect } from 'react';
 
 interface PromoBannerProps {
@@ -28,6 +30,7 @@ function TimeUnit({ label }: { label: string }) {
 }
 
 export default function PromoBanner({ onClose }: PromoBannerProps) {
+  const t = useTranslations('banana.promo');
   const [visible, setVisible] = useState(true);
   const [seconds, setSeconds] = useState(INITIAL_SECONDS);
 
@@ -78,9 +81,9 @@ export default function PromoBanner({ onClose }: PromoBannerProps) {
           <p className="text-center text-[11px] font-semibold leading-tight sm:text-sm md:text-base">
             {/* Mobile */}
             <span className="sm:hidden">
-              <span className="font-semibold text-black/90">高级 AI — </span>
+              <span className="font-semibold text-black/90">{t('advanced_ai')}</span>
               <span className="mx-1 text-lg font-black text-black">50%</span>
-              <span className="font-semibold text-black/90"> 优惠</span>
+              <span className="font-semibold text-black/90">{t('discount')}</span>
             </span>
             {/* Desktop */}
             <span className="hidden sm:inline">
@@ -88,9 +91,9 @@ export default function PromoBanner({ onClose }: PromoBannerProps) {
                 className="mr-1 rounded-md bg-black/90 px-2 py-0.5 text-xs font-bold uppercase tracking-wide text-white sm:text-sm md:mr-4"
                 style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
               >
-                限时抢购
+                {t('flash_sale')}
               </span>
-              <span className="font-semibold text-black/90">即刻生成精美图片 — 今日立省 </span>
+              <span className="font-semibold text-black/90">{t('generate_now')}</span>
               <span className="mx-1 text-lg font-black text-black">50%</span>
             </span>
           </p>
@@ -102,12 +105,12 @@ export default function PromoBanner({ onClose }: PromoBannerProps) {
             href="/zh/pricing/"
             className="relative inline-flex items-center justify-center overflow-hidden whitespace-nowrap rounded-full bg-black px-3 py-1 text-[10px] font-bold text-white shadow-md transition-all duration-300 hover:scale-105 hover:bg-black/90 hover:shadow-lg sm:px-5 sm:py-2 sm:text-sm"
           >
-            <span className="relative z-10">领取优惠</span>
+            <span className="relative z-10">{t('claim')}</span>
           </a>
           <button
             onClick={handleClose}
             className="flex h-5 w-5 flex-shrink-0 items-center justify-center text-black/70 transition-opacity hover:text-black/90 sm:h-6 sm:w-6"
-            aria-label="关闭"
+            aria-label="close"
           >
             <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />

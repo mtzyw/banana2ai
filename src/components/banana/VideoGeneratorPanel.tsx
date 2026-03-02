@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import Image from 'next/image';
 import {
   ChevronDown, Sparkles, Lock, RefreshCw, Coins, Info, Gem, Film,
@@ -14,6 +16,7 @@ export default function VideoGeneratorPanel({
   sampleVideoSrc = 'https://static.banana2ai.net/videos/sample-generator.mp4',
   sampleVideoPoster = 'https://static.banana2ai.net/images/video/default-poster.webp',
 }: VideoGeneratorPanelProps) {
+  const t = useTranslations('banana.videoGenerator');
   return (
     <div className="flex flex-col gap-4 px-4 py-6 md:gap-6 md:px-6 lg:flex-row lg:min-h-[min(calc(100vh-120px),800px)]">
       {/* Left: Generator Form */}
@@ -21,10 +24,10 @@ export default function VideoGeneratorPanel({
         <div className="flex h-full flex-col rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow-lg">
           <div className="flex-shrink-0 border-b border-[#363b4e]/30 p-5 pb-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <div className="text-base font-bold sm:text-lg">AI视频生成器</div>
+              <div className="text-base font-bold sm:text-lg">{t('title')}</div>
               <button className="flex w-full items-center gap-1 rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm hover:bg-[#2b3046] sm:w-auto">
                 <Image src="https://static.banana2ai.net/images/icons/google-icon.svg" alt="Veo 3.1" width={24} height={24} />
-                <span className="truncate text-[#ffcc33]">Veo 3.1 基础版</span>
+                <span className="truncate text-[#ffcc33]">{t('model')}</span>
                 <ChevronDown className="h-4 w-4" />
               </button>
             </div>
@@ -33,29 +36,29 @@ export default function VideoGeneratorPanel({
             <div className="mb-4 flex-shrink-0">
               <div className="grid grid-cols-2 gap-1 rounded-lg bg-[#0f1117] p-1">
                 <button className="relative rounded-md px-4 py-2.5 text-sm font-medium" style={{ border: '2px solid transparent', backgroundImage: 'linear-gradient(#0f1117, #0f1117), linear-gradient(to right, #ffcc33, #ff9900)', backgroundOrigin: 'border-box', backgroundClip: 'padding-box, border-box' }}>
-                  <span className="gradient-text">文本转换为 视频</span>
+                  <span className="gradient-text">{t('mode_text')}</span>
                 </button>
                 <button className="rounded-md px-4 py-2.5 text-sm font-medium text-white/50 hover:text-white">
-                  图片转 视频
+                  {t('mode_image')}
                 </button>
               </div>
             </div>
             <div className="mb-4 min-h-0 flex-1 space-y-4 overflow-y-auto">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <label className="text-sm font-medium">提示词</label>
+                  <label className="text-sm font-medium">{t('prompt_label')}</label>
                   <Info className="h-4 w-4 text-white/30" />
                 </div>
                 <textarea className="w-full resize-y rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm placeholder:text-white/30 focus:border-[#ffcc33] focus:outline-none" style={{ minHeight: 140 }} placeholder=" 描述您想要创建的内容 最多 10000 个字符..." maxLength={10000} readOnly />
                 <div className="flex justify-between text-xs">
                   <button className="flex items-center gap-1 text-sm font-medium text-[#ffcc33]">
-                    <Sparkles className="h-4 w-4" /> AI 生成
+                    <Sparkles className="h-4 w-4" /> {t('generate')}
                   </button>
                   <span className="text-white/30">0/10000</span>
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">宽高比</label>
+                <label className="text-sm font-medium">{t('aspect_ratio')}</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button className="group rounded-lg border border-[#363b4e]/50 bg-[#1c2030] px-1.5 py-2 hover:border-[#363b4e]">
                     <div className="mx-auto mb-1.5 h-6 w-11 rounded border-2 border-white/40 group-hover:border-white/70" />

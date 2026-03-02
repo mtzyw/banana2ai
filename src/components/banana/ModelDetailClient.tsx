@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { useState } from 'react';
 import Image from 'next/image';
 
@@ -9,42 +11,45 @@ interface Feature {
   description: string;
 }
 
-const TABS = [
-  {
-    label: '先进 AI 引擎',
-    image: 'https://static.banana2ai.net/images/models/ai-engine.webp',
-    imageAlt: '以革命性 AI 技术驱动你的创意',
-    heading: '以革命性 AI 技术驱动你的创意',
-    highlight: '下一代神经网络架构',
-    body: 'Banana Pro AI 图片利用最前沿的人工智能技术，带来前所未有的图像质量与生成速度。我们的模型基于海量视觉概念进行训练，能够以出色的保真度生成专业级作品。与基础 AI 工具相比，Banana Pro AI 图片在生成速度上快 10 倍，在画质和还原度上提升 3 倍，让创意表达无缝流畅。',
-  },
-  {
-    label: '完美一致性',
-    image: 'https://static.banana2ai.net/images/models/consistency.webp',
-    imageAlt: '无与伦比的角色与风格一致性',
-    heading: '无与伦比的角色与风格一致性',
-    highlight: '高级视觉记忆系统',
-    body: '构建视觉叙事需要稳定的角色与统一的风格。Banana Pro AI 图片在保持视觉身份方面表现出色。我们先进的记忆系统会记住角色特征、艺术风格和构图偏好，确保系列中的每一张图片都拥有完美的视觉延续性。非常适合漫画创作者、品牌设计师和故事创作者等需要稳定输出的场景。',
-  },
-  {
-    label: '两种强大模式',
-    image: 'https://static.banana2ai.net/images/models/dual-mode.webp',
-    imageAlt: '多场景适配的双模式创作系统',
-    heading: '多场景适配的双模式创作系统',
-    highlight: '文生图 + 图生图双引擎',
-    body: '无论是从零开始创作，还是基于现有图像进行风格迁移与二次编辑，Banana Pro AI 图片都能完美适配。文生图模式让你通过自然语言描述即可获得专业作品；图生图模式则支持精准的风格转换、细节增强和创意重塑，满足各类复杂创作需求。',
-  },
-  {
-    label: '永久免费',
-    image: 'https://static.banana2ai.net/images/models/free-tier.webp',
-    imageAlt: '真正永久免费且附带完整商用权利',
-    heading: '真正永久免费且附带完整商用权利',
-    highlight: '零成本启动，无隐藏收费',
-    body: 'Banana Pro AI 图片承诺永久免费使用基础功能，不设置任何隐形限制。所有免费用户生成的图片均附带完整的商用授权，你可以自由用于个人项目、社交媒体内容或商业设计。我们相信，好的创意工具不应该成为创作的门槛。',
-  },
-];
 
 export default function ModelDetailClient({ features }: { features: Feature[] }) {
+  const t = useTranslations('banana.modelClient');
+
+  const TABS = [
+  {
+    label: t('sections.0.label'),
+    image: 'https://static.banana2ai.net/images/models/ai-engine.webp',
+    imageAlt: t('sections.0.heading'),
+    heading: t('sections.0.heading'),
+    highlight: t('sections.0.highlight'),
+    body: t('sections.0.body'),
+  },
+  {
+    label: t('sections.3.label'),
+    image: 'https://static.banana2ai.net/images/models/consistency.webp',
+    imageAlt: t('sections.3.heading'),
+    heading: t('sections.3.heading'),
+    highlight: t('sections.3.highlight'),
+    body: t('sections.3.body'),
+  },
+  {
+    label: t('sections.4.label'),
+    image: 'https://static.banana2ai.net/images/models/dual-mode.webp',
+    imageAlt: t('sections.4.heading'),
+    heading: t('sections.4.heading'),
+    highlight: t('sections.4.highlight'),
+    body: t('sections.4.body'),
+  },
+  {
+    label: t('sections.5.label'),
+    image: 'https://static.banana2ai.net/images/models/free-tier.webp',
+    imageAlt: t('sections.5.heading'),
+    heading: t('sections.5.heading'),
+    highlight: t('sections.5.highlight'),
+    body: t('sections.5.body'),
+  },
+  ];
+
   const [activeTab, setActiveTab] = useState(0);
   const [visible, setVisible] = useState(true);
 
@@ -63,8 +68,7 @@ export default function ModelDetailClient({ features }: { features: Feature[] })
     <div>
       {/* Subtitle */}
       <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-white/50 md:text-base">
-        了解让 Banana Pro AI 图片成为全球 750,000+ 创意专业人士首选平台的技术优势与以用户为中心的功能设计。
-      </p>
+        </p>
 
       {/* Tab buttons */}
       <div className="mb-8 hidden flex-wrap justify-center gap-4 md:flex">
@@ -139,7 +143,7 @@ export default function ModelDetailClient({ features }: { features: Feature[] })
               href="/zh/image/banana-pro-ai/"
               className="highlight-button inline-flex w-full justify-center md:w-auto"
             >
-              体验 Banana Pro AI 图片
+              Try Banana Pro AI
             </a>
           </div>
         </div>
