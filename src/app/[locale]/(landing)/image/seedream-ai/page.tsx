@@ -308,7 +308,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            体验 Seedream AI <span className="text-[#ffcc33]">{isZh ? '三步生成专业视觉' : 'Generate Professional Visuals in Three Steps'}</span>
+            {isZh ? '体验 Seedream AI' : 'Experience Seedream AI'} <span className="text-[#ffcc33]">{isZh ? '三步生成专业视觉' : 'Generate Professional Visuals in Three Steps'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '通过简单三步，将您的创意想法转化为令人惊叹的 4K 高分辨率图像，探索 Seedream AI 专业的全能多模态视觉生成能力。' : 'In three simple steps, transform your creative ideas into stunning 4K high-resolution images and explore Seedream AI professional all-in-one multimodal visual generation capabilities.'}
@@ -364,7 +364,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            助力视觉创作的<span className="text-[#ffcc33]">{isZh ? '先进 Seedream AI 能力' : 'Advanced Seedream AI Capabilities'}</span>
+            {isZh ? '助力视觉创作的' : 'Empowering visual creation'}<span className="text-[#ffcc33]">{isZh ? '先进 Seedream AI 能力' : 'Advanced Seedream AI Capabilities'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
             {isZh ? '探索由 Seedream AI 驱动的行业领先功能。我们的 AI 为您带来最稳定、功能最丰富的环境，助力探索专业生成工具的全方位潜能。' : 'Explore industry-leading features powered by Seedream AI. Our AI brings you the most stable and feature-rich environment, helping you explore the full potential of professional generation tools.'}
@@ -392,7 +392,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            通过先进 AI 生成解锁<span className="text-[#ffcc33]">{isZh ? '多样化应用场景' : 'Diverse Application Scenarios'}</span>
+            {isZh ? '通过先进 AI 生成解锁' : 'Unlock with advanced AI generation'}<span className="text-[#ffcc33]">{isZh ? '多样化应用场景' : 'Diverse Application Scenarios'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '从业务增长到个人创意，我们的平台为您提供最通用的工具集，用于生成专业级图像和高端设计资产。' : 'From business growth to personal creativity, our platform provides you with the most versatile toolset for generating professional-grade images and high-end design assets.'}

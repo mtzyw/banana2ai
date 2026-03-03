@@ -337,7 +337,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何使用 Grok Imagine — <span className="text-[#ffcc33]">{isZh ? '三步即可掌握' : 'Master in Three Steps'}</span>
+            {isZh ? '如何使用 Grok Imagine —' : 'How to use Grok Imagine —'} <span className="text-[#ffcc33]">{isZh ? '三步即可掌握' : 'Master in Three Steps'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '只需简单三步即可掌握这款 Grok AI 艺术生成器。我们直观的界面确保您能即刻从 Grok 上的 FLUX.1 模型获得最佳结果。' : 'Master this Grok AI art generator in just three simple steps. Our intuitive interface ensures you get the best results instantly from the FLUX.1 model on Grok.'}
@@ -369,7 +369,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Grok Imagine 的<span className="text-[#ffcc33]">{isZh ? '核心功能' : 'Core Features'}</span>
+            {isZh ? 'Grok Imagine 的' : 'Grok Imagine '}<span className="text-[#ffcc33]">{isZh ? '核心功能' : 'Core Features'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '探索为什么 Grok Imagine 是顶级评分的 Grok AI 艺术生成器。从完美的拼写到无过滤的艺术自由，发现 Grok 上 FLUX.1 模型的能力。' : 'Discover why Grok Imagine is the top rated Grok AI art generator. From perfect spelling to unfiltered artistic freedom, uncover the power of the FLUX.1 model on Grok.'}
@@ -419,7 +419,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            驱动 Grok Imagine 的<span className="text-[#ffcc33]">{isZh ? '先进技术' : 'Advanced Technology'}</span>
+            {isZh ? '驱动 Grok Imagine 的' : 'Powered by Grok Imagine'}<span className="text-[#ffcc33]">{isZh ? '先进技术' : 'Advanced Technology'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
             {isZh ? '深入了解 Grok 上 FLUX.1 模型的核心技术架构，正是这些突破性创新让 Grok Imagine 成为功能最强大且最精准的 AI 艺术生成器。' : 'Dive deep into the core technical architecture of the FLUX.1 model on Grok, where groundbreaking innovations make Grok Imagine the most powerful and precise AI art generator.'}
@@ -446,7 +446,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Grok Imagine 的<span className="text-[#ffcc33]">{isZh ? '多元应用场景' : 'Diverse Application Scenarios'}</span>
+            {isZh ? 'Grok Imagine 的' : 'Grok Imagine '}<span className="text-[#ffcc33]">{isZh ? '多元应用场景' : 'Diverse Application Scenarios'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
             {isZh ? '发现不同行业如何利用 Grok Imagine 和 Grok 上的 FLUX.1 模型来提高生产力和创造力，释放前所未有的创作潜能。' : 'Discover how different industries leverage Grok Imagine and the FLUX.1 model on Grok to boost productivity and creativity, unleashing unprecedented creative potential.'}

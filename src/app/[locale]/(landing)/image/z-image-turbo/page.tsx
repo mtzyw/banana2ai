@@ -367,7 +367,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            驱动 Z Image Turbo 的<span className="text-[#ffcc33]">{isZh ? '先进技术' : 'Advanced Technology'}</span>
+            {isZh ? '驱动 Z Image Turbo 的' : 'Powered by Z Image Turbo'}<span className="text-[#ffcc33]">{isZh ? '先进技术' : 'Advanced Technology'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
             {isZh ? '深入了解复杂的 AI 架构和优化技术，这些正是让 Z Image Turbo 成为功能最强大且最高效的 AI 图像生成器的核心。' : 'Dive deep into the complex AI architecture and optimization techniques that are at the core of what makes Z Image Turbo the most powerful and efficient AI image generator.'}

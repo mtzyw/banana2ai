@@ -367,7 +367,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何用 Veo 3.1 创作<span className="text-[#ffcc33]">{isZh ? '高质量叙事视频' : 'High-Quality Narrative Videos'}</span>
+            {isZh ? '如何用 Veo 3.1 创作' : 'How to create with Veo 3.1'}<span className="text-[#ffcc33]">{isZh ? '高质量叙事视频' : 'High-Quality Narrative Videos'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '我们的平台提供三步式方法，将 Veo 3.1 映射为可落地的工作流，让创作者从创意到成片，无需手动剪辑时间轴。' : 'Our platform provides a three-step method to map Veo 3.1 into a practical workflow, allowing creators to go from idea to finished product without manual timeline editing.'}
@@ -441,7 +441,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Veo 3.1 在<span className="text-[#ffcc33]">{isZh ? '多模型视频工作流' : 'Multi-Model Video Workflow'}</span>中的定位
+            {isZh ? 'Veo 3.1 在' : 'Veo 3.1 in '}<span className="text-[#ffcc33]">{isZh ? '多模型视频工作流' : 'Multi-Model Video Workflow'}</span>{isZh ? '中的定位' : ' Positioning'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             Veo 3.1 {isZh ? '是我们集成环境的一部分。用于电影级连贯性、长视频控制、文本重写与序列延展，以下是更贴近实际的使用场景。' : 'is part of our integrated environment. Used for cinematic coherence, long-form video control, text rewriting, and sequence extension, here are more practical use cases.'}

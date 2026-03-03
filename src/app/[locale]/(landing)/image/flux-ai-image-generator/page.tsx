@@ -369,7 +369,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            四步创作<span className="text-[#ffcc33]">{isZh ? '专业级 AI 图像' : 'Professional Grade AI Images'}</span>
+            {isZh ? '四步创作' : 'Four-step creation'}<span className="text-[#ffcc33]">{isZh ? '专业级 AI 图像' : 'Professional Grade AI Images'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '利用当今最精确、最高分辨率的 AI 图像生成技术，释放视觉合成的未来。' : 'Unleash the future of visual synthesis using the most precise and highest-resolution AI image generation technology available today.'}
@@ -404,7 +404,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            专业 AI 引擎的<span className="text-[#ffcc33]">{isZh ? '尖端特性' : 'Cutting Edge Features'}</span>
+            {isZh ? '专业 AI 引擎的' : 'Professional AI engine'}<span className="text-[#ffcc33]">{isZh ? '尖端特性' : 'Cutting Edge Features'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '深入了解我们套件的技术优势。我们利用 Flux AI 图像生成器提供满足现代创作者需求的工具。从建筑可视化到高级时尚社论概念，该系统为所有专业用户提供一致的结果。' : 'Dive deep into the technical advantages of our suite. We leverage the Flux AI Image Generator to provide tools that meet the demands of modern creators. From architectural visualization to advanced fashion editorial concepts, this system delivers consistent results for all professional users.'}
@@ -438,7 +438,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            多元化的<span className="text-[#ffcc33]">{isZh ? '行业应用' : 'Industry Applications'}</span>
+            {isZh ? '多元化的' : 'Diverse'}<span className="text-[#ffcc33]">{isZh ? '行业应用' : 'Industry Applications'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '探索不同专业领域如何将 Flux AI 图像生成器整合到工作流中，以在四大核心行业中节省时间并提升创意产出。' : 'Discover how different professional fields integrate the Flux AI Image Generator into their workflows to save time and enhance creative output across four core industries.'}
@@ -520,7 +520,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            我们 AI 平台的<span className="text-[#ffcc33]">{isZh ? '战略优势' : 'Strategic Advantages'}</span>
+            {isZh ? '我们 AI 平台的' : 'Our AI platform'}<span className="text-[#ffcc33]">{isZh ? '战略优势' : 'Strategic Advantages'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
             {isZh ? '通过利用 Flux AI 图像生成器，我们提供了一个强大、可扩展且极具创意的环境，适配每一位专业用户的独特需求。' : 'By utilizing the Flux AI Image Generator, we provide a powerful, scalable, and highly creative environment tailored to the unique needs of every professional user.'}

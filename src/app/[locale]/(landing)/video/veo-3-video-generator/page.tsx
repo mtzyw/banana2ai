@@ -354,7 +354,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何使用 <span className="text-[#ffcc33]">{isZh ? 'Veo 3 视频生成器' : 'Veo 3 Video Generator'}</span>
+            {isZh ? '如何使用' : 'How to use'} <span className="text-[#ffcc33]">{isZh ? 'Veo 3 视频生成器' : 'Veo 3 Video Generator'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '使用我们直观的 Veo 3 界面，只需三个简单步骤即可制作工作室品质的视频。' : 'Create studio quality videos in just three simple steps using our intuitive Veo 3 interface.'}

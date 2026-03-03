@@ -366,7 +366,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Sora 2 的<span className="text-[#ffcc33]">{isZh ? '无限创意可能' : 'Unlimited Creative Possibilities'}</span>
+            {isZh ? 'Sora 2 的' : 'Sora 2 '}<span className="text-[#ffcc33]">{isZh ? '无限创意可能' : 'Unlimited Creative Possibilities'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '探索使 Sora 2 成为 AI 视频生成市场领导者的技术突破。从模拟复杂的世界物理到呈现照片级真实感纹理，Sora 2 专为专业人士打造。' : 'Explore the technological breakthroughs that make Sora 2 a market leader in AI video generation. From simulating complex world physics to rendering photorealistic textures, Sora 2 is built for professionals.'}

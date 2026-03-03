@@ -407,7 +407,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            四步完成<span className="text-[#ffcc33]">{isZh ? '专业级 AI 图像编辑' : 'Professional AI Image Editing'}</span>
+            {isZh ? '四步完成' : 'Four steps to complete'}<span className="text-[#ffcc33]">{isZh ? '专业级 AI 图像编辑' : 'Professional AI Image Editing'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '借助 Qwen Image Edit，实现高精度图像编辑。开源 AI 编辑器融合语义智能与外观控制，带来专业级编辑体验。' : 'Achieve high-precision image editing with Qwen Image Edit. The open-source AI editor integrates semantic intelligence and appearance control, bringing a professional-grade editing experience.'}
@@ -524,7 +524,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            驱动 Qwen Image Edit 的<span className="text-[#ffcc33]">{isZh ? '核心技术' : 'Core Technology'}</span>
+            {isZh ? '驱动 Qwen Image Edit 的' : 'Powered by Qwen Image Edit'}<span className="text-[#ffcc33]">{isZh ? '核心技术' : 'Core Technology'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
             {isZh ? '前沿的 AI 架构与双通道处理机制，使 Qwen Image Edit 成为面向全球专业用户的智能图像编辑基础模型。' : 'Cutting-edge AI architecture and dual-channel processing mechanism make Qwen Image Edit an intelligent image editing base model for global professional users.'}
