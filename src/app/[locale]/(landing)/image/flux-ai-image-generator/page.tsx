@@ -359,7 +359,7 @@ export default function Page() {
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
         <h2 className="mb-6 text-2xl font-bold scroll-fade-in">
-          <span className="gradient-glow-text">{isZh ? 'Flux AI 图像生成器' : 'Flux AI Image Generator'}</span> 图片
+          <span className="gradient-glow-text">{isZh ? 'Flux AI 图像生成器' : 'Flux AI Image Generator'}</span> {isZh ? '图片' : 'Images'}
         </h2>
         <ImageGenerator examples={FLUX_AI_IMAGE_GENERATOR_EXAMPLES} />
       </section>

@@ -176,7 +176,7 @@ export default function LoginModal({ open, onClose }: LoginModalProps) {
                 <p className="text-white">{t('google_login')}</p>
               </button>
               <a href="/zh/privacy-policy/" className="mt-3 block text-center text-xs text-white/40">
-                {isZh ? '继续即表示您同意我们的' : 'By continuing, you agree to our '}{t('terms_link')}和{t('privacy_link')}。
+                {isZh ? '继续即表示您同意我们的' : 'By continuing, you agree to our '}{t('terms_link')}{isZh ? '和' : ' and '}{t('privacy_link')}{isZh ? '。' : '.'}
               </a>
             </div>
           </div>
