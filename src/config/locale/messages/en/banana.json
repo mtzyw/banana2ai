@@ -360,7 +360,8 @@
     "how_subtitle": "3 Simple Steps",
     "use_cases_title": "Use Cases",
     "reviews_title": "Reviews",
-    "faq_title": "FAQ"
+    "faq_title": "FAQ",
+    "why_prefix": "Why Choose"
   },
   "modelClient": {
     "sections": [

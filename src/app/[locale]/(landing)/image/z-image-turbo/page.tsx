@@ -284,7 +284,7 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            生成写实级 AI 图像的<span className="text-[#ffcc33]">{isZh ? '四个简单步骤' : 'Four Simple Steps'}</span>
+            {isZh ? '生成写实级 AI 图像的' : 'Generate Photorealistic AI Images in '}<span className="text-[#ffcc33]">{isZh ? '四个简单步骤' : 'Four Simple Steps'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
             {isZh ? '使用 Z Image Turbo 在数秒内创建专业品质的图像。这款革命性的 AI 图像生成器能将你的想法转化为惊艳的写实视觉效果。' : 'Create professional quality images in seconds with Z Image Turbo. This revolutionary AI image generator transforms your ideas into stunning, photorealistic visuals.'}

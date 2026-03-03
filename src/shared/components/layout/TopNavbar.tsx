@@ -57,7 +57,7 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 
       <div className="flex items-center gap-1.5 sm:gap-2">
         <button className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-yellow-500/30 bg-yellow-500/10 text-yellow-400 text-xs font-medium hover:bg-yellow-500/20 transition-colors">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>{locale === 'zh' ? locale === 'zh' ? '免费获取20点数' : 'Get 20 points for free' : 'Get 20 Free Credits'}</span>
+          <span>{locale === 'zh' ? '免费获取20点数' : 'Get 20 Free Credits'}</span>
         </button>
 
         <button
@@ -67,10 +67,10 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 
             router.push(`/${next}${path}`);
           }}
           className="flex items-center gap-1 p-2 rounded-md text-white/60 hover:text-white hover:bg-white/[0.06] transition-colors"
-          title={locale === 'zh' ? 'Switch to English' : locale === 'zh' ? '切换到中文' : 'Switch to Chinese'}
+          title={locale === 'zh' ? 'Switch to English' : 'Switch to Chinese'}
         >
           <Globe className="w-4 h-4" />
-          <span className="text-xs">{locale === 'zh' ? 'EN' : locale === 'zh' ? '中文' : 'Chinese'}</span>
+          <span className="text-xs">{locale === 'zh' ? 'EN' : '中文'}</span>
         </button>
 
         <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-white/[0.04] border border-white/[0.06]">
@@ -83,7 +83,7 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 
           className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md bg-[#f8d24b] text-black text-xs font-semibold hover:bg-yellow-300 transition-colors"
         >
           <LogIn className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">{locale === 'zh' ? locale === 'zh' ? '登录' : 'Log in' : 'Sign In'}</span>
+          <span className="hidden sm:inline">{locale === 'zh' ? '登录' : 'Sign In'}</span>
         </button>
       </div>
 

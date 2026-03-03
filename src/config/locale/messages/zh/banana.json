@@ -360,7 +360,8 @@
     "how_subtitle": "简单三步",
     "use_cases_title": "应用场景",
     "reviews_title": "用户评价",
-    "faq_title": "常见问题"
+    "faq_title": "常见问题",
+    "why_prefix": "为什么选择"
   },
   "modelClient": {
     "sections": [
