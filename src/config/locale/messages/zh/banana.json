@@ -275,7 +275,8 @@
     "duration": "时长",
     "resolution": "分辨率",
     "generate": "生成视频",
-    "generating": "AI 正在生成视频..."
+    "generating": "AI 正在生成视频...",
+    "aspect_ratio": "画面比例"
   },
   "login": {
     "welcome": "欢迎来到",

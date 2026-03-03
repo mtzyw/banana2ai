@@ -23,6 +23,146 @@ const ASPECT_RATIOS = [
 const RESOLUTIONS = ['1K', '2K', '4K'];
 const QUANTITIES = [1, 2, 3, 4];
 
+/* ── AI Models ── */
+type AIModel = {
+  id: string;
+  name: string;
+  badge?: string;
+  badgeColor?: string;
+  icon?: string;
+  desc: string;
+  descEn: string;
+  credits: string;
+  hd?: boolean;
+  modes: string;
+  recommended?: boolean;
+};
+
+const AI_MODELS: AIModel[] = [
+  {
+    id: 'nano-banana',
+    name: 'Nano Banana',
+    badge: 'SMART',
+    badgeColor: 'bg-white/10 text-white/70',
+    desc: '由 Google 提供支持的先进 AI 模型，擅长自然语言驱动的图像生成',
+    descEn: 'Advanced AI model excelling in natural language-driven image generation powered by Google',
+    credits: '4+',
+    modes: 'Text & Image',
+  },
+  {
+    id: 'nano-banana-pro',
+    name: 'Nano Banana Pro',
+    badge: 'PRO',
+    badgeColor: 'bg-[#ffcc33]/20 text-[#ffcc33]',
+    desc: '由 Google 提供支持的专业 AI 图像生成，具备增强质量和高级控制功能',
+    descEn: 'Professional AI image generation with enhanced quality and advanced controls powered by Google',
+    credits: '10+',
+    hd: true,
+    modes: 'Text & Image',
+    recommended: true,
+  },
+  {
+    id: 'nano-banana-2',
+    name: 'Nano Banana 2',
+    badge: 'NEW',
+    badgeColor: 'bg-white/10 text-white/70',
+    desc: '由 Google 提供支持的新一代 Flash 模型，具备闪电般速度和专业级一致性',
+    descEn: 'Next-gen Flash model delivering lightning speed and Pro-level consistency powered by Google',
+    credits: '10+',
+    hd: true,
+    modes: 'Text & Image',
+    recommended: true,
+  },
+  {
+    id: 'gpt-4o-image',
+    name: 'GPT-4o Image',
+    badge: 'STD',
+    badgeColor: 'bg-white/10 text-white/70',
+    icon: 'openai',
+    desc: 'AI 驱动的图像生成与编辑',
+    descEn: 'AI-powered image generation and editing',
+    credits: '6+',
+    modes: 'Text & Image',
+  },
+  {
+    id: 'flux-kontext-pro',
+    name: 'Flux Kontext Pro',
+    badge: 'PRO',
+    badgeColor: 'bg-[#ffcc33]/20 text-[#ffcc33]',
+    icon: 'flux',
+    desc: '生成富含上下文信息的逼真场景，用于插画和故事叙述',
+    descEn: 'Generate context-rich realistic scenes for illustration and storytelling',
+    credits: '3+',
+    modes: 'Text & Image',
+  },
+  {
+    id: 'flux-kontext-max',
+    name: 'Flux Kontext Max',
+    badge: 'MAX',
+    badgeColor: 'bg-purple-500/20 text-purple-400',
+    icon: 'flux',
+    desc: '为高端艺术和设计项目创建高度精细、复杂的视觉效果',
+    descEn: 'Create highly detailed, complex visuals for high-end art and design projects',
+    credits: '5+',
+    modes: 'Text & Image',
+  },
+  {
+    id: 'seedream',
+    name: 'Seedream 4.0',
+    badge: 'FAST',
+    badgeColor: 'bg-green-500/20 text-green-400',
+    icon: 'bytedance',
+    desc: '字节跳动先进图像生成模型，具有卓越的质量和创意控制能力',
+    descEn: 'ByteDance advanced image generation model with exceptional quality and creative control',
+    credits: '2+',
+    modes: 'Text & Image',
+  },
+  {
+    id: 'seedream-5-lite',
+    name: 'Seedream 5.0 Lite',
+    badge: 'NEW',
+    badgeColor: 'bg-white/10 text-white/70',
+    icon: 'bytedance',
+    desc: '字节跳动统一多模态图像生成模型，具备推理和可控视觉创作能力',
+    descEn: 'ByteDance unified multimodal image generation model with reasoning and controllable visual creation',
+    credits: '3+',
+    modes: 'Text & Image',
+  },
+  {
+    id: 'qwen-image-edit',
+    name: 'Qwen Image Edit',
+    badge: 'BASIC',
+    badgeColor: 'bg-blue-500/20 text-blue-400',
+    icon: 'wan',
+    desc: '高级图像编辑，精确控制风格和细节',
+    descEn: 'Advanced image editing with precise style and detail control',
+    credits: '3+',
+    modes: 'Image',
+  },
+  {
+    id: 'grok-imagine-image',
+    name: 'Grok Imagine',
+    badge: 'NEW',
+    badgeColor: 'bg-white/10 text-white/70',
+    icon: 'grok',
+    desc: 'xAI 文生图功能，每次请求生成 6 张独特图像',
+    descEn: 'xAI text-to-image with stunning visuals - 6 unique images per request',
+    credits: '2+',
+    modes: 'Text & Image',
+  },
+  {
+    id: 'z-image-turbo',
+    name: 'Z-Image Turbo',
+    badge: 'FAST',
+    badgeColor: 'bg-green-500/20 text-green-400',
+    icon: 'wan',
+    desc: '通义超快文生图模型，具备照片级真实感和双语文本渲染',
+    descEn: 'Ultra-fast 6B parameter text-to-image model with photorealistic output',
+    credits: '2+',
+    modes: 'Text',
+  },
+];
+
 /* ── Example slides ── */
 export type ExampleSlide = {
   before: string;
@@ -59,6 +199,10 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const t = useTranslations('banana.imageGenerator');
   const isZh = useLocale() === 'zh';
   const EXAMPLES = examples ?? DEFAULT_EXAMPLES;
+  const [selectedModel, setSelectedModel] = useState<AIModel>(AI_MODELS[1]); // default: Pro
+  const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
+  const [modelSearch, setModelSearch] = useState('');
+  const modelDropdownRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<Mode>('text');
   const [prompt, setPrompt] = useState('');
   const [selectedRatio, setSelectedRatio] = useState('1:1');
@@ -70,6 +214,21 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [exampleIdx, setExampleIdx] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Close model dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modelDropdownRef.current && !modelDropdownRef.current.contains(e.target as Node)) {
+        setModelDropdownOpen(false);
+      }
+    };
+    if (modelDropdownOpen) document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [modelDropdownOpen]);
+
+  const filteredModels = AI_MODELS.filter(m =>
+    m.name.toLowerCase().includes(modelSearch.toLowerCase())
+  );
 
   const handleGenerate = () => {
     if (generateState === 'loading') return;
@@ -104,11 +263,101 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
           <div className="flex-shrink-0 p-5 pb-2">
             <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-base font-bold text-white sm:text-lg">{t('title')}</span>
-              <button className="flex w-full items-center gap-1 rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm transition-colors hover:bg-[#252a3d] sm:w-auto">
-                <Image src="https://static.banana2ai.net/images/icons/google-icon.svg" alt="Google" width={24} height={24} className="h-6 w-6 flex-shrink-0" />
-                <span className="truncate text-[#ffcc33]">Nano Banana Pro</span>
-                <ChevronDown className="h-4 w-4 text-white/50" />
-              </button>
+              <div className="relative sm:w-auto w-full" ref={modelDropdownRef}>
+                <button
+                  onClick={() => setModelDropdownOpen(!modelDropdownOpen)}
+                  className="flex w-full items-center gap-1 rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm transition-colors hover:bg-[#252a3d] sm:w-auto"
+                >
+                  {selectedModel.icon === 'flux' ? (
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded bg-white text-xs font-black text-black">F</span>
+                  ) : selectedModel.icon === 'bytedance' ? (
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded bg-[#00D1FF]/20 text-xs font-black text-[#00D1FF]">S</span>
+                  ) : selectedModel.icon === 'openai' ? (
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded bg-white text-xs font-black text-black">O</span>
+                  ) : selectedModel.icon === 'wan' ? (
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded bg-purple-500/20 text-xs font-black text-purple-400">Q</span>
+                  ) : selectedModel.icon === 'grok' ? (
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded bg-blue-500/20 text-xs font-black text-blue-400">G</span>
+                  ) : (
+                    <Image src="https://static.banana2ai.net/images/icons/google-icon.svg" alt="Google" width={24} height={24} className="h-6 w-6 flex-shrink-0" unoptimized />
+                  )}
+                  <span className="truncate text-[#ffcc33]">{selectedModel.name}</span>
+                  <ChevronDown className={`h-4 w-4 text-white/50 transition-transform ${modelDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {modelDropdownOpen && (
+                  <div className="absolute right-0 top-full z-50 mt-2 w-[340px] rounded-xl border border-[#363b4e] bg-[#13151f] shadow-2xl shadow-black/50 overflow-hidden">
+                    {/* Search */}
+                    <div className="border-b border-[#363b4e]/50 p-3">
+                      <div className="flex items-center gap-2 rounded-lg bg-[#0f1117] px-3 py-2">
+                        <svg className="h-4 w-4 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        <input
+                          type="text"
+                          placeholder="Search models..."
+                          value={modelSearch}
+                          onChange={(e) => setModelSearch(e.target.value)}
+                          className="w-full bg-transparent text-sm text-white placeholder-white/30 outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Model list */}
+                    <div className="max-h-[400px] overflow-y-auto custom-scrollbar p-2 space-y-1">
+                      {filteredModels.map((model) => (
+                        <button
+                          key={model.id}
+                          onClick={() => { setSelectedModel(model); setModelDropdownOpen(false); setModelSearch(''); }}
+                          className={`w-full text-left rounded-lg p-3 transition-colors ${
+                            selectedModel.id === model.id
+                              ? 'bg-[#1c2030] border border-[#ffcc33]/30'
+                              : 'hover:bg-[#1c2030]/60 border border-transparent'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 mb-1.5">
+                            {model.icon === 'flux' ? (
+                              <span className="flex h-5 w-5 items-center justify-center rounded bg-white text-[10px] font-black text-black">F</span>
+                            ) : model.icon === 'bytedance' ? (
+                              <span className="flex h-5 w-5 items-center justify-center rounded bg-[#00D1FF]/20 text-[10px] font-black text-[#00D1FF]">S</span>
+                            ) : model.icon === 'openai' ? (
+                              <span className="flex h-5 w-5 items-center justify-center rounded bg-white text-[10px] font-black text-black">O</span>
+                            ) : model.icon === 'wan' ? (
+                              <span className="flex h-5 w-5 items-center justify-center rounded bg-purple-500/20 text-[10px] font-black text-purple-400">Q</span>
+                            ) : model.icon === 'grok' ? (
+                              <span className="flex h-5 w-5 items-center justify-center rounded bg-blue-500/20 text-[10px] font-black text-blue-400">G</span>
+                            ) : (
+                              <Image src="https://static.banana2ai.net/images/icons/google-icon.svg" alt="" width={20} height={20} className="h-5 w-5" unoptimized />
+                            )}
+                            <span className="font-semibold text-white text-sm">{model.name}</span>
+                            {model.badge && (
+                              <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold tracking-wide ${model.badgeColor}`}>
+                                {model.badge}
+                              </span>
+                            )}
+                            {selectedModel.id === model.id && (
+                              <CheckCircle className="h-4 w-4 text-[#ffcc33] ml-auto" />
+                            )}
+                          </div>
+                          <p className="text-xs text-white/50 mb-2 leading-relaxed">{isZh ? model.desc : model.descEn}</p>
+                          <div className="flex items-center gap-2">
+                            <span className="flex items-center gap-1 rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/60">
+                              <Coins className="h-3 w-3" /> {model.credits}
+                            </span>
+                            {model.hd && (
+                              <span className="rounded bg-white/5 px-2 py-0.5 text-[10px] font-bold text-white/60">HD</span>
+                            )}
+                            <span className="rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/60">{model.modes}</span>
+                            {model.recommended && (
+                              <span className="ml-auto flex items-center gap-1 text-[10px] text-[#ffcc33]">
+                                <Sparkles className="h-3 w-3" /> Recommended
+                              </span>
+                            )}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="rounded-lg p-2">
               <p className="text-sm font-semibold text-white/90">{t('powered_by')}</p>

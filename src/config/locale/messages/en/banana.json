@@ -275,7 +275,8 @@
     "duration": "Duration",
     "resolution": "Resolution",
     "generate": "Generate Video",
-    "generating": "AI is generating video..."
+    "generating": "AI is generating video...",
+    "aspect_ratio": "Aspect Ratio"
   },
   "login": {
     "welcome": "Welcome to",
