@@ -152,28 +152,28 @@ function TestimonialCarousel() {
 /* ────────────────────────── PAGE ────────────────────────── */
 const TESTIMONIALS = [
   {
-    name: '林志远',
-    role: '独立电影导演',
+    name: 'Lin Zhiyuan',
+    role: 'Independent Film Director',
     avatar: 'https://static.banana2ai.net/images/avatars/dhp85zlyoefb.webp',
-    quote: 'Seedance 1.5 Pro 的精准提示词控制无与伦比。我可以用电影级镜头提示词获得追踪镜头，看起来像是用五万美元的摄影机拍摄的。它彻底改变了我处理独立电影制作的方式。',
+    quote: 'Seedance 1.5 Pro precise prompt control is unparalleled. I can get tracking shots with cinematic level prompt words that look like they were shot with a fifty thousand dollar camera. It has completely changed the way I approach independent filmmaking.',
   },
   {
-    name: '张雅婷',
-    role: '数字营销总监',
+    name: 'Zhang Yating',
+    role: 'Digital Marketing Director',
     avatar: 'https://static.banana2ai.net/images/avatars/o2x1l23at94y.webp',
-    quote: '作为营销人员，交付速度就是一切。Seedance 1.5 Pro 让我们的团队能在数小时内将简单的广告文案转化为完整的视频宣传活动，文字转视频功能完全改变了游戏规则。',
+    quote: 'As a marketer, delivery speed is everything. Seedance 1.5 Pro allows our team to transform simple ad copy into full video campaigns in hours, the text to video feature is a complete game changer.',
   },
   {
-    name: '王建国',
-    role: '在线教育内容创作者',
+    name: 'Wang Jianguo',
+    role: 'Online Education Content Creator',
     avatar: 'https://static.banana2ai.net/images/avatars/obc2sna6dfu2.webp',
-    quote: '口型同步功能令人叹为观止。我现在为所有教育课程使用 Seedance 1.5 Pro 的口型同步功能。虚拟讲师看起来非常自然，多人对话处理也无缝流畅。',
+    quote: 'The lip sync feature is breathtaking. I now use Seedance 1.5 Pro lip sync for all my educational courses. Virtual instructors look incredibly natural, and multi-person dialogue handling is seamless.',
   },
   {
-    name: '陈美玲',
-    role: '历史纪录片制作人',
+    name: 'Chen Meiling',
+    role: 'Historical Documentary Producer',
     avatar: 'https://static.banana2ai.net/images/avatars/x7tn1t9bnx5u.webp',
-    quote: '我们需要一个可靠的工具来为老旧的档案照片制作动画。图片转视频功能为平面照片增添了令人难以置信的深度，加入的环境音效让历史纪录片焕发了生机。',
+    quote: 'We needed a reliable tool to animate old archival photos. The image to video feature adds incredible depth to flat photos, and the added ambient sound effects bring historical documentaries to life.',
   },
 ];
 
@@ -277,9 +277,9 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Home'}</Link>
           <span>/</span>
-          <Link href="/zh/video/" className="transition-colors hover:text-white/70">AI视频生成器</Link>
+          <Link href="/zh/video/" className="transition-colors hover:text-white/70">{isZh ? 'AI视频生成器' : 'AI Video Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">Seedance 1.5 Pro</span>
         </nav>
@@ -292,19 +292,19 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                使用 Seedance 1.5 Pro 创作电影级 AI 视频
+                {isZh ? '使用 Seedance 1.5 Pro 创作电影级 AI 视频' : 'Create cinematic AI videos with Seedance 1.5 Pro'}
               </h1>
-              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">体验原生音视频生成的强大力量</h2>
+              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">{isZh ? '体验原生音视频生成的强大力量' : 'Experience the power of native audio and video generation'}</h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                Seedance 1.5 Pro 是终极 AI 视频生成平台，一次通过即可生成配有同步音频和视觉效果的电影级视频。使用多语言口型同步对话、精准的提示词控制和电影级镜头运动，更快地创作出引人入胜的故事场景。
+                Seedance 1.5 Pro {isZh ? '是终极 AI 视频生成平台，一次通过即可生成配有同步音频和视觉效果的电影级视频。使用多语言口型同步对话、精准的提示词控制和电影级镜头运动，更快地创作出引人入胜的故事场景。' : 'It is the ultimate AI video generation platform, producing cinematic videos with synchronized audio and visuals in a single pass. Create compelling story scenes faster using multilingual lip-sync dialogue, precise prompt control, and cinematic camera movements.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验' : '✨ Try It Now'}</Link>
               <ul className="mt-8 space-y-2">
                 {[
-                  '🎬 同步音视频输出',
-                  '🗣️ 多语言多人对话',
-                  '🎥 电影级镜头运动',
-                  '🎯 高精度提示词控制',
+                  isZh ? '🎬 同步音视频输出' : '🎬 Synchronized audio and video output',
+                  isZh ? '🗣️ 多语言多人对话' : '🗣️ Multilingual multi-person dialogue',
+                  isZh ? '🎥 电影级镜头运动' : '🎥 Cinematic camera movements',
+                  isZh ? '🎯 高精度提示词控制' : '🎯 High-precision prompt control',
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
@@ -328,10 +328,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何使用 <span className="text-[#ffcc33]">Seedance 1.5 Pro</span>
+            {isZh ? '如何使用' : 'How to use'} <span className="text-[#ffcc33]">Seedance 1.5 Pro</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            几秒钟内，使用 Seedance 1.5 Pro 创作出色彩斑斓的视觉效果。这款革命性的 AI 视频生成器能将你的创意转化为令人惊叹的电影级视频。
+            {isZh ? '几秒钟内，使用 Seedance 1.5 Pro 创作出色彩斑斓的视觉效果。这款革命性的 AI 视频生成器能将你的创意转化为令人惊叹的电影级视频。' : 'Create vibrant visuals in seconds with Seedance 1.5 Pro. This revolutionary AI video generator transforms your ideas into stunning cinematic videos.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((step, i) => (
@@ -366,10 +366,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Seedance 1.5 Pro <span className="text-[#ffcc33]">核心功能</span>
+            Seedance 1.5 Pro <span className="text-[#ffcc33]">{isZh ? '核心功能' : 'Core Features'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            探索顶级行业专业人士和热情创作者纷纷转向字节跳动 Seedance 1.5 Pro 的原因。我们精心设计的尖端功能，专为解决传统制作瓶颈而生。
+            {isZh ? '探索顶级行业专业人士和热情创作者纷纷转向字节跳动 Seedance 1.5 Pro 的原因。我们精心设计的尖端功能，专为解决传统制作瓶颈而生。' : 'Discover why top industry professionals and passionate creators are turning to ByteDance Seedance 1.5 Pro. Our meticulously designed cutting-edge features are specifically created to solve traditional production bottlenecks.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {FEATURES.map((feat, i) => (
@@ -395,10 +395,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            为什么选择 <span className="text-[#ffcc33]">Seedance 1.5 Pro？</span>
+            {isZh ? '为什么选择' : 'Why choose'} <span className="text-[#ffcc33]">Seedance 1.5 Pro？</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            在当今快节奏的数字世界中，传统视频制作往往过于缓慢、昂贵且缺乏灵活性。Seedance 1.5 Pro 通过提供敏捷、高保真的替代方案，从根本上解决了这些痛点。
+            {isZh ? '在当今快节奏的数字世界中，传统视频制作往往过于缓慢、昂贵且缺乏灵活性。Seedance 1.5 Pro 通过提供敏捷、高保真的替代方案，从根本上解决了这些痛点。' : 'In the fast-paced digital world of today, traditional video production is often too slow, expensive, and lacks flexibility. Seedance 1.5 Pro fundamentally addresses these pain points by offering an agile, high-fidelity alternative.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {WHY_CARDS.map((card, i) => (
@@ -422,10 +422,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            深受各界创作者信赖
+            {isZh ? '深受各界创作者信赖' : 'Trusted by creators everywhere'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            听听全球专业人士如何借助字节跳动 Seedance 1.5 Pro 改变工作流程、节省时间、提升创作产出。
+            {isZh ? '听听全球专业人士如何借助字节跳动 Seedance 1.5 Pro 改变工作流程、节省时间、提升创作产出。' : 'Hear how professionals worldwide are transforming their workflows, saving time, and enhancing creative output with ByteDance Seedance 1.5 Pro.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -435,10 +435,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            关于 Seedance 1.5 Pro 的常见问题
+            {isZh ? '关于 Seedance 1.5 Pro 的常见问题' : 'Frequently asked questions about Seedance 1.5 Pro'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            快速解答关于 Seedance 1.5 Pro AI 视频生成器的常见疑问。
+            {isZh ? '快速解答关于 Seedance 1.5 Pro AI 视频生成器的常见疑问。' : 'Quick answers to common questions about the Seedance 1.5 Pro AI video generator.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -459,12 +459,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            准备好体验 Seedance 1.5 Pro 的强大力量了吗？
+            {isZh ? '准备好体验 Seedance 1.5 Pro 的强大力量了吗？' : 'Are you ready to experience the power of Seedance 1.5 Pro?'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            停止将就平庸的视觉内容。加入已在提升制作规模、降低成本、提高观众参与度的创作者革命，开启你与终极字节跳动 Seedance 1.5 Pro 平台的旅程。
+            {isZh ? '停止将就平庸的视觉内容。加入已在提升制作规模、降低成本、提高观众参与度的创作者革命，开启你与终极字节跳动 Seedance 1.5 Pro 平台的旅程。' : 'Stop settling for mediocre visual content. Join the creator revolution that is already scaling production, reducing costs, and increasing audience engagement, and begin your journey with the ultimate ByteDance Seedance 1.5 Pro platform.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始创作</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始创作' : '✨ Start Creating Now'}</Link>
         </div>
       </section>
     </div>

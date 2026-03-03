@@ -149,33 +149,33 @@ function TestimonialCarousel() {
 const TESTIMONIALS = [
   {
     name: 'Daniel Foster',
-    role: '独立电影制作人',
+    role: 'Independent Filmmaker',
     avatar: 'https://static.banana2ai.net/images/avatars/x17b6f0kapj8.webp',
-    quote: '在这个页面里使用 Veo 3.1，彻底改变了我做场景原型的方式。我可以描述镜头运动、延展镜头、测试节奏，而不用碰时间轴。对正在探索 Veo 3.1 工作流的电影人来说，这更像是在写视觉调度，而不是剪辑素材。',
+    quote: 'Using Veo 3.1 on this page has completely changed how I prototype scenes. I can describe camera movements, extend shots, and test pacing without touching the timeline. For filmmakers exploring the Veo 3.1 workflow, this feels more like writing visual choreography than editing footage.',
   },
   {
     name: 'Isabella Conti',
-    role: '品牌活动策略师',
+    role: 'Brand Campaign Strategist',
     avatar: 'https://static.banana2ai.net/images/avatars/zrwyalsqygtm.webp',
-    quote: '我用 Veo 3.1 来探索产品活动的叙事节奏。生成更长、更连贯的序列，让我能更早测试转场与情绪。这个平台让我清楚理解 Veo 3.1 如何融入创作流程，而不只是一个 AI 视频演示。',
+    quote: 'I use Veo 3.1 to explore the narrative rhythm of product campaigns. Generating longer, more coherent sequences allows me to test transitions and emotions earlier. This platform clearly shows me how Veo 3.1 integrates into the creative process, rather than just being an AI video demo.',
   },
   {
     name: 'Marcus Lee',
-    role: '游戏过场动画设计师',
+    role: 'Game Cutscene Designer',
     avatar: 'https://static.banana2ai.net/images/avatars/n2lf5ciih5o2.webp',
-    quote: 'Veo 3.1 很适合用来测试游戏内过场动画思路。我可以用文字描述动作、环境行为与镜头视角，并立刻看到结果。对于强调运动与连贯性的视频创作来说，这套流程很实用，也更接近制作标准。',
+    quote: 'Veo 3.1 is perfect for testing in-game cutscene ideas. I can describe actions, environmental behaviors, and camera perspectives with text and see immediate results. For video creation emphasizing movement and coherence, this workflow is practical and closer to production standards.',
   },
   {
     name: 'Olivia Ramirez',
-    role: '动态设计负责人',
+    role: 'Motion Design Lead',
     avatar: 'https://static.banana2ai.net/images/avatars/p2oz67swj6ax.webp',
-    quote: 'Veo 3.1 最让我印象深刻的是场景一致性。我可以围绕同一个视觉想法反复迭代，微调运动，并保持风格稳定。这个平台把 Veo 3.1 如何支持更长叙事讲得很清楚，这正是创意团队做早期概念开发最需要的。',
+    quote: 'What impresses me most about Veo 3.1 is its scene consistency. I can iterate around the same visual idea, fine-tune movements, and maintain a stable style. This platform clearly explains how Veo 3.1 supports longer narratives, which is exactly what creative teams need for early concept development.',
   },
   {
     name: 'Ethan Novak',
-    role: '数字内容制作人',
+    role: 'Digital Content Producer',
     avatar: 'https://static.banana2ai.net/images/avatars/o1r99ex3i9fb.webp',
-    quote: '我用 Veo 3.1 做镜头运动研究与视觉节奏测试。用文本来调整镜头的方式出乎意料地高效。这个平台展示了如何把 Veo 3.1 落地到真实工作流中，对电影级运动实验非常有价值。',
+    quote: 'I use Veo 3.1 for camera movement studies and visual rhythm testing. Adjusting shots with text is surprisingly efficient. This platform demonstrates how Veo 3.1 can be implemented into real workflows, proving highly valuable for cinematic motion experiments.',
   },
 ];
 
@@ -287,9 +287,9 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Home'}</Link>
           <span>/</span>
-          <Link href="/zh/video/" className="transition-colors hover:text-white/70">AI视频生成器</Link>
+          <Link href="/zh/video/" className="transition-colors hover:text-white/70">{isZh ? 'AI视频生成器' : 'AI Video Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">Veo 3.1</span>
         </nav>
@@ -302,28 +302,28 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                开启电影级视频创作，使用 Veo 3.1
+                {isZh ? '开启电影级视频创作，使用 Veo 3.1' : 'Start cinematic video creation using Veo 3.1'}
               </h1>
               <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">
-                探索长视频连贯性与以运动为核心的镜头调度
+                {isZh ? '探索长视频连贯性与以运动为核心的镜头调度' : 'Explore long-form video coherence and motion-centric shot orchestration'}
               </h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                Veo 3.1 是 Google 最新推出的高质量 AI 视频生成模型，被集成在我们的多引擎创作空间中。用户无需技术阻碍即可获得电影级输出与场景探索能力——无门槛、无需手动时间轴剪辑、也不需要专业人员介入。模型会响应你的指令：描述镜头运动、延展镜头、调整动作，并细化转场。
+                Veo 3.1 {isZh ? '是 Google 最新推出的高质量 AI 视频生成模型，被集成在我们的多引擎创作空间中。用户无需技术阻碍即可获得电影级输出与场景探索能力——无门槛、无需手动时间轴剪辑、也不需要专业人员介入。模型会响应你的指令：描述镜头运动、延展镜头、调整动作，并细化转场。' : 'is Google newest high-quality AI video generation model, integrated into our multi-engine creative space. Users can achieve cinematic output and scene exploration capabilities without technical barriers—no threshold, no manual timeline editing, and no need for professional intervention. The model will respond to your commands: describe camera movement, extend shots, adjust actions, and refine transitions.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验 Veo 3.1</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验 Veo 3.1' : '✨ Experience Veo 3.1 Now'}</Link>
               <ul className="mt-8 space-y-2">
                 {[
-                  '🎬 带声音的电影级长视频输出',
-                  '🎥 运动感知与平滑视角变化',
-                  '📝 文本驱动镜头调度与剪辑',
-                  '🔗 跨帧一致性与叙事连贯结构',
+                  isZh ? '🎬 带声音的电影级长视频输出' : '🎬 Cinematic long-form video output with sound',
+                  isZh ? '🎥 运动感知与平滑视角变化' : '🎥 Motion awareness and smooth perspective changes',
+                  isZh ? '📝 文本驱动镜头调度与剪辑' : '📝 Text-driven shot orchestration and editing',
+                  isZh ? '🔗 跨帧一致性与叙事连贯结构' : '🔗 Cross-frame consistency and narrative coherent structure',
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="https://static.banana2ai.net/images/video/veo3-showcase.webp" alt="Veo 3.1 视频生成" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/video/veo3-showcase.webp" alt="Veo 3.1 {isZh ? '视频生成' : 'Video Generation'}" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -334,10 +334,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            为什么 <span className="text-[#ffcc33]">Veo 3.1</span> 对长视频创作很关键
+            {isZh ? '为什么' : 'Why'} <span className="text-[#ffcc33]">Veo 3.1</span> {isZh ? '对长视频创作很关键' : 'is crucial for long-form video creation'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            许多创作者希望获得高质量 AI 视频模型的使用入口，是因为他们需要分钟级的叙事能力。以下是 Veo 3.1 的核心优势。
+            {isZh ? '许多创作者希望获得高质量 AI 视频模型的使用入口，是因为他们需要分钟级的叙事能力。以下是 Veo 3.1 的核心优势。' : 'Many creators want access to high-quality AI video models because they need minute-level narrative capabilities. Here are Veo 3.1 core advantages.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {FEATURES.map((feat, i) => (
@@ -367,10 +367,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何用 Veo 3.1 创作<span className="text-[#ffcc33]">高质量叙事视频</span>
+            如何用 Veo 3.1 创作<span className="text-[#ffcc33]">{isZh ? '高质量叙事视频' : 'High-Quality Narrative Videos'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            我们的平台提供三步式方法，将 Veo 3.1 映射为可落地的工作流，让创作者从创意到成片，无需手动剪辑时间轴。
+            {isZh ? '我们的平台提供三步式方法，将 Veo 3.1 映射为可落地的工作流，让创作者从创意到成片，无需手动剪辑时间轴。' : 'Our platform provides a three-step method to map Veo 3.1 into a practical workflow, allowing creators to go from idea to finished product without manual timeline editing.'}
           </p>
 
           {/* Mobile tabs */}
@@ -429,7 +429,7 @@ export default function Page() {
                   <span className="gradient-glow-text text-sm font-semibold md:text-base">{step.label}</span>
                 </div>
                 <p className="mb-8 leading-relaxed text-white/60">{step.desc}</p>
-                <Link href="/zh/pricing/" className="highlight-button inline-flex">开始创作</Link>
+                <Link href="/zh/pricing/" className="highlight-button inline-flex">{isZh ? '开始创作' : 'Start Creating'}</Link>
               </div>
             </div>
           </div>
@@ -441,10 +441,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Veo 3.1 在<span className="text-[#ffcc33]">多模型视频工作流</span>中的定位
+            Veo 3.1 在<span className="text-[#ffcc33]">{isZh ? '多模型视频工作流' : 'Multi-Model Video Workflow'}</span>中的定位
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            Veo 3.1 是我们集成环境的一部分。用于电影级连贯性、长视频控制、文本重写与序列延展，以下是更贴近实际的使用场景。
+            Veo 3.1 {isZh ? '是我们集成环境的一部分。用于电影级连贯性、长视频控制、文本重写与序列延展，以下是更贴近实际的使用场景。' : 'is part of our integrated environment. Used for cinematic coherence, long-form video control, text rewriting, and sequence extension, here are more practical use cases.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {WORKFLOW.map((item, i) => (
@@ -468,10 +468,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            创作者如何评价 Veo 3.1
+            {isZh ? '创作者如何评价 Veo 3.1' : 'How creators evaluate Veo 3.1'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            以下创作者选择 Veo 3.1，是因为该模型帮助他们用更简单的语言去构思电影级运动，而无需依赖复杂的技术管线。
+            {isZh ? '以下创作者选择 Veo 3.1，是因为该模型帮助他们用更简单的语言去构思电影级运动，而无需依赖复杂的技术管线。' : 'The following creators chose Veo 3.1 because the model helps them conceptualize cinematic motion with simpler language without relying on complex technical pipelines.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -481,10 +481,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            关于 Veo 3.1 的常见问题
+            {isZh ? '关于 Veo 3.1 的常见问题' : 'Frequently Asked Questions about Veo 3.1'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            关于 Veo 3.1 能力、使用方式、数据安全与商业授权的详细解答。
+            {isZh ? '关于 Veo 3.1 能力、使用方式、数据安全与商业授权的详细解答。' : 'Detailed answers regarding Veo 3.1 capabilities, usage, data security, and commercial licensing.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -505,12 +505,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            在多模型视频工作室中体验 Veo 3.1
+            {isZh ? '在多模型视频工作室中体验 Veo 3.1' : 'Experience Veo 3.1 in a multi-model video studio'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            与其盲目搜索各种入口，不如直接在我们的环境中进行长视频运动测试、电影级序列创作、分钟级转场、场景探索与叙事修改。Veo 3.1 变成了一种"用文字做镜头调度"的工具——运动、视角、反射、光照与风格化表现，都可以在受控项目空间内完成。
+            {isZh ? '与其盲目搜索各种入口，不如直接在我们的环境中进行长视频运动测试、电影级序列创作、分钟级转场、场景探索与叙事修改。Veo 3.1 变成了一种' : 'Instead of blindly searching for various entry points, it is better to directly perform long-form video motion testing, cinematic sequence creation, minute-level transitions, scene exploration, and narrative modification in our environment. Veo 3.1 becomes a'}"{isZh ? '用文字做镜头调度' : 'text-based shot orchestration'}"{isZh ? '的工具——运动、视角、反射、光照与风格化表现，都可以在受控项目空间内完成。' : 'tool—motion, perspective, reflections, lighting, and stylized expression can all be completed within a controlled project space.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始免费使用</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始免费使用' : '✨ Start Using for Free Now'}</Link>
         </div>
       </section>
 

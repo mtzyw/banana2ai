@@ -152,28 +152,28 @@ function TestimonialCarousel() {
 /* ────────────────────────── PAGE ────────────────────────── */
 const TESTIMONIALS = [
   {
-    name: '赵建筑师',
-    role: '高端建筑可视化专家',
+    name: 'Architect Zhao',
+    role: 'High-end Architectural Visualization Specialist',
     avatar: 'https://static.banana2ai.net/images/avatars/dhp85zlyoefb.webp',
-    quote: '我从事高端建筑可视化工作，客户对灯光和纹理的要求极为挑剔。我开始用 Sora 2 为概念建筑创作漫步动画。Sora 2 处理玻璃反射和自然光交互的方式令我叹为观止——这正是我们向客户呈现建筑愿景所需要的真实感。',
+    quote: 'I work in high-end architectural visualization, where clients are extremely particular about lighting and textures. I started using Sora 2 to create walkthrough animations for conceptual buildings. The way Sora 2 handles glass reflections and natural light interaction is breathtaking—this is exactly the realism we need to present architectural visions to clients.',
   },
   {
-    name: '李独立电影人',
-    role: '独立电影导演',
+    name: 'Independent Filmmaker Li',
+    role: 'Independent Film Director',
     avatar: 'https://static.banana2ai.net/images/avatars/o2x1l23at94y.webp',
-    quote: '作为独立电影人，预算始终是我最大的制约。我需要为短片创作一个 1920 年代纽约街道的定场镜头，搭建实景根本不可能。我转向 Sora 2，结果令人惊叹——时代准确的服装、建筑和街道氛围，让整部片子焕然一新。',
+    quote: 'As an independent filmmaker, budget is always my biggest constraint. I needed to create a 1920s New York street establishing shot for a short film, and building a physical set was simply impossible. I turned to Sora 2, and the results were amazing—period-accurate costumes, architecture, and street atmosphere that completely transformed the film.',
   },
   {
-    name: '王社媒机构主理人',
-    role: '社交媒体运营机构创始人',
+    name: 'Social Media Agency Owner Wang',
+    role: 'Founder of a Social Media Operations Agency',
     avatar: 'https://static.banana2ai.net/images/avatars/obc2sna6dfu2.webp',
-    quote: '经营社交媒体机构意味着永无止境地供应内容。我们以前总为素材库的通用感所困扰。Sora 2 彻底改变了这一切。现在，如果客户需要"在霓虹灯丛林中制作拿铁的未来机器人"，我们五分钟内就能交付独一无二的专属素材。',
+    quote: 'Running a social media agency means an endless supply of content. We used to be plagued by the generic feel of stock footage. Sora 2 has completely changed all that. Now, if a client needs ’a futuristic robot making a latte in a neon jungle,’ we can deliver unique, exclusive footage within five minutes.',
   },
   {
-    name: '陈VR教育开发者',
-    role: '教育 VR 体验开发者',
+    name: 'VR Education Developer Chen',
+    role: 'Educational VR Experience Developer',
     avatar: 'https://static.banana2ai.net/images/avatars/x7tn1t9bnx5u.webp',
-    quote: '我开发教育 VR 体验，并使用 Sora 2 生成动态背景纹理。Sora 2 的物理引擎彻底征服了我。当我要求"波涛汹涌的海水"时，海浪真的像水一样运动，而不仅仅是移动的噪点纹理。这正是沉浸式教育体验所需要的真实感。',
+    quote: 'I develop educational VR experiences and use Sora 2 to generate dynamic background textures. Sora 2s physics engine has completely won me over. When I requested ’choppy waters,’ the waves truly moved like water, not just moving noise textures. This is exactly the realism needed for immersive educational experiences.',
   },
 ];
 
@@ -277,9 +277,9 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Home'}</Link>
           <span>/</span>
-          <Link href="/zh/video/" className="transition-colors hover:text-white/70">AI视频生成器</Link>
+          <Link href="/zh/video/" className="transition-colors hover:text-white/70">{isZh ? 'AI视频生成器' : 'AI Video Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">Sora 2</span>
         </nav>
@@ -292,19 +292,19 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                释放 Sora 2 视频生成的全部潜力
+                {isZh ? '释放 Sora 2 视频生成的全部潜力' : 'Unleash the full potential of Sora 2 video generation'}
               </h1>
-              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">加入 AI 驱动的电影创作革命</h2>
+              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">{isZh ? '加入 AI 驱动的电影创作革命' : 'Join the AI powered film creation revolution'}</h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                欢迎来到生成式媒体的绝对前沿。Sora 2 并非简单的版本更新，而是对人工智能在视频制作领域所能实现目标的全面重新构想。它通过精准的物理引擎模拟、卓越的时间一致性和 4K 照片级真实感，将你的文字提示词转化为电影级杰作。
+                {isZh ? '欢迎来到生成式媒体的绝对前沿。Sora 2 并非简单的版本更新，而是对人工智能在视频制作领域所能实现目标的全面重新构想。它通过精准的物理引擎模拟、卓越的时间一致性和 4K 照片级真实感，将你的文字提示词转化为电影级杰作。' : 'Welcome to the absolute forefront of generative media. Sora 2 is not merely a version update; it is a complete reimagining of what artificial intelligence can achieve in video production. It transforms your text prompts into cinematic masterpieces through precise physics engine simulation, exceptional temporal consistency, and 4K photorealistic fidelity.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验' : '✨ Experience Now'}</Link>
               <ul className="mt-8 space-y-2">
                 {[
-                  '📸 4K 照片级真实感输出',
-                  '⚛️ 先进物理引擎模拟',
-                  '🎯 精准提示词遵循控制',
-                  '☁️ 云端运行，无需高性能设备',
+                  isZh ? '📸 4K 照片级真实感输出' : '📸 4K Photorealistic Output',
+                  isZh ? '⚛️ 先进物理引擎模拟' : '⚛️ Advanced Physics Engine Simulation',
+                  isZh ? '🎯 精准提示词遵循控制' : '🎯 Precise Prompt Following Control',
+                  isZh ? '☁️ 云端运行，无需高性能设备' : '☁️ Cloud-based Operation, No High-Performance Equipment Needed',
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
@@ -328,10 +328,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何使用 <span className="text-[#ffcc33]">Sora 2</span> 创作视频
+            {isZh ? '如何使用' : 'How to Use'} <span className="text-[#ffcc33]">Sora 2</span> {isZh ? '创作视频' : 'Create Videos'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            无论你是休闲爱好者还是专业导演，Sora 2 都为你量身定制了流畅的创作体验。
+            {isZh ? '无论你是休闲爱好者还是专业导演，Sora 2 都为你量身定制了流畅的创作体验。' : 'Whether you are a casual enthusiast or a professional director, Sora 2 offers a tailored and seamless creative experience.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((step, i) => (
@@ -366,10 +366,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Sora 2 的<span className="text-[#ffcc33]">无限创意可能</span>
+            Sora 2 的<span className="text-[#ffcc33]">{isZh ? '无限创意可能' : 'Unlimited Creative Possibilities'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            探索使 Sora 2 成为 AI 视频生成市场领导者的技术突破。从模拟复杂的世界物理到呈现照片级真实感纹理，Sora 2 专为专业人士打造。
+            {isZh ? '探索使 Sora 2 成为 AI 视频生成市场领导者的技术突破。从模拟复杂的世界物理到呈现照片级真实感纹理，Sora 2 专为专业人士打造。' : 'Explore the technological breakthroughs that make Sora 2 a market leader in AI video generation. From simulating complex world physics to rendering photorealistic textures, Sora 2 is built for professionals.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {FEATURES.map((feat, i) => (
@@ -395,10 +395,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            谁能从 <span className="text-[#ffcc33]">Sora 2</span> 中受益？
+            {isZh ? '谁能从' : 'Who can benefit from Sora 2?'} <span className="text-[#ffcc33]">Sora 2</span> {isZh ? '中受益？' : 'Discover how different industries are revolutionizing their workflows with the power of Sora 2. From Hollywood production companies to independent creators, Sora 2 has become the industry standard for next-generation video creation.'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            了解不同行业如何借助 Sora 2 的力量革新工作流程。从好莱坞制片公司到独立创作者，Sora 2 已成为新一代视频创作的行业标准。
+            {isZh ? '了解不同行业如何借助 Sora 2 的力量革新工作流程。从好莱坞制片公司到独立创作者，Sora 2 已成为新一代视频创作的行业标准。' : 'Real User Testimonials for Sora 2'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {BENEFITS.map((card, i) => (
@@ -422,10 +422,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            用户对 Sora 2 的真实评价
+            {isZh ? '用户对 Sora 2 的真实评价' : 'Learn why professionals worldwide are turning to Sora 2 for their video generation needs. Real feedback from real creators.'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            了解为什么全球各地的专业人士都在转向 Sora 2 满足他们的视频生成需求。来自真实创作者的真实反馈。
+            {isZh ? '了解为什么全球各地的专业人士都在转向 Sora 2 满足他们的视频生成需求。来自真实创作者的真实反馈。' : 'Frequently Asked Questions About Sora 2'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -435,10 +435,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            关于 Sora 2 的常见问题
+            {isZh ? '关于 Sora 2 的常见问题' : 'Detailed answers regarding the features, pricing, and technical specifications of the Sora 2 video model.'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            关于 Sora 2 视频模型的功能、定价和技术规格的详细解答。
+            {isZh ? '关于 Sora 2 视频模型的功能、定价和技术规格的详细解答。' : 'Start Creating Cinematic Videos with Sora 2 Now'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -459,12 +459,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            立即使用 Sora 2 开始创作电影级视频
+            {isZh ? '立即使用 Sora 2 开始创作电影级视频' : 'The future of video production is here. Do not be left behind. Join thousands of creators already using Sora 2 to bring their wildest ideas to life. Register now and experience the power of the world’s most advanced video AI.'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            视频制作的未来已经到来。不要落后于时代。加入已经在使用 Sora 2 将最疯狂创意变为现实的数千名创作者行列。立即注册，体验全球最先进视频 AI 的强大力量。
+            {isZh ? '视频制作的未来已经到来。不要落后于时代。加入已经在使用 Sora 2 将最疯狂创意变为现实的数千名创作者行列。立即注册，体验全球最先进视频 AI 的强大力量。' : '视频制作的未来已经到来。不要落后于时代。加入已经在使用 Sora 2 将最疯狂创意变为现实的数千名创作者行列。立即注册，体验全球最先进视频 AI 的强大力量。'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始免费使用</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始免费使用' : '✨ Start Using for Free Now'}</Link>
         </div>
       </section>
     </div>

@@ -160,27 +160,27 @@ function TestimonialCarousel() {
 const TESTIMONIALS = [
   {
     name: 'Sarah Jenkins',
-    role: '独立设计师',
+    role: 'Independent Designer',
     avatar: 'https://static.banana2ai.net/images/avatars/0chf3prv2avy.webp',
-    quote: 'Flux AI 图像生成器的引入彻底改变了我的日常工作流。现在，我只需向 Flux AI 图像生成器描述我的构想，就能获得完全符合需求的保真结果。文字排版的准确性尤其令人印象深刻，我从未见过 AI 能如此完美地处理文字。它已成为我专业工具箱中不可或缺的一部分。',
+    quote: 'The introduction of Flux AI Image Generator has completely revolutionized my daily workflow. Now, I just describe my ideas to Flux AI Image Generator and get high-fidelity results that perfectly match my needs. The accuracy of typography is particularly impressive; I have never seen AI handle text so perfectly. It has become an indispensable part of my professional toolkit.',
   },
   {
     name: 'David Chen',
-    role: '商业摄影师',
+    role: 'Commercial Photographer',
     avatar: 'https://static.banana2ai.net/images/avatars/xrzla888hnj4.webp',
-    quote: '作为一名专业摄影师，我使用 Flux AI 图像生成器来实验灯光布局和调色板。系统产生的真实感简直令人震惊。它让我能向团队展示我追求的精确效果。Flux AI 图像生成器是高分辨率视觉合成和分镜工作的金标准。',
+    quote: 'As a professional photographer, I use Flux AI Image Generator to experiment with lighting layouts and color palettes. The realism produced by the system is simply astonishing. It allows me to show my team the exact effects I am aiming for. Flux AI Image Generator is the gold standard for high-resolution visual synthesis and storyboarding.',
   },
   {
     name: 'Elena Rodriguez',
-    role: '高级营销经理',
+    role: 'Senior Marketing Manager',
     avatar: 'https://static.banana2ai.net/images/avatars/9eyq4zr370bs.webp',
-    quote: '在社交媒体营销领域，Flux AI 图像生成器完全改变了游戏规则。我的团队每周必须制作数十个视觉内容，而这个工具让我们在没有高昂成本的情况下保持高端质感。Flux AI 图像生成器的一致性至关重要，我们每次生成图像时都知道引擎会交付 4K 级别的画质。',
+    quote: 'In the realm of social media marketing, Flux AI Image Generator is a complete game-changer. My team has to produce dozens of visual content pieces every week, and this tool allows us to maintain a high-end feel without high costs. The consistency of Flux AI Image Generator is crucial; we know the engine will deliver 4K quality every time we generate an image.',
   },
   {
     name: 'Mark Thompson',
-    role: '游戏概念艺术家',
+    role: 'Game Concept Artist',
     avatar: 'https://static.banana2ai.net/images/avatars/yqnbz7lctilz.webp',
-    quote: 'Flux AI 图像生成器的技术精度使其脱颖而出。作为概念艺术家，我需要一个理解角色解剖细节的工具。该模型在这方面表现卓越。它处理复杂提示词的速度极大地提升了我的生产力，让我能更快地迭代设计。',
+    quote: 'The technical precision of Flux AI Image Generator makes it stand out. As a concept artist, I need a tool that understands the anatomical details of characters. This model excels in that regard. Its speed in processing complex prompts has greatly boosted my productivity, allowing me to iterate designs faster.',
   },
 ];
 
@@ -316,11 +316,11 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Homepage'}</Link>
           <span>/</span>
-          <Link href="/zh/image/" className="transition-colors hover:text-white/70">AI图像生成器</Link>
+          <Link href="/zh/image/" className="transition-colors hover:text-white/70">{isZh ? 'AI图像生成器' : 'AI Image Generator'}</Link>
           <span>/</span>
-          <span className="text-[#ffcc33]">Flux AI 图像生成器</span>
+          <span className="text-[#ffcc33]">{isZh ? 'Flux AI 图像生成器' : 'Flux AI Image Generator'}</span>
         </nav>
       </div>
 
@@ -331,26 +331,26 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                释放精准力量 — Flux AI
+                {isZh ? '释放精准力量 — Flux AI' : 'Unleash Precise Power — Flux AI'}
               </h1>
-              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">全球最先进的图像引擎</h2>
+              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">{isZh ? '全球最先进的图像引擎' : 'The Most Advanced Image Engine in the World'}</h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                在我们平台体验 Flux AI 图像生成器。通过我们专业级的双架构系统，掌控复杂的空间逻辑和无瑕的文字渲染。与经常在复杂空间逻辑上挣扎的传统生成模型不同，Flux AI 图像生成器擅长解析复杂的文本指令，并将其转化为高保真的视觉资产。这项尖端技术专为弥合人类想象力与数字执行之间的鸿沟而设计。
+                {isZh ? '在我们平台体验 Flux AI 图像生成器。通过我们专业级的双架构系统，掌控复杂的空间逻辑和无瑕的文字渲染。与经常在复杂空间逻辑上挣扎的传统生成模型不同，Flux AI 图像生成器擅长解析复杂的文本指令，并将其转化为高保真的视觉资产。这项尖端技术专为弥合人类想象力与数字执行之间的鸿沟而设计。' : 'Experience the Flux AI Image Generator on our platform. Master complex spatial logic and flawless text rendering with our professional-grade dual-architecture system. Unlike traditional generative models that often struggle with intricate spatial logic, the Flux AI Image Generator excels at interpreting complex text instructions and transforming them into high-fidelity visual assets. This cutting-edge technology is specifically designed to bridge the gap between human imagination and digital execution.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验' : '✨ Experience Now'}</Link>
               <ul className="mt-8 space-y-2">
                 {[
-                  '✍️ 无与伦比的文字准确度',
-                  '💪 完美的人体解剖结构',
-                  '📸 高分辨率照片级输出',
-                  '🎁 每日免费额度',
+                  isZh ? '✍️ 无与伦比的文字准确度' : '✍️ Unparalleled Text Accuracy',
+                  isZh ? '💪 完美的人体解剖结构' : '💪 Perfect Human Anatomy',
+                  isZh ? '📸 高分辨率照片级输出' : '📸 High-Resolution Photorealistic Output',
+                  isZh ? '🎁 每日免费额度' : '🎁 Daily Free Credits',
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="https://static.banana2ai.net/images/showcase/ai-models.webp" alt="Flux AI 图像生成器" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/showcase/ai-models.webp" alt="Flux AI {isZh ? '图像生成器' : 'Image Generator'}" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -359,7 +359,7 @@ export default function Page() {
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
         <h2 className="mb-6 text-2xl font-bold scroll-fade-in">
-          <span className="gradient-glow-text">Flux AI 图像生成器</span> 图片
+          <span className="gradient-glow-text">{isZh ? 'Flux AI 图像生成器' : 'Flux AI Image Generator'}</span> 图片
         </h2>
         <ImageGenerator examples={FLUX_AI_IMAGE_GENERATOR_EXAMPLES} />
       </section>
@@ -369,10 +369,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            四步创作<span className="text-[#ffcc33]">专业级 AI 图像</span>
+            四步创作<span className="text-[#ffcc33]">{isZh ? '专业级 AI 图像' : 'Professional Grade AI Images'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            利用当今最精确、最高分辨率的 AI 图像生成技术，释放视觉合成的未来。
+            {isZh ? '利用当今最精确、最高分辨率的 AI 图像生成技术，释放视觉合成的未来。' : 'Unleash the future of visual synthesis using the most precise and highest-resolution AI image generation technology available today.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((step, i) => (
@@ -404,10 +404,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            专业 AI 引擎的<span className="text-[#ffcc33]">尖端特性</span>
+            专业 AI 引擎的<span className="text-[#ffcc33]">{isZh ? '尖端特性' : 'Cutting Edge Features'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            深入了解我们套件的技术优势。我们利用 Flux AI 图像生成器提供满足现代创作者需求的工具。从建筑可视化到高级时尚社论概念，该系统为所有专业用户提供一致的结果。
+            {isZh ? '深入了解我们套件的技术优势。我们利用 Flux AI 图像生成器提供满足现代创作者需求的工具。从建筑可视化到高级时尚社论概念，该系统为所有专业用户提供一致的结果。' : 'Dive deep into the technical advantages of our suite. We leverage the Flux AI Image Generator to provide tools that meet the demands of modern creators. From architectural visualization to advanced fashion editorial concepts, this system delivers consistent results for all professional users.'}
           </p>
           <div className="space-y-20">
             {FEATURES.map((feat, i) => (
@@ -438,10 +438,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            多元化的<span className="text-[#ffcc33]">行业应用</span>
+            多元化的<span className="text-[#ffcc33]">{isZh ? '行业应用' : 'Industry Applications'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            探索不同专业领域如何将 Flux AI 图像生成器整合到工作流中，以在四大核心行业中节省时间并提升创意产出。
+            {isZh ? '探索不同专业领域如何将 Flux AI 图像生成器整合到工作流中，以在四大核心行业中节省时间并提升创意产出。' : 'Discover how different professional fields integrate the Flux AI Image Generator into their workflows to save time and enhance creative output across four core industries.'}
           </p>
 
           {/* Mobile tabs */}
@@ -507,7 +507,7 @@ export default function Page() {
                 </div>
                 <p className="mb-8 leading-relaxed text-white/60">{ucData.body}</p>
                 <Link href="/zh/image/flux-ai-image-generator/" className="highlight-button inline-flex">
-                  体验 Flux AI 图像生成器
+                  {isZh ? '体验 Flux AI 图像生成器' : 'Experience the Flux AI Image Generator'}
                 </Link>
               </div>
             </div>
@@ -520,10 +520,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            我们 AI 平台的<span className="text-[#ffcc33]">战略优势</span>
+            我们 AI 平台的<span className="text-[#ffcc33]">{isZh ? '战略优势' : 'Strategic Advantages'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            通过利用 Flux AI 图像生成器，我们提供了一个强大、可扩展且极具创意的环境，适配每一位专业用户的独特需求。
+            {isZh ? '通过利用 Flux AI 图像生成器，我们提供了一个强大、可扩展且极具创意的环境，适配每一位专业用户的独特需求。' : 'By utilizing the Flux AI Image Generator, we provide a powerful, scalable, and highly creative environment tailored to the unique needs of every professional user.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
             {ADVANTAGES.map((adv, i) => (
@@ -550,10 +550,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            来自全球创意社区的成功案例
+            {isZh ? '来自全球创意社区的成功案例' : 'Success Stories from the Global Creative Community'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            了解 Flux AI 图像生成器如何通过我们的先进视觉套件赋能全球专业人士。
+            {isZh ? '了解 Flux AI 图像生成器如何通过我们的先进视觉套件赋能全球专业人士。' : 'Learn how the Flux AI Image Generator empowers professionals worldwide through our advanced visual suite.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -563,10 +563,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            Flux AI 图像生成器 常见问题
+            Flux AI {isZh ? '图像生成器 常见问题' : 'Image Generator Frequently Asked Questions'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            寻找关于 Flux AI 图像生成器最常见问题的答案。
+            {isZh ? '寻找关于 Flux AI 图像生成器最常见问题的答案。' : 'Find answers to the most common questions about the Flux AI Image Generator.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -587,12 +587,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            利用 Flux AI 图像生成器释放您的创意潜力
+            {isZh ? '利用 Flux AI 图像生成器释放您的创意潜力' : 'Unleash Your Creative Potential with the Flux AI Image Generator'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            准备好体验数字艺术的未来了吗？接入 Flux AI 图像生成器的强大动力，见证专业级 AI 为您的项目带来的改变。
+            {isZh ? '准备好体验数字艺术的未来了吗？接入 Flux AI 图像生成器的强大动力，见证专业级 AI 为您的项目带来的改变。' : 'Are you ready to experience the future of digital art? Access the power of the Flux AI Image Generator and witness the transformation professional-grade AI brings to your projects.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始免费使用</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始免费使用' : '✨ Start Using for Free Now'}</Link>
         </div>
       </section>
     </div>

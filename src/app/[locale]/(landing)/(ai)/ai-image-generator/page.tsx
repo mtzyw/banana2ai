@@ -38,12 +38,12 @@ const GENERATION_MODELS = [
 export default function FluxAIImageGeneratorPage() {
   const isZh = useLocale() === 'zh';
   const FEATURES = [
-    '精准控制的双架构系统',
-    '复杂空间逻辑处理',
-    '无瑕的文字渲染能力',
-    '商业级图像质量输出',
-    '支持多种图像尺寸',
-    '极速生成，无需等待',
+    isZh ? '精准控制的双架构系统' : 'Precisely controlled dual-architecture system',
+    isZh ? '复杂空间逻辑处理' : 'Complex spatial logic processing',
+    isZh ? '无瑕的文字渲染能力' : 'Flawless text rendering capability',
+    isZh ? '商业级图像质量输出' : 'Commercial-grade image quality output',
+    isZh ? '支持多种图像尺寸' : 'Supports multiple image sizes',
+    isZh ? '极速生成，无需等待' : 'Ultra-fast generation, no waiting',
   ];
 
   const [prompt, setPrompt] = useState('');
@@ -61,14 +61,14 @@ export default function FluxAIImageGeneratorPage() {
       <div className="px-6 py-3 border-b border-white/[0.06]">
         <nav className="flex items-center gap-1.5 text-xs text-white/40">
           <Link href="/" className="hover:text-white/70 transition-colors">
-            首页
+            {isZh ? '首页' : 'Home'}
           </Link>
           <ChevronRight className="w-3 h-3" />
           <Link href="/ai-image-generator" className="hover:text-white/70 transition-colors">
-            AI图像生成器
+            AI{isZh ? '图像生成器' : 'Image Generator'}
           </Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-white/70">Flux AI 图像生成器</span>
+          <span className="text-white/70">{isZh ? 'Flux AI 图像生成器' : 'Flux AI Image Generator'}</span>
         </nav>
       </div>
 
@@ -81,7 +81,7 @@ export default function FluxAIImageGeneratorPage() {
             <div className="mb-6">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-snug text-white mb-4">
                 <span className="block">
-                  <span className="mr-2">释放精准力量</span>
+                  <span className="mr-2">{isZh ? '释放精准力量' : 'Unleash Precise Power'}</span>
                   <span
                     style={{
                       background: 'linear-gradient(to right, #ffffff, #f8d24b)',
@@ -98,10 +98,10 @@ export default function FluxAIImageGeneratorPage() {
               </h1>
 
               <h2 className="text-lg font-bold text-white/90 mb-3">
-                全球最先进的图像引擎
+                {isZh ? '全球最先进的图像引擎' : 'World’s most advanced image engine'}
               </h2>
               <p className="text-sm leading-relaxed text-white/60 mb-6">
-                在我们平台体验 Flux AI 图像生成器。通过我们专业级的双架构系统，掌控复杂的空间逻辑和无暇的文字渲染。
+                {isZh ? '在我们平台体验 Flux AI 图像生成器。通过我们专业级的双架构系统，掌控复杂的空间逻辑和无暇的文字渲染。' : 'Experience the Flux AI Image Generator on our platform. Master complex spatial logic and flawless text rendering with our professional-grade dual-architecture system.'}
               </p>
 
               {/* Features */}
@@ -128,7 +128,7 @@ export default function FluxAIImageGeneratorPage() {
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-md text-base font-semibold text-white hover:shadow-lg hover:shadow-yellow-400/20 transition-all duration-300"
               >
                 <Zap className="w-5 h-5 text-yellow-400" />
-                <span>免费生成</span>
+                <span>{isZh ? '免费生成' : 'Generate for Free'}</span>
               </button>
             </div>
           </div>
@@ -155,12 +155,12 @@ export default function FluxAIImageGeneratorPage() {
             <div className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-4">
               <h3 className="text-sm font-semibold text-white/80 mb-4 flex items-center gap-2">
                 <ImageIcon className="w-4 h-4 text-yellow-400" />
-                Flux AI 生成器
+                Flux AI {isZh ? '生成器' : 'Generator'}
               </h3>
 
               {/* Model Select */}
               <div className="mb-4">
-                <label className="text-xs text-white/40 mb-1.5 block">选择模型</label>
+                <label className="text-xs text-white/40 mb-1.5 block">{isZh ? '选择模型' : 'Select Model'}</label>
                 <div className="relative">
                   <select
                     value={selectedModel}
@@ -179,11 +179,11 @@ export default function FluxAIImageGeneratorPage() {
 
               {/* Prompt Input */}
               <div className="mb-4">
-                <label className="text-xs text-white/40 mb-1.5 block">提示词</label>
+                <label className="text-xs text-white/40 mb-1.5 block">{isZh ? '提示词' : 'Prompt'}</label>
                 <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  placeholder="描述您想要生成的图像..."
+                  placeholder="{isZh ? '描述您想要生成的图像' : 'Describe the image you want to generate'}..."
                   rows={4}
                   className="w-full resize-none bg-white/[0.04] border border-white/[0.12] rounded-md px-3 py-2.5 text-sm text-white/80 placeholder-white/30 outline-none focus:border-yellow-500/50 focus:bg-white/[0.06] transition-colors leading-relaxed"
                 />
@@ -196,14 +196,14 @@ export default function FluxAIImageGeneratorPage() {
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-md bg-[#f8d24b] hover:bg-yellow-300 disabled:opacity-60 text-black text-sm font-semibold transition-colors"
               >
                 <Zap className="w-4 h-4" />
-                {isGenerating ? '生成中...' : '快速生成'}
+                {isGenerating ? isZh ? '生成中...' : 'Generating...' : isZh ? '快速生成' : 'Quick Generate'}
               </button>
             </div>
           </div>
 
           {/* Right: Sample Image Grid */}
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-white/60 mb-3">示例图片</h3>
+            <h3 className="text-sm font-semibold text-white/60 mb-3">{isZh ? '示例图片' : 'Example Images'}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
               {SAMPLE_IMAGES.map((src, i) => (
                 <div

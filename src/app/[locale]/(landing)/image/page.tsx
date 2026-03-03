@@ -176,31 +176,31 @@ export default function ImageListPage() {
       label: isZh ? '双模式' : 'Dual Mode',
       title: isZh ? '双重生成模式：图生图与文生图' : 'Dual Generation Modes: Image-to-Image and Text-to-Image',
       desc: isZh ? 'Banana Pro AI 让您在一个平台上同时使用图生图转换和文生图生成。上传照片应用AI风格变换，或输入文字描述创建全新图像。两种模式无缝切换，互为补充——先用文生图创建基础图像，再用图生图进行精修完善。' : 'Banana Pro AI allows you to use both image-to-image conversion and text-to-image generation on a single platform. Upload photos to apply AI style transformations, or enter text descriptions to create entirely new images. The two modes switch seamlessly and complement each other—first use text-to-image to create a base image, then use image-to-image for refinement and perfection.',
-      features: ['图生图：上传照片，AI转换风格', '文生图：描述创意，AI生成图像', '两种模式一键切换', '免费账户包含双模式完整访问'],
+      features: [isZh ? '图生图：上传照片，AI转换风格' : 'Image to Image: Upload photos, AI transforms style', isZh ? '文生图：描述创意，AI生成图像' : 'Text to Image: Describe your idea, AI generates images', isZh ? '两种模式一键切换' : 'Two modes one-click switching', isZh ? '免费账户包含双模式完整访问' : 'Free account includes full dual mode access'],
     },
     {
       label: isZh ? '专业品质' : 'Professional Quality',
       title: isZh ? '专业级图像到图像转换' : 'Professional-Grade Image-to-Image Conversion',
       desc: isZh ? '我们的图生图引擎采用前沿AI模型（包括Google Gemini Imagen），在转换中保留关键细节并应用精妙的风格变化。文生图同样输出媲美专业设计师的高质量作品。' : 'Our image-to-image engine utilizes cutting-edge AI models (including Google Gemini Imagen) to preserve key details and apply subtle style changes during conversion. Text-to-image also produces high-quality works comparable to those of professional designers.',
-      features: ['5种AI模型可选', '照片级真实感输出', '智能细节保留技术', '适合商业用途的专业品质'],
+      features: [isZh ? '5种AI模型可选' : '5 AI models available', isZh ? '照片级真实感输出' : 'Photo-realistic output', isZh ? '智能细节保留技术' : 'Smart detail retention technology', isZh ? '适合商业用途的专业品质' : 'Professional quality suitable for commercial use'],
     },
     {
       label: isZh ? '即时结果' : 'Instant Results',
       title: isZh ? '即时结果：快速图像到图像处理' : 'Instant Results: Fast Image-to-Image Processing',
       desc: isZh ? '大多数图生图转换仅需5-10秒，Z-Image Turbo模型低至3-5秒。快速迭代让您在几分钟内探索多种创作方向。' : 'Most image-to-image conversions take only 5-10 seconds, with the Z-Image Turbo model as low as 3-5 seconds. Rapid iteration allows you to explore multiple creative directions in minutes.',
-      features: ['图生图转换：5-10秒', 'Turbo模型：3-5秒', '文生图生成：8-15秒', '免费账户享同等速度'],
+      features: [isZh ? '图生图转换：5-10秒' : 'Image to Image conversion: 5-10 seconds', isZh ? 'Turbo模型：3-5秒' : 'Turbo model: 3-5 seconds', isZh ? '文生图生成：8-15秒' : 'Text to Image generation: 8-15 seconds', isZh ? '免费账户享同等速度' : 'Free account enjoys the same speed'],
     },
     {
       label: isZh ? '无水印' : 'No Watermarks',
       title: isZh ? '无水印，完全创作自由' : 'No Watermarks, Complete Creative Freedom',
       desc: isZh ? '所有图生图转换和文生图创作在下载时均无水印。您保留作品完全所有权，可自由用于商业项目、社交媒体、营销材料或个人用途。' : 'All image-to-image conversions and text-to-image creations are watermark-free upon download. You retain full ownership of your work, free to use it for commercial projects, social media, marketing materials, or personal use.',
-      features: ['下载零水印', '完全商业使用权', '高分辨率输出', '完全所有权归您'],
+      features: [isZh ? '下载零水印' : 'Download with no watermark', isZh ? '完全商业使用权' : 'Full commercial use rights', isZh ? '高分辨率输出' : 'High resolution output', isZh ? '完全所有权归您' : 'Full ownership is yours'],
     },
     {
       label: isZh ? '云存储' : 'Cloud Storage',
       title: isZh ? '云存储您的所有创作' : 'Cloud Storage for All Your Creations',
       desc: isZh ? '每一张图生图和文生图作品都自动保存到您的安全云端素材库。随时随地访问、管理和下载。免费账户包含无限云存储空间。' : 'Every image-to-image and text-to-image creation is automatically saved to your secure cloud asset library. Access, manage, and download anytime, anywhere. Free accounts include unlimited cloud storage.',
-      features: ['自动云端保存', '无限存储空间', '随时随地访问', '作品管理与整理'],
+      features: [isZh ? '自动云端保存' : 'Automatic cloud save', isZh ? '无限存储空间' : 'Unlimited storage space', isZh ? '随时随地访问' : 'Access anytime, anywhere', isZh ? '作品管理与整理' : 'Creation management and organization'],
     },
   ];
 
@@ -384,7 +384,7 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
               <h1 className="relative text-xl font-bold leading-tight sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
                 <span className="block">
                   <span className="mr-2">Banana Pro AI：</span>
-                  <span className="gradient-text">高级图生图编辑器</span>
+                  <span className="gradient-text">{isZh ? '高级图生图编辑器' : 'Advanced Image to Image Editor'}</span>
                 </span>
                 <span className="mx-auto mt-3 block h-0.5 w-44 rounded-full bg-gradient-to-r from-transparent via-[#ffcc33] to-transparent opacity-60 md:mt-4" />
               </h1>
@@ -396,10 +396,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
             <FadeIn className="text-center lg:text-left" delay={0.15}>
               <div className="space-y-4 md:space-y-6">
                 <h2 className="gradient-glow-text text-lg font-bold leading-snug md:text-2xl lg:text-3xl">
-                  将任何照片转换为精美艺术作品
+                  {isZh ? '将任何照片转换为精美艺术作品' : 'Transform any photo into beautiful artwork'}
                 </h2>
                 <p className="text-sm leading-relaxed text-white/80 md:text-base lg:text-lg">
-                  上传您的图片，即刻体验AI图生图技术带来的专业级转换效果。从风格迁移到完全重构——让AI放大您的创意愿景。
+                  {isZh ? '上传您的图片，即刻体验AI图生图技术带来的专业级转换效果。从风格迁移到完全重构——让AI放大您的创意愿景。' : 'Upload your images and immediately experience the professional-grade conversion effects brought by AI Image to Image technology. From style transfer to complete reconstruction – let AI amplify your creative vision.'}
                 </p>
                 <FadeIn delay={0.3}>
                   <Link
@@ -412,7 +412,7 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
                       backgroundClip: 'padding-box, border-box',
                     }}
                   >
-                    <span className="gradient-text relative z-10">注册并免费创建</span>
+                    <span className="gradient-text relative z-10">{isZh ? '注册并免费创建' : 'Register and Create for Free'}</span>
                     <ArrowRight className="relative z-10 h-5 w-5 text-[#ffcc33] transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </FadeIn>
@@ -439,7 +439,7 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
                 <div className="relative aspect-[4/3] w-full">
                   <Image
                     src="https://static.banana2ai.net/images/showcase/canvas-workflow.webp"
-                    alt="AI 图像创作"
+                    alt="AI {isZh ? '图像创作' : 'Image Creation'}"
                     fill
                     className="object-cover"
                     priority
@@ -464,12 +464,12 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="mx-auto max-w-6xl text-center">
           <FadeIn>
             <p className="gradient-glow-text mb-2 text-lg font-bold leading-tight sm:text-xl md:mb-4 md:text-2xl lg:text-3xl xl:text-4xl">
-              更多 AI 图像生成器
+              {isZh ? '更多 AI 图像生成器' : 'More AI Image Generators'}
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
             <p className="mx-auto mb-4 max-w-4xl text-xs text-white/50 sm:text-sm md:mb-10 md:text-base">
-              探索我们的专业AI图像生成器合集，专为不同的创意需求和风格而设计
+              {isZh ? '探索我们的专业AI图像生成器合集，专为不同的创意需求和风格而设计' : 'Explore our collection of professional AI image generators, designed for different creative needs and styles.'}
             </p>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -503,10 +503,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              4个简单步骤：从创意到专业图像
+              4{isZh ? '个简单步骤：从创意到专业图像' : 'Simple Steps: From Idea to Professional Image'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-5xl md:text-base">
-              几分钟内即可创建令人惊艳的图生图转换和文生图作品。Banana Pro AI 让专业级视觉创作人人可及。
+              {isZh ? '几分钟内即可创建令人惊艳的图生图转换和文生图作品。Banana Pro AI 让专业级视觉创作人人可及。' : 'Create stunning image to image transformations and text to image creations in minutes. Banana Pro AI makes professional-grade visual creation accessible to everyone.'}
             </p>
           </FadeIn>
           <FadeIn delay={0.15}>
@@ -553,10 +553,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-8 text-center md:mb-16">
             <h2 className="gradient-text mb-3 text-2xl font-bold md:mb-4 md:text-3xl lg:text-4xl">
-              探索我们的先进AI图像模型
+              {isZh ? '探索我们的先进AI图像模型' : 'Explore Our Advanced AI Image Models'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/70 md:max-w-4xl md:text-base">
-              Banana Pro AI 提供一系列强大的图生图和文生图模型，每个模型都针对独特的创作需求进行了优化。
+              Banana Pro AI {isZh ? '提供一系列强大的图生图和文生图模型，每个模型都针对独特的创作需求进行了优化。' : 'Offering a range of powerful image to image and text to image models, each optimized for unique creative needs.'}
             </p>
           </FadeIn>
 
@@ -610,7 +610,7 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
                 </div>
                 <div className="mt-6">
                   <Link href="/zh/image/banana-pro-ai/" className="highlight-button inline-flex items-center gap-2 px-6 py-3">
-                    立即免费试用 <ArrowRight className="h-4 w-4" />
+                    {isZh ? '立即免费试用' : 'Try for Free Now'} <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -625,10 +625,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-8 text-center md:mb-16">
             <h2 className="mb-3 text-2xl font-bold md:mb-4 md:text-3xl lg:text-4xl">
-              为什么选择 Banana Pro AI 生成图像?
+              {isZh ? '为什么选择 Banana Pro AI 生成图像' : 'Why Choose Banana Pro AI for Image Generation'}?
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              Banana Pro AI 将强大的图生图转换与直观的文生图生成相结合。我们的平台专为追求专业效果而不想面对复杂操作的创作者而设计。
+              Banana Pro AI {isZh ? '将强大的图生图转换与直观的文生图生成相结合。我们的平台专为追求专业效果而不想面对复杂操作的创作者而设计。' : 'Combining powerful image to image transformation with intuitive text to image generation. Our platform is designed for creators who seek professional results without complex operations.'}
             </p>
           </FadeIn>
 
@@ -701,10 +701,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="relative z-10 mb-20 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              图生图与文生图，为每一位创作者而生
+              {isZh ? '图生图与文生图，为每一位创作者而生' : 'Image to Image and Text to Image, For Every Creator'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              Banana Pro AI 为各行业创作者提供免费的专业级图生图和文生图功能。无论您是独立创作者还是团队成员，我们的 AI 驱动平台都能随您的目标不断扩展。
+              Banana Pro AI {isZh ? '为各行业创作者提供免费的专业级图生图和文生图功能。无论您是独立创作者还是团队成员，我们的 AI 驱动平台都能随您的目标不断扩展。' : 'Providing free, professional-grade image to image and text to image capabilities for creators across all industries. Whether you are an independent creator or part of a team, our AI-powered platform scales with your ambitions.'}
             </p>
           </FadeIn>
 
@@ -725,11 +725,11 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
                           onMouseDown={() => { isDragging.current = true; }}
                           onTouchStart={() => { isDragging.current = true; }}
                         >
-                          <Image src="https://static.banana2ai.net/images/features/oymo6e4j50qi.webp" alt="之前" fill className="object-cover" />
-                          <div className="absolute bottom-4 left-4 rounded-full bg-black/70 px-3 py-1 text-sm">之前</div>
+                          <Image src="https://static.banana2ai.net/images/features/oymo6e4j50qi.webp" alt="{isZh ? '之前' : 'Before'}" fill className="object-cover" />
+                          <div className="absolute bottom-4 left-4 rounded-full bg-black/70 px-3 py-1 text-sm">{isZh ? '之前' : 'Before'}</div>
                           <div className="absolute inset-0" style={{ clipPath: `inset(0 0 0 ${comparePos}%)` }}>
-                            <Image src="https://static.banana2ai.net/images/features/nmodnhmzoinn.webp" alt="之后" fill className="object-cover" />
-                            <div className="absolute bottom-4 right-4 rounded-full bg-black/70 px-3 py-1 text-sm">之后</div>
+                            <Image src="https://static.banana2ai.net/images/features/nmodnhmzoinn.webp" alt="{isZh ? '之后' : 'After'}" fill className="object-cover" />
+                            <div className="absolute bottom-4 right-4 rounded-full bg-black/70 px-3 py-1 text-sm">{isZh ? '之后' : 'After'}</div>
                           </div>
                           <div
                             className="absolute top-0 bottom-0 z-10 w-0.5 cursor-ew-resize bg-white shadow-lg"
@@ -776,10 +776,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="relative z-10 mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              真实案例：图生图与文生图应用
+              {isZh ? '真实案例：图生图与文生图应用' : 'Real-World Examples: Image to Image and Text to Image Applications'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              了解创作者和企业如何使用 Banana Pro AI 的免费图生图转换和文生图生成功能来实现专业效果。
+              {isZh ? '了解创作者和企业如何使用 Banana Pro AI 的免费图生图转换和文生图生成功能来实现专业效果。' : 'Discover how creators and businesses use Banana Pro AI free image to image transformation and text to image generation features to achieve professional results.'}
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
@@ -809,10 +809,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              创作者都喜爱 Banana Pro AI 的图生图生成器
+              {isZh ? '创作者都喜爱 Banana Pro AI 的图生图生成器' : 'Creators Love Banana Pro AI Image to Image Generator'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              数千名专业人士信赖 Banana Pro AI 来满足他们的图生图转换和文生图生成需求。
+              {isZh ? '数千名专业人士信赖 Banana Pro AI 来满足他们的图生图转换和文生图生成需求。' : 'Thousands of professionals trust Banana Pro AI for their image to image transformation and text to image generation needs.'}
             </p>
           </FadeIn>
 
@@ -892,10 +892,10 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              图像生成图像 &amp; 文本生成图像：常见问题解答
+              {isZh ? '图像生成图像 &amp; 文本生成图像：常见问题解答' : 'Image to Image &amp; Text to Image: Frequently Asked Questions'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              关于 Banana Pro AI 免费的图像转图像变换和文本生成图像功能，您需要了解的一切都在这里。
+              {isZh ? '关于 Banana Pro AI 免费的图像转图像变换和文本生成图像功能，您需要了解的一切都在这里。' : 'Everything you need to know about Banana Pro AI free image to image transformation and text to image features is here.'}
             </p>
           </FadeIn>
           <div className="mx-auto max-w-7xl">
@@ -943,16 +943,16 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
             <FadeIn className="mb-12 text-center lg:mb-0 lg:text-left">
               <div className="lg:pr-8">
                 <h2 className="gradient-glow-text mb-6 text-3xl font-bold md:text-4xl lg:text-5xl">
-                  立即开始创作专业的图生图和文生图内容
+                  {isZh ? '立即开始创作专业的图生图和文生图内容' : 'Start Creating Professional Image to Image and Text to Image Content Now'}
                 </h2>
                 <p className="mb-8 text-base leading-relaxed text-white/90 md:text-lg">
-                  加入数千名创作者、设计师和企业，使用 Banana Pro AI 的免费图生图转换和文生图生成工具。免费注册，无需信用卡。60 秒内体验专业的 AI 视觉创作。
+                  {isZh ? '加入数千名创作者、设计师和企业，使用 Banana Pro AI 的免费图生图转换和文生图生成工具。免费注册，无需信用卡。60 秒内体验专业的 AI 视觉创作。' : 'Join thousands of creators, designers, and businesses using Banana Pro AI free image to image transformation and text to image generation tools. Register for free, no credit card required. Experience professional AI visual creation in 60 seconds.'}
                 </p>
                 <Link
                   href="/zh/image/banana-pro-ai/"
                   className="highlight-button group inline-flex items-center px-8 py-3 text-lg"
                 >
-                  立即免费开始创作
+                  {isZh ? '立即免费开始创作' : 'Start Creating for Free Now'}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -969,7 +969,7 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
               >
                 <Image
                   src="https://static.banana2ai.net/images/cta-cover.webp"
-                  alt="开始创作"
+                  alt="{isZh ? '开始创作' : 'Start Creating'}"
                   fill
                   className="object-cover"
                 />

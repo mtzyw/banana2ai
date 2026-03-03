@@ -124,28 +124,28 @@ function TestimonialCarousel() {
 /* ────────────────────────── PAGE ────────────────────────── */
 const TESTIMONIALS = [
   {
-    name: '张伟',
-    role: 'Logo 设计师',
+    name: 'Zhang Wei',
+    role: 'Logo Designer',
     avatar: 'https://static.banana2ai.net/images/avatars/95ls4obu8n1r.webp',
-    quote: '我使用过很多工具，但 Grok Imagine 是唯一每次都能正确生成文本的工具。Grok 上的 FLUX.1 模型对于我的 Logo 设计业务来说是一个改变游戏规则的东西。它非常易于使用，而且免费在线访问对于自由职业者来说是一个巨大的优势。',
+    quote: 'I have used many tools, but Grok Imagine is the only tool that generates text correctly every time. The FLUX.1 model on Grok is a game-changer for my Logo design business. It is very easy to use, and free online access is a huge advantage for freelancers.',
   },
   {
-    name: '李晓梅',
-    role: '社媒经理',
+    name: 'Li Xiaomei',
+    role: 'Social Media Manager',
     avatar: 'https://static.banana2ai.net/images/avatars/ffer5qw3809o.webp',
-    quote: '作为一名社交媒体经理，我需要快速且具有病毒传播性的内容。Grok Imagine 让我能够创作出真正有趣且相关的迷因，而无需经过繁重的审查。这绝对是用于创作互动内容的最佳 Grok AI 艺术生成器。',
+    quote: 'As a social media manager, I need fast and viral content. Grok Imagine allows me to create truly funny and relevant memes without heavy moderation. This is definitely the best Grok AI art generator for creating interactive content.',
   },
   {
-    name: '王芳',
-    role: '摄影师',
+    name: 'Wang Fang',
+    role: 'Photographer',
     avatar: 'https://static.banana2ai.net/images/avatars/b2rbrxlowmmw.webp',
-    quote: '照片写实感令人震惊。我使用 Grok Imagine 为客户网站生成库存照片，他们根本看不出区别。Grok 上的 FLUX.1 模型处理光线的能力比我尝试过的任何其他 AI 都要好。强烈推荐。',
+    quote: 'The photorealism is stunning. I use Grok Imagine to generate stock photos for client websites, and they cant tell the difference. The FLUX.1 model on Grok handles light better than any other AI I have tried. Highly recommended.',
   },
   {
-    name: '陈明',
-    role: '概念艺术家',
+    name: 'Chen Ming',
+    role: 'Concept Artist',
     avatar: 'https://static.banana2ai.net/images/avatars/8wokupsy7u34.webp',
-    quote: '我喜欢它精准的指令遵循能力。其他工具会忽略我一半的提示词，但 Grok Imagine 会倾听每一个细节。这是终极的概念艺术 AI 工具。能够如此流畅地运行 Grok 上的 FLUX.1 模型真是太棒了。',
+    quote: 'I love its precise instruction following ability. Other tools ignore half my prompts, but Grok Imagine listens to every detail. This is the ultimate concept art AI tool. It is amazing how smoothly the FLUX.1 model runs on Grok.',
   },
 ];
 
@@ -291,9 +291,9 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Home'}</Link>
           <span>/</span>
-          <Link href="/zh/image/" className="transition-colors hover:text-white/70">AI图像生成器</Link>
+          <Link href="/zh/image/" className="transition-colors hover:text-white/70">{isZh ? 'AI图像生成器' : 'AI Image Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">Grok Imagine</span>
         </nav>
@@ -306,15 +306,15 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                解锁无限创意，使用 Grok Imagine AI
+                {isZh ? '解锁无限创意，使用 Grok Imagine AI' : 'Unlock infinite creativity, use Grok Imagine AI'}
               </h1>
-              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">体验 Grok 上 FLUX.1 模型的强大力量</h2>
+              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">{isZh ? '体验 Grok 上 FLUX.1 模型的强大力量' : 'Experience the power of the FLUX.1 model on Grok'}</h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                即刻生成超写实照片、完美排版和病毒式传播的迷因。Grok Imagine 是由 Grok 上的 FLUX.1 模型驱动的终极免费在线 AI 工具。将您的文本提示词转化为惊艳的视觉效果，零限制且无需下载。今天就开始您的创意之旅。
+                {isZh ? '即刻生成超写实照片、完美排版和病毒式传播的迷因。Grok Imagine 是由 Grok 上的 FLUX.1 模型驱动的终极免费在线 AI 工具。将您的文本提示词转化为惊艳的视觉效果，零限制且无需下载。今天就开始您的创意之旅。' : 'Instantly generate hyperrealistic photos, perfect layouts, and viral memes. Grok Imagine is the ultimate free online AI tool driven by the FLUX.1 model on Grok. Transform your text prompts into stunning visuals, with zero limitations and no downloads. Start your creative journey today.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验' : '✨ Experience Now'}</Link>
               <ul className="mt-8 space-y-2">
-                {['✍️ 完美的文本生成，告别乱码', '📸 超写实 AI 照片，单反级画质', '🎨 无过滤的创意，释放艺术潜能', '🎯 精准的指令遵循，零随机偏差'].map((f, i) => (
+                {[isZh ? '✍️ 完美的文本生成，告别乱码' : '✍️ Perfect text generation, say goodbye to gibberish', isZh ? '📸 超写实 AI 照片，单反级画质' : '📸 Hyperrealistic AI photos, DSLR quality', isZh ? '🎨 无过滤的创意，释放艺术潜能' : '🎨 Unfiltered creativity, unleash artistic potential', isZh ? '🎯 精准的指令遵循，零随机偏差' : '🎯 Precise instruction following, zero random deviation'].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
               </ul>
@@ -328,7 +328,7 @@ export default function Page() {
 
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
-        <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Grok Imagine</span> 图片</h2>
+        <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Grok Imagine</span> {isZh ? '图片' : 'Images'}</h2>
         <ImageGenerator examples={GROK_IMAGINE_EXAMPLES} />
       </section>
 
@@ -337,10 +337,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何使用 Grok Imagine — <span className="text-[#ffcc33]">三步即可掌握</span>
+            如何使用 Grok Imagine — <span className="text-[#ffcc33]">{isZh ? '三步即可掌握' : 'Master in Three Steps'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            只需简单三步即可掌握这款 Grok AI 艺术生成器。我们直观的界面确保您能即刻从 Grok 上的 FLUX.1 模型获得最佳结果。
+            {isZh ? '只需简单三步即可掌握这款 Grok AI 艺术生成器。我们直观的界面确保您能即刻从 Grok 上的 FLUX.1 模型获得最佳结果。' : 'Master this Grok AI art generator in just three simple steps. Our intuitive interface ensures you get the best results instantly from the FLUX.1 model on Grok.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {STEPS.map((step, i) => (
@@ -369,10 +369,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Grok Imagine 的<span className="text-[#ffcc33]">核心功能</span>
+            Grok Imagine 的<span className="text-[#ffcc33]">{isZh ? '核心功能' : 'Core Features'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            探索为什么 Grok Imagine 是顶级评分的 Grok AI 艺术生成器。从完美的拼写到无过滤的艺术自由，发现 Grok 上 FLUX.1 模型的能力。
+            {isZh ? '探索为什么 Grok Imagine 是顶级评分的 Grok AI 艺术生成器。从完美的拼写到无过滤的艺术自由，发现 Grok 上 FLUX.1 模型的能力。' : 'Discover why Grok Imagine is the top rated Grok AI art generator. From perfect spelling to unfiltered artistic freedom, uncover the power of the FLUX.1 model on Grok.'}
           </p>
 
           {/* Mobile tabs */}
@@ -407,7 +407,7 @@ export default function Page() {
                   <span className="gradient-glow-text text-sm font-semibold md:text-base">{tab.highlight}</span>
                 </div>
                 <p className="mb-8 leading-relaxed text-white/60">{tab.body}</p>
-                <Link href="/zh/image/grok-imagine/" className="highlight-button inline-flex">体验 Grok Imagine</Link>
+                <Link href="/zh/image/grok-imagine/" className="highlight-button inline-flex">{isZh ? '体验 Grok Imagine' : 'Experience Grok Imagine'}</Link>
               </div>
             </div>
           </div>
@@ -419,10 +419,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            驱动 Grok Imagine 的<span className="text-[#ffcc33]">先进技术</span>
+            驱动 Grok Imagine 的<span className="text-[#ffcc33]">{isZh ? '先进技术' : 'Advanced Technology'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            深入了解 Grok 上 FLUX.1 模型的核心技术架构，正是这些突破性创新让 Grok Imagine 成为功能最强大且最精准的 AI 艺术生成器。
+            {isZh ? '深入了解 Grok 上 FLUX.1 模型的核心技术架构，正是这些突破性创新让 Grok Imagine 成为功能最强大且最精准的 AI 艺术生成器。' : 'Dive deep into the core technical architecture of the FLUX.1 model on Grok, where groundbreaking innovations make Grok Imagine the most powerful and precise AI art generator.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {TECHNOLOGIES.map((tech, i) => (
@@ -446,10 +446,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Grok Imagine 的<span className="text-[#ffcc33]">多元应用场景</span>
+            Grok Imagine 的<span className="text-[#ffcc33]">{isZh ? '多元应用场景' : 'Diverse Application Scenarios'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            发现不同行业如何利用 Grok Imagine 和 Grok 上的 FLUX.1 模型来提高生产力和创造力，释放前所未有的创作潜能。
+            {isZh ? '发现不同行业如何利用 Grok Imagine 和 Grok 上的 FLUX.1 模型来提高生产力和创造力，释放前所未有的创作潜能。' : 'Discover how different industries leverage Grok Imagine and the FLUX.1 model on Grok to boost productivity and creativity, unleashing unprecedented creative potential.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
             {USE_CASES.map((uc, i) => (
@@ -470,10 +470,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            用户对 Grok Imagine 的评价
+            {isZh ? '用户对 Grok Imagine 的评价' : 'User reviews for Grok Imagine'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            加入成千上万满意创作者的行列，使用市场上最好的 Grok AI 艺术生成器，探索 FLUX.1 模型如何变革您的创作工作流。
+            {isZh ? '加入成千上万满意创作者的行列，使用市场上最好的 Grok AI 艺术生成器，探索 FLUX.1 模型如何变革您的创作工作流。' : 'Join thousands of satisfied creators using the best Grok AI art generator on the market, and explore how the FLUX.1 model can transform your creative workflow.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -483,10 +483,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            常见问题解答
+            {isZh ? '常见问题解答' : 'FAQ'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            关于 Grok Imagine 和 Grok 上的 FLUX.1 模型您需要知道的一切。
+            {isZh ? '关于 Grok Imagine 和 Grok 上的 FLUX.1 模型您需要知道的一切。' : 'Everything you need to know about Grok Imagine and the FLUX.1 model on Grok.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -501,12 +501,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            准备好改变您的想象力了吗？
+            {isZh ? '准备好改变您的想象力了吗？' : 'Ready to transform your imagination?'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            不要满足于平庸的 AI。今天就切换到 Grok Imagine，体验 Grok 上 FLUX.1 模型的力量。加入创作者社区，使用最好的免费在线 Grok AI 艺术生成器。
+            {isZh ? '不要满足于平庸的 AI。今天就切换到 Grok Imagine，体验 Grok 上 FLUX.1 模型的力量。加入创作者社区，使用最好的免费在线 Grok AI 艺术生成器。' : 'Do not settle for mediocre AI. Switch to Grok Imagine today and experience the power of the FLUX.1 model on Grok. Join the creator community and use the best free online Grok AI art generator.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始免费使用</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始免费使用' : '✨ Start Using for Free Now'}</Link>
         </div>
       </section>
     </div>

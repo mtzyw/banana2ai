@@ -125,27 +125,27 @@ function TestimonialCarousel() {
 const TESTIMONIALS = [
   {
     name: 'Mike',
-    role: '设计机构创始人',
+    role: 'Design Agency Founder',
     avatar: 'https://static.banana2ai.net/images/avatars/95ls4obu8n1r.webp',
-    quote: 'Seedream AI 彻底改变了我机构的设计工作流。Seedream AI 中的文本渲染比我用过的任何工具都要先进。我们现在可以在几分钟内生成过去需要数小时手动排版的海报概念。',
+    quote: 'Seedream AI has completely revolutionized my agencys design workflow. Text rendering in Seedream AI is more advanced than any tool I have ever used. We can now generate poster concepts in minutes that previously took hours of manual typesetting.',
   },
   {
     name: 'Fiona',
-    role: '建筑可视化师',
+    role: 'Architectural Visualizer',
     avatar: 'https://static.banana2ai.net/images/avatars/ffer5qw3809o.webp',
-    quote: 'Seedream AI 的分辨率简直令人惊叹。我将其用于建筑可视化，4K 输出的清晰度足以直接进行客户演示。该模型对光照和材质的理解甚至优于大多数渲染软件。它非常高效，每次都能产出惊艳的效果。',
+    quote: 'Seedream AIs resolution is simply astonishing. I use it for architectural visualization, and the clarity of the 4K output is sufficient for direct client presentations. The models understanding of lighting and materials even surpasses most rendering software. It is incredibly efficient, producing stunning results every time.',
   },
   {
     name: 'Elena',
-    role: '社交媒体策略师',
+    role: 'Social Media Strategist',
     avatar: 'https://static.banana2ai.net/images/avatars/b2rbrxlowmmw.webp',
-    quote: '作为一名社交媒体经理，我每天都需要高质量的内容。Seedream AI 让我能够创建看起来非常专业的独特、高保真图像。我喜欢 Seedream AI 处理复杂提示词并将其转化为爆款艺术的能力。它确实让我的品牌在数字领域拥有了竞争优势。',
+    quote: 'As a social media manager, I need high-quality content daily. Seedream AI allows me to create unique, high-fidelity images that look incredibly professional. I love Seedream AIs ability to handle complex prompts and transform them into viral art. It truly gives my brand a competitive edge in the digital space.',
   },
   {
     name: 'Marcus',
-    role: '教育内容创作者',
+    role: 'Educational Content Creator',
     avatar: 'https://static.banana2ai.net/images/avatars/8wokupsy7u34.webp',
-    quote: 'Seedream AI 是我用过的第一个真正理解逻辑图表的工具。我用它来创建教育内容，准确性是无与伦比的。我们的平台为 Seedream AI 提供了稳定的基础，使我的研究和可视化任务变得轻而易举。如果你需要专业的 AI 艺术，Seedream AI 是唯一选择。',
+    quote: 'Seedream AI is the first tool I have used that truly understands logical diagrams. I use it to create educational content, and the accuracy is unparalleled. Our platform provides a stable foundation for Seedream AI, making my research and visualization tasks a breeze. If you need professional AI art, Seedream AI is the only choice.',
   },
 ];
 
@@ -262,9 +262,9 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Home'}</Link>
           <span>/</span>
-          <Link href="/zh/image/" className="transition-colors hover:text-white/70">AI图像生成器</Link>
+          <Link href="/zh/image/" className="transition-colors hover:text-white/70">{isZh ? 'AI图像生成器' : 'AI Image Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">Seedream AI</span>
         </nav>
@@ -277,15 +277,15 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                释放您的创意愿景 — Seedream AI 4K 多模态
+                {isZh ? '释放您的创意愿景 — Seedream AI 4K 多模态' : 'Release your creative vision — Seedream AI 4K Multimodal'}
               </h1>
-              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">下一代创意枢纽</h2>
+              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">{isZh ? '下一代创意枢纽' : 'Next-Gen Creative Hub'}</h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                以行业领先的精度将复杂想法转化为高保真视觉效果。在每一次创作中体验先进的空间逻辑和完美的纹理渲染。作为尖端的多模态生成工具，Seedream AI 在将复杂的文本转化为令人惊叹的 4K 高分辨率图像方面拥有无与伦比的精准度。
+                {isZh ? '以行业领先的精度将复杂想法转化为高保真视觉效果。在每一次创作中体验先进的空间逻辑和完美的纹理渲染。作为尖端的多模态生成工具，Seedream AI 在将复杂的文本转化为令人惊叹的 4K 高分辨率图像方面拥有无与伦比的精准度。' : 'Transform complex ideas into high-fidelity visuals with industry-leading precision. Experience advanced spatial logic and perfect texture rendering in every creation. As a cutting-edge multimodal generation tool, Seedream AI possesses unparalleled accuracy in converting complex text into stunning 4K high-resolution images.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验' : '✨ Experience Now'}</Link>
               <ul className="mt-8 space-y-2">
-                {['🎨 行业领先的文生图精度', '📐 原生 4K 超高清输出', '✍️ 高级逻辑与排版渲染', '🔒 安全加密的云端资产管理'].map((f, i) => (
+                {[isZh ? '🎨 行业领先的文生图精度' : '🎨 Industry-leading text-to-image precision', isZh ? '📐 原生 4K 超高清输出' : '📐 Native 4K Ultra HD Output', isZh ? '✍️ 高级逻辑与排版渲染' : '✍️ Advanced Logic and Typography Rendering', isZh ? '🔒 安全加密的云端资产管理' : '🔒 Secure Encrypted Cloud Asset Management'].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
               </ul>
@@ -299,7 +299,7 @@ export default function Page() {
 
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
-        <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Seedream AI</span> 图片</h2>
+        <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Seedream AI</span> {isZh ? '图片' : 'Images'}</h2>
         <ImageGenerator examples={SEEDREAM_AI_EXAMPLES} />
       </section>
 
@@ -308,10 +308,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            体验 Seedream AI <span className="text-[#ffcc33]">三步生成专业视觉</span>
+            体验 Seedream AI <span className="text-[#ffcc33]">{isZh ? '三步生成专业视觉' : 'Generate Professional Visuals in Three Steps'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            通过简单三步，将您的创意想法转化为令人惊叹的 4K 高分辨率图像，探索 Seedream AI 专业的全能多模态视觉生成能力。
+            {isZh ? '通过简单三步，将您的创意想法转化为令人惊叹的 4K 高分辨率图像，探索 Seedream AI 专业的全能多模态视觉生成能力。' : 'In three simple steps, transform your creative ideas into stunning 4K high-resolution images and explore Seedream AI professional all-in-one multimodal visual generation capabilities.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {STEPS.map((step, i) => (
@@ -340,10 +340,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            为什么 <span className="text-[#ffcc33]">Seedream AI</span> 是专业创作的最佳选择
+            {isZh ? '为什么' : 'Why'} <span className="text-[#ffcc33]">Seedream AI</span> {isZh ? '是专业创作的最佳选择' : 'is the best choice for professional creation'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            我们的平台提供了一个专门的环境来最大化 Seedream AI 的输出，确保每位用户都能通过 Seedream AI 生成器获得工作室级的成果。
+            {isZh ? '我们的平台提供了一个专门的环境来最大化 Seedream AI 的输出，确保每位用户都能通过 Seedream AI 生成器获得工作室级的成果。' : 'Our platform provides a dedicated environment to maximize Seedream AI output, ensuring every user can achieve studio-grade results with the Seedream AI generator.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
             {WHY_CARDS.map((card, i) => (
@@ -364,10 +364,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            助力视觉创作的<span className="text-[#ffcc33]">先进 Seedream AI 能力</span>
+            助力视觉创作的<span className="text-[#ffcc33]">{isZh ? '先进 Seedream AI 能力' : 'Advanced Seedream AI Capabilities'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            探索由 Seedream AI 驱动的行业领先功能。我们的 AI 为您带来最稳定、功能最丰富的环境，助力探索专业生成工具的全方位潜能。
+            {isZh ? '探索由 Seedream AI 驱动的行业领先功能。我们的 AI 为您带来最稳定、功能最丰富的环境，助力探索专业生成工具的全方位潜能。' : 'Explore industry-leading features powered by Seedream AI. Our AI brings you the most stable and feature-rich environment, helping you explore the full potential of professional generation tools.'}
           </p>
           <div className="space-y-20">
             {FEATURES.map((feat, i) => (
@@ -392,10 +392,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            通过先进 AI 生成解锁<span className="text-[#ffcc33]">多样化应用场景</span>
+            通过先进 AI 生成解锁<span className="text-[#ffcc33]">{isZh ? '多样化应用场景' : 'Diverse Application Scenarios'}</span>
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            从业务增长到个人创意，我们的平台为您提供最通用的工具集，用于生成专业级图像和高端设计资产。
+            {isZh ? '从业务增长到个人创意，我们的平台为您提供最通用的工具集，用于生成专业级图像和高端设计资产。' : 'From business growth to personal creativity, our platform provides you with the most versatile toolset for generating professional-grade images and high-end design assets.'}
           </p>
 
           {/* Mobile tabs */}
@@ -427,10 +427,10 @@ export default function Page() {
                 <h3 className="mb-3 text-2xl font-bold text-white md:text-3xl">{uc.title}</h3>
                 <div className="mb-4 flex items-center gap-2">
                   <div className="h-1 w-8 rounded-full bg-gradient-to-r from-[#ffcc33] to-[#ff9900]" />
-                  <span className="gradient-glow-text text-sm font-semibold md:text-base">{uc.label}解决方案</span>
+                  <span className="gradient-glow-text text-sm font-semibold md:text-base">{isZh ? '{uc.label}解决方案' : '{uc.label} Solutions'}</span>
                 </div>
                 <p className="mb-8 leading-relaxed text-white/60">{uc.desc}</p>
-                <Link href="/zh/image/seedream-ai/" className="highlight-button inline-flex">体验 Seedream AI</Link>
+                <Link href="/zh/image/seedream-ai/" className="highlight-button inline-flex">{isZh ? '体验 Seedream AI' : 'Experience Seedream AI'}</Link>
               </div>
             </div>
           </div>
@@ -442,10 +442,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            专业创作者如何评价 Seedream AI
+            {isZh ? '专业创作者如何评价 Seedream AI' : 'How Professional Creators Rate Seedream AI'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            加入依靠 Seedream AI 突破数字创作边界、利用先进多模态能力的专家社区。
+            {isZh ? '加入依靠 Seedream AI 突破数字创作边界、利用先进多模态能力的专家社区。' : 'Join a community of experts who rely on Seedream AI to push the boundaries of digital creation and leverage advanced multimodal capabilities.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -455,10 +455,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            Seedream AI 生成器常见问题 — 专家洞察
+            Seedream AI {isZh ? '生成器常见问题 — 专家洞察' : 'Generator FAQ — Expert Insights'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            了解您需要关于 Seedream AI 的一切。学习如何利用这项技术实现最大的创意影响和专业效率。
+            {isZh ? '了解您需要关于 Seedream AI 的一切。学习如何利用这项技术实现最大的创意影响和专业效率。' : 'Learn everything you need about Seedream AI. Discover how to leverage this technology for maximum creative impact and professional efficiency.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -473,12 +473,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            今日起，与 Seedream AI 一起掌握设计艺术
+            {isZh ? '今日起，与 Seedream AI 一起掌握设计艺术' : 'Starting today, master the art of design with Seedream AI.'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            通过我们的免费 Seedream AI 平台，体验 Seedream AI 无与伦比的力量并变革您的创作工作流。既然可以使用 Seedream AI 创作，就不要屈就于平庸。
+            {isZh ? '通过我们的免费 Seedream AI 平台，体验 Seedream AI 无与伦比的力量并变革您的创作工作流。既然可以使用 Seedream AI 创作，就不要屈就于平庸。' : 'Experience Seedream AI unparalleled power and transform your creative workflow through our free Seedream AI platform. Do not settle for mediocrity when you can create with Seedream AI.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始免费使用</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始免费使用' : '✨ Start Free Now'}</Link>
         </div>
       </section>
     </div>

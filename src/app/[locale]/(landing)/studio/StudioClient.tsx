@@ -159,10 +159,10 @@ export default function StudioClient() {
         <div className="relative mx-auto max-w-[1400px] text-center">
           <FadeIn>
             <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
-              AI 工作流画布工作室
+              AI {isZh ? '工作流画布工作室' : 'Workflow Canvas Studio'}
             </h1>
             <h2 className="mt-2 text-xs font-bold text-white/70 sm:mt-3 sm:text-sm md:mt-4 md:text-base lg:text-xl">
-              描述你的想法，选择模型，在无限画布上生成图像或视频。
+              {isZh ? '描述你的想法，选择模型，在无限画布上生成图像或视频。' : 'Describe your idea, select a model, generate images or videos on an infinite canvas.'}
             </h2>
           </FadeIn>
 
@@ -184,21 +184,21 @@ export default function StudioClient() {
                 <div className="absolute left-[10%] top-[20%] rounded-lg border border-[#363b4e] bg-[#1c2030] px-4 py-3 shadow-lg">
                   <div className="flex items-center gap-2">
                     <div className="h-2 w-2 rounded-full bg-[#ffcc33]" />
-                    <span className="text-xs font-medium">文本提示</span>
+                    <span className="text-xs font-medium">{isZh ? '文本提示' : 'Text Prompt'}</span>
                   </div>
-                  <p className="mt-1 max-w-[140px] text-xs text-white/40">一只猫在月光下...</p>
+                  <p className="mt-1 max-w-[140px] text-xs text-white/40">{isZh ? '一只猫在月光下...' : 'A cat under the moonlight...'}</p>
                 </div>
                 <div className="absolute left-[40%] top-[35%] rounded-lg border border-[#ffcc33]/30 bg-[#1c2030] px-4 py-3 shadow-lg shadow-[#ffcc33]/5">
                   <div className="flex items-center gap-2">
                     <ImageIcon className="h-3 w-3 text-[#ffcc33]" />
-                    <span className="text-xs font-medium">图像生成</span>
+                    <span className="text-xs font-medium">{isZh ? '图像生成' : 'Image Generation'}</span>
                   </div>
                   <div className="mt-2 h-16 w-24 rounded bg-gradient-to-br from-[#ffcc33]/10 to-[#ff9900]/10" />
                 </div>
                 <div className="absolute right-[15%] top-[25%] rounded-lg border border-[#363b4e] bg-[#1c2030] px-4 py-3 shadow-lg">
                   <div className="flex items-center gap-2">
                     <Video className="h-3 w-3 text-[#ffcc33]" />
-                    <span className="text-xs font-medium">视频生成</span>
+                    <span className="text-xs font-medium">{isZh ? '视频生成' : 'Video Generation'}</span>
                   </div>
                   <div className="mt-2 h-16 w-24 rounded bg-gradient-to-br from-[#ff9900]/10 to-[#ffcc33]/10" />
                 </div>
@@ -216,7 +216,7 @@ export default function StudioClient() {
               href="/zh/studio/"
               className="highlight-button group inline-flex items-center px-8 py-3 text-lg"
             >
-              免费打开 Studio
+              {isZh ? '免费打开 Studio' : 'Open Studio for Free'}
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
           </FadeIn>
@@ -229,10 +229,10 @@ export default function StudioClient() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              5 个简单步骤：从创意到无限画布上的精彩 AI 作品
+              5 {isZh ? '个简单步骤：从创意到无限画布上的精彩 AI 作品' : 'Simple Steps: From Idea to Stunning AI Creations on an Infinite Canvas'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-5xl md:text-base">
-              Banana Pro AI Studio 以可视化节点工作流画布革新您的创作流程。生成专业级 AI 图像和视频，连接节点构建创意流水线，自由迭代——一切尽在统一工作空间。
+              Banana Pro AI Studio {isZh ? '以可视化节点工作流画布革新您的创作流程。生成专业级 AI 图像和视频，连接节点构建创意流水线，自由迭代——一切尽在统一工作空间。' : 'Revolutionize your creative process with a visual node workflow canvas. Generate professional-grade AI images and videos, connect nodes to build creative pipelines, and iterate freely—all in a unified workspace.'}
             </p>
           </FadeIn>
           <FadeIn delay={0.15}>
@@ -276,10 +276,10 @@ export default function StudioClient() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-20 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              一站式 AI 创意工作室：在无限画布上生成图像与视频
+              {isZh ? '一站式 AI 创意工作室：在无限画布上生成图像与视频' : 'One-Stop AI Creative Studio: Generate Images and Videos on an Infinite Canvas'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              Banana Pro AI Studio 将多个 AI 生成模型的强大能力与直观的可视化工作流画布相结合。创建图像、生成视频、将节点连接为创意流水线、管理完整项目——全部在一个免费工作空间中完成。
+              Banana Pro AI Studio {isZh ? '将多个 AI 生成模型的强大能力与直观的可视化工作流画布相结合。创建图像、生成视频、将节点连接为创意流水线、管理完整项目——全部在一个免费工作空间中完成。' : 'Combine the power of multiple AI generation models with an intuitive visual workflow canvas. Create images, generate videos, connect nodes into creative pipelines, and manage complete projects—all in one free workspace.'}
             </p>
           </FadeIn>
           <div className="space-y-36 md:space-y-56">
@@ -311,7 +311,7 @@ export default function StudioClient() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              Banana Pro AI Studio 常见问题
+              Banana Pro AI Studio {isZh ? '常见问题' : 'Frequently Asked Questions'}
             </h2>
           </FadeIn>
           <div className="mx-auto max-w-7xl">
@@ -343,13 +343,13 @@ export default function StudioClient() {
             <FadeIn className="mb-12 text-center lg:mb-0 lg:text-left">
               <div className="lg:pr-8">
                 <h2 className="gradient-glow-text mb-6 text-3xl font-bold md:text-4xl lg:text-5xl">
-                  立即开始构建您的 AI 创意工作流——免费
+                  {isZh ? '立即开始构建您的 AI 创意工作流——免费' : 'Start Building Your AI Creative Workflow Now—For Free'}
                 </h2>
                 <p className="mb-8 text-base leading-relaxed text-white/90 md:text-lg">
-                  加入数千名创作者，使用 Banana Pro AI Studio 的无限画布和可视化节点工作流。免费注册，无需信用卡。立即在无限画布上构建您的第一个 AI 创意工作流。
+                  {isZh ? '加入数千名创作者，使用 Banana Pro AI Studio 的无限画布和可视化节点工作流。免费注册，无需信用卡。立即在无限画布上构建您的第一个 AI 创意工作流。' : 'Join thousands of creators using Banana Pro AI Studio with its infinite canvas and visual node workflow. Register for free, no credit card needed. Start building your first AI creative workflow on an infinite canvas now.'}
                 </p>
                 <Link href="/zh/studio/" className="highlight-button group inline-flex items-center px-8 py-3 text-lg">
-                  免费打开 Studio <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  {isZh ? '免费打开 Studio' : 'Open Studio for Free'} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </FadeIn>

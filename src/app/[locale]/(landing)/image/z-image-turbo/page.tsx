@@ -135,11 +135,11 @@ function TestimonialCarousel() {
 
 /* ────────────────────────── PAGE ────────────────────────── */
 const TESTIMONIALS = [
-  { name: 'Marcus Chen', role: '数字营销机构创意总监', avatar: 'https://static.banana2ai.net/images/avatars/cv3ypbf94ef5.webp', quote: 'Z Image Turbo 彻底改变了我们的内容生产流！作为一家营销机构，我们每月需要生成数百个活动资产。亚秒级的生成速度太惊人了——过去需要几小时的工作现在几分钟就能完成。写实画质足以媲美专业摄影，我们的客户完全看不出差别。' },
-  { name: 'Sofia Rodriguez', role: '电商视觉内容经理', avatar: 'https://static.banana2ai.net/images/avatars/zrkrexmu2koo.webp', quote: 'Z Image Turbo 的文字渲染能力无与伦比！我为我们的国际电商平台创建双语营销材料。终于有一款 AI 图像生成器能完美渲染中英文字符了。产品标签、标识和促销图形看起来非常专业。' },
-  { name: 'James Patterson', role: '自由数字艺术家与插画师', avatar: 'https://static.banana2ai.net/images/avatars/q0sy9gl2cw07.webp', quote: 'Z Image Turbo 完全重塑了我的创作过程。作为一名自由插画师，我使用它进行快速方案探索和客户演示。8 步生成让我能即时迭代。写实级输出意味着我在初次会议就能展示精美的方案。项目周期缩短了 60%。' },
-  { name: 'Priya Sharma', role: '科技初创公司创始人', avatar: 'https://static.banana2ai.net/images/avatars/edssw31z3vjs.webp', quote: 'Z Image Turbo 对我们初创公司的精益运营至关重要。我们需要专业的产品图但付不起昂贵的拍摄费用。这款工具能即时创建写实的产品图、社媒内容和官网横幅。Apache 2.0 协议让我们无需担心法律风险。' },
-  { name: 'Alexandra Kim', role: '社交媒体博主与内容创作者', avatar: 'https://static.banana2ai.net/images/avatars/zpbjfchv5agj.webp', quote: 'Z Image Turbo 的速度支撑起了我的日常内容更新节奏。我每天在各平台发三次帖，这款 AI 工具让这变得可持续。写实画质让我的 20 万粉丝保持活跃。快速迭代让我能测试不同风格并优化互动。博主必备神器。' },
+  { name: 'Marcus Chen', role: 'Creative Director, Digital Marketing Agency', avatar: 'https://static.banana2ai.net/images/avatars/cv3ypbf94ef5.webp', quote: 'Z Image Turbo has completely revolutionized our content production workflow! As a marketing agency, we need to generate hundreds of campaign assets every month. The sub-second generation speed is incredible—what used to take hours now takes minutes. The realistic image quality rivals professional photography, and our clients cant tell the difference.' },
+  { name: 'Sofia Rodriguez', role: 'E-commerce Visual Content Manager', avatar: 'https://static.banana2ai.net/images/avatars/zrkrexmu2koo.webp', quote: 'Z Image Turbos text rendering capability is unparalleled! I create bilingual marketing materials for our international e-commerce platform. Finally, an AI image generator that perfectly renders both Chinese and English characters. Product labels, logos, and promotional graphics look incredibly professional.' },
+  { name: 'James Patterson', role: 'Freelance Digital Artist and Illustrator', avatar: 'https://static.banana2ai.net/images/avatars/q0sy9gl2cw07.webp', quote: 'Z Image Turbo has completely reshaped my creative process. As a freelance illustrator, I use it for rapid concept exploration and client presentations. The 8-step generation allows me to iterate instantly. Realistic output means I can present polished concepts in the very first meeting. Project cycles are shortened by 60%.' },
+  { name: 'Priya Sharma', role: 'Tech Startup Founder', avatar: 'https://static.banana2ai.net/images/avatars/edssw31z3vjs.webp', quote: 'Z Image Turbo is crucial for our startups lean operations. We need professional product images but cant afford expensive photoshoots. This tool instantly creates realistic product images, social media content, and website banners. The Apache 2.0 license means we dont have to worry about legal risks.' },
+  { name: 'Alexandra Kim', role: 'Social Media Blogger and Content Creator', avatar: 'https://static.banana2ai.net/images/avatars/zpbjfchv5agj.webp', quote: 'Z Image Turbos speed supports my daily content update rhythm. I post three times a day across various platforms, and this AI tool makes it sustainable. The realistic image quality keeps my 200,000 followers engaged. Rapid iteration allows me to test different styles and optimize engagement. A must-have tool for bloggers.' },
 ];
 
 export default function Page() {
@@ -238,9 +238,9 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Home'}</Link>
           <span>/</span>
-          <Link href="/zh/image/" className="transition-colors hover:text-white/70">AI图像生成器</Link>
+          <Link href="/zh/image/" className="transition-colors hover:text-white/70">{isZh ? 'AI图像生成器' : 'AI Image Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">Z Image Turbo</span>
         </nav>
@@ -253,15 +253,15 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                Z Image Turbo — 更快、更高质量的生图体验，不必复杂
+                Z Image Turbo — {isZh ? '更快、更高质量的生图体验，不必复杂' : 'Faster, higher quality image generation experience, without complexity.'}
               </h1>
-              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">极速 AI 图像生成器，打造逼真视觉体验</h2>
+              <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">{isZh ? '极速 AI 图像生成器，打造逼真视觉体验' : 'Turbo AI Image Generator, Create Realistic Visual Experiences'}</h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                Z Image Turbo 是一款拥有 60 亿参数的尖端 AI 图像生成器，仅需 8 步推理即可在数秒内生成写实级图像。通过 PrunaAI 优化，在保持顶尖画质的同时实现了无与伦比的生成速度，是创作者、设计师及企业的首选工具。
+                Z Image Turbo {isZh ? '是一款拥有 60 亿参数的尖端 AI 图像生成器，仅需 8 步推理即可在数秒内生成写实级图像。通过 PrunaAI 优化，在保持顶尖画质的同时实现了无与伦比的生成速度，是创作者、设计师及企业的首选工具。' : 'It is a cutting-edge AI image generator with 6 billion parameters, capable of generating photorealistic images in seconds with just 8 inference steps. Optimized by PrunaAI, it achieves unparalleled generation speed while maintaining top-tier image quality, making it the preferred tool for creators, designers, and businesses.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验' : '✨ Experience Now'}</Link>
               <ul className="mt-8 space-y-2">
-                {['⚡ 亚秒级生成速度，8 步推理', '🔤 中英文双语文字渲染', '📸 写实级画质，自然光影', '🔓 Apache 2.0 开源，免费商用'].map((f, i) => (
+                {[isZh ? '⚡ 亚秒级生成速度，8 步推理' : '⚡ Sub-second generation speed, 8 inference steps', isZh ? '🔤 中英文双语文字渲染' : '🔤 Bilingual Chinese and English text rendering', isZh ? '📸 写实级画质，自然光影' : '📸 Photorealistic image quality, natural lighting and shadows', isZh ? '🔓 Apache 2.0 开源，免费商用' : '🔓 Apache 2.0 open source, free for commercial use'].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
               </ul>
@@ -275,7 +275,7 @@ export default function Page() {
 
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
-        <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Z Image Turbo</span> 图片</h2>
+        <h2 className="mb-6 text-2xl font-bold scroll-fade-in"><span className="gradient-glow-text">Z Image Turbo</span> {isZh ? '图片' : 'Images'}</h2>
         <ImageGenerator examples={Z_IMAGE_TURBO_EXAMPLES} />
       </section>
 
@@ -284,10 +284,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            生成写实级 AI 图像的<span className="text-[#ffcc33]">四个简单步骤</span>
+            生成写实级 AI 图像的<span className="text-[#ffcc33]">{isZh ? '四个简单步骤' : 'Four Simple Steps'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            使用 Z Image Turbo 在数秒内创建专业品质的图像。这款革命性的 AI 图像生成器能将你的想法转化为惊艳的写实视觉效果。
+            {isZh ? '使用 Z Image Turbo 在数秒内创建专业品质的图像。这款革命性的 AI 图像生成器能将你的想法转化为惊艳的写实视觉效果。' : 'Create professional quality images in seconds with Z Image Turbo. This revolutionary AI image generator transforms your ideas into stunning, photorealistic visuals.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((step, i) => (
@@ -317,10 +317,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            为什么 <span className="text-[#ffcc33]">Z Image Turbo</span> 领跑 AI 图像生成技术
+            {isZh ? '为什么' : 'Why'} <span className="text-[#ffcc33]">Z Image Turbo</span> {isZh ? '领跑 AI 图像生成技术' : 'Leading AI Image Generation Technology'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            探索让 Z Image Turbo 成为写实创作、文字渲染和极速生成领域最先进 AI 图像生成器的突破性功能和优化架构。
+            {isZh ? '探索让 Z Image Turbo 成为写实创作、文字渲染和极速生成领域最先进 AI 图像生成器的突破性功能和优化架构。' : 'Explore the groundbreaking features and optimized architecture that make Z Image Turbo the most advanced AI image generator for photorealistic creation, text rendering, and lightning-fast generation.'}
           </p>
 
           {/* Mobile tabs */}
@@ -355,7 +355,7 @@ export default function Page() {
                   <span className="gradient-glow-text text-sm font-semibold md:text-base">{tab.highlight}</span>
                 </div>
                 <p className="mb-8 leading-relaxed text-white/60">{tab.body}</p>
-                <Link href="/zh/image/z-image-turbo/" className="highlight-button inline-flex">体验 Z Image Turbo</Link>
+                <Link href="/zh/image/z-image-turbo/" className="highlight-button inline-flex">{isZh ? '体验 Z Image Turbo' : 'Experience Z Image Turbo'}</Link>
               </div>
             </div>
           </div>
@@ -367,10 +367,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            驱动 Z Image Turbo 的<span className="text-[#ffcc33]">先进技术</span>
+            驱动 Z Image Turbo 的<span className="text-[#ffcc33]">{isZh ? '先进技术' : 'Advanced Technology'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            深入了解复杂的 AI 架构和优化技术，这些正是让 Z Image Turbo 成为功能最强大且最高效的 AI 图像生成器的核心。
+            {isZh ? '深入了解复杂的 AI 架构和优化技术，这些正是让 Z Image Turbo 成为功能最强大且最高效的 AI 图像生成器的核心。' : 'Dive deep into the complex AI architecture and optimization techniques that are at the core of what makes Z Image Turbo the most powerful and efficient AI image generator.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {TECHNOLOGIES.map((tech, i) => (
@@ -394,10 +394,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Z Image Turbo：<span className="text-[#ffcc33]">以极速写实创作赋能行业转型</span>
+            Z Image Turbo：<span className="text-[#ffcc33]">{isZh ? '以极速写实创作赋能行业转型' : 'Empowering Industry Transformation with Ultra-Fast Realistic Creation'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            从营销活动到创意作品集，Z Image Turbo 以闪电般的极速写实 AI 图像生成能力，为各行各业的专业人士提供卓越品质和可商用成果。
+            {isZh ? '从营销活动到创意作品集，Z Image Turbo 以闪电般的极速写实 AI 图像生成能力，为各行各业的专业人士提供卓越品质和可商用成果。' : 'From marketing campaigns to creative portfolios, Z Image Turbo provides professionals across all industries with exceptional quality and commercially viable results through its lightning-fast photorealistic AI image generation capabilities.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
             {USE_CASES.map((uc, i) => (
@@ -419,10 +419,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            Z Image Turbo 专业用户成功案例
+            Z Image Turbo {isZh ? '专业用户成功案例' : 'Professional User Success Stories'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            加入全球成千上万名创作者、企业和机构的行列，探索闪电般的写实生成如何加速工作流并降低各行业成本。
+            {isZh ? '加入全球成千上万名创作者、企业和机构的行列，探索闪电般的写实生成如何加速工作流并降低各行业成本。' : 'Join thousands of creators, businesses, and organizations worldwide to discover how lightning-fast photorealistic generation can accelerate workflows and reduce costs across various industries.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -432,10 +432,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            关于 Z Image Turbo AI 图像生成器的常见问题
+            {isZh ? '关于 Z Image Turbo AI 图像生成器的常见问题' : 'Frequently Asked Questions about Z Image Turbo AI Image Generator'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            关于 Z Image Turbo 的能力、先进技术、写实画质、文字渲染功能和使用技巧的详细解答。
+            {isZh ? '关于 Z Image Turbo 的能力、先进技术、写实画质、文字渲染功能和使用技巧的详细解答。' : 'Detailed answers regarding Z Image Turbo capabilities, advanced technology, photorealistic image quality, text rendering features, and usage tips.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -450,12 +450,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            立即使用 Z Image Turbo，数秒内开启写实创作
+            {isZh ? '立即使用 Z Image Turbo，数秒内开启写实创作' : 'Start photorealistic creation in seconds with Z Image Turbo now.'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            加入全球成千上万专业人士、创作者和企业的行列。无需复杂设置——只需描述你的构思，见证先进的 60 亿参数技术通过仅 8 步推理创建惊艳图像。
+            {isZh ? '加入全球成千上万专业人士、创作者和企业的行列。无需复杂设置——只需描述你的构思，见证先进的 60 亿参数技术通过仅 8 步推理创建惊艳图像。' : 'Join thousands of professionals, creators, and businesses worldwide. No complex setup is needed – simply describe your idea and witness advanced 6 billion parameter technology create stunning images with just 8 inference steps.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始免费使用</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始免费使用' : '✨ Start Using for Free Now'}</Link>
         </div>
       </section>
     </div>

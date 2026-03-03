@@ -160,33 +160,33 @@ function TestimonialCarousel() {
 const TESTIMONIALS = [
   {
     name: 'Jennifer Wang',
-    role: '全球零售品牌 电商运营总监',
+    role: 'Global Retail Brand E-commerce Operations Director',
     avatar: 'https://static.banana2ai.net/images/avatars/3wl0yjqm80wt.webp',
-    quote: 'Qwen Image Edit 彻底改变了我们的电商流程！管理 5000 多张商品图片变得非常轻松，中英文标签切换精准无误。背景移除节省了大量拍摄成本，转化率提升了 28%。',
+    quote: 'Qwen Image Edit has completely transformed our e-commerce process! Managing over 5000 product images has become incredibly easy, and switching between Chinese and English labels is precise and flawless. Background removal has saved a lot of shooting costs, and the conversion rate has increased by 28%.',
   },
   {
     name: 'Marcus Thompson',
-    role: '国际营销机构 创意总监',
+    role: 'International Marketing Agency Creative Director',
     avatar: 'https://static.banana2ai.net/images/avatars/eke14nbac7uz.webp',
-    quote: '快速迭代和本地化不可或缺的工具。双通道架构同时应对创意与技术需求，两天内完成整套亚洲市场活动物料，制作周期缩短 60%。',
+    quote: 'An indispensable tool for rapid iteration and localization. The dual-channel architecture simultaneously addresses creative and technical needs, allowing us to complete an entire set of Asian market campaign materials within two days, shortening the production cycle by 60%.',
   },
   {
     name: 'Yuki Tanaka',
-    role: '自由平面设计师 / 书籍封面设计师',
+    role: 'Freelance Graphic Designer / Book Cover Designer',
     avatar: 'https://static.banana2ai.net/images/avatars/3pyj6cjs2k8z.webp',
-    quote: 'Qwen Image Edit 彻底革新了我的书籍封面设计流程。中英文排版效果非常出色，语义模式激发创意，精度控制确保专业度，效率提升了 40%。',
+    quote: 'Qwen Image Edit has completely revolutionized my book cover design process. Chinese and English typesetting effects are outstanding, semantic mode inspires creativity, precision control ensures professionalism, and efficiency has increased by 40%.',
   },
   {
     name: 'David Martinez',
-    role: '房地产经纪人 / 机构负责人',
+    role: 'Real Estate Agent / Agency Head',
     avatar: 'https://static.banana2ai.net/images/avatars/sihu3aashtj0.webp',
-    quote: 'Qwen Image Edit 对房地产来说是颠覆性的工具。无需昂贵布置就能提升照片品质，房源更具吸引力，成交速度提升了 35%。',
+    quote: 'Qwen Image Edit is a game-changing tool for real estate. It enhances photo quality without expensive staging, making listings more attractive, and transaction speed has increased by 35%.',
   },
   {
     name: 'Sarah Chen',
-    role: '社交媒体博主 / 多平台内容创作者',
+    role: 'Social Media Blogger / Multi-platform Content Creator',
     avatar: 'https://static.banana2ai.net/images/avatars/x4wcrhme4pmi.webp',
-    quote: 'Qwen Image Edit 让多平台内容创作变得高效一致。快速适配不同平台风格，在保证专业度的同时测试创意，粉丝增长了 150%。',
+    quote: 'Qwen Image Edit makes multi-platform content creation efficient and consistent. It quickly adapts to different platform styles, allowing us to test creative ideas while maintaining professionalism, and fan growth has increased by 150%.',
   },
 ];
 
@@ -352,9 +352,9 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Home'}</Link>
           <span>/</span>
-          <Link href="/zh/image/" className="transition-colors hover:text-white/70">AI图像生成器</Link>
+          <Link href="/zh/image/" className="transition-colors hover:text-white/70">{isZh ? 'AI图像生成器' : 'AI Image Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">Qwen Image Edit</span>
         </nav>
@@ -367,21 +367,21 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                Qwen Image Edit - 高级开源 AI 编辑，免费在线使用
+                Qwen Image Edit - {isZh ? '高级开源 AI 编辑，免费在线使用' : 'Advanced Open-source AI Editor, Free to Use Online'}
               </h1>
               <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">
-                AI 驱动的图像编辑大师 —— 解锁精准文字渲染、语义级变换与外观控制
+                AI {isZh ? '驱动的图像编辑大师 —— 解锁精准文字渲染、语义级变换与外观控制' : 'Powered Image Editing Master — Unlock Precise Text Rendering, Semantic-level Transformations, and Appearance Control'}
               </h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                Qwen Image Edit 是由阿里巴巴 Qwen 团队推出的 200 亿参数开源基础模型。通过 Qwen2.5-VL 的语义控制与 VAE Encoder 的外观精度控制双通道架构，实现卓越的图像编辑效果。采用 Apache 2.0 协议，支持风格迁移、对象编辑、中英双语文本处理与像素级修改，全面赋能专业创作者。
+                Qwen Image Edit {isZh ? '是由阿里巴巴 Qwen 团队推出的 200 亿参数开源基础模型。通过 Qwen2.5-VL 的语义控制与 VAE Encoder 的外观精度控制双通道架构，实现卓越的图像编辑效果。采用 Apache 2.0 协议，支持风格迁移、对象编辑、中英双语文本处理与像素级修改，全面赋能专业创作者。' : 'Is a 20 billion parameter open-source base model launched by the Alibaba Qwen team. It achieves excellent image editing results through a dual-channel architecture combining Qwen2.5-VL semantic control and VAE Encoder appearance precision control. Adopting the Apache 2.0 protocol, it supports style transfer, object editing, Chinese and English bilingual text processing, and pixel-level modifications, fully empowering professional creators.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即体验' : '✨ Experience Now'}</Link>
               <ul className="mt-8 space-y-2">
                 {[
-                  '🔤 精准中英文双语文本渲染与编辑',
-                  '🔀 双通道架构：语义 + 外观精度双重控制',
-                  '🎨 风格迁移、对象编辑与像素级修改',
-                  '🔓 Apache 2.0 开源协议，完全商业自由',
+                  isZh ? '🔤 精准中英文双语文本渲染与编辑' : '🔤 Precise Chinese and English Bilingual Text Rendering and Editing',
+                  isZh ? '🔀 双通道架构：语义 + 外观精度双重控制' : '🔀 Dual-Channel Architecture: Semantic + Appearance Precision Dual Control',
+                  isZh ? '🎨 风格迁移、对象编辑与像素级修改' : '🎨 Style Transfer, Object Editing, and Pixel-level Modifications',
+                  isZh ? '🔓 Apache 2.0 开源协议，完全商业自由' : '🔓 Apache 2.0 Open-source Protocol, Complete Commercial Freedom',
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
@@ -397,7 +397,7 @@ export default function Page() {
       {/* ── Image Generator ── */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
         <h2 className="mb-6 text-2xl font-bold scroll-fade-in">
-          <span className="gradient-glow-text">Qwen Image Edit</span> 图片
+          <span className="gradient-glow-text">Qwen Image Edit</span> {isZh ? '图片' : 'Images'}
         </h2>
         <ImageGenerator examples={QWEN_IMAGE_EDIT_EXAMPLES} />
       </section>
@@ -407,10 +407,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            四步完成<span className="text-[#ffcc33]">专业级 AI 图像编辑</span>
+            四步完成<span className="text-[#ffcc33]">{isZh ? '专业级 AI 图像编辑' : 'Professional AI Image Editing'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            借助 Qwen Image Edit，实现高精度图像编辑。开源 AI 编辑器融合语义智能与外观控制，带来专业级编辑体验。
+            {isZh ? '借助 Qwen Image Edit，实现高精度图像编辑。开源 AI 编辑器融合语义智能与外观控制，带来专业级编辑体验。' : 'Achieve high-precision image editing with Qwen Image Edit. The open-source AI editor integrates semantic intelligence and appearance control, bringing a professional-grade editing experience.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((step, i) => (
@@ -442,10 +442,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            为什么 <span className="text-[#ffcc33]">Qwen Image Edit</span> 引领 AI 图像编辑
+            {isZh ? '为什么' : 'Why'} <span className="text-[#ffcc33]">Qwen Image Edit</span> {isZh ? '引领 AI 图像编辑' : 'Leading AI Image Editing'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            革命性的功能与先进架构，使 Qwen Image Edit 成为专业图像变换、文本编辑与对象处理领域的领先 AI 编辑器。
+            {isZh ? '革命性的功能与先进架构，使 Qwen Image Edit 成为专业图像变换、文本编辑与对象处理领域的领先 AI 编辑器。' : 'Revolutionary features and advanced architecture make Qwen Image Edit a leading AI editor in professional image transformation, text editing, and object processing.'}
           </p>
 
           {/* Mobile tabs */}
@@ -511,7 +511,7 @@ export default function Page() {
                 </div>
                 <p className="mb-8 leading-relaxed text-white/60">{tab.body}</p>
                 <Link href="/zh/image/qwen-image-edit/" className="highlight-button inline-flex">
-                  体验 Qwen Image Edit
+                  {isZh ? '体验 Qwen Image Edit' : 'Experience Qwen Image Edit'}
                 </Link>
               </div>
             </div>
@@ -524,10 +524,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            驱动 Qwen Image Edit 的<span className="text-[#ffcc33]">核心技术</span>
+            驱动 Qwen Image Edit 的<span className="text-[#ffcc33]">{isZh ? '核心技术' : 'Core Technology'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            前沿的 AI 架构与双通道处理机制，使 Qwen Image Edit 成为面向全球专业用户的智能图像编辑基础模型。
+            {isZh ? '前沿的 AI 架构与双通道处理机制，使 Qwen Image Edit 成为面向全球专业用户的智能图像编辑基础模型。' : 'Cutting-edge AI architecture and dual-channel processing mechanism make Qwen Image Edit an intelligent image editing base model for global professional users.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {TECHNOLOGIES.map((tech, i) => (
@@ -559,10 +559,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            Qwen Image Edit：<span className="text-[#ffcc33]">正在重塑专业工作流程</span>
+            Qwen Image Edit：<span className="text-[#ffcc33]">{isZh ? '正在重塑专业工作流程' : 'Reshaping Professional Workflows'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            从电商到创意探索，Qwen Image Edit 以精准而智能的编辑能力，帮助各行业实现高质量、高效率的视觉创作。
+            {isZh ? '从电商到创意探索，Qwen Image Edit 以精准而智能的编辑能力，帮助各行业实现高质量、高效率的视觉创作。' : 'From e-commerce to creative exploration, Qwen Image Edit, with its precise and intelligent editing capabilities, helps various industries achieve high-quality, high-efficiency visual creation.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
             {USE_CASES.map((uc, i) => (
@@ -589,10 +589,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            Qwen Image Edit 的成功案例
+            Qwen Image Edit {isZh ? '的成功案例' : 'Success Stories'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            成千上万的创作者和企业正在使用 Qwen Image Edit 优化工作流程，加速制作效率，降低成本，并获得专业级编辑效果。
+            {isZh ? '成千上万的创作者和企业正在使用 Qwen Image Edit 优化工作流程，加速制作效率，降低成本，并获得专业级编辑效果。' : 'Thousands of creators and businesses are using Qwen Image Edit to optimize workflows, accelerate production efficiency, reduce costs, and achieve professional-grade editing results.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -602,10 +602,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            关于 Qwen Image Edit 的常见问题解答
+            {isZh ? '关于 Qwen Image Edit 的常见问题解答' : 'Frequently Asked Questions About Qwen Image Edit'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            全面解答 Qwen Image Edit 的功能特点、双通道架构、双语文本能力、技术原理、编辑质量与商业使用权限。
+            {isZh ? '全面解答 Qwen Image Edit 的功能特点、双通道架构、双语文本能力、技术原理、编辑质量与商业使用权限。' : 'Provides comprehensive answers to Qwen Image Edit’s features, dual-channel architecture, bilingual text capabilities, technical principles, editing quality, and commercial use permissions.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -626,12 +626,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            使用 Qwen Image Edit，开启专业级 AI 图像编辑体验
+            {isZh ? '使用 Qwen Image Edit，开启专业级 AI 图像编辑体验' : 'Use Qwen Image Edit to Unlock a Professional-Grade AI Image Editing Experience'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            加入全球专业用户行列，使用 Qwen Image Edit 重塑工作流程。双通道 AI 融合语义智能与外观精度，只需上传图片并描述修改需求即可完成编辑。支持中英文文本、风格转换与对象操作，Apache 2.0 协议保障商业自由，全面提升效率并释放无限创意潜能。
+            {isZh ? '加入全球专业用户行列，使用 Qwen Image Edit 重塑工作流程。双通道 AI 融合语义智能与外观精度，只需上传图片并描述修改需求即可完成编辑。支持中英文文本、风格转换与对象操作，Apache 2.0 协议保障商业自由，全面提升效率并释放无限创意潜能。' : 'Join the ranks of global professional users and reshape your workflow with Qwen Image Edit. The dual-channel AI integrates semantic intelligence and appearance precision; simply upload an image and describe your modification needs to complete editing. It supports Chinese and English text, style transfer, and object manipulation. The Apache 2.0 protocol ensures commercial freedom, comprehensively improving efficiency and unleashing unlimited creative potential.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即开始免费使用</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即开始免费使用' : '✨ Start Free Now'}</Link>
         </div>
       </section>
     </div>

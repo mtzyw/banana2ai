@@ -62,14 +62,14 @@ function FadeIn({ children, className = '', delay = 0 }: { children: React.React
 export default function BananaPromptsClient() {
   const isZh = useLocale() === 'zh';
   const EXAMPLE_PROMPTS = [
-    { id: 1, prompt: 'Do this for the Bleach. Input Variable: [INSERT TITLE] (e.g., The Terminator, Dune, The Matrix). System Prompt: Create a collection of six anime-styled movie posters arranged in a 3x2 grid layout.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/anime-posters.webp', tags: ['动漫', '海报', '网格'] },
-    { id: 2, prompt: 'Cinematic film still of the protagonist in a dimly lit, ancient private library, caught in a decisive moment while researching late at night. Shot on an Arri Alexa Mini with a Cooke S4/i 50mm Prime lens at T2.0.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/researcher-night.webp', tags: ['电影', '人像', '写实'] },
-    { id: 3, prompt: 'Create a hyper-realistic 3D render of a transparent twitter profile card, designed like a futuristic holographic ID badge held between fingers against a dark background.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/holographic-id.webp', tags: ['3D', '未来', '卡片'] },
-    { id: 4, prompt: 'Oil on Canvas, A view of the bay from an upstairs window. In a impressionism, new media art style. A breathtaking sunset with warm golden and amber tones illuminating the scene.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/sunset-art.webp', tags: ['油画', '风景', '印象派'] },
-    { id: 5, prompt: 'Highly detailed close-up photograph, ultra-photorealistic, 8K resolution shot on a digital camera with cinematic lighting and dramatic shadows. Portrait of a man with sunglasses.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/portrait-sunglasses.webp', tags: ['人像', '摄影', '特写'] },
-    { id: 6, prompt: 'Cinematic 90s film still of a stunning young man with messy wet-look dark hair strands falling across forehead, photographed on Kodak Vision3 500T film stock emulation.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/dark-hair-portrait.webp', tags: ['电影', '复古', '90年代'] },
-    { id: 7, prompt: 'Beautiful redheaded woman with a perfectly proportioned figure, smiling happily and naturally, posing on a tropical beach at golden hour with soft warm lighting.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/beach-figure.webp', tags: ['人像', '海滩', '自然'] },
-    { id: 8, prompt: 'Ultra-viral recipe infographic. Showcase a FOOD with melted cheese, crispy edges and fresh herbs. Include step-by-step visual guide with ingredients list and cooking time.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/food-recipe.webp', tags: ['美食', '信息图', '食谱'] },
+    { id: 1, prompt: 'Do this for the Bleach. Input Variable: [INSERT TITLE] (e.g., The Terminator, Dune, The Matrix). System Prompt: Create a collection of six anime-styled movie posters arranged in a 3x2 grid layout.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/anime-posters.webp', tags: [isZh ? '动漫' : 'Anime', isZh ? '海报' : 'Poster', isZh ? '网格' : 'Grid'] },
+    { id: 2, prompt: 'Cinematic film still of the protagonist in a dimly lit, ancient private library, caught in a decisive moment while researching late at night. Shot on an Arri Alexa Mini with a Cooke S4/i 50mm Prime lens at T2.0.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/researcher-night.webp', tags: [isZh ? '电影' : 'Movie', isZh ? '人像' : 'Portrait', isZh ? '写实' : 'Realistic'] },
+    { id: 3, prompt: 'Create a hyper-realistic 3D render of a transparent twitter profile card, designed like a futuristic holographic ID badge held between fingers against a dark background.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/holographic-id.webp', tags: ['3D', isZh ? '未来' : 'Future', isZh ? '卡片' : 'Card'] },
+    { id: 4, prompt: 'Oil on Canvas, A view of the bay from an upstairs window. In a impressionism, new media art style. A breathtaking sunset with warm golden and amber tones illuminating the scene.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/sunset-art.webp', tags: [isZh ? '油画' : 'Oil Painting', isZh ? '风景' : 'Landscape', isZh ? '印象派' : 'Impressionist'] },
+    { id: 5, prompt: 'Highly detailed close-up photograph, ultra-photorealistic, 8K resolution shot on a digital camera with cinematic lighting and dramatic shadows. Portrait of a man with sunglasses.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/portrait-sunglasses.webp', tags: [isZh ? '人像' : 'Portrait', isZh ? '摄影' : 'Photography', isZh ? '特写' : 'Close-up'] },
+    { id: 6, prompt: 'Cinematic 90s film still of a stunning young man with messy wet-look dark hair strands falling across forehead, photographed on Kodak Vision3 500T film stock emulation.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/dark-hair-portrait.webp', tags: [isZh ? '电影' : 'Movie', isZh ? '复古' : 'Retro', isZh ? '90年代' : '90s'] },
+    { id: 7, prompt: 'Beautiful redheaded woman with a perfectly proportioned figure, smiling happily and naturally, posing on a tropical beach at golden hour with soft warm lighting.', model: 'Nano Banana', image: 'https://static.banana2ai.net/images/prompts/beach-figure.webp', tags: [isZh ? '人像' : 'Portrait', isZh ? '海滩' : 'Beach', isZh ? '自然' : 'Nature'] },
+    { id: 8, prompt: 'Ultra-viral recipe infographic. Showcase a FOOD with melted cheese, crispy edges and fresh herbs. Include step-by-step visual guide with ingredients list and cooking time.', model: 'Nano Banana Pro', image: 'https://static.banana2ai.net/images/prompts/food-recipe.webp', tags: [isZh ? '美食' : 'Food', isZh ? '信息图' : 'Infographic', isZh ? '食谱' : 'Recipe'] },
   ];
 
   const HOW_IT_WORKS = [
@@ -195,10 +195,10 @@ export default function BananaPromptsClient() {
         <div className="relative mx-auto max-w-7xl text-center">
           <FadeIn>
             <h1 className="gradient-glow-text mb-3 text-xl font-bold leading-tight sm:mb-4 sm:text-2xl md:text-4xl">
-              最新香蕉图像生成提示词示例与最佳实践
+              {isZh ? '最新香蕉图像生成提示词示例与最佳实践' : 'Latest Banana Image Generation Prompt Examples and Best Practices'}
             </h1>
             <h2 className="mx-auto max-w-3xl text-xs text-white/50 sm:text-sm md:text-base">
-              探索精彩的香蕉图像生成提示词及示例图片。从这些精心策划的提示词中获取灵感，创作出令人惊艳的图像。
+              {isZh ? '探索精彩的香蕉图像生成提示词及示例图片。从这些精心策划的提示词中获取灵感，创作出令人惊艳的图像。' : 'Explore amazing banana image generation prompts and example images. Get inspiration from these carefully curated prompts to create stunning images.'}
             </h2>
           </FadeIn>
 
@@ -211,15 +211,15 @@ export default function BananaPromptsClient() {
           <div className="rounded-xl border border-[#363b4e] bg-[#161f2b] p-5">
             <div className="mb-2 flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-[#ffcc33]" />
-              <span className="font-semibold text-white">使用 AI 生成 Nano Banana 提示词</span>
-              <span className="rounded-md bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/60">3 今日剩余使用次数</span>
+              <span className="font-semibold text-white">{isZh ? '使用 AI 生成 Nano Banana 提示词' : 'Generate AI Nano Banana prompts'}</span>
+              <span className="rounded-md bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white/60">{isZh ? '3 今日剩余使用次数' : '3 remaining uses today'}</span>
             </div>
-            <p className="mb-3 text-sm text-white/40">描述您的图片创意，让 AI 为您创建完美的 Nano Banana 提示词</p>
+            <p className="mb-3 text-sm text-white/40">{isZh ? '描述您的图片创意，让 AI 为您创建完美的 Nano Banana 提示词' : 'Describe your image idea and let AI create the perfect Nano Banana prompts for you'}</p>
             <div className="flex gap-2">
               <textarea
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
-                placeholder="描述您想要创建的图像..."
+                placeholder="{isZh ? '描述您想要创建的图像' : 'Describe the image you want to create'}..."
                 rows={3}
                 className="min-h-[80px] flex-1 resize-none rounded-lg border border-[#363b4e] bg-[#0f1117] px-3 py-2 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-[#ffcc33]/50"
               />
@@ -227,7 +227,7 @@ export default function BananaPromptsClient() {
             <div className="mt-3 flex justify-end">
               <button className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#ffcc33] to-[#ff9900] px-5 py-2 text-sm font-semibold text-black transition-all hover:opacity-90">
                 <Sparkles className="h-4 w-4" />
-                生成
+                {isZh ? '生成' : 'Generate'}
               </button>
             </div>
           </div>
@@ -278,7 +278,7 @@ export default function BananaPromptsClient() {
             ))}
           </div>
           {filtered.length === 0 && (
-            <div className="py-20 text-center text-white/30">未找到匹配的提示词</div>
+            <div className="py-20 text-center text-white/30">{isZh ? '未找到匹配的提示词' : 'No matching prompts found'}</div>
           )}
         </div>
       </section>
@@ -288,9 +288,9 @@ export default function BananaPromptsClient() {
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">从发现到创作：Banana Prompts 的工作原理</h2>
+            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">{isZh ? '从发现到创作：Banana Prompts 的工作原理' : 'From discovery to creation: How Banana Prompts works'}</h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-5xl md:text-base">
-              Banana Prompts 通过直观的工作流程简化您的创作过程，专为速度和灵感而设计。从浏览数千个精选提示词到一键生成图像，我们让每个人都能轻松使用 AI 图像创作。
+              Banana Prompts {isZh ? '通过直观的工作流程简化您的创作过程，专为速度和灵感而设计。从浏览数千个精选提示词到一键生成图像，我们让每个人都能轻松使用 AI 图像创作。' : 'Simplify your creative process with an intuitive workflow, designed for speed and inspiration. From browsing thousands of curated prompts to one-click image generation, we make AI image creation easy for everyone.'}
             </p>
           </FadeIn>
           <FadeIn delay={0.15}>
@@ -333,9 +333,9 @@ export default function BananaPromptsClient() {
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-20 text-center">
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">让 Banana Prompts 成为必备工具的强大功能</h2>
+            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">{isZh ? '让 Banana Prompts 成为必备工具的强大功能' : 'Powerful features that make Banana Prompts an essential tool'}</h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              了解为什么 Banana Prompts 是全球数千名创作者首选的提示词资源平台。
+              {isZh ? '了解为什么 Banana Prompts 是全球数千名创作者首选的提示词资源平台。' : 'Discover why Banana Prompts is the preferred prompt resource platform for thousands of creators worldwide.'}
             </p>
           </FadeIn>
           <div className="space-y-36 md:space-y-56">
@@ -365,9 +365,9 @@ export default function BananaPromptsClient() {
       <section className="relative bg-gradient-to-b from-[#0f1117] via-[#161926] to-[#0f1117] px-4 py-12 md:py-24">
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-8 text-center md:mb-16">
-            <h2 className="mb-3 text-2xl font-bold md:mb-4 md:text-3xl lg:text-4xl">为什么 Banana Prompts 是终极提示词资源</h2>
+            <h2 className="mb-3 text-2xl font-bold md:mb-4 md:text-3xl lg:text-4xl">{isZh ? '为什么 Banana Prompts 是终极提示词资源' : 'Why Banana Prompts is the ultimate prompt resource'}</h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              Banana Prompts 作为最全面、最易用且最有效的提示词发现平台脱颖而出。
+              Banana Prompts {isZh ? '作为最全面、最易用且最有效的提示词发现平台脱颖而出。' : 'Stand out as the most comprehensive, user-friendly, and effective prompt discovery platform.'}
             </p>
           </FadeIn>
           <div className="hidden md:flex md:flex-wrap md:justify-center md:gap-4 mb-8">
@@ -401,9 +401,9 @@ export default function BananaPromptsClient() {
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">谁能从 Banana Prompts 中受益?</h2>
+            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">{isZh ? '谁能从 Banana Prompts 中受益?' : 'Who can benefit from Banana Prompts?'}</h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              无论您是专业创作者还是 AI 爱好者，Banana Prompts 都为您提供强大的提示词发现和创建工具。
+              {isZh ? '无论您是专业创作者还是 AI 爱好者，Banana Prompts 都为您提供强大的提示词发现和创建工具。' : 'Whether you are a professional creator or an AI enthusiast, Banana Prompts provides you with powerful prompt discovery and creation tools.'}
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -430,8 +430,8 @@ export default function BananaPromptsClient() {
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">社区对 Banana Prompts 的评价</h2>
-            <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">数千名创作者信赖 Banana Prompts 来获取灵感和提升创作效率。</p>
+            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">{isZh ? '社区对 Banana Prompts 的评价' : 'Community reviews of Banana Prompts'}</h2>
+            <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">{isZh ? '数千名创作者信赖 Banana Prompts 来获取灵感和提升创作效率。' : 'Thousands of creators trust Banana Prompts for inspiration and to boost creative efficiency'}</p>
           </FadeIn>
           <div className="relative rounded-xl border border-[#363b4e] bg-[#0f1117] p-6 shadow-lg md:p-12">
             <div className="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-[#ffcc33] opacity-[0.03] blur-3xl" />
@@ -481,7 +481,7 @@ export default function BananaPromptsClient() {
         <GlowOrbs />
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
-            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">关于 Banana Prompts 的常见问题</h2>
+            <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">{isZh ? '关于 Banana Prompts 的常见问题' : 'Frequently asked questions about Banana Prompts'}</h2>
           </FadeIn>
           <div className="mx-auto max-w-7xl">
             {FAQ_ITEMS.map((faq, i) => {
@@ -512,19 +512,19 @@ export default function BananaPromptsClient() {
             <FadeIn className="mb-12 text-center lg:mb-0 lg:text-left">
               <div className="lg:pr-8">
                 <h2 className="gradient-glow-text mb-6 text-3xl font-bold md:text-4xl lg:text-5xl">
-                  立即使用 Banana Prompts 开始创作精彩图像
+                  {isZh ? '立即使用 Banana Prompts 开始创作精彩图像' : 'Start creating amazing images instantly with Banana Prompts.'}
                 </h2>
                 <p className="mb-8 text-base leading-relaxed text-white/90 md:text-lg">
-                  浏览数千条精选提示词，使用 AI 生成自定义提示词，一键在 Banana Pro AI 上创作专业图像。免费开始，无需注册。
+                  {isZh ? '浏览数千条精选提示词，使用 AI 生成自定义提示词，一键在 Banana Pro AI 上创作专业图像。免费开始，无需注册。' : 'Browse thousands of curated prompts, use AI to generate custom prompts, and create professional images with one click on Banana Pro AI. Start for free, no registration required.'}
                 </p>
                 <Link href="/zh/image/banana-pro-ai/" className="highlight-button group inline-flex items-center px-8 py-3 text-lg">
-                  立即免费开始创作 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  {isZh ? '立即免费开始创作' : 'Start creating for free now.'} <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </FadeIn>
             <FadeIn className="relative mx-auto w-full max-w-md lg:max-w-none" delay={0.15}>
               <div className="relative aspect-square w-full overflow-hidden rounded-3xl shadow-2xl" style={{ maskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)', WebkitMaskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)' }}>
-                <Image src="https://static.banana2ai.net/images/cta-cover.webp" alt="开始创作" fill className="object-cover" />
+                <Image src="https://static.banana2ai.net/images/cta-cover.webp" alt="{isZh ? '开始创作' : 'Start creating'}" fill className="object-cover" />
               </div>
             </FadeIn>
           </div>

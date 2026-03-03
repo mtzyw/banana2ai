@@ -1,3 +1,4 @@
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import VideoGeneratorPanel from '@/components/banana/VideoGeneratorPanel';
@@ -29,6 +30,7 @@ function FAQItem({ question, answer, defaultOpen }: { question: string; answer: 
 
 export default async function VideoToolPage({ params }: Props) {
   const { slug } = await params;
+  const isZh = (await getLocale()) === 'zh';
   const tool = videoTools[slug];
 
   if (!tool) {
@@ -40,9 +42,9 @@ export default async function VideoToolPage({ params }: Props) {
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="hover:text-white/70 transition-colors">首页</Link>
+          <Link href="/zh/" className="hover:text-white/70 transition-colors">{isZh ? '首页' : 'Homepage'}</Link>
           <span>/</span>
-          <Link href="/zh/video/" className="hover:text-white/70 transition-colors">AI视频生成器</Link>
+          <Link href="/zh/video/" className="hover:text-white/70 transition-colors">AI{isZh ? '视频生成器' : 'Video Generator'}</Link>
           <span>/</span>
           <span className="text-[#ffcc33]">{tool.modelName}</span>
         </nav>
@@ -53,7 +55,7 @@ export default async function VideoToolPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#ffcc33]/10 border border-[#ffcc33]/20 text-[#ffcc33] text-sm font-medium mb-4">
-              🎬 AI 视频生成
+              🎬 AI {isZh ? '视频生成' : 'Video Generation'}
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
               <span className="bg-gradient-to-r from-[#ffcc33] via-[#ff9f43] to-[#ffcc33] bg-clip-text text-transparent">
@@ -66,7 +68,7 @@ export default async function VideoToolPage({ params }: Props) {
               href="/zh/pricing/"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#ffcc33] to-[#ff9f43] text-black font-bold hover:opacity-90 transition-opacity mb-8"
             >
-              🎬 立即体验
+              🎬 {isZh ? '立即体验' : 'Experience Now'}
             </Link>
             <ul className="space-y-2">
               {tool.features.slice(0, 4).map((f, i) => (
@@ -93,7 +95,7 @@ export default async function VideoToolPage({ params }: Props) {
       <section className="bg-[#13151f] py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
-            {tool.modelName} 的核心功能
+            {tool.modelName} {isZh ? '的核心功能' : 'Core Features'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {tool.features.map((f, i) => (
@@ -116,7 +118,7 @@ export default async function VideoToolPage({ params }: Props) {
       {/* Steps Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
-          简单几步，完成专业视频创作
+          {isZh ? '简单几步，完成专业视频创作' : 'Create professional videos in a few simple steps'}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {tool.steps.map((step, i) => (
@@ -135,7 +137,7 @@ export default async function VideoToolPage({ params }: Props) {
       <section className="bg-[#13151f] py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
-            {tool.modelName}：适用场景
+            {tool.modelName}：{isZh ? '适用场景' : 'Use Cases'}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {tool.useCases.map((uc, i) => (
@@ -151,7 +153,7 @@ export default async function VideoToolPage({ params }: Props) {
       {/* Testimonials Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
-          用户对 {tool.modelName} 的评价
+          {isZh ? '用户对 {tool.modelName} 的评价' : 'User reviews of {tool.modelName}'}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {tool.testimonials.map((t, i) => (
@@ -175,7 +177,7 @@ export default async function VideoToolPage({ params }: Props) {
       <section className="bg-[#13151f] py-16">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
-            关于 {tool.modelName} 的常见问题
+            {isZh ? '关于 {tool.modelName} 的常见问题' : 'Frequently asked questions about {tool.modelName}'}
           </h2>
           <div className="space-y-3">
             {tool.faqs.map((faq, i) => (
@@ -198,7 +200,7 @@ export default async function VideoToolPage({ params }: Props) {
             href="/zh/pricing/"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#ffcc33] to-[#ff9f43] text-black font-bold text-lg hover:opacity-90 transition-opacity"
           >
-            🎬 立即开始免费使用
+            🎬 {isZh ? '立即开始免费使用' : 'Start Using for Free Now'}
           </Link>
         </div>
       </section>

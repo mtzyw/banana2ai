@@ -149,33 +149,33 @@ function TestimonialCarousel() {
 const TESTIMONIALS = [
   {
     name: 'Emily Carter',
-    role: '内容创作者',
+    role: 'Content Creator',
     avatar: 'https://static.banana2ai.net/images/avatars/bzj3qje3ijz7.webp',
-    quote: '我试过市面上所有的 AI 工具，但 Veo 3 独树一帜。Google Veo 3 的音频同步功能简直完美无瑕，为我节省了数小时的剪辑时间，让我能在不牺牲质量的情况下制作更多内容。',
+    quote: 'I have tried all AI tools on the market, but Veo 3 stands out. Google Veo 3 audio sync feature is simply flawless, saving me hours of editing time and allowing me to create more content without sacrificing quality.',
   },
   {
     name: 'David Chen',
-    role: '数字营销人员',
+    role: 'Digital Marketer',
     avatar: 'https://static.banana2ai.net/images/avatars/sv7s90civ0n2.webp',
-    quote: 'Google Veo 3 彻底改变了我们的整个营销工作流程。我们现在可以使用 Veo 3 在几分钟内制作出工作室品质的广告，显著降低了制作成本，并使我们能够灵活地快速尝试不同的创意概念。',
+    quote: 'Google Veo 3 has completely transformed our entire marketing workflow. We can now use Veo 3 to produce studio-quality advertisements in minutes, significantly reducing production costs and giving us the flexibility to quickly experiment with different creative concepts.',
   },
   {
     name: 'Michael Ross',
-    role: 'VFX 艺术家',
+    role: 'VFX Artist',
     avatar: 'https://static.banana2ai.net/images/avatars/f2gxbdnt7si8.webp',
-    quote: 'Veo 3 中的物理引擎令人大开眼界。Google Veo 3 真正理解物体在现实世界中如何移动，这使得生成的视频看起来极其真实，超越了我之前用于视觉特效的任何其他生成式视频工具。',
+    quote: 'The physics engine in Veo 3 is eye-opening. Google Veo 3 truly understands how objects move in the real world, making the generated videos look incredibly realistic, surpassing any other generative video tool I have used for visual effects.',
   },
   {
     name: 'Lucyka Lee',
-    role: '首席动画师',
+    role: 'Lead Animator',
     avatar: 'https://static.banana2ai.net/images/avatars/spbaurgotgng.webp',
-    quote: '图生视频功能对我的动画工作来说是一个游戏规则改变者。我只需将静态角色设计上传到 Veo 3，它就能赋予它们完美自然的动作，为我节省了数周的手工关键帧制作精力。',
+    quote: 'The image-to-video feature is a game-changer for my animation work. I simply upload static character designs to Veo 3, and it brings them to life with perfectly natural movements, saving me weeks of manual keyframing effort.',
   },
   {
     name: 'Sarah Jenkins',
-    role: '独立制作人',
+    role: 'Independent Producer',
     avatar: 'https://static.banana2ai.net/images/avatars/wur60e4yhiaf.webp',
-    quote: '我曾对 AI 视频持怀疑态度，但 Veo 3 证明我错了。上传我们的产品照片并看着它们变成电影般的商业广告简直太神奇了。Google Veo 3 在添加动态逼真运动的同时，完美保留了图像的保真度。',
+    quote: 'I used to be skeptical about AI video, but Veo 3 proved me wrong. Uploading our product photos and watching them transform into cinematic commercials is simply magical. Google Veo 3 perfectly preserves the image fidelity while adding dynamic, realistic motion.',
   },
 ];
 
@@ -301,11 +301,11 @@ export default function Page() {
       {/* ── Breadcrumb ── */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <nav className="flex items-center gap-2 text-sm text-white/40">
-          <Link href="/zh/" className="transition-colors hover:text-white/70">首页</Link>
+          <Link href="/zh/" className="transition-colors hover:text-white/70">{isZh ? '首页' : 'Homepage'}</Link>
           <span>/</span>
-          <Link href="/zh/video/" className="transition-colors hover:text-white/70">AI视频生成器</Link>
+          <Link href="/zh/video/" className="transition-colors hover:text-white/70">{isZh ? 'AI视频生成器' : 'AI Video Generator'}</Link>
           <span>/</span>
-          <span className="text-[#ffcc33]">Veo 3 视频生成器</span>
+          <span className="text-[#ffcc33]">{isZh ? 'Veo 3 视频生成器' : 'Veo 3 Video Generator'}</span>
         </nav>
       </div>
 
@@ -316,28 +316,28 @@ export default function Page() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div>
               <h1 className="gradient-glow-text mb-4 text-3xl font-bold leading-tight scroll-fade-in sm:text-4xl md:text-5xl">
-                体验 Google Veo 3 模型的突破性力量
+                {isZh ? '体验 Google Veo 3 模型的突破性力量' : 'Experience the breakthrough power of the Google Veo 3 model'}
               </h1>
               <h2 className="mb-4 text-lg font-medium text-white/80 md:text-xl">
-                Veo 3 视频生成器：终极 AI 创作平台
+                Veo 3 {isZh ? '视频生成器：终极 AI 创作平台' : 'Video Generator: The Ultimate AI Creation Platform'}
               </h2>
               <p className="mb-6 leading-relaxed text-white/60">
-                体验 Veo 3 带来的内容创作未来，这是专为电影制作人和营销人员设计的先进 Google Veo 3 模型。将文本提示或静态图像转化为带有同步音频的高清 1080p 视频。这款 Veo 3 AI 工具确保角色一致性、逼真的物理效果以及令人惊叹的视觉质量，助力您的下一个大项目。
+                {isZh ? '体验 Veo 3 带来的内容创作未来，这是专为电影制作人和营销人员设计的先进 Google Veo 3 模型。将文本提示或静态图像转化为带有同步音频的高清 1080p 视频。这款 Veo 3 AI 工具确保角色一致性、逼真的物理效果以及令人惊叹的视觉质量，助力您的下一个大项目。' : 'Experience the future of content creation with Veo 3, an advanced Google Veo 3 model designed for filmmakers and marketers. Transform text prompts or static images into high definition 1080p videos with synchronized audio. This Veo 3 AI tool ensures character consistency, realistic physics, and stunning visual quality to power your next big project.'}
               </p>
-              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">✨ 立即免费体验</Link>
+              <Link href="/zh/pricing/" className="highlight-button mb-8 inline-flex">{isZh ? '✨ 立即免费体验' : '✨ Try for free now'}</Link>
               <ul className="mt-8 space-y-2">
                 {[
-                  '🎬 高清 1080p 视频，同步音频生成',
-                  '🎥 电影级视觉质量与逼真物理效果',
-                  '🖼️ 支持文生视频与图生视频两种模式',
-                  '🔒 企业级安全，SynthID 水印保护',
+                  isZh ? '🎬 高清 1080p 视频，同步音频生成' : '🎬 High definition 1080p video, synchronized audio generation',
+                  isZh ? '🎥 电影级视觉质量与逼真物理效果' : '🎥 Cinematic visual quality with realistic physics',
+                  isZh ? '🖼️ 支持文生视频与图生视频两种模式' : '🖼️ Supports text to video and image to video modes',
+                  isZh ? '🔒 企业级安全，SynthID 水印保护' : '🔒 Enterprise grade security, SynthID watermark protection',
                 ].map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-white/70">{f}</li>
                 ))}
               </ul>
             </div>
             <div className="image-hover-zoom relative aspect-video overflow-hidden rounded-2xl bg-[#1c2030] lg:aspect-square">
-              <Image src="https://static.banana2ai.net/images/video/veo3gen-showcase.webp" alt="Veo 3 视频生成器" fill className="object-cover" />
+              <Image src="https://static.banana2ai.net/images/video/veo3gen-showcase.webp" alt="Veo 3 {isZh ? '视频生成器' : 'Video Generator'}" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -354,10 +354,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            如何使用 <span className="text-[#ffcc33]">Veo 3 视频生成器</span>
+            如何使用 <span className="text-[#ffcc33]">{isZh ? 'Veo 3 视频生成器' : 'Veo 3 Video Generator'}</span>
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            使用我们直观的 Veo 3 界面，只需三个简单步骤即可制作工作室品质的视频。
+            {isZh ? '使用我们直观的 Veo 3 界面，只需三个简单步骤即可制作工作室品质的视频。' : 'Create studio quality videos in just three simple steps using our intuitive Veo 3 interface.'}
           </p>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {STEPS.map((step, i) => (
@@ -392,10 +392,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            <span className="text-[#ffcc33]">Veo 3</span> 的突破性功能
+            <span className="text-[#ffcc33]">Veo 3</span> {isZh ? '的突破性功能' : 'Breakthrough Features'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            探索让 Veo 3 成为 AI 视频生成行业领导者的突破性功能。
+            {isZh ? '探索让 Veo 3 成为 AI 视频生成行业领导者的突破性功能。' : 'Explore the breakthrough features that make Veo 3 a leader in the AI video generation industry.'}
           </p>
 
           {/* Mobile tabs */}
@@ -457,10 +457,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl">
-            释放 <span className="text-[#ffcc33]">Veo 3</span> 的潜力
+            {isZh ? '释放' : 'Unleash'} <span className="text-[#ffcc33]">Veo 3</span> {isZh ? '的潜力' : 'The Potential'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50 md:text-base">
-            看看各行各业的专业人士如何利用 Veo 3 改变他们的工作流程。
+            {isZh ? '看看各行各业的专业人士如何利用 Veo 3 改变他们的工作流程。' : 'See how professionals across various industries are transforming their workflows with Veo 3.'}
           </p>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {USE_CASES.map((uc, i) => (
@@ -484,10 +484,10 @@ export default function Page() {
         <GlowOrbs />
         <div className="mx-auto max-w-7xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl lg:text-4xl gradient-glow-text">
-            用户对 Veo 3 的评价
+            {isZh ? '用户对 Veo 3 的评价' : 'User Reviews of Veo 3'}
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-sm text-white/50">
-            加入成千上万信赖 Veo 3 满足其视频生成需求的创作者行列。
+            {isZh ? '加入成千上万信赖 Veo 3 满足其视频生成需求的创作者行列。' : 'Join thousands of creators who trust Veo 3 for their video generation needs.'}
           </p>
           <TestimonialCarousel />
         </div>
@@ -497,10 +497,10 @@ export default function Page() {
       <section className="px-4 py-16 md:py-24">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-4 text-center text-2xl font-bold scroll-fade-in md:text-3xl gradient-glow-text">
-            常见问题解答
+            {isZh ? '常见问题解答' : 'Frequently Asked Questions'}
           </h2>
           <p className="mx-auto mb-10 max-w-3xl text-center text-sm text-white/50">
-            关于 Veo 3 AI 视频生成器您需要了解的一切。
+            {isZh ? '关于 Veo 3 AI 视频生成器您需要了解的一切。' : 'Everything you need to know about the Veo 3 AI video generator.'}
           </p>
           <div className="space-y-3">
             {FAQS.map((faq, i) => (
@@ -521,12 +521,12 @@ export default function Page() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#ffcc33]/5 to-[#3b82f6]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <div className="relative mx-auto max-w-3xl text-center">
           <h2 className="gradient-glow-text mb-4 text-3xl font-bold scroll-fade-in md:text-4xl">
-            立即开始使用 Veo 3 创作
+            {isZh ? '立即开始使用 Veo 3 创作' : 'Start Creating with Veo 3 Now'}
           </h2>
           <p className="mb-8 text-lg text-white/60">
-            不要在快速发展的数字环境中落后。立即加入 AI 视频革命，利用 Google Veo 3 的变革力量释放您无限的创造力，将您的故事变为现实。
+            {isZh ? '不要在快速发展的数字环境中落后。立即加入 AI 视频革命，利用 Google Veo 3 的变革力量释放您无限的创造力，将您的故事变为现实。' : 'Do not fall behind in the rapidly evolving digital landscape. Join the AI video revolution today and unleash your limitless creativity, bringing your stories to life with the transformative power of Google Veo 3.'}
           </p>
-          <Link href="/zh/pricing/" className="highlight-button text-lg">✨ 立即免费开始创作</Link>
+          <Link href="/zh/pricing/" className="highlight-button text-lg">{isZh ? '✨ 立即免费开始创作' : '✨ Start creating for free now'}</Link>
         </div>
       </section>
 

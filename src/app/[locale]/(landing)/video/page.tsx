@@ -341,8 +341,8 @@ export default function VideoListPage() {
               <div className="pointer-events-none absolute -inset-6 rounded-3xl bg-gradient-to-r from-[#ffcc33]/20 via-[#ff9900]/20 to-[#ffcc33]/20 opacity-60 blur-3xl" />
               <h1 className="relative text-xl font-bold leading-tight sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
                 <span className="block">
-                  <span className="mr-2">AI 视频生成器</span>
-                  <span className="gradient-text">为专业内容创作而生</span>
+                  <span className="mr-2">{isZh ? 'AI 视频生成器' : 'AI Video Generator'}</span>
+                  <span className="gradient-text">{isZh ? '为专业内容创作而生' : 'Built for Professional Content Creation'}</span>
                 </span>
                 <span className="mx-auto mt-3 block h-0.5 w-44 rounded-full bg-gradient-to-r from-transparent via-[#ffcc33] to-transparent opacity-60 md:mt-4" />
               </h1>
@@ -353,10 +353,10 @@ export default function VideoListPage() {
             <FadeIn className="text-center lg:text-left" delay={0.15}>
               <div className="space-y-4 md:space-y-6">
                 <h2 className="gradient-glow-text text-lg font-bold leading-snug md:text-2xl lg:text-3xl">
-                  即刻将创意转化为精彩视频
+                  {isZh ? '即刻将创意转化为精彩视频' : 'Instantly transform ideas into stunning videos'}
                 </h2>
                 <p className="text-sm leading-relaxed text-white/80 md:text-base lg:text-lg">
-                  使用我们的AI视频生成器制作专业视频。几秒钟内将文本转换为视频或将图片转换为动态视频内容。Banana Pro提供广播级质量效果——免费开始使用，高清画质，零水印。
+                  {isZh ? '使用我们的AI视频生成器制作专业视频。几秒钟内将文本转换为视频或将图片转换为动态视频内容。Banana Pro提供广播级质量效果——免费开始使用，高清画质，零水印。' : 'Create professional videos using our AI video generator. Convert text to video or images to dynamic video content in seconds. Banana Pro delivers broadcast quality results – start for free, HD quality, zero watermarks.'}
                 </p>
                 <FadeIn delay={0.3}>
                   <Link
@@ -369,7 +369,7 @@ export default function VideoListPage() {
                       backgroundClip: 'padding-box, border-box',
                     }}
                   >
-                    <span className="gradient-text relative z-10">注册并免费创建</span>
+                    <span className="gradient-text relative z-10">{isZh ? '注册并免费创建' : 'Register and Create for Free'}</span>
                     <ArrowRight className="relative z-10 h-5 w-5 text-[#ffcc33] transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </FadeIn>
@@ -411,12 +411,12 @@ export default function VideoListPage() {
         <div className="mx-auto max-w-6xl text-center">
           <FadeIn>
             <p className="gradient-glow-text mb-2 text-lg font-bold sm:text-xl md:mb-4 md:text-2xl lg:text-3xl xl:text-4xl">
-              更多 AI 视频生成器
+              {isZh ? '更多 AI 视频生成器' : 'More AI Video Generators'}
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
             <p className="mx-auto mb-4 max-w-4xl text-xs text-white/50 sm:text-sm md:mb-10 md:text-base lg:text-lg">
-              探索我们的专业AI视频生成器合集，专为不同的创意需求和风格而设计
+              {isZh ? '探索我们的专业AI视频生成器合集，专为不同的创意需求和风格而设计' : 'Explore our collection of professional AI video generators, designed for diverse creative needs and styles.'}
             </p>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -449,10 +449,10 @@ export default function VideoListPage() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              您的专业视频之旅：Banana Pro 4 个简单步骤
+              {isZh ? '您的专业视频之旅：Banana Pro 4 个简单步骤' : 'Your Professional Video Journey: Banana Pro in 4 Simple Steps'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-5xl md:text-base">
-              体验 Banana Pro AI 视频生成器的轻松视频创作。使用文本生成视频或图片生成视频，只需四个简单步骤即可将创意转化为引人入胜的视频。
+              {isZh ? '体验 Banana Pro AI 视频生成器的轻松视频创作。使用文本生成视频或图片生成视频，只需四个简单步骤即可将创意转化为引人入胜的视频。' : 'Experience effortless video creation with the Banana Pro AI video generator. Use text to video or image to video generation, transforming ideas into engaging videos in just four simple steps.'}
             </p>
           </FadeIn>
           <FadeIn delay={0.15}>
@@ -497,10 +497,10 @@ export default function VideoListPage() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-8 text-center md:mb-16">
             <h2 className="gradient-text mb-3 text-2xl font-bold md:mb-4 md:text-3xl lg:text-4xl">
-              探索我们的高级AI视频生成模型
+              {isZh ? '探索我们的高级AI视频生成模型' : 'Explore Our Advanced AI Video Generation Models'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/70 md:max-w-4xl md:text-base">
-              Banana Pro AI 提供一系列强大的 AI 视频生成模型，每个模型都针对独特的创作需求进行了优化。从文本生成视频到图像生成视频，探索完美工具。
+              Banana Pro AI {isZh ? '提供一系列强大的 AI 视频生成模型，每个模型都针对独特的创作需求进行了优化。从文本生成视频到图像生成视频，探索完美工具。' : 'Offering a range of powerful AI video generation models, each optimized for unique creative needs. From text to video to image to video, discover the perfect tool.'}
             </p>
           </FadeIn>
 
@@ -562,7 +562,7 @@ export default function VideoListPage() {
                 </div>
                 <div className="mt-6">
                   <Link href="/zh/video/veo-3-video-generator/" className="highlight-button inline-flex items-center gap-2 px-6 py-3">
-                    立即免费试用 <ArrowRight className="h-4 w-4" />
+                    {isZh ? '立即免费试用' : 'Try for Free Now'} <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -577,10 +577,10 @@ export default function VideoListPage() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-8 text-center md:mb-16">
             <h2 className="mb-3 text-2xl font-bold md:mb-4 md:text-3xl lg:text-4xl">
-              不仅是视频创作——您的完整AI制作工作室
+              {isZh ? '不仅是视频创作——您的完整AI制作工作室' : 'More Than Just Video Creation – Your Complete AI Production Studio'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              探索为何 Banana Pro AI 视频生成器是专业视频创作的首选。我们先进的文本生成视频和图片生成视频技术提供广播级质量。
+              {isZh ? '探索为何 Banana Pro AI 视频生成器是专业视频创作的首选。我们先进的文本生成视频和图片生成视频技术提供广播级质量。' : 'Discover why the Banana Pro AI video generator is the top choice for professional video creation. Our advanced text to video and image to video technology delivers broadcast quality.'}
             </p>
           </FadeIn>
 
@@ -639,10 +639,10 @@ export default function VideoListPage() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-20 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              专业内容AI视频生成完整套件
+              {isZh ? '专业内容AI视频生成完整套件' : 'Complete AI Video Generation Suite for Professional Content'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              Banana Pro AI视频生成器提供全面的文本转视频和图片转视频功能。借助我们先进的AI视频生成器技术，轻松创作专业视频。
+              Banana Pro AI{isZh ? '视频生成器提供全面的文本转视频和图片转视频功能。借助我们先进的AI视频生成器技术，轻松创作专业视频。' : 'The video generator offers comprehensive text to video and image to video capabilities. Easily create professional videos with our advanced AI video generator technology.'}
             </p>
           </FadeIn>
 
@@ -683,10 +683,10 @@ export default function VideoListPage() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="relative z-10 mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              无限应用：Banana Pro AI 视频生成器跨越各行业
+              {isZh ? '无限应用：Banana Pro AI 视频生成器跨越各行业' : 'Unlimited Applications: Banana Pro AI Video Generator Across Industries'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              Banana Pro AI 视频生成器为每种创意需求提供专业解决方案。从文本生成视频营销活动到图片生成视频展示，以广播级质量将您的概念变为现实。
+              Banana Pro AI {isZh ? '视频生成器为每种创意需求提供专业解决方案。从文本生成视频营销活动到图片生成视频展示，以广播级质量将您的概念变为现实。' : 'The video generator provides professional solutions for every creative need. From text to video marketing campaigns to image to video presentations, bring your concepts to life with broadcast quality.'}
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 md:gap-10">
@@ -716,10 +716,10 @@ export default function VideoListPage() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              创作者都喜爱 Banana Pro AI 视频生成器
+              {isZh ? '创作者都喜爱 Banana Pro AI 视频生成器' : 'Creators Love the Banana Pro AI Video Generator'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              数千名专业人士信赖 Banana Pro AI 来满足他们的视频创作需求。
+              {isZh ? '数千名专业人士信赖 Banana Pro AI 来满足他们的视频创作需求。' : 'Thousands of professionals trust Banana Pro AI for their video creation needs.'}
             </p>
           </FadeIn>
 
@@ -794,10 +794,10 @@ export default function VideoListPage() {
         <div className="relative mx-auto max-w-7xl">
           <FadeIn className="mb-16 text-center">
             <h2 className="mb-4 text-2xl font-bold md:text-3xl lg:text-4xl">
-              AI视频生成器：常见问题解答
+              AI{isZh ? '视频生成器：常见问题解答' : 'Video Generator: Frequently Asked Questions'}
             </h2>
             <p className="mx-auto max-w-3xl text-sm text-white/50 md:max-w-4xl md:text-base">
-              关于 Banana Pro AI 视频生成器的文本转视频和图片转视频功能，您需要了解的一切。
+              {isZh ? '关于 Banana Pro AI 视频生成器的文本转视频和图片转视频功能，您需要了解的一切。' : 'Everything you need to know about Banana Pro AI video generator text to video and image to video features.'}
             </p>
           </FadeIn>
           <div className="mx-auto max-w-7xl">
@@ -844,16 +844,16 @@ export default function VideoListPage() {
             <FadeIn className="mb-12 text-center lg:mb-0 lg:text-left">
               <div className="lg:pr-8">
                 <h2 className="gradient-glow-text mb-6 text-3xl font-bold md:text-4xl lg:text-5xl">
-                  立即使用AI视频生成器开始创作专业视频
+                  {isZh ? '立即使用AI视频生成器开始创作专业视频' : 'Start Creating Professional Videos with the AI Video Generator Now'}
                 </h2>
                 <p className="mb-8 text-base leading-relaxed text-white/90 md:text-lg">
-                  加入数千名创作者、设计师和企业，使用 Banana Pro AI 的免费文本转视频和图片转视频工具。免费注册，无需信用卡。60 秒内体验专业的 AI 视频创作。
+                  {isZh ? '加入数千名创作者、设计师和企业，使用 Banana Pro AI 的免费文本转视频和图片转视频工具。免费注册，无需信用卡。60 秒内体验专业的 AI 视频创作。' : 'Join thousands of creators, designers, and businesses using Banana Pro AI free text to video and image to video tools. Register for free, no credit card needed. Experience professional AI video creation in 60 seconds.'}
                 </p>
                 <Link
                   href="/zh/video/veo-3-video-generator/"
                   className="highlight-button group inline-flex items-center px-8 py-3 text-lg"
                 >
-                  立即免费开始创作
+                  {isZh ? '立即免费开始创作' : 'Start Creating for Free Now'}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -867,7 +867,7 @@ export default function VideoListPage() {
                   WebkitMaskImage: 'radial-gradient(circle at center, white 50%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0.4) 70%, transparent 100%)',
                 }}
               >
-                <Image src="https://static.banana2ai.net/images/cta-cover.webp" alt="开始创作" fill className="object-cover" />
+                <Image src="https://static.banana2ai.net/images/cta-cover.webp" alt="{isZh ? '开始创作' : 'Start Creating'}" fill className="object-cover" />
                 <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
               </div>
             </FadeIn>
