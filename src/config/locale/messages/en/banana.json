@@ -35,7 +35,9 @@
         "title": "Free to Start",
         "desc": "No credit card required, forever free tier with daily free credits to fuel your creativity."
       }
-    ]
+    ],
+    "title": "User Showcase",
+    "subtitle": "Amazing works from creators"
   },
   "howItWorks": {
     "title": "How It Works",
@@ -95,24 +97,32 @@
   "advancedFeatures": {
     "title": "Professional Features",
     "subtitle": "Why Choose Banana Pro AI?",
-    "items": [
-      {
+    "items": {
+      "0": {
         "title": "Commercial Rights Included",
         "desc": "Fully own your creative output. Banana Pro AI provides complete commercial usage rights for every generated image at no extra cost. Use freely for client projects, advertising, social media, print materials, and more."
       },
-      {
+      "1": {
         "title": "High-Resolution 4K Output",
         "desc": "Banana Pro AI generates images up to 4K resolution with rich detail and outstanding clarity. Perfect for digital and print applications with sharp details, natural colors, and realistic lighting."
       },
-      {
+      "2": {
         "title": "Multiple Image Sizes",
         "desc": "Flexibly choose from multiple image sizes and aspect ratios: 1:1 square for social media, 16:9 widescreen for video covers, 4:5 portrait for Instagram, A4 for print, and more."
       },
-      {
+      "3": {
         "title": "30+ AI Models",
         "desc": "Harness the power of 30+ top AI models including Flux, Stable Diffusion, Midjourney, and more. Banana Pro AI offers the most comprehensive AI image generation model matrix in the industry."
+      },
+      "4": {
+        "title": "Free Credits System",
+        "desc": "Get free credits on signup, start creating without a credit card"
+      },
+      "5": {
+        "title": "Community Showcase",
+        "desc": "Explore outstanding works from community creators for inspiration and tips"
       }
-    ]
+    }
   },
   "useCases": {
     "title": "Use Cases",
