@@ -23,9 +23,31 @@ const ASPECT_RATIOS = [
 const RESOLUTIONS = ['1K', '2K', '4K'];
 const QUANTITIES = [1, 2, 3, 4];
 
+/* ── Credit calculation (matches source site logic) ── */
+function calculateImageCredits(modelId: string, quantity: number, resolution: string): number {
+  const base: Record<string, number | Record<string, number>> = {
+    'nano-banana': 4,
+    'nano-banana-pro': 10,
+    'nano-banana-2': { '1K': 10, '2K': 15, '4K': 20 },
+    'gpt-4o-image': 4,
+    'flux-kontext-pro': 3,
+    'flux-kontext-max': 6,
+    'seedream-4': 2,
+    'seedream-5-lite': 5,
+    'qwen-image': 3,
+    'grok-imagine': 2,
+    'z-image-turbo': 3,
+  };
+  const cost = base[modelId];
+  if (!cost) return 10 * quantity;
+  if (typeof cost === 'number') return cost * quantity;
+  return (cost[resolution] ?? cost['1K'] ?? 10) * quantity;
+}
+
 /* ── AI Models ── */
 type AIModel = {
   id: string;
+  apiModel: string; // Kie.ai model identifier
   name: string;
   badge?: string;
   badgeColor?: string;
@@ -34,23 +56,34 @@ type AIModel = {
   descEn: string;
   credits: string;
   hd?: boolean;
-  modes: string;
+  modes: ('text' | 'image')[];
   recommended?: boolean;
+  // Model-specific capabilities
+  hasNegativePrompt?: boolean;
+  hasGuidanceScale?: boolean;
+  hasSteps?: boolean;
+  hasSafetyChecker?: boolean;
+  hasStyle?: boolean;        // e.g. Ideogram styles
+  ratios?: string[];         // override default ratios
+  resolutions?: string[];    // override default resolutions
+  maxQuantity?: number;      // max images per request
 };
 
 const AI_MODELS: AIModel[] = [
   {
     id: 'nano-banana',
+    apiModel: 'google/gemini-2-5-flash-image',
     name: 'Nano Banana',
     badge: 'SMART',
     badgeColor: 'bg-white/10 text-white/70',
     desc: '由 Google 提供支持的先进 AI 模型，擅长自然语言驱动的图像生成',
     descEn: 'Advanced AI model excelling in natural language-driven image generation powered by Google',
     credits: '4+',
-    modes: 'Text & Image',
+    modes: ['text', 'image'],
   },
   {
     id: 'nano-banana-pro',
+    apiModel: 'bytedance/seedream4.5',
     name: 'Nano Banana Pro',
     badge: 'PRO',
     badgeColor: 'bg-[#ffcc33]/20 text-[#ffcc33]',
@@ -58,11 +91,14 @@ const AI_MODELS: AIModel[] = [
     descEn: 'Professional AI image generation with enhanced quality and advanced controls powered by Google',
     credits: '10+',
     hd: true,
-    modes: 'Text & Image',
+    modes: ['text', 'image'],
     recommended: true,
+    hasGuidanceScale: true,
+    hasSafetyChecker: true,
   },
   {
     id: 'nano-banana-2',
+    apiModel: 'google/imagen4',
     name: 'Nano Banana 2',
     badge: 'NEW',
     badgeColor: 'bg-white/10 text-white/70',
@@ -70,22 +106,26 @@ const AI_MODELS: AIModel[] = [
     descEn: 'Next-gen Flash model delivering lightning speed and Pro-level consistency powered by Google',
     credits: '10+',
     hd: true,
-    modes: 'Text & Image',
+    modes: ['text'],
     recommended: true,
+    hasNegativePrompt: true,
+    maxQuantity: 4,
   },
   {
     id: 'gpt-4o-image',
+    apiModel: 'gpt-image/text-to-image',
     name: 'GPT-4o Image',
     badge: 'STD',
     badgeColor: 'bg-white/10 text-white/70',
     icon: 'openai',
     desc: 'AI 驱动的图像生成与编辑',
     descEn: 'AI-powered image generation and editing',
-    credits: '6+',
-    modes: 'Text & Image',
+    credits: '4+',
+    modes: ['text', 'image'],
   },
   {
     id: 'flux-kontext-pro',
+    apiModel: 'flux-kontext/pro',
     name: 'Flux Kontext Pro',
     badge: 'PRO',
     badgeColor: 'bg-[#ffcc33]/20 text-[#ffcc33]',
@@ -93,21 +133,25 @@ const AI_MODELS: AIModel[] = [
     desc: '生成富含上下文信息的逼真场景，用于插画和故事叙述',
     descEn: 'Generate context-rich realistic scenes for illustration and storytelling',
     credits: '3+',
-    modes: 'Text & Image',
+    modes: ['text', 'image'],
+    hasGuidanceScale: true,
+    hasSteps: true,
   },
   {
     id: 'flux-kontext-max',
+    apiModel: 'flux-kontext/max',
     name: 'Flux Kontext Max',
     badge: 'MAX',
     badgeColor: 'bg-purple-500/20 text-purple-400',
     icon: 'flux',
     desc: '为高端艺术和设计项目创建高度精细、复杂的视觉效果',
     descEn: 'Create highly detailed, complex visuals for high-end art and design projects',
-    credits: '5+',
-    modes: 'Text & Image',
+    credits: '6+',
+    modes: ['text', 'image'],
   },
   {
-    id: 'seedream',
+    id: 'seedream-4',
+    apiModel: 'bytedance/seedream4',
     name: 'Seedream 4.0',
     badge: 'FAST',
     badgeColor: 'bg-green-500/20 text-green-400',
@@ -115,32 +159,43 @@ const AI_MODELS: AIModel[] = [
     desc: '字节跳动先进图像生成模型，具有卓越的质量和创意控制能力',
     descEn: 'ByteDance advanced image generation model with exceptional quality and creative control',
     credits: '2+',
-    modes: 'Text & Image',
+    modes: ['text', 'image'],
+    hasGuidanceScale: true,
+    hasSafetyChecker: true,
   },
   {
     id: 'seedream-5-lite',
+    apiModel: 'bytedance/seedream5-lite',
     name: 'Seedream 5.0 Lite',
     badge: 'NEW',
     badgeColor: 'bg-white/10 text-white/70',
     icon: 'bytedance',
     desc: '字节跳动统一多模态图像生成模型，具备推理和可控视觉创作能力',
     descEn: 'ByteDance unified multimodal image generation model with reasoning and controllable visual creation',
-    credits: '3+',
-    modes: 'Text & Image',
+    credits: '5+',
+    modes: ['text', 'image'],
+    hasGuidanceScale: true,
+    hasSafetyChecker: true,
   },
   {
-    id: 'qwen-image-edit',
-    name: 'Qwen Image Edit',
+    id: 'qwen-image',
+    apiModel: 'qwen/text-to-image',
+    name: 'Qwen Image',
     badge: 'BASIC',
     badgeColor: 'bg-blue-500/20 text-blue-400',
     icon: 'wan',
-    desc: '高级图像编辑，精确控制风格和细节',
-    descEn: 'Advanced image editing with precise style and detail control',
+    desc: '高级图像生成与编辑，精确控制风格和细节',
+    descEn: 'Advanced image generation and editing with precise style and detail control',
     credits: '3+',
-    modes: 'Image',
+    modes: ['text'],
+    hasNegativePrompt: true,
+    hasGuidanceScale: true,
+    hasSteps: true,
+    hasSafetyChecker: true,
   },
   {
-    id: 'grok-imagine-image',
+    id: 'grok-imagine',
+    apiModel: 'grok-imagine/text-to-image',
     name: 'Grok Imagine',
     badge: 'NEW',
     badgeColor: 'bg-white/10 text-white/70',
@@ -148,18 +203,21 @@ const AI_MODELS: AIModel[] = [
     desc: 'xAI 文生图功能，每次请求生成 6 张独特图像',
     descEn: 'xAI text-to-image with stunning visuals - 6 unique images per request',
     credits: '2+',
-    modes: 'Text & Image',
+    modes: ['text'],
   },
   {
     id: 'z-image-turbo',
+    apiModel: 'z-image/turbo',
     name: 'Z-Image Turbo',
     badge: 'FAST',
     badgeColor: 'bg-green-500/20 text-green-400',
     icon: 'wan',
     desc: '通义超快文生图模型，具备照片级真实感和双语文本渲染',
     descEn: 'Ultra-fast 6B parameter text-to-image model with photorealistic output',
-    credits: '2+',
-    modes: 'Text',
+    credits: '3+',
+    modes: ['text'],
+    hasSteps: true,
+    hasSafetyChecker: true,
   },
 ];
 
@@ -205,6 +263,10 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const modelDropdownRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<Mode>('text');
   const [prompt, setPrompt] = useState('');
+  const [negativePrompt, setNegativePrompt] = useState('');
+  const [guidanceScale, setGuidanceScale] = useState(2.5);
+  const [steps, setSteps] = useState(30);
+  const [safetyChecker, setSafetyChecker] = useState(true);
   const [selectedRatio, setSelectedRatio] = useState('1:1');
   const [resolution, setResolution] = useState('1K');
   const [quantity, setQuantity] = useState(1);
@@ -214,6 +276,13 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [exampleIdx, setExampleIdx] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Reset mode if model doesn't support current mode
+  useEffect(() => {
+    if (mode === 'image' && !selectedModel.modes.includes('image')) {
+      setMode('text');
+    }
+  }, [selectedModel, mode]);
 
   // Close model dropdown on outside click
   useEffect(() => {
@@ -345,7 +414,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                             {model.hd && (
                               <span className="rounded bg-white/5 px-2 py-0.5 text-[10px] font-bold text-white/60">HD</span>
                             )}
-                            <span className="rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/60">{model.modes}</span>
+                            <span className="rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/60">{model.modes.map(m => m === 'text' ? 'Text' : 'Image').join(' & ')}</span>
                             {model.recommended && (
                               <span className="ml-auto flex items-center gap-1 text-[10px] text-[#ffcc33]">
                                 <Sparkles className="h-3 w-3" /> Recommended
@@ -369,28 +438,34 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
             <div className="flex h-full flex-col">
               {/* Mode tabs */}
               <div className="mb-4 flex-shrink-0">
-                <div className="grid grid-cols-2 gap-1 rounded-lg bg-[#0f1117] p-1">
-                  {(['text', 'image'] as Mode[]).map((m) => (
-                    <button
-                      key={m}
-                      onClick={() => setMode(m)}
-                      className={`relative rounded-md px-6 py-3 text-sm font-medium transition-all ${
-                        mode === m
-                          ? 'text-white'
-                          : 'text-white/50 hover:text-white/80'
-                      }`}
-                      style={mode === m ? {
-                        background: '#0f1117',
-                        boxShadow: 'inset 0 0 0 2px transparent',
-                        borderImage: 'linear-gradient(135deg, #ffcc33, #ff9900) 1',
-                        border: '2px solid',
-                        borderRadius: '6px',
-                      } : undefined}
-                    >
-                      {m === 'text' ? t('mode_text') : t('mode_image')}
-                    </button>
-                  ))}
-                </div>
+                {selectedModel.modes.length > 1 ? (
+                  <div className={`grid grid-cols-${selectedModel.modes.length} gap-1 rounded-lg bg-[#0f1117] p-1`}>
+                    {selectedModel.modes.map((m) => (
+                      <button
+                        key={m}
+                        onClick={() => setMode(m)}
+                        className={`relative rounded-md px-6 py-3 text-sm font-medium transition-all ${
+                          mode === m ? 'text-white' : 'text-white/50 hover:text-white/80'
+                        }`}
+                        style={mode === m ? {
+                          background: '#0f1117',
+                          boxShadow: 'inset 0 0 0 2px transparent',
+                          borderImage: 'linear-gradient(135deg, #ffcc33, #ff9900) 1',
+                          border: '2px solid',
+                          borderRadius: '6px',
+                        } : undefined}
+                      >
+                        {m === 'text' ? t('mode_text') : t('mode_image')}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="rounded-lg bg-[#0f1117] p-1">
+                    <div className="rounded-md px-6 py-3 text-center text-sm font-medium text-white" style={{ background: '#0f1117', border: '2px solid', borderImage: 'linear-gradient(135deg, #ffcc33, #ff9900) 1', borderRadius: '6px' }}>
+                      {t('mode_text')}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Scrollable body */}
@@ -493,7 +568,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 {/* Resolution */}
                 <div>
                   <div className="mb-2 flex items-center gap-1">
-                    <label className="text-sm font-medium text-white">{t('style')}</label>
+                    <label className="text-sm font-medium text-white">{isZh ? '分辨率' : 'Resolution'}</label>
                   </div>
                   <div className="grid grid-cols-3 gap-2 px-1">
                     {RESOLUTIONS.map((r) => (
@@ -518,13 +593,14 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 </div>
 
                 {/* Quantity */}
+                {(selectedModel.maxQuantity ?? 1) > 1 && (
                 <div>
                   <div className="mb-2 flex items-center gap-1">
-                    <label className="text-sm font-medium text-white">{t('style')}</label>
+                    <label className="text-sm font-medium text-white">{isZh ? '数量' : 'Quantity'}</label>
                     <Info className="h-4 w-4 cursor-help text-white/40" />
                   </div>
                   <div className="grid grid-cols-4 gap-2 px-1">
-                    {QUANTITIES.map((q) => (
+                    {QUANTITIES.filter(q => q <= (selectedModel.maxQuantity ?? 1)).map((q) => (
                       <button
                         key={q}
                         onClick={() => setQuantity(q)}
@@ -544,6 +620,83 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                     ))}
                   </div>
                 </div>
+                )}
+
+                {/* ── Model-specific advanced settings ── */}
+                {(selectedModel.hasNegativePrompt || selectedModel.hasGuidanceScale || selectedModel.hasSteps || selectedModel.hasSafetyChecker) && (
+                  <div className="space-y-3 rounded-lg border border-[#363b4e]/30 bg-[#0f1117]/50 p-3">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#ffcc33]/80 uppercase tracking-wider">
+                      <Sparkles className="h-3 w-3" />
+                      {isZh ? '高级设置' : 'Advanced Settings'}
+                    </div>
+
+                    {/* Negative prompt */}
+                    {selectedModel.hasNegativePrompt && (
+                      <div className="space-y-1">
+                        <label className="text-xs font-medium text-white/60">{isZh ? '负面提示词' : 'Negative Prompt'}</label>
+                        <input
+                          type="text"
+                          value={negativePrompt}
+                          onChange={(e) => setNegativePrompt(e.target.value)}
+                          placeholder={isZh ? '描述不想出现的内容...' : 'Describe what to avoid...'}
+                          className="w-full rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 text-sm text-white placeholder-white/30 focus:border-[#ffcc33] focus:outline-none"
+                        />
+                      </div>
+                    )}
+
+                    {/* Guidance scale */}
+                    {selectedModel.hasGuidanceScale && (
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <label className="text-xs font-medium text-white/60">{isZh ? '引导强度' : 'Guidance Scale'}</label>
+                          <span className="text-xs font-mono text-[#ffcc33]">{guidanceScale.toFixed(1)}</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          step="0.5"
+                          value={guidanceScale}
+                          onChange={(e) => setGuidanceScale(Number(e.target.value))}
+                          className="w-full accent-[#ffcc33]"
+                        />
+                      </div>
+                    )}
+
+                    {/* Steps */}
+                    {selectedModel.hasSteps && (
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <label className="text-xs font-medium text-white/60">{isZh ? '推理步数' : 'Inference Steps'}</label>
+                          <span className="text-xs font-mono text-[#ffcc33]">{steps}</span>
+                        </div>
+                        <input
+                          type="range"
+                          min="4"
+                          max="50"
+                          step="1"
+                          value={steps}
+                          onChange={(e) => setSteps(Number(e.target.value))}
+                          className="w-full accent-[#ffcc33]"
+                        />
+                      </div>
+                    )}
+
+                    {/* Safety checker */}
+                    {selectedModel.hasSafetyChecker && (
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-medium text-white/60">{isZh ? '安全检查' : 'Safety Checker'}</label>
+                        <button
+                          onClick={() => setSafetyChecker(!safetyChecker)}
+                          className="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
+                          style={{ background: safetyChecker ? 'linear-gradient(to right, #ffcc33, #ff9900)' : '#363b4e' }}
+                        >
+                          <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${safetyChecker ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Public visibility toggle */}
                 <div className="mt-4 pt-2">
@@ -574,22 +727,21 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
               {/* Bottom: credits + generate button */}
               <div className="flex-shrink-0 border-t border-[#363b4e] pt-4">
                 <div className="space-y-4">
-                  {/* Credits display */}
-                  <div className="rounded-lg border border-[#ffcc33]/30 bg-gradient-to-r from-[#ffcc33]/10 to-[#ffcc33]/5">
-                    <div className="flex items-center justify-between p-3">
-                      <div className="flex items-center gap-2">
-                        <Coins className="h-4 w-4 text-[#ffcc33]" />
-                        <span className="text-sm font-medium text-white">Credits needed</span>
+                  {/* Credits display — dynamic */}
+                  {(() => {
+                    const credits = calculateImageCredits(selectedModel.id, quantity, resolution);
+                    return (
+                      <div className="rounded-lg border border-[#ffcc33]/30 bg-gradient-to-r from-[#ffcc33]/10 to-[#ffcc33]/5">
+                        <div className="flex items-center justify-between p-3">
+                          <div className="flex items-center gap-2">
+                            <Coins className="h-4 w-4 text-[#ffcc33]" />
+                            <span className="text-sm font-medium text-white">{isZh ? '所需点数' : 'Credits needed'}</span>
+                          </div>
+                          <span className="text-base font-bold text-[#ffcc33]">{credits}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-white/40 line-through">20</span>
-                        <span className="text-base font-bold text-[#ffcc33]">10</span>
-                        <span className="rounded-md border border-[#ffcc33]/20 bg-[#ffcc33]/10 px-1.5 py-0.5 text-[10px] font-medium text-[#ffcc33]">
-                          50% OFF
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })()}
 
                   {/* Generate button */}
                   <button

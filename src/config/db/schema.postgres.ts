@@ -555,3 +555,84 @@ export const chatMessage = table(
     index('idx_chat_message_user_id').on(table.userId, table.status),
   ]
 );
+
+// ── New tables for Banana 2 AI ──
+
+export const providerKey = table(
+  'provider_key',
+  {
+    id: text('id').primaryKey(),
+    provider: text('provider').notNull(),
+    apiKey: text('api_key').notNull(),
+    label: text('label').notNull().default(''),
+    status: text('status').notNull().default('active'),
+    rpmLimit: integer('rpm_limit').notNull().default(10),
+    dailyLimit: integer('daily_limit').notNull().default(0),
+    priority: integer('priority').notNull().default(0),
+    currentRpm: integer('current_rpm').notNull().default(0),
+    rpmWindow: timestamp('rpm_window'),
+    dailyCount: integer('daily_count').notNull().default(0),
+    dailyWindow: text('daily_window'),
+    cooldownUntil: timestamp('cooldown_until'),
+    errorCount: integer('error_count').notNull().default(0),
+    lastError: text('last_error'),
+    lastUsedAt: timestamp('last_used_at'),
+    totalRequests: integer('total_requests').notNull().default(0),
+    totalErrors: integer('total_errors').notNull().default(0),
+    metadata: text('metadata'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (t) => [
+    index('idx_provider_key_provider_status').on(t.provider, t.status),
+    index('idx_provider_key_priority').on(t.provider, t.priority),
+  ]
+);
+
+export const checkin = table(
+  'checkin',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    checkinDate: text('checkin_date').notNull(),
+    streak: integer('streak').notNull().default(1),
+    credits: integer('credits').notNull().default(0),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (t) => [index('idx_checkin_user_date').on(t.userId, t.checkinDate)]
+);
+
+export const gallery = table(
+  'gallery',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    taskId: text('task_id').notNull(),
+    mediaType: text('media_type').notNull(),
+    model: text('model').notNull(),
+    prompt: text('prompt'),
+    mediaUrl: text('media_url').notNull(),
+    thumbnail: text('thumbnail'),
+    isPublic: boolean('is_public').notNull().default(true),
+    likes: integer('likes').notNull().default(0),
+    views: integer('views').notNull().default(0),
+    status: text('status').notNull().default('active'),
+    metadata: text('metadata'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at')
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (t) => [
+    index('idx_gallery_public').on(t.status, t.isPublic, t.createdAt),
+    index('idx_gallery_user').on(t.userId, t.status),
+  ]
+);

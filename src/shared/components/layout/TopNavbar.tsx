@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import LoginModal from '@/components/banana/LoginModal';
+import CheckInModal from '@/components/banana/CheckInModal';
 
 interface TopNavbarProps {
   sidebarOpen?: boolean;
@@ -26,6 +27,7 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 
   const pathname = usePathname();
   const [credits] = useState(0);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [checkInOpen, setCheckInOpen] = useState(false);
 
   return (
     <header
@@ -55,7 +57,10 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 
 
       {/* Right: Actions */}
       <div className="flex items-center gap-1.5 sm:gap-2">
-        <button className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-yellow-500/30 bg-yellow-500/10 text-yellow-400 text-xs font-medium hover:bg-yellow-500/20 transition-colors">
+        <button
+          onClick={() => setCheckInOpen(true)}
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-yellow-500/30 bg-yellow-500/10 text-yellow-400 text-xs font-medium hover:bg-yellow-500/20 transition-colors"
+        >
           <Sparkles className="w-3.5 h-3.5" />
           <span>{locale === 'zh' ? '免费获取20点数' : 'Get 20 Free Credits'}</span>
         </button>
@@ -88,6 +93,7 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, topOffset = 0 
       </div>
 
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
+      <CheckInModal open={checkInOpen} onClose={() => setCheckInOpen(false)} />
     </header>
   );
 }
