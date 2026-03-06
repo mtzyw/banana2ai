@@ -59,6 +59,46 @@ export async function POST(
       } catch (e) { /* ignore parse error */ }
     }
 
+    // Upload to R2 if successful
+    if (status === AITaskStatus.SUCCESS) {
+      try {
+        const { saveFiles } = await import('@/extensions/ai');
+        const { getUuid } = await import('@/shared/lib/hash');
+        // AIFile type used inline below
+
+        if (images.length > 0) {
+          const filesToSave = images.map((img: any, i: number) => ({
+            url: img.imageUrl,
+            contentType: 'image/png',
+            key: `kie/image/${getUuid()}.png`,
+            index: i,
+            type: 'image' as const,
+          }));
+          const uploaded = await saveFiles(filesToSave);
+          if (uploaded) {
+            uploaded.forEach((f: any) => {
+              if (f?.url && images[f.index]) images[f.index].imageUrl = f.url;
+            });
+          }
+        }
+        if (videos.length > 0) {
+          const filesToSave = videos.map((vid: any, i: number) => ({
+            url: vid.videoUrl,
+            contentType: 'video/mp4',
+            key: `kie/video/${getUuid()}.mp4`,
+            index: i,
+            type: 'video' as const,
+          }));
+          const uploaded = await saveFiles(filesToSave);
+          if (uploaded) {
+            uploaded.forEach((f: any) => {
+              if (f?.url && videos[f.index]) videos[f.index].videoUrl = f.url;
+            });
+          }
+        }
+      } catch (e) { console.error('R2 upload in notify failed:', e); }
+    }
+
     // Update task
     await updateAITaskById(task.id, {
       status,

@@ -75,8 +75,8 @@ export async function getUserByUserIds(userIds: string[]) {
   return result;
 }
 
-export async function getUserInfo() {
-  const signUser = await getSignUser();
+export async function getUserInfo(reqHeaders?: Headers) {
+  const signUser = await getSignUser(reqHeaders);
 
   return signUser;
 }
@@ -87,13 +87,18 @@ export async function getUserCredits(userId: string) {
   return { remainingCredits };
 }
 
-export async function getSignUser() {
-  const auth = await getAuth();
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  return session?.user;
+export async function getSignUser(reqHeaders?: Headers) {
+  try {
+    const auth = await getAuth();
+    const hdrs = reqHeaders || await headers();
+    const session = await auth.api.getSession({
+      headers: hdrs,
+    });
+    return session?.user;
+  } catch (e: any) {
+    console.log('getSignUser fallback:', e.message);
+    return undefined;
+  }
 }
 
 export async function isEmailVerified(email: string): Promise<boolean> {

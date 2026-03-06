@@ -9,7 +9,7 @@ export async function POST(req: Request) {
       return respErr('chatId is required');
     }
 
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) {
       return respErr('no auth, please sign in');
     }

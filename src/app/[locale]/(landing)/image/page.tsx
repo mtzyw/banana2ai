@@ -374,7 +374,14 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
   return (
     <main className="min-h-screen bg-[#0f1117] text-white">
 
-      {/* ─── 1. Hero Section ─── */}
+      {/* ─── 1. Image Generator (workspace first) ─── */}
+      <section className="px-4 pt-4 pb-2">
+        <div className="mx-auto max-w-[1400px]">
+          <ImageGenerator examples={IMAGE_LIST_EXAMPLES} />
+        </div>
+      </section>
+
+      {/* ─── 2. Hero Section ─── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#0f1117] via-[#161926] to-[#0f1117] px-4 py-8 md:py-12 lg:py-16">
         <GlowOrbs />
         <div className="relative mx-auto max-w-[1400px]">
@@ -401,21 +408,6 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
                 <p className="text-sm leading-relaxed text-white/80 md:text-base lg:text-lg">
                   {isZh ? '上传您的图片，即刻体验AI图生图技术带来的专业级转换效果。从风格迁移到完全重构——让AI放大您的创意愿景。' : 'Upload your images and immediately experience the professional-grade conversion effects brought by AI Image to Image technology. From style transfer to complete reconstruction – let AI amplify your creative vision.'}
                 </p>
-                <FadeIn delay={0.3}>
-                  <Link
-                    href="/zh/image/banana-pro-ai/"
-                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-md px-8 py-3.5 text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#ffcc33]/30 md:text-lg"
-                    style={{
-                      border: '2px solid transparent',
-                      backgroundImage: 'linear-gradient(#0f1117, #0f1117), linear-gradient(to right, #ffcc33, #ff9900, #ffcc33)',
-                      backgroundOrigin: 'border-box',
-                      backgroundClip: 'padding-box, border-box',
-                    }}
-                  >
-                    <span className="gradient-text relative z-10">{isZh ? '注册并免费创建' : 'Register and Create for Free'}</span>
-                    <ArrowRight className="relative z-10 h-5 w-5 text-[#ffcc33] transition-transform group-hover:translate-x-0.5" />
-                  </Link>
-                </FadeIn>
                 {/* Feature list */}
                 <div className="hidden space-y-3 lg:block">
                   {[
@@ -449,13 +441,6 @@ Text-to-Image generation: Most creations 8-15 seconds, simple prompts as fast as
               </div>
             </FadeIn>
           </div>
-        </div>
-      </section>
-
-      {/* ─── 2. Image Generator ─── */}
-      <section className="px-4 py-4">
-        <div className="mx-auto max-w-[1400px]">
-          <ImageGenerator examples={IMAGE_LIST_EXAMPLES} />
         </div>
       </section>
 

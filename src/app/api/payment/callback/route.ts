@@ -22,7 +22,7 @@ export async function GET(req: Request) {
     }
 
     // get sign user
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user || !user.email) {
       throw new Error('no auth, please sign in');
     }

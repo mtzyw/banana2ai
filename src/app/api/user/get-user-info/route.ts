@@ -7,16 +7,16 @@ import { hasPermission } from '@/shared/services/rbac';
 export async function POST(req: Request) {
   try {
     // get sign user info
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) {
       return respErr('no auth, please sign in');
     }
 
-    // check if user is admin
-    const isAdmin = await hasPermission(user.id, PERMISSIONS.ADMIN_ACCESS);
-
-    // get remaining credits
-    const remainingCredits = await getRemainingCredits(user.id);
+    // Run admin check and credits fetch in parallel
+    const [isAdmin, remainingCredits] = await Promise.all([
+      hasPermission(user.id, PERMISSIONS.ADMIN_ACCESS),
+      getRemainingCredits(user.id),
+    ]);
 
     return respData({ ...user, isAdmin, credits: { remainingCredits } });
   } catch (e) {

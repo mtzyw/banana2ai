@@ -4,7 +4,8 @@ import { useTranslations, useLocale } from 'next-intl';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { Upload, X, Loader2, CheckCircle, Sparkles, ChevronDown, ChevronLeft, ChevronRight, Info, Gem, Images, Coins } from 'lucide-react';
+import { Upload, X, Loader2, CheckCircle, Sparkles, ChevronDown, ChevronLeft, ChevronRight, Info, Gem, Images, Coins, Download } from 'lucide-react';
+import { useSession } from '@/core/auth/client';
 
 /* ── Aspect ratios with visual shape hints ── */
 const ASPECT_RATIOS = [
@@ -72,7 +73,7 @@ type AIModel = {
 const AI_MODELS: AIModel[] = [
   {
     id: 'nano-banana',
-    apiModel: 'google/gemini-2-5-flash-image',
+    apiModel: 'google/nano-banana',
     name: 'Nano Banana',
     badge: 'SMART',
     badgeColor: 'bg-white/10 text-white/70',
@@ -83,7 +84,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'nano-banana-pro',
-    apiModel: 'bytedance/seedream4.5',
+    apiModel: 'nano-banana-pro',
     name: 'Nano Banana Pro',
     badge: 'PRO',
     badgeColor: 'bg-[#ffcc33]/20 text-[#ffcc33]',
@@ -98,7 +99,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'nano-banana-2',
-    apiModel: 'google/imagen4',
+    apiModel: 'nano-banana-2',
     name: 'Nano Banana 2',
     badge: 'NEW',
     badgeColor: 'bg-white/10 text-white/70',
@@ -113,7 +114,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'gpt-4o-image',
-    apiModel: 'gpt-image/text-to-image',
+    apiModel: 'gpt-image/text-to-image',  // TODO: verify Kie.ai model name - currently 422
     name: 'GPT-4o Image',
     badge: 'STD',
     badgeColor: 'bg-white/10 text-white/70',
@@ -125,7 +126,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'flux-kontext-pro',
-    apiModel: 'flux-kontext/pro',
+    apiModel: 'flux-kontext/pro',  // TODO: verify Kie.ai model name - currently 422
     name: 'Flux Kontext Pro',
     badge: 'PRO',
     badgeColor: 'bg-[#ffcc33]/20 text-[#ffcc33]',
@@ -139,7 +140,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'flux-kontext-max',
-    apiModel: 'flux-kontext/max',
+    apiModel: 'flux-kontext/max',  // TODO: verify Kie.ai model name - currently 422
     name: 'Flux Kontext Max',
     badge: 'MAX',
     badgeColor: 'bg-purple-500/20 text-purple-400',
@@ -151,7 +152,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'seedream-4',
-    apiModel: 'bytedance/seedream4',
+    apiModel: 'bytedance/seedream',
     name: 'Seedream 4.0',
     badge: 'FAST',
     badgeColor: 'bg-green-500/20 text-green-400',
@@ -165,7 +166,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'seedream-5-lite',
-    apiModel: 'bytedance/seedream5-lite',
+    apiModel: 'bytedance/seedream',  // Kie.ai only has generic seedream model
     name: 'Seedream 5.0 Lite',
     badge: 'NEW',
     badgeColor: 'bg-white/10 text-white/70',
@@ -207,7 +208,7 @@ const AI_MODELS: AIModel[] = [
   },
   {
     id: 'z-image-turbo',
-    apiModel: 'z-image/turbo',
+    apiModel: 'z-image',
     name: 'Z-Image Turbo',
     badge: 'FAST',
     badgeColor: 'bg-green-500/20 text-green-400',
@@ -249,6 +250,16 @@ const DEFAULT_EXAMPLES: ExampleSlide[] = [
 type Mode = 'text' | 'image';
 type GenerateState = 'idle' | 'loading' | 'done';
 
+interface GeneratedImage {
+  id: string;
+  prompt: string;
+  ratio: string;
+  model: string;
+  images: string[];
+  createdAt: string;
+  mode?: string;
+}
+
 interface ImageGeneratorProps {
   examples?: ExampleSlide[];
 }
@@ -256,6 +267,7 @@ interface ImageGeneratorProps {
 export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const t = useTranslations('banana.imageGenerator');
   const isZh = useLocale() === 'zh';
+  const { data: session } = useSession();
   const EXAMPLES = examples ?? DEFAULT_EXAMPLES;
   const [selectedModel, setSelectedModel] = useState<AIModel>(AI_MODELS[1]); // default: Pro
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
@@ -276,6 +288,53 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [exampleIdx, setExampleIdx] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [generatedImages, setGeneratedImages] = useState<GeneratedImage[]>([]);
+  const [selectedGalleryIdx, setSelectedGalleryIdx] = useState(0);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const pollingRef = useRef(false);
+
+  // Fetch user's past image generations on mount
+  useEffect(() => {
+    if (!session?.user) return;
+    (async () => {
+      try {
+        const res = await fetch('/api/user/tasks?mediaType=image&limit=20');
+        const data = await res.json();
+        if (data.code === 0 && data.data?.tasks) {
+          const items: GeneratedImage[] = data.data.tasks
+            .filter((t: any) => t.status === 'completed' || t.status === 'success')
+            .map((t: any) => {
+              let images: string[] = [];
+              try {
+                // Primary: taskInfo.images[].imageUrl
+                const info = typeof t.taskInfo === 'string' ? JSON.parse(t.taskInfo) : t.taskInfo;
+                if (info?.images && Array.isArray(info.images)) {
+                  images = info.images.map((img: any) => img.imageUrl).filter(Boolean);
+                }
+                // Fallback: taskResult
+                if (images.length === 0) {
+                  const result = typeof t.taskResult === 'string' ? JSON.parse(t.taskResult) : t.taskResult;
+                  if (Array.isArray(result)) images = result;
+                  else if (result?.output) images = Array.isArray(result.output) ? result.output : [result.output];
+                  else if (result?.url) images = [result.url];
+                  else if (result?.urls) images = result.urls;
+                }
+              } catch { /* ignore parse errors */ }
+              return {
+                id: t.id,
+                prompt: t.prompt || '',
+                ratio: t.options?.aspect_ratio || '1:1',
+                model: t.model || '',
+                images,
+                createdAt: t.createdAt || new Date().toISOString(),
+              };
+            })
+            .filter((item: GeneratedImage) => item.images.length > 0);
+          setGeneratedImages(items);
+        }
+      } catch { /* ignore */ }
+    })();
+  }, [session?.user]);
 
   // Reset mode if model doesn't support current mode
   useEffect(() => {
@@ -299,13 +358,125 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
     m.name.toLowerCase().includes(modelSearch.toLowerCase())
   );
 
-  const handleGenerate = () => {
-    if (generateState === 'loading') return;
+  // Auto-dismiss error after 5s
+  useEffect(() => {
+    if (!errorMsg) return;
+    const timer = setTimeout(() => setErrorMsg(null), 5000);
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
+
+  const pollTaskResult = useCallback(async (taskDbId: string, currentPrompt: string, currentRatio: string, currentModel: string) => {
+    pollingRef.current = true;
+    const maxAttempts = 60; // 2 min max
+    for (let i = 0; i < maxAttempts; i++) {
+      await new Promise(r => setTimeout(r, 2000));
+      if (!pollingRef.current) return; // cancelled
+      try {
+        const res = await fetch('/api/ai/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ taskId: taskDbId }),
+        });
+        const data = await res.json();
+        if (data.code !== 0) continue;
+
+        const task = data.data;
+        const status = task?.status;
+
+        if (status === 'completed' || status === 'success') {
+          let images: string[] = [];
+          try {
+            // Primary: extract from taskInfo.images[].imageUrl (Kie.ai format)
+            const info = typeof task.taskInfo === 'string' ? JSON.parse(task.taskInfo) : task.taskInfo;
+            if (info?.images && Array.isArray(info.images)) {
+              images = info.images.map((img: any) => img.imageUrl).filter(Boolean);
+            }
+            // Fallback: try taskResult
+            if (images.length === 0) {
+              const result = typeof task.taskResult === 'string' ? JSON.parse(task.taskResult) : task.taskResult;
+              if (Array.isArray(result)) images = result;
+              else if (result?.output) images = Array.isArray(result.output) ? result.output : [result.output];
+              else if (result?.url) images = [result.url];
+              else if (result?.urls) images = result.urls;
+            }
+          } catch { /* ignore */ }
+
+          setGeneratedImages(prev => [{
+            id: taskDbId,
+            prompt: currentPrompt,
+            ratio: currentRatio,
+            model: currentModel,
+            images,
+            createdAt: new Date().toISOString(),
+          }, ...prev]);
+          setGenerateState('done');
+          setTimeout(() => setGenerateState('idle'), 1500);
+          pollingRef.current = false;
+          return;
+        }
+
+        if (status === 'failed' || status === 'error') {
+          setErrorMsg(isZh ? '生成失败，请重试' : 'Generation failed, please try again');
+          setGenerateState('idle');
+          pollingRef.current = false;
+          return;
+        }
+        // still processing, continue polling
+      } catch {
+        // ignore and retry
+      }
+    }
+    setErrorMsg(isZh ? '生成超时，请重试' : 'Generation timed out, please try again');
+    setGenerateState('idle');
+    pollingRef.current = false;
+  }, [isZh]);
+
+  const handleGenerate = async () => {
+    if (generateState === 'loading' || !prompt.trim()) return;
+    setErrorMsg(null);
     setGenerateState('loading');
-    setTimeout(() => {
-      setGenerateState('done');
-      setTimeout(() => setGenerateState('idle'), 2000);
-    }, 3000);
+
+    try {
+      const res = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'kie',
+          mediaType: 'image',
+          model: selectedModel.apiModel,
+          prompt: prompt.trim(),
+          quantity,
+          resolution,
+          options: {
+            aspect_ratio: selectedRatio,
+            ...(negativePrompt ? { negative_prompt: negativePrompt } : {}),
+            ...(selectedModel.hasGuidanceScale && guidanceScale !== 2.5 ? { guidance_scale: guidanceScale } : {}),
+            ...(selectedModel.hasSteps && steps !== 30 ? { num_inference_steps: steps } : {}),
+            ...(selectedModel.hasSafetyChecker ? { safety_checker: safetyChecker } : {}),
+            ...(mode === 'image' && uploadedFile ? { image: uploadedFile } : {}),
+          },
+        }),
+      });
+      const data = await res.json();
+
+      if (data.code !== 0) {
+        setErrorMsg(data.message || (isZh ? '生成失败' : 'Generation failed'));
+        setGenerateState('idle');
+        return;
+      }
+
+      const task = data.data;
+      if (task?.id) {
+        // Task created, start polling
+        pollTaskResult(task.id, prompt.trim(), selectedRatio, selectedModel.name);
+      } else {
+        setErrorMsg(isZh ? '未收到任务ID' : 'No task ID received');
+        setGenerateState('idle');
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || (isZh ? '生成失败' : 'Generation failed'));
+      setGenerateState('idle');
+    }
   };
 
   const handleFileChange = (file: File) => {
@@ -324,14 +495,14 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const ex = EXAMPLES[exampleIdx];
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6 lg:flex-row lg:h-[calc(100vh-180px)] lg:max-h-[750px]">
+    <div className="flex flex-col gap-3 md:gap-4 lg:flex-row lg:h-[calc(100vh-120px)]">
       {/* ═══ Left: AI Image Generator Panel ═══ */}
       <div className="w-full lg:flex-shrink-0 lg:w-[380px] xl:w-[420px]">
         <div className="flex h-full flex-col rounded-xl border border-[#363b4e]/50 bg-[#13151f] shadow-lg">
           {/* Header + Model selector */}
-          <div className="flex-shrink-0 p-5 pb-2">
+          <div className="flex-shrink-0 p-4 pb-1.5">
             <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <span className="text-base font-bold text-white sm:text-lg">{t('title')}</span>
+              <span className="text-sm font-bold text-white sm:text-base">{t('title')}</span>
               <div className="relative sm:w-auto w-full" ref={modelDropdownRef}>
                 <button
                   onClick={() => setModelDropdownOpen(!modelDropdownOpen)}
@@ -434,17 +605,17 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
           </div>
 
           {/* Scrollable controls */}
-          <div className="flex min-h-0 flex-1 flex-col px-5 pb-5 pt-2">
+          <div className="flex min-h-0 flex-1 flex-col px-4 pb-4 pt-1.5">
             <div className="flex h-full flex-col">
               {/* Mode tabs */}
-              <div className="mb-4 flex-shrink-0">
+              <div className="mb-3 flex-shrink-0">
                 {selectedModel.modes.length > 1 ? (
                   <div className={`grid grid-cols-${selectedModel.modes.length} gap-1 rounded-lg bg-[#0f1117] p-1`}>
                     {selectedModel.modes.map((m) => (
                       <button
                         key={m}
                         onClick={() => setMode(m)}
-                        className={`relative rounded-md px-6 py-3 text-sm font-medium transition-all ${
+                        className={`relative rounded-md px-4 py-2 text-xs font-medium transition-all ${
                           mode === m ? 'text-white' : 'text-white/50 hover:text-white/80'
                         }`}
                         style={mode === m ? {
@@ -461,7 +632,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                   </div>
                 ) : (
                   <div className="rounded-lg bg-[#0f1117] p-1">
-                    <div className="rounded-md px-6 py-3 text-center text-sm font-medium text-white" style={{ background: '#0f1117', border: '2px solid', borderImage: 'linear-gradient(135deg, #ffcc33, #ff9900) 1', borderRadius: '6px' }}>
+                    <div className="rounded-md px-4 py-2 text-center text-xs font-medium text-white" style={{ background: '#0f1117', border: '2px solid', borderImage: 'linear-gradient(135deg, #ffcc33, #ff9900) 1', borderRadius: '6px' }}>
                       {t('mode_text')}
                     </div>
                   </div>
@@ -469,7 +640,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
               </div>
 
               {/* Scrollable body */}
-              <div className="mb-4 min-h-0 flex-1 space-y-4 overflow-y-auto custom-scrollbar">
+              <div className="mb-3 min-h-0 flex-1 space-y-3 overflow-y-auto custom-scrollbar">
                 {/* Image upload (image mode) */}
                 {mode === 'image' && (
                   <div>
@@ -520,7 +691,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder=" {t('prompt_placeholder')}, max 5000 chars..."
                     maxLength={5000}
-                    className="min-h-[100px] w-full resize-y rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-2 pr-10 text-sm text-white placeholder-white/30 transition-colors focus:border-[#ffcc33] focus:outline-none md:min-h-[140px]"
+                    className="min-h-[80px] w-full resize-y rounded-md border border-[#363b4e]/50 bg-[#1c2030] px-3 py-1.5 pr-10 text-sm text-white placeholder-white/30 transition-colors focus:border-[#ffcc33] focus:outline-none md:min-h-[110px]"
                     style={{ resize: 'vertical' }}
                   />
                   <div className="flex justify-between text-xs">
@@ -747,7 +918,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                   <button
                     onClick={handleGenerate}
                     disabled={generateState === 'loading'}
-                    className="w-full rounded-md px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-70"
+                    className="w-full rounded-md px-3 py-2 text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-70"
                     style={{
                       background: generateState === 'done'
                         ? 'rgba(74,222,128,0.2)'
@@ -770,9 +941,135 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
         </div>
       </div>
 
-      {/* ═══ Right: Example Images Panel ═══ */}
+      {/* ═══ Right: Gallery / Examples Panel ═══ */}
       <div className="w-full min-w-0">
-        <div className="relative overflow-hidden rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow">
+        {/* Error toast */}
+        {errorMsg && (
+          <div className="mb-3 flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            <X className="h-4 w-4 flex-shrink-0 cursor-pointer" onClick={() => setErrorMsg(null)} />
+            {errorMsg}
+          </div>
+        )}
+
+        {(generatedImages.length > 0 || generateState === 'loading') ? (
+          /* ── My Images Gallery + Thumbnail Sidebar ── */
+          <div className="flex h-full gap-2 md:gap-4">
+          {/* Main card area */}
+          <div className="flex h-full min-w-0 flex-1 flex-col rounded-xl border border-[#363b4e]/30 bg-[#252831] shadow backdrop-blur-md">
+            <div className="flex-shrink-0 p-6 pb-0">
+              <div className="font-semibold leading-none tracking-tight flex items-center gap-2">
+                  <Images className="h-5 w-5 text-[#ffcc33]" />
+                  <span className="gradient-text">{isZh ? '我的图片' : 'My Images'}</span>
+              </div>
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar p-6 pt-4 space-y-4">
+              {/* Generating placeholder card */}
+              {generateState === 'loading' && (
+                <div className="rounded-xl border border-[#ffcc33]/20 bg-[#0f1117] shadow-lg">
+                  <div className="space-y-2 p-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center rounded-md border border-[#ffcc33]/30 bg-[#ffcc33] px-2.5 py-0.5 text-xs font-medium text-[#0f1117] shadow">
+                        {mode === 'image' ? (isZh ? '图生图' : 'Img2Img') : (isZh ? '文生图' : 'Txt2Img')}
+                      </span>
+                      <span className="text-sm text-white/40">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                    </div>
+                    <p className="line-clamp-2 text-sm text-white/80">{prompt}</p>
+                  </div>
+                  <div className="flex flex-col items-center justify-center px-4 pb-4 py-12">
+                    <div className="relative mb-4 h-16 w-16">
+                      <svg className="h-16 w-16 animate-spin" viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="28" fill="none" stroke="#363b4e" strokeWidth="4" />
+                        <circle cx="32" cy="32" r="28" fill="none" stroke="#ffcc33" strokeWidth="4"
+                          strokeDasharray="120 60" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium text-[#ffcc33]">{isZh ? '分析中...' : 'Analyzing...'}</span>
+                    <span className="mt-1 text-xs text-white/40">{isZh ? '图片生成中...' : 'Generating image...'}</span>
+                  </div>
+                </div>
+              )}
+              {generatedImages.map((item, itemIdx) => (
+                <div key={item.id} id={`gallery-card-${itemIdx}`} className={`rounded-xl border bg-[#0f1117] shadow-lg cursor-pointer transition-all duration-300 hover:shadow-md ${selectedGalleryIdx === itemIdx ? 'border-[#ffcc33]/50' : 'border-[#363b4e]/30'}`} onClick={() => setSelectedGalleryIdx(itemIdx)}>
+                  <div className="flex flex-col">
+                  <div className="space-y-2 p-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center rounded-md border border-[#ffcc33]/30 bg-[#ffcc33] px-2.5 py-0.5 text-xs font-medium text-[#0f1117] shadow">
+                        {item.mode === 'image' ? (isZh ? '图生图' : 'Img2Img') : (isZh ? '文生图' : 'Txt2Img')}
+                      </span>
+                      <span className="text-sm text-white/40">
+                        {new Date(item.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </span>
+                      <span className="inline-flex items-center rounded-md border border-[#363b4e]/50 px-2.5 py-0.5 text-xs font-medium text-white/70 ml-auto">{item.ratio}</span>
+                    </div>
+                    <p className="line-clamp-2 text-sm text-white/80" title={item.prompt}>{item.prompt}</p>
+                  </div>
+                  <div className="px-4 pb-4">
+                    <div className={`grid gap-3 ${item.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                    {item.images.map((url, idx) => (
+                      <div key={idx} className="group relative flex items-center justify-center overflow-hidden rounded-lg bg-black/20" style={{ maxHeight: '320px' }}>
+                        <a href={url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                          <img
+                            src={url}
+                            alt={`Generated ${idx + 1}`}
+                            className="max-h-[320px] w-auto max-w-full rounded-lg object-contain"
+                            loading="lazy"
+                          />
+                        </a>
+                        <a
+                          href={url}
+                          download
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-black/80"
+                        >
+                          <Download className="h-4 w-4 text-white" />
+                        </a>
+                      </div>
+                    ))}
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Thumbnail sidebar */}
+          {generatedImages.length > 0 && (
+            <div className="hidden w-20 flex-shrink-0 lg:block xl:w-24">
+              <div className="flex h-full flex-col gap-2 overflow-y-auto custom-scrollbar py-1">
+                {generatedImages.map((item, itemIdx) => {
+                  const thumbUrl = item.images[0];
+                  if (!thumbUrl) return null;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        setSelectedGalleryIdx(itemIdx);
+                        document.getElementById(`gallery-card-${itemIdx}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                      }}
+                      className={`relative flex-shrink-0 overflow-hidden rounded-lg transition-all duration-200 ${
+                        selectedGalleryIdx === itemIdx
+                          ? 'ring-2 ring-[#ffcc33] ring-offset-1 ring-offset-[#0f1117]'
+                          : 'opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <img
+                        src={thumbUrl}
+                        alt=""
+                        className="h-20 w-full object-cover xl:h-24"
+                        loading="lazy"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          </div>
+        ) : (
+          /* ── Example Images Panel (shown when no generated images) ── */
+          <div className="relative overflow-hidden rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow">
             {/* Header */}
             <div className="p-5 pb-3">
               <div className="flex items-center gap-2 font-semibold">
@@ -864,7 +1161,8 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
             >
               <ChevronRight className="h-5 w-5 text-white" />
             </button>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -57,6 +57,8 @@ export interface AIGenerateParams {
   options?: any;
   // receive notify result
   callbackUrl?: string;
+  // which API endpoint to use (e.g. 'veo' | 'market')
+  apiEndpoint?: string;
   // is return stream
   stream?: boolean;
   // is async

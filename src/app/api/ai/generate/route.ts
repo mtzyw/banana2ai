@@ -14,6 +14,7 @@ export async function POST(request: Request) {
       provider,
       mediaType,
       model,
+      apiEndpoint,
       prompt,
       options,
       scene,
@@ -33,7 +34,7 @@ export async function POST(request: Request) {
     }
 
     // 1. Auth
-    const user = await getUserInfo();
+    const user = await getUserInfo(request.headers);
     if (!user) {
       throw new Error('no auth, please sign in');
     }
@@ -68,6 +69,7 @@ export async function POST(request: Request) {
         prompt,
         callbackUrl,
         options,
+        apiEndpoint,
       };
 
       const result = await aiProvider.generate({ params });

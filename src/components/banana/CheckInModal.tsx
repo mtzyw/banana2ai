@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { useLocale } from 'next-intl';
 import { X, Check, Gift, Flame, Star, Coins } from 'lucide-react';
 
-/* ── Check-in credits per day (matches source site) ── */
+/* ── Check-in credits per day (matches backend STREAK_REWARDS) ── */
 const DAILY_CREDITS: Record<number, number> = {
-  1: 2, 2: 2, 3: 4, 4: 2, 5: 2, 6: 2, 7: 6,
+  1: 3, 2: 3, 3: 5, 4: 5, 5: 8, 6: 8, 7: 15,
 };
-const TOTAL_WEEKLY = Object.values(DAILY_CREDITS).reduce((a, b) => a + b, 0); // 20
-const BASE_CREDIT = DAILY_CREDITS[1]; // 2
+const TOTAL_WEEKLY = Object.values(DAILY_CREDITS).reduce((a, b) => a + b, 0); // 47
+const BASE_CREDIT = DAILY_CREDITS[1]; // 3
 
 interface DayInfo {
   day: number;
@@ -31,8 +31,25 @@ export default function CheckInModal({ open, onClose, onCheckInSuccess }: CheckI
   const [consecutiveDays, setConsecutiveDays] = useState(0);
   const [isCheckedToday, setIsCheckedToday] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [statusLoading, setStatusLoading] = useState(true);
   const [totalEarned, setTotalEarned] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
+
+  // Fetch check-in status on open
+  useEffect(() => {
+    if (!open) return;
+    setStatusLoading(true);
+    fetch('/api/user/checkin')
+      .then(r => r.json())
+      .then(res => {
+        if (res?.data) {
+          setConsecutiveDays(res.data.currentStreak || 0);
+          setIsCheckedToday(!!res.data.checkedInToday);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setStatusLoading(false));
+  }, [open]);
 
   // Build 7-day grid
   const days: DayInfo[] = Array.from({ length: 7 }, (_, i) => {
@@ -53,22 +70,28 @@ export default function CheckInModal({ open, onClose, onCheckInSuccess }: CheckI
   });
 
   const handleCheckIn = async () => {
-    if (loading || isCheckedToday) return;
+    if (loading || isCheckedToday || statusLoading) return;
     setLoading(true);
 
-    // TODO: Replace with actual API call
-    // POST /api/checkin/checkin { user_id }
-    await new Promise(r => setTimeout(r, 800));
-
-    const newDay = (consecutiveDays % 7) + 1;
-    const earned = DAILY_CREDITS[newDay];
-
-    setConsecutiveDays(prev => prev + 1);
-    setIsCheckedToday(true);
-    setTotalEarned(prev => prev + earned);
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 2000);
-    onCheckInSuccess?.();
+    try {
+      const res = await fetch('/api/user/checkin', { method: 'POST' });
+      const data = await res.json();
+      if (data?.data) {
+        setConsecutiveDays(data.data.streak || 1);
+        setIsCheckedToday(true);
+        setTotalEarned(prev => prev + (data.data.credits || 0));
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 2000);
+        onCheckInSuccess?.();
+      } else if (data?.message) {
+        // Already checked in or error
+        if (data.message.includes('already')) {
+          setIsCheckedToday(true);
+        }
+      }
+    } catch {
+      // ignore
+    }
     setLoading(false);
   };
 
@@ -193,16 +216,23 @@ export default function CheckInModal({ open, onClose, onCheckInSuccess }: CheckI
             {/* Check-in button */}
             <button
               onClick={handleCheckIn}
-              disabled={loading || isCheckedToday}
+              disabled={loading || isCheckedToday || statusLoading}
               className={`w-full rounded-xl py-3 text-base font-bold transition-all duration-300 ${
-                isCheckedToday
-                  ? 'bg-green-500/20 text-green-400 border border-green-500/30 cursor-default'
-                  : loading
-                    ? 'bg-[#ffcc33]/50 text-black cursor-wait'
-                    : 'bg-gradient-to-r from-[#ffcc33] to-orange-500 text-black hover:shadow-lg hover:shadow-[#ffcc33]/30 hover:scale-[1.02] active:scale-[0.98]'
+                statusLoading
+                  ? 'bg-[#ffcc33]/50 text-black cursor-wait'
+                  : isCheckedToday
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30 cursor-default'
+                    : loading
+                      ? 'bg-[#ffcc33]/50 text-black cursor-wait'
+                      : 'bg-gradient-to-r from-[#ffcc33] to-orange-500 text-black hover:shadow-lg hover:shadow-[#ffcc33]/30 hover:scale-[1.02] active:scale-[0.98]'
               }`}
             >
-              {isCheckedToday ? (
+              {statusLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
+                  {isZh ? '加载中...' : 'Loading...'}
+                </span>
+              ) : isCheckedToday ? (
                 <span className="flex items-center justify-center gap-2">
                   <Check className="h-5 w-5" />
                   {isZh ? '今日已签到' : 'Checked in today'}

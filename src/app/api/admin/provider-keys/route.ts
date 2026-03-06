@@ -7,9 +7,9 @@ import { getUserInfo } from '@/shared/models/user';
 import { hasPermission } from '@/shared/services/rbac';
 import { resetKeyPools } from '@/shared/services/ai';
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user || !(await hasPermission(user.id, PERMISSIONS.ADMIN_ACCESS))) {
       return respErr('no permission');
     }
@@ -27,7 +27,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user || !(await hasPermission(user.id, PERMISSIONS.ADMIN_ACCESS))) {
       return respErr('no permission');
     }

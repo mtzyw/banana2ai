@@ -19,9 +19,9 @@ function getYesterdayStr(): string {
   return d.toISOString().slice(0, 10);
 }
 
-export async function POST() {
+export async function POST(req: Request) {
   try {
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) return respErr('no auth, please sign in');
 
     const today = getTodayStr();
@@ -76,9 +76,9 @@ export async function POST() {
 }
 
 // GET: check-in status
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) return respErr('no auth, please sign in');
 
     const today = getTodayStr();

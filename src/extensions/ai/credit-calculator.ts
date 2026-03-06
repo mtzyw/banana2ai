@@ -6,17 +6,19 @@
 
 // ── Image Credits ──
 const IMAGE_CREDITS: Record<string, number | Record<string, number>> = {
-  'nano-banana': 4,
+  // Keys must match apiModel values sent from frontend
+  'google/nano-banana': 4,
   'nano-banana-pro': 10,
   'nano-banana-2': { '1K': 10, '2K': 15, '4K': 20 },
-  'gpt-4o-image': 4,
-  'flux-kontext-pro': 3,
-  'flux-kontext-max': 6,
-  'seedream-4': 2,
-  'seedream-5-lite': 5,
-  'qwen-image': 3,
-  'grok-imagine': 2,
-  'z-image-turbo': 3,
+  'gpt-image/text-to-image': 4,
+  'flux-kontext/pro': 3,
+  'flux-kontext/max': 6,
+  'bytedance/seedream': 2,
+  'qwen/text-to-image': 3,
+  'grok-imagine/text-to-image': 2,
+  'z-image': 3,
+  'google/imagen4': 10,
+  'ideogram/v3-text-to-image': 5,
 };
 
 export function calculateImageCredits(
@@ -39,26 +41,26 @@ export function calculateVideoCredits(
   nFrames: string = '10'
 ): number {
   // Veo models — fixed cost
-  if (modelId === 'veo3-basic') return 10;
-  if (modelId === 'veo3-premium') return 50;
-  if (modelId === 'veo3-1-basic') return 20;
-  if (modelId === 'veo3-1-premium') return 44;
+  if (modelId === 'veo3_fast') return 10;
+  if (modelId === 'veo3') return 50;
+  if (modelId === 'veo3.1_fast') return 20;
+  if (modelId === 'veo3.1') return 44;
 
   // Seedance 1.5 Pro — duration × 8 × resolution multiplier
-  if (modelId === 'seedance-1-5-pro') {
+  if (modelId === 'bytedance/v1-pro-text-to-video') {
     const resMult = resolution === '1080p' ? 4 : resolution === '720p' ? 2 : 1;
     return duration * 8 * resMult;
   }
 
   // Sora 2
-  if (modelId === 'sora-2') {
+  if (modelId === 'sora-2-text-to-video') {
     const dur = parseInt(nFrames || '10');
     if (quality === 'hd') return dur >= 15 ? 30 : 20;
     return dur >= 15 ? 15 : 10;
   }
 
   // Sora 2 Pro
-  if (modelId === 'sora-2-pro') {
+  if (modelId === 'sora-2-pro-text-to-video') {
     const dur = parseInt(nFrames || '10');
     if (quality === 'high') return dur >= 15 ? 300 : 200;
     return dur >= 15 ? 200 : 150;

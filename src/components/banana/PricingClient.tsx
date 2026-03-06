@@ -71,8 +71,8 @@ export default function PricingClient() {
   const PLANS: Plan[] = [
   {
     name: 'Basic',
-    price: { monthly: 16.6, annual: 8.3 },
-    originalPrice: { monthly: null, annual: null },
+    price: { monthly: 9.9, annual: 8.3 },
+    originalPrice: { monthly: 16.6, annual: 9.9 },
     description: t('plans.0.description'),
     badge: null,
     highlight: false,
@@ -110,8 +110,8 @@ export default function PricingClient() {
   },
   {
     name: 'Pro',
-    price: { monthly: 49.9, annual: 30.0 },
-    originalPrice: { monthly: null, annual: 49.9 },
+    price: { monthly: 29.9, annual: 30.0 },
+    originalPrice: { monthly: 49.9, annual: 49.9 },
     description: isZh ? '适合专业创作团队' : 'For professional creative teams',
     badge: isZh ? '热门' : 'Popular',
     highlight: false,
@@ -151,8 +151,8 @@ export default function PricingClient() {
   },
   {
     name: 'Ultra',
-    price: { monthly: 99.9, annual: 49.9 },
-    originalPrice: { monthly: null, annual: 99.9 },
+    price: { monthly: 59.9, annual: 49.9 },
+    originalPrice: { monthly: 99.9, annual: 99.9 },
     description: isZh ? '适合高频专业用户' : 'For power users',
     badge: isZh ? '超值之选' : 'Best Value',
     highlight: true,

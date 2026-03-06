@@ -5,7 +5,7 @@ import {
   updateAITaskById,
 } from '@/shared/models/ai_task';
 import { getUserInfo } from '@/shared/models/user';
-import { getAIService } from '@/shared/services/ai';
+import { acquireProvider, getKeyPool } from '@/shared/services/ai';
 
 export async function POST(req: Request) {
   try {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       return respErr('invalid params');
     }
 
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) {
       return respErr('no auth, please sign in');
     }
@@ -28,17 +28,22 @@ export async function POST(req: Request) {
       return respErr('no permission');
     }
 
-    const aiService = await getAIService();
-    const aiProvider = aiService.getProvider(task.provider);
-    if (!aiProvider) {
-      return respErr('invalid ai provider');
-    }
+    const { provider: aiProvider, slot } = await acquireProvider(task.provider);
 
-    const result = await aiProvider?.query?.({
-      taskId: task.taskId,
-      mediaType: task.mediaType,
-      model: task.model,
-    });
+    let result;
+    try {
+      result = await aiProvider?.query?.({
+        taskId: task.taskId,
+        mediaType: task.mediaType,
+        model: task.model,
+      });
+      const pool = getKeyPool(task.provider);
+      pool?.onSuccess(slot);
+    } catch (error: any) {
+      const pool = getKeyPool(task.provider);
+      pool?.onError(slot, error);
+      throw error;
+    }
 
     if (!result?.taskStatus) {
       return respErr('query ai task failed');

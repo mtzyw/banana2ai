@@ -332,7 +332,10 @@ export default function VideoListPage() {
   return (
     <main className="min-h-screen bg-[#0f1117] text-white">
 
-      {/* ─── 1. Hero Section ─── */}
+      {/* ─── 1. Video Generator Panel (workspace first) ─── */}
+      <VideoGeneratorPanel />
+
+      {/* ─── 2. Hero Section ─── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#0f1117] via-[#161926] to-[#0f1117] px-4 py-8 md:py-12 lg:py-16">
         <GlowOrbs />
         <div className="relative mx-auto max-w-[1400px]">
@@ -358,21 +361,6 @@ export default function VideoListPage() {
                 <p className="text-sm leading-relaxed text-white/80 md:text-base lg:text-lg">
                   {isZh ? '使用我们的AI视频生成器制作专业视频。几秒钟内将文本转换为视频或将图片转换为动态视频内容。Banana Pro提供广播级质量效果——免费开始使用，高清画质，零水印。' : 'Create professional videos using our AI video generator. Convert text to video or images to dynamic video content in seconds. Banana Pro delivers broadcast quality results – start for free, HD quality, zero watermarks.'}
                 </p>
-                <FadeIn delay={0.3}>
-                  <Link
-                    href="/zh/video/veo-3-video-generator/"
-                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-md px-8 py-3.5 text-base font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#ffcc33]/30 md:text-lg"
-                    style={{
-                      border: '2px solid transparent',
-                      backgroundImage: 'linear-gradient(#0f1117, #0f1117), linear-gradient(to right, #ffcc33, #ff9900, #ffcc33)',
-                      backgroundOrigin: 'border-box',
-                      backgroundClip: 'padding-box, border-box',
-                    }}
-                  >
-                    <span className="gradient-text relative z-10">{isZh ? '注册并免费创建' : 'Register and Create for Free'}</span>
-                    <ArrowRight className="relative z-10 h-5 w-5 text-[#ffcc33] transition-transform group-hover:translate-x-0.5" />
-                  </Link>
-                </FadeIn>
                 <div className="hidden space-y-3 lg:block">
                   {HERO_FEATURES.map((f, i) => (
                     <FadeIn key={i} delay={0.4 + i * 0.1} className="flex items-center gap-3">
@@ -402,9 +390,6 @@ export default function VideoListPage() {
           </div>
         </div>
       </section>
-
-      {/* ─── 2. Video Generator Panel ─── */}
-      <VideoGeneratorPanel />
 
       {/* ─── 3. More AI Video Generators ─── */}
       <section className="w-full px-4 py-8 md:py-16">

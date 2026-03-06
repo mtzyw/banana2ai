@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       throw new Error('please select a model');
     }
 
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) {
       throw new Error('no auth, please sign in');
     }

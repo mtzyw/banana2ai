@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     }
 
     // check user sign
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) {
       throw new Error('no auth, please sign in');
     }

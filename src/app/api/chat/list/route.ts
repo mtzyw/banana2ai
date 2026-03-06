@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       limit = 30;
     }
 
-    const user = await getUserInfo();
+    const user = await getUserInfo(req.headers);
     if (!user) {
       return respErr('no auth, please sign in');
     }

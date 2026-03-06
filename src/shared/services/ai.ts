@@ -37,7 +37,7 @@ async function initKeyPools(): Promise<Map<string, KeyPool>> {
     // Create provider instance for this key
     let provider;
     if (k.provider === 'kie') {
-      provider = new KieProvider({ apiKey: k.apiKey, customStorage: false });
+      provider = new KieProvider({ apiKey: k.apiKey, customStorage: true });
     }
     // Future: else if (k.provider === 'freepik') { ... }
 

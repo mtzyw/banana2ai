@@ -5,8 +5,9 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import {
-  ChevronDown, Sparkles, Lock, Unlock, RefreshCw, Coins, Info, Gem, Film, Upload, X, CheckCircle,
+  ChevronDown, Sparkles, Lock, Unlock, RefreshCw, Coins, Info, Gem, Film, Upload, X, CheckCircle, Download, Clock, Loader2,
 } from 'lucide-react';
+import { useSession } from '@/core/auth/client';
 
 /* ── Video Models ── */
 type VideoModel = {
@@ -200,6 +201,15 @@ function calculateVideoCredits(modelId: string, duration: number, resolution: st
   return 10; // fallback
 }
 
+interface GeneratedVideo {
+  id: string;
+  prompt: string;
+  ratio: string;
+  model: string;
+  videos: string[];
+  createdAt: string;
+}
+
 interface VideoGeneratorPanelProps {
   sampleVideoSrc?: string;
   sampleVideoPoster?: string;
@@ -211,6 +221,7 @@ export default function VideoGeneratorPanel({
 }: VideoGeneratorPanelProps) {
   const t = useTranslations('banana.videoGenerator');
   const isZh = useLocale() === 'zh';
+  const { data: session } = useSession();
 
   const [selectedModel, setSelectedModel] = useState(VIDEO_MODELS[0]);
   const [modelOpen, setModelOpen] = useState(false);
@@ -236,6 +247,9 @@ export default function VideoGeneratorPanel({
   const [cameraFixed, setCameraFixed] = useState(false);
   const [duration, setDuration] = useState(5);
   const [videoResolution, setVideoResolution] = useState('720p');
+  const [generatedVideos, setGeneratedVideos] = useState<GeneratedVideo[]>([]);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const pollingRef = useRef(false);
 
   const hasReference = selectedModel.modes.includes('reference');
   const hasFrames = selectedModel.modes.includes('frames');
@@ -278,12 +292,182 @@ export default function VideoGeneratorPanel({
     m.name.toLowerCase().includes(modelSearch.toLowerCase())
   );
 
+  // Fetch past video generations on mount
+  useEffect(() => {
+    if (!session?.user) return;
+    (async () => {
+      try {
+        const res = await fetch('/api/user/tasks?mediaType=video&limit=20');
+        const data = await res.json();
+        if (data.code === 0 && data.data?.tasks) {
+          const items: GeneratedVideo[] = data.data.tasks
+            .filter((t: any) => t.status === 'completed' || t.status === 'success')
+            .map((t: any) => {
+              let videos: string[] = [];
+              try {
+                const info = typeof t.taskInfo === 'string' ? JSON.parse(t.taskInfo) : t.taskInfo;
+                if (info?.videos && Array.isArray(info.videos)) {
+                  videos = info.videos.map((v: any) => v.videoUrl).filter(Boolean);
+                }
+                if (videos.length === 0) {
+                  const result = typeof t.taskResult === 'string' ? JSON.parse(t.taskResult) : t.taskResult;
+                  if (Array.isArray(result)) videos = result;
+                  else if (result?.output) videos = Array.isArray(result.output) ? result.output : [result.output];
+                  else if (result?.url) videos = [result.url];
+                  else if (result?.urls) videos = result.urls;
+                }
+              } catch { /* ignore */ }
+              return {
+                id: t.id,
+                prompt: t.prompt || '',
+                ratio: t.options?.aspect_ratio || '16:9',
+                model: t.model || '',
+                videos,
+                createdAt: t.createdAt || new Date().toISOString(),
+              };
+            })
+            .filter((item: GeneratedVideo) => item.videos.length > 0);
+          setGeneratedVideos(items);
+        }
+      } catch { /* ignore */ }
+    })();
+  }, [session?.user]);
+
+  // Auto-dismiss error after 5s
+  useEffect(() => {
+    if (!errorMsg) return;
+    const timer = setTimeout(() => setErrorMsg(null), 5000);
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
+
   const randomizeSeed = () => setSeed(String(Math.floor(Math.random() * 99999)));
 
-  const handleGenerate = () => {
+  const pollVideoResult = useCallback(async (taskDbId: string, currentPrompt: string, currentRatio: string, currentModel: string) => {
+    pollingRef.current = true;
+    const maxAttempts = 150; // 5 min max (150 × 2s)
+    for (let i = 0; i < maxAttempts; i++) {
+      await new Promise(r => setTimeout(r, 2000));
+      if (!pollingRef.current) return;
+      try {
+        const res = await fetch('/api/ai/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ taskId: taskDbId }),
+        });
+        const data = await res.json();
+        if (data.code !== 0) continue;
+
+        const task = data.data;
+        const status = task?.status;
+
+        if (status === 'completed' || status === 'success') {
+          let videos: string[] = [];
+          try {
+            // Primary: extract from taskInfo.videos[].videoUrl (Kie.ai format)
+            const info = typeof task.taskInfo === 'string' ? JSON.parse(task.taskInfo) : task.taskInfo;
+            if (info?.videos && Array.isArray(info.videos)) {
+              videos = info.videos.map((v: any) => v.videoUrl).filter(Boolean);
+            }
+            // Fallback: try taskResult
+            if (videos.length === 0) {
+              const result = typeof task.taskResult === 'string' ? JSON.parse(task.taskResult) : task.taskResult;
+              if (Array.isArray(result)) videos = result;
+              else if (result?.output) videos = Array.isArray(result.output) ? result.output : [result.output];
+              else if (result?.url) videos = [result.url];
+              else if (result?.urls) videos = result.urls;
+            }
+          } catch { /* ignore */ }
+
+          setGeneratedVideos(prev => [{
+            id: taskDbId,
+            prompt: currentPrompt,
+            ratio: currentRatio,
+            model: currentModel,
+            videos,
+            createdAt: new Date().toISOString(),
+          }, ...prev]);
+          setGenerating(false);
+          pollingRef.current = false;
+          return;
+        }
+
+        if (status === 'failed' || status === 'error') {
+          setErrorMsg(isZh ? '视频生成失败，请重试' : 'Video generation failed, please try again');
+          setGenerating(false);
+          pollingRef.current = false;
+          return;
+        }
+      } catch {
+        // ignore and retry
+      }
+    }
+    setErrorMsg(isZh ? '视频生成超时，请重试' : 'Video generation timed out, please try again');
+    setGenerating(false);
+    pollingRef.current = false;
+  }, [isZh]);
+
+  const handleGenerate = async () => {
     if (generating || !prompt.trim()) return;
+    setErrorMsg(null);
     setGenerating(true);
-    setTimeout(() => setGenerating(false), 3000);
+
+    try {
+      const options: Record<string, any> = {
+        aspect_ratio: ratio,
+        seed: seed ? Number(seed) : undefined,
+      };
+
+      // Mode-specific options
+      if (mode === 'image' && uploadedFile) options.image = uploadedFile;
+      if (mode === 'frames') {
+        if (firstFrame) options.first_frame = firstFrame;
+        if (lastFrame) options.last_frame = lastFrame;
+      }
+      if (mode === 'reference') {
+        const refs = refImages.filter(Boolean);
+        if (refs.length > 0) options.reference_images = refs;
+      }
+
+      // Model-specific options
+      if (selectedModel.hasAudio) options.enable_audio = enableAudio;
+      if (selectedModel.hasTranslation) options.enable_translation = enableTranslation;
+      if (selectedModel.hasCameraFixed) options.camera_fixed = cameraFixed;
+      if (selectedModel.durations) options.duration = duration;
+      if (selectedModel.hasResolution) options.resolution = videoResolution;
+
+      const res = await fetch('/api/ai/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider: 'kie',
+          mediaType: 'video',
+          model: selectedModel.apiModel,
+          apiEndpoint: selectedModel.apiEndpoint || 'market',
+          prompt: prompt.trim(),
+          duration,
+          quality: videoResolution,
+          options,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.code !== 0) {
+        setErrorMsg(data.message || (isZh ? '视频生成失败' : 'Video generation failed'));
+        setGenerating(false);
+        return;
+      }
+
+      const task = data.data;
+      if (task?.id) {
+        pollVideoResult(task.id, prompt.trim(), ratio, selectedModel.name);
+      } else {
+        setErrorMsg(isZh ? '未收到任务ID' : 'No task ID received');
+        setGenerating(false);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || (isZh ? '视频生成失败' : 'Video generation failed'));
+      setGenerating(false);
+    }
   };
 
   const handleFileChange = (file: File) => {
@@ -299,7 +483,7 @@ export default function VideoGeneratorPanel({
   };
 
   return (
-    <div className="flex flex-col gap-4 px-4 py-6 md:gap-6 md:px-6 lg:flex-row lg:h-[calc(100vh-120px)] lg:max-h-[800px]">
+    <div className="flex flex-col gap-4 px-4 py-6 md:gap-6 md:px-6 lg:flex-row lg:h-[calc(100vh-140px)]">
       {/* Left: Generator Form */}
       <div className="w-full lg:flex-shrink-0 lg:w-[380px] xl:w-[420px]">
         <div className="flex h-full flex-col rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow-lg overflow-hidden">
@@ -734,31 +918,133 @@ export default function VideoGeneratorPanel({
         </div>
       </div>
 
-      {/* Right: Sample Videos */}
+      {/* Right: Gallery / Sample Videos */}
       <div className="w-full min-w-0">
-        <div className="flex h-full flex-1 flex-col rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow-lg">
-          <div className="flex-shrink-0 p-6">
-            <div className="flex items-center gap-2 font-semibold">
-              <Film className="h-5 w-5 text-[#ffcc33]" />
-              <span className="gradient-text">{isZh ? '示例视频' : 'Example Videos'}</span>
+        {/* Error toast */}
+        {errorMsg && (
+          <div className="mb-3 flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+            <X className="h-4 w-4 flex-shrink-0 cursor-pointer" onClick={() => setErrorMsg(null)} />
+            {errorMsg}
+          </div>
+        )}
+
+        {(generatedVideos.length > 0 || generating) ? (
+          /* ── My Videos Gallery ── */
+          <div className="flex h-full flex-col rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow-lg">
+            <div className="flex-shrink-0 p-4 pb-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 font-semibold">
+                  <Film className="h-5 w-5 text-[#ffcc33]" />
+                  <span className="gradient-glow-text">{isZh ? '我的视频' : 'My Videos'}</span>
+                  <span className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-white/50">{generatedVideos.length}</span>
+                </div>
+                {generating && (
+                  <div className="flex items-center gap-1.5 text-xs text-[#ffcc33]">
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    {isZh ? '生成中...' : 'Generating...'}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar px-4 pb-4 space-y-3">
+              {/* Generating placeholder card */}
+              {generating && (
+                <div className="rounded-lg border border-[#ffcc33]/20 bg-[#13151f] p-3 space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="rounded bg-purple-500/10 px-2 py-0.5 text-[10px] font-bold text-purple-400">
+                        {isZh ? '文生视频' : 'Txt2Vid'}
+                      </span>
+                      <span className="text-[10px] text-white/40">{new Date().toLocaleDateString()}</span>
+                    </div>
+                    <span className="text-[10px] text-white/30">{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                  </div>
+                  <p className="line-clamp-2 text-xs leading-relaxed text-white/60">{prompt}</p>
+                  <div className="flex flex-col items-center justify-center rounded-lg bg-[#0f1117] py-12">
+                    <div className="relative mb-4 h-16 w-16">
+                      <svg className="h-16 w-16 animate-spin" viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="28" fill="none" stroke="#363b4e" strokeWidth="4" />
+                        <circle cx="32" cy="32" r="28" fill="none" stroke="#ffcc33" strokeWidth="4"
+                          strokeDasharray="120 60" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium text-[#ffcc33]">{isZh ? '分析中...' : 'Analyzing...'}</span>
+                    <span className="mt-1 text-xs text-white/40">{isZh ? '视频生成中...' : 'Generating video...'}</span>
+                  </div>
+                </div>
+              )}
+              {generatedVideos.map((item) => (
+                <div key={item.id} className="rounded-lg border border-[#363b4e]/30 bg-[#13151f] p-3 space-y-2">
+                  {/* Card header */}
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="rounded bg-purple-500/10 px-2 py-0.5 text-[10px] font-bold text-purple-400">
+                        {isZh ? '文生视频' : 'Txt2Vid'}
+                      </span>
+                      <span className="rounded bg-white/5 px-1.5 py-0.5 text-[10px] text-white/40">{item.ratio}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-[10px] text-white/30">
+                      <Clock className="h-3 w-3" />
+                      {new Date(item.createdAt).toLocaleDateString()}
+                    </div>
+                  </div>
+                  {/* Prompt */}
+                  <p className="line-clamp-2 text-xs leading-relaxed text-white/60">{item.prompt}</p>
+                  {/* Videos */}
+                  <div className="space-y-2">
+                    {item.videos.map((url, idx) => (
+                      <div key={idx} className="group relative overflow-hidden rounded-lg bg-[#0f1117]">
+                        <video
+                          controls
+                          playsInline
+                          preload="metadata"
+                          src={url}
+                          className="w-full rounded-lg"
+                        />
+                        <a
+                          href={url}
+                          download
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-black/80"
+                        >
+                          <Download className="h-4 w-4 text-white" />
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Model badge */}
+                  <div className="text-[10px] text-white/30">{item.model}</div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="flex-1 overflow-hidden p-6 pt-0">
-            <div className="flex h-full w-full items-center justify-center">
-              <video
-                controls
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster={sampleVideoPoster}
-                preload="none"
-                src={sampleVideoSrc}
-                className="h-full w-full rounded-lg object-contain shadow-lg"
-              />
+        ) : (
+          /* ── Sample Video (shown when no generated videos) ── */
+          <div className="flex h-full flex-1 flex-col rounded-xl border border-[#363b4e]/50 bg-[#1c2030] shadow-lg">
+            <div className="flex-shrink-0 p-6">
+              <div className="flex items-center gap-2 font-semibold">
+                <Film className="h-5 w-5 text-[#ffcc33]" />
+                <span className="gradient-text">{isZh ? '示例视频' : 'Example Videos'}</span>
+              </div>
+            </div>
+            <div className="flex-1 overflow-hidden p-6 pt-0">
+              <div className="flex h-full w-full items-center justify-center">
+                <video
+                  controls
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  poster={sampleVideoPoster}
+                  preload="none"
+                  src={sampleVideoSrc}
+                  className="h-full w-full rounded-lg object-contain shadow-lg"
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

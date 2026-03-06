@@ -201,51 +201,75 @@ export class KieProvider implements AIProvider {
   }: {
     params: AIGenerateParams;
   }): Promise<AITaskResult> {
-    const apiUrl = `${this.baseUrl}/jobs/createTask`;
+    if (!params.model) {
+      throw new Error('model is required');
+    }
+
     const headers = {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.configs.apiKey}`,
     };
 
-    if (!params.model) {
-      throw new Error('model is required');
+    // Veo models use a different endpoint and payload format
+    const isVeo = params.apiEndpoint === 'veo' || params.model.startsWith('veo');
+
+    let apiUrl: string;
+    let payload: any;
+
+    if (isVeo) {
+      // Veo API: POST /api/v1/veo/generate
+      // prompt is at top level, not inside input
+      apiUrl = `${this.baseUrl}/veo/generate`;
+      payload = {
+        model: params.model,
+        prompt: params.prompt || '',
+        callBackUrl: params.callbackUrl,
+      };
+      if (params.options) {
+        const options = params.options;
+        if (options.aspect_ratio) payload.aspect_ratio = options.aspect_ratio;
+        if (options.duration) payload.duration = options.duration;
+        if (options.image_input && Array.isArray(options.image_input)) {
+          payload.image_urls = options.image_input;
+        }
+        if (options.audio !== undefined) payload.audio = options.audio;
+        if (options.auto_translate !== undefined) payload.auto_translate = options.auto_translate;
+      }
+    } else {
+      // Market API: POST /api/v1/jobs/createTask
+      apiUrl = `${this.baseUrl}/jobs/createTask`;
+      payload = {
+        model: params.model,
+        callBackUrl: params.callbackUrl,
+        input: {
+          aspect_ratio: 'landscape',
+          n_frames: '10',
+          size: 'standard',
+        },
+      };
+
+      if (params.prompt) {
+        payload.input.prompt = params.prompt;
+      }
+
+      if (params.options) {
+        const options = params.options;
+        if (options.image_input && Array.isArray(options.image_input)) {
+          payload.input.image_urls = options.image_input;
+        }
+        if (options.aspect_ratio) {
+          payload.input.aspect_ratio = options.aspect_ratio;
+        }
+        if (options.duration) {
+          payload.input.n_frames = options.duration;
+        }
+        if (!payload.input.n_frames) {
+          payload.input.n_frames = '10';
+        }
+      }
     }
 
-    // build request params
-    let payload: any = {
-      model: params.model,
-      callBackUrl: params.callbackUrl,
-      input: {
-        aspect_ratio: 'landscape',
-        n_frames: '10',
-        size: 'standard',
-      },
-    };
-
-    if (params.prompt) {
-      payload.input.prompt = params.prompt;
-    }
-
-    if (params.options) {
-      const options = params.options;
-      // text-to-video: use prompt
-      // image-to-video: use image_input
-      // video-to-video: use video_input
-      if (options.image_input && Array.isArray(options.image_input)) {
-        payload.input.image_urls = options.image_input;
-      }
-      if (options.aspect_ratio) {
-        payload.input.aspect_ratio = options.aspect_ratio;
-      }
-      if (options.duration) {
-        payload.input.n_frames = options.duration;
-      }
-      if (!payload.input.n_frames) {
-        payload.input.n_frames = '10';
-      }
-    }
-
-    console.log('kie input', apiUrl, payload);
+    console.log('kie video', apiUrl, JSON.stringify(payload).substring(0, 200));
 
     const resp = await fetch(apiUrl, {
       method: 'POST',
