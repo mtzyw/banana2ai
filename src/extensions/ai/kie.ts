@@ -155,8 +155,20 @@ export class KieProvider implements AIProvider {
 
     if (params.options) {
       const options = params.options;
-      if (options.image_input && Array.isArray(options.image_input)) {
-        payload.input.image_input = options.image_input;
+      if (options.image_input && Array.isArray(options.image_input) && options.image_input.length > 0) {
+        // Map to correct Kie.ai field name based on model
+        const model = params.model || '';
+        if (model.startsWith('gpt-image/') || model.startsWith('flux-2/')) {
+          payload.input.input_urls = options.image_input;
+        } else if (model === 'qwen/text-to-image') {
+          payload.input.image_url = options.image_input[0]; // single URL string
+        } else if (model.startsWith('grok-imagine/') || model.startsWith('bytedance/seedream4')) {
+          payload.input.image_urls = options.image_input;
+        } else if (model.startsWith('ideogram/')) {
+          payload.input.image_url = options.image_input[0]; // single URL string
+        } else {
+          payload.input.image_input = options.image_input; // Nano Banana series
+        }
       }
       if (options.aspect_ratio) {
         payload.input.aspect_ratio = options.aspect_ratio;

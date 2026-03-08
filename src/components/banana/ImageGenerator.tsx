@@ -68,6 +68,13 @@ type AIModel = {
   ratios?: string[];         // override default ratios
   resolutions?: string[];    // override default resolutions
   maxQuantity?: number;      // max images per request
+  // Image upload capabilities
+  imageUpload?: {
+    field: 'image_input' | 'image_urls' | 'image_url' | 'input_urls'; // Kie.ai API field name
+    maxFiles: number;        // max number of images
+    maxSizeMB: number;       // max file size in MB per image
+    accept: string[];        // accepted MIME types
+  };
 };
 
 const AI_MODELS: AIModel[] = [
@@ -81,6 +88,7 @@ const AI_MODELS: AIModel[] = [
     descEn: 'Advanced AI model excelling in natural language-driven image generation powered by Google',
     credits: '4+',
     modes: ['text', 'image'],
+    imageUpload: { field: 'image_input', maxFiles: 8, maxSizeMB: 30, accept: ['image/jpeg', 'image/png', 'image/webp'] },
   },
   {
     id: 'nano-banana-pro',
@@ -96,6 +104,7 @@ const AI_MODELS: AIModel[] = [
     recommended: true,
     hasGuidanceScale: true,
     hasSafetyChecker: true,
+    imageUpload: { field: 'image_input', maxFiles: 8, maxSizeMB: 30, accept: ['image/jpeg', 'image/png', 'image/webp'] },
   },
   {
     id: 'nano-banana-2',
@@ -107,15 +116,16 @@ const AI_MODELS: AIModel[] = [
     descEn: 'Next-gen Flash model delivering lightning speed and Pro-level consistency powered by Google',
     credits: '10+',
     hd: true,
-    modes: ['text'],
+    modes: ['text', 'image'],
     recommended: true,
     hasNegativePrompt: true,
     maxQuantity: 4,
+    imageUpload: { field: 'image_input', maxFiles: 14, maxSizeMB: 30, accept: ['image/jpeg', 'image/png', 'image/webp'] },
   },
   {
     id: 'gpt-4o-image',
-    apiModel: 'gpt-image/text-to-image',  // TODO: verify Kie.ai model name - currently 422
-    name: 'GPT-4o Image',
+    apiModel: 'gpt-image/1.5-image-to-image',
+    name: 'GPT Image 1.5',
     badge: 'STD',
     badgeColor: 'bg-white/10 text-white/70',
     icon: 'openai',
@@ -123,11 +133,12 @@ const AI_MODELS: AIModel[] = [
     descEn: 'AI-powered image generation and editing',
     credits: '4+',
     modes: ['text', 'image'],
+    imageUpload: { field: 'input_urls', maxFiles: 16, maxSizeMB: 10, accept: ['image/jpeg', 'image/png', 'image/webp'] },
   },
   {
     id: 'flux-kontext-pro',
-    apiModel: 'flux-kontext/pro',  // TODO: verify Kie.ai model name - currently 422
-    name: 'Flux Kontext Pro',
+    apiModel: 'flux-2/flex-image-to-image',
+    name: 'Flux 2 Pro',
     badge: 'PRO',
     badgeColor: 'bg-[#ffcc33]/20 text-[#ffcc33]',
     icon: 'flux',
@@ -137,11 +148,12 @@ const AI_MODELS: AIModel[] = [
     modes: ['text', 'image'],
     hasGuidanceScale: true,
     hasSteps: true,
+    imageUpload: { field: 'input_urls', maxFiles: 8, maxSizeMB: 10, accept: ['image/jpeg', 'image/png', 'image/webp'] },
   },
   {
     id: 'flux-kontext-max',
-    apiModel: 'flux-kontext/max',  // TODO: verify Kie.ai model name - currently 422
-    name: 'Flux Kontext Max',
+    apiModel: 'flux-2/flex-image-to-image',
+    name: 'Flux 2 Max',
     badge: 'MAX',
     badgeColor: 'bg-purple-500/20 text-purple-400',
     icon: 'flux',
@@ -149,6 +161,7 @@ const AI_MODELS: AIModel[] = [
     descEn: 'Create highly detailed, complex visuals for high-end art and design projects',
     credits: '6+',
     modes: ['text', 'image'],
+    imageUpload: { field: 'input_urls', maxFiles: 8, maxSizeMB: 10, accept: ['image/jpeg', 'image/png', 'image/webp'] },
   },
   {
     id: 'seedream-4',
@@ -160,7 +173,7 @@ const AI_MODELS: AIModel[] = [
     desc: '字节跳动先进图像生成模型，具有卓越的质量和创意控制能力',
     descEn: 'ByteDance advanced image generation model with exceptional quality and creative control',
     credits: '2+',
-    modes: ['text', 'image'],
+    modes: ['text'],
     hasGuidanceScale: true,
     hasSafetyChecker: true,
   },
@@ -174,7 +187,7 @@ const AI_MODELS: AIModel[] = [
     desc: '字节跳动统一多模态图像生成模型，具备推理和可控视觉创作能力',
     descEn: 'ByteDance unified multimodal image generation model with reasoning and controllable visual creation',
     credits: '5+',
-    modes: ['text', 'image'],
+    modes: ['text'],
     hasGuidanceScale: true,
     hasSafetyChecker: true,
   },
@@ -188,7 +201,8 @@ const AI_MODELS: AIModel[] = [
     desc: '高级图像生成与编辑，精确控制风格和细节',
     descEn: 'Advanced image generation and editing with precise style and detail control',
     credits: '3+',
-    modes: ['text'],
+    modes: ['text', 'image'],
+    imageUpload: { field: 'image_url', maxFiles: 1, maxSizeMB: 10, accept: ['image/jpeg', 'image/png', 'image/webp'] },
     hasNegativePrompt: true,
     hasGuidanceScale: true,
     hasSteps: true,
@@ -204,7 +218,8 @@ const AI_MODELS: AIModel[] = [
     desc: 'xAI 文生图功能，每次请求生成 6 张独特图像',
     descEn: 'xAI text-to-image with stunning visuals - 6 unique images per request',
     credits: '2+',
-    modes: ['text'],
+    modes: ['text', 'image'],
+    imageUpload: { field: 'image_urls', maxFiles: 1, maxSizeMB: 10, accept: ['image/jpeg', 'image/png', 'image/webp'] },
   },
   {
     id: 'z-image-turbo',
@@ -255,9 +270,68 @@ interface GeneratedImage {
   prompt: string;
   ratio: string;
   model: string;
-  images: string[];
+  images: string[];       // original URLs
+  watermarked: string[];  // watermarked data URLs
   createdAt: string;
   mode?: string;
+}
+
+/** Download a blob/dataURL as file */
+function downloadFile(url: string, filename: string) {
+  if (url.startsWith('data:')) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    return;
+  }
+  // For cross-origin URLs, fetch as blob first
+  fetch(url).then(r => r.blob()).then(blob => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }).catch(() => window.open(url, '_blank'));
+}
+
+/** Add diagonal repeating watermark text to an image via Canvas */
+function addWatermark(imageUrl: string, text = 'banana2ai.net'): Promise<string> {
+  return new Promise((resolve) => {
+    fetch(imageUrl)
+      .then(r => r.blob())
+      .then(blob => createImageBitmap(blob))
+      .then(bitmap => {
+        const canvas = document.createElement('canvas');
+        canvas.width = bitmap.width;
+        canvas.height = bitmap.height;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(bitmap, 0, 0);
+
+        // Watermark style
+        const fontSize = Math.max(16, Math.min(canvas.width, canvas.height) * 0.04);
+        ctx.font = `${fontSize}px sans-serif`;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Rotate -30° and tile
+        const gap = fontSize * 8;
+        const diag = Math.sqrt(canvas.width ** 2 + canvas.height ** 2);
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(-30 * Math.PI / 180);
+        for (let y = -diag; y < diag; y += gap) {
+          for (let x = -diag; x < diag; x += gap) {
+            ctx.fillText(text, x, y);
+          }
+        }
+        ctx.restore();
+
+        resolve(canvas.toDataURL('image/png'));
+      })
+      .catch(() => resolve(imageUrl)); // fallback to original on any error
+  });
 }
 
 interface ImageGeneratorProps {
@@ -284,8 +358,56 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
   const [quantity, setQuantity] = useState(1);
   const [isPublic, setIsPublic] = useState(true);
   const [generateState, setGenerateState] = useState<GenerateState>('idle');
-  const [uploadedFile, setUploadedFile] = useState<string | null>(null);
+  const [uploadedFiles, setUploadedFiles] = useState<{ preview: string; url?: string; uploading?: boolean }[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [showAssetLib, setShowAssetLib] = useState(false);
+  const [assetLibTab, setAssetLibTab] = useState<'upload' | 'generate'>('upload');
+  const [assetUploads, setAssetUploads] = useState<{ id: string; url: string; filename: string }[]>([]);
+  const [assetGenerates, setAssetGenerates] = useState<{ id: string; url: string }[]>([]);
+  const [assetUploadPage, setAssetUploadPage] = useState(1);
+  const [assetGenPage, setAssetGenPage] = useState(1);
+  const [assetUploadTotal, setAssetUploadTotal] = useState(0);
+  const [assetGenTotal, setAssetGenTotal] = useState(0);
+  const [assetLoading, setAssetLoading] = useState(false);
+  const ASSET_PAGE_SIZE = 20;
+
+  const loadAssetUploads = async (page: number) => {
+    setAssetLoading(true);
+    try {
+      const res = await fetch(`/api/upload?limit=${ASSET_PAGE_SIZE}&offset=${(page - 1) * ASSET_PAGE_SIZE}`);
+      const data = await res.json();
+      if (data.code === 0) {
+        setAssetUploads(data.data.assets || []);
+        setAssetUploadTotal(data.data.total ?? data.data.assets?.length ?? 0);
+        setAssetUploadPage(page);
+      }
+    } catch {}
+    setAssetLoading(false);
+  };
+
+  const loadAssetGenerates = async (page: number) => {
+    setAssetLoading(true);
+    try {
+      const res = await fetch(`/api/user/tasks?mediaType=image&limit=${ASSET_PAGE_SIZE}&offset=${(page - 1) * ASSET_PAGE_SIZE}`);
+      const data = await res.json();
+      if (data.code === 0) {
+        const tasks = data.data?.tasks || [];
+        const imgs = tasks.flatMap((t: any) =>
+          (t.taskInfo?.images || []).map((img: any) => img.imageUrl).filter(Boolean).map((url: string) => ({ id: t.id + url, url }))
+        );
+        setAssetGenerates(imgs);
+        setAssetGenTotal(data.data.total ?? imgs.length);
+        setAssetGenPage(page);
+      }
+    } catch {}
+    setAssetLoading(false);
+  };
+
+  const openAssetLib = () => {
+    setShowAssetLib(true);
+    if (assetLibTab === 'upload') loadAssetUploads(1);
+    else loadAssetGenerates(1);
+  };
   const [exampleIdx, setExampleIdx] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [generatedImages, setGeneratedImages] = useState<GeneratedImage[]>([]);
@@ -326,11 +448,18 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 ratio: t.options?.aspect_ratio || '1:1',
                 model: t.model || '',
                 images,
+                watermarked: [] as string[],
                 createdAt: t.createdAt || new Date().toISOString(),
               };
             })
             .filter((item: GeneratedImage) => item.images.length > 0);
           setGeneratedImages(items);
+          // Generate watermarked versions in background
+          items.forEach((item, idx) => {
+            Promise.all(item.images.map(url => addWatermark(url))).then(wm => {
+              setGeneratedImages(prev => prev.map((p, i) => i === idx ? { ...p, watermarked: wm } : p));
+            });
+          });
         }
       } catch { /* ignore */ }
     })();
@@ -401,14 +530,21 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
             }
           } catch { /* ignore */ }
 
-          setGeneratedImages(prev => [{
+          const newItem: GeneratedImage = {
             id: taskDbId,
             prompt: currentPrompt,
             ratio: currentRatio,
             model: currentModel,
             images,
+            watermarked: [],
             createdAt: new Date().toISOString(),
-          }, ...prev]);
+          };
+          setGeneratedImages(prev => [newItem, ...prev]);
+          setSelectedGalleryIdx(0);
+          // Watermark in background
+          Promise.all(images.map(url => addWatermark(url))).then(wm => {
+            setGeneratedImages(prev => prev.map(p => p.id === taskDbId ? { ...p, watermarked: wm } : p));
+          });
           setGenerateState('done');
           setTimeout(() => setGenerateState('idle'), 1500);
           pollingRef.current = false;
@@ -453,7 +589,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
             ...(selectedModel.hasGuidanceScale && guidanceScale !== 2.5 ? { guidance_scale: guidanceScale } : {}),
             ...(selectedModel.hasSteps && steps !== 30 ? { num_inference_steps: steps } : {}),
             ...(selectedModel.hasSafetyChecker ? { safety_checker: safetyChecker } : {}),
-            ...(mode === 'image' && uploadedFile ? { image: uploadedFile } : {}),
+            ...(mode === 'image' && uploadedFiles.length > 0 ? { image_input: uploadedFiles.filter(f => f.url).map(f => f.url!) } : {}),
           },
         }),
       });
@@ -479,18 +615,59 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
     }
   };
 
-  const handleFileChange = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => setUploadedFile(e.target?.result as string);
-    reader.readAsDataURL(file);
+  const maxFiles = selectedModel.imageUpload?.maxFiles ?? 1;
+  const maxSizeMB = selectedModel.imageUpload?.maxSizeMB ?? 10;
+
+  const handleFilesAdd = async (files: FileList | File[]) => {
+    const remaining = maxFiles - uploadedFiles.length;
+    const toAdd = Array.from(files).filter(f => f.type.startsWith('image/') && f.size <= maxSizeMB * 1024 * 1024).slice(0, remaining);
+    if (!toAdd.length) return;
+
+    // Add previews immediately with uploading state
+    const newItems: { preview: string; url?: string; uploading: boolean }[] = [];
+    for (const file of toAdd) {
+      const preview = URL.createObjectURL(file);
+      newItems.push({ preview, uploading: true });
+    }
+    setUploadedFiles(prev => [...prev, ...newItems]);
+
+    // Upload to R2
+    const formData = new FormData();
+    toAdd.forEach(f => formData.append('files', f));
+    try {
+      const res = await fetch('/api/upload', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (data.code === 0 && data.data?.urls) {
+        const urls: string[] = data.data.urls;
+        setUploadedFiles(prev => {
+          const updated = [...prev];
+          let urlIdx = 0;
+          for (let i = 0; i < updated.length; i++) {
+            if (updated[i].uploading && urlIdx < urls.length) {
+              updated[i] = { ...updated[i], url: urls[urlIdx], uploading: false };
+              urlIdx++;
+            }
+          }
+          return updated;
+        });
+      } else {
+        // Remove failed uploads
+        setUploadedFiles(prev => prev.filter(f => !f.uploading));
+      }
+    } catch {
+      setUploadedFiles(prev => prev.filter(f => !f.uploading));
+    }
   };
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
+  const handleRemoveFile = (idx: number) => {
+    setUploadedFiles(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) handleFileChange(file);
-  }, []);
+    if (e.dataTransfer.files.length > 0) handleFilesAdd(e.dataTransfer.files);
+  };
 
   const ex = EXAMPLES[exampleIdx];
 
@@ -546,7 +723,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                       {filteredModels.map((model) => (
                         <button
                           key={model.id}
-                          onClick={() => { setSelectedModel(model); setModelDropdownOpen(false); setModelSearch(''); }}
+                          onClick={() => { setSelectedModel(model); setModelDropdownOpen(false); setModelSearch(''); setUploadedFiles([]); }}
                           className={`w-full text-left rounded-lg p-3 transition-colors ${
                             selectedModel.id === model.id
                               ? 'bg-[#1c2030] border border-[#ffcc33]/30'
@@ -644,40 +821,63 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                 {/* Image upload (image mode) */}
                 {mode === 'image' && (
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-white">{t('upload_label')}</label>
-                    {uploadedFile ? (
-                      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#0f1117]">
-                        <img src={uploadedFile} alt="uploaded" className="h-full w-full object-contain" />
-                        <button
-                          onClick={() => setUploadedFile(null)}
-                          className="absolute right-2 top-2 rounded-full bg-black/60 p-1 transition-colors hover:bg-black/80"
+                    <div className="mb-2 flex items-center justify-between">
+                      <div>
+                        <span className="text-sm font-medium text-white">{isZh ? '参考图片' : 'Reference Images'}</span>
+                        <p className="text-xs text-white/40">{isZh ? '上传参考图片' : 'Upload reference images'}</p>
+                      </div>
+                      <span className="text-sm text-white/40">{uploadedFiles.length}/{maxFiles}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {uploadedFiles.map((file, idx) => (
+                        <div key={idx} className="group relative h-20 w-20 overflow-hidden rounded-lg border border-[#363b4e]/50 bg-[#0f1117]">
+                          <img src={file.preview} alt="" className="h-full w-full object-cover" />
+                          {file.uploading && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                              <Loader2 className="h-5 w-5 animate-spin text-[#ffcc33]" />
+                            </div>
+                          )}
+                          <button
+                            onClick={() => handleRemoveFile(idx)}
+                            className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ))}
+                      {uploadedFiles.length < maxFiles && (
+                        <div
+                          onClick={() => fileInputRef.current?.click()}
+                          onDrop={handleDrop}
+                          onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                          onDragLeave={() => setIsDragging(false)}
+                          className={`flex h-20 w-20 cursor-pointer items-center justify-center rounded-lg border-2 border-dashed transition-all duration-200 ${
+                            isDragging
+                              ? 'border-[#ffcc33] bg-[#ffcc33]/5'
+                              : 'border-[#363b4e] bg-[#0f1117] hover:border-[#ffcc33]/50'
+                          }`}
                         >
-                          <X className="h-4 w-4 text-white" />
-                        </button>
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() => fileInputRef.current?.click()}
-                        onDrop={handleDrop}
-                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                        onDragLeave={() => setIsDragging(false)}
-                        className={`flex min-h-[140px] cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed transition-all duration-200 ${
-                          isDragging
-                            ? 'border-[#ffcc33] bg-[#ffcc33]/5'
-                            : 'border-[#363b4e] bg-[#0f1117] hover:border-[#ffcc33]/50'
-                        }`}
-                      >
-                        <Upload className="h-8 w-8 text-white/30" />
-                        <span className="text-sm text-white/50">{t('upload_hint')}</span>
-                      </div>
-                    )}
+                          <span className="text-sm text-white/40">+ Add</span>
+                        </div>
+                      )}
+                    </div>
                     <input
                       ref={fileInputRef}
                       type="file"
                       accept="image/*"
+                      multiple
                       className="hidden"
-                      onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileChange(f); }}
+                      onChange={(e) => { if (e.target.files) handleFilesAdd(e.target.files); e.target.value = ''; }}
                     />
+                    {/* Asset Library Button */}
+                    <button
+                      onClick={openAssetLib}
+                      className="mt-2 flex w-full items-center gap-1.5 text-xs text-white/40 hover:text-white/60 transition-colors"
+                    >
+                      <Images className="h-3.5 w-3.5" />
+                      <span>{isZh ? '我的素材库' : 'My Assets'}</span>
+                      <span className="ml-auto">▸</span>
+                    </button>
                   </div>
                 )}
 
@@ -965,7 +1165,7 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
             <div className="min-h-0 flex-1 overflow-y-auto custom-scrollbar p-6 pt-4 space-y-4">
               {/* Generating placeholder card */}
               {generateState === 'loading' && (
-                <div className="rounded-xl border border-[#ffcc33]/20 bg-[#0f1117] shadow-lg">
+                <div id="gallery-card-loading" className="rounded-xl border border-[#ffcc33]/20 bg-[#0f1117] shadow-lg">
                   <div className="space-y-2 p-4">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="inline-flex items-center rounded-md border border-[#ffcc33]/30 bg-[#ffcc33] px-2.5 py-0.5 text-xs font-medium text-[#0f1117] shadow">
@@ -1005,28 +1205,44 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                   </div>
                   <div className="px-4 pb-4">
                     <div className={`grid gap-3 ${item.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-                    {item.images.map((url, idx) => (
+                    {item.images.map((url, idx) => {
+                      const displayUrl = item.watermarked[idx] || url;
+                      return (
                       <div key={idx} className="group relative flex items-center justify-center overflow-hidden rounded-lg bg-black/20" style={{ maxHeight: '320px' }}>
-                        <a href={url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
                           <img
-                            src={url}
-                            alt={`Generated ${idx + 1}`}
+                            src={displayUrl}
+                            alt="Generated"
                             className="max-h-[320px] w-auto max-w-full rounded-lg object-contain"
                             loading="lazy"
                           />
-                        </a>
-                        <a
-                          href={url}
-                          download
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-black/80"
-                        >
-                          <Download className="h-4 w-4 text-white" />
-                        </a>
+                        {/* Download menu */}
+                        <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                          <div className="group/dl relative">
+                            <button className="flex h-8 w-8 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm hover:bg-black/80">
+                              <Download className="h-4 w-4 text-white" />
+                            </button>
+                            <div className="invisible group-hover/dl:visible absolute bottom-full right-0 mb-1 w-56 rounded-lg border border-[#363b4e]/50 bg-[#1c2030] py-1 shadow-xl">
+                              <button
+                                onClick={() => downloadFile(displayUrl, `banana2ai-${item.id}-${idx}.png`)}
+                                className="flex w-full items-center gap-2 px-3 py-2 text-sm text-white/80 hover:bg-white/5"
+                              >
+                                <Download className="h-4 w-4 flex-shrink-0" />
+                                <span>{isZh ? '下载带水印' : 'Download with watermark'}</span>
+                              </button>
+                              <button
+                                onClick={() => downloadFile(url, `banana2ai-${item.id}-${idx}-hd.png`)}
+                                className="flex w-full items-center gap-2 px-3 py-2 text-sm text-[#ffcc33] hover:bg-white/5"
+                              >
+                                <Download className="h-4 w-4 flex-shrink-0" />
+                                <span>{isZh ? '下载无水印' : 'Download without watermark'}</span>
+                                <span className="ml-auto text-base">👑</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    ))}
+                      );
+                    })}
                     </div>
                   </div>
                   </div>
@@ -1035,9 +1251,29 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
             </div>
           </div>
           {/* Thumbnail sidebar */}
-          {generatedImages.length > 0 && (
+          {(generatedImages.length > 0 || generateState === 'loading') && (
             <div className="hidden w-20 flex-shrink-0 lg:block xl:w-24">
               <div className="flex h-full flex-col gap-2 overflow-y-auto custom-scrollbar py-1">
+                {generateState === 'loading' && (
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById('gallery-card-loading');
+                      if (el) {
+                        const container = el.closest('.overflow-y-auto');
+                        if (container) {
+                          container.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                      }
+                    }}
+                    className="flex h-20 flex-shrink-0 items-center justify-center rounded-lg border border-[#ffcc33]/30 bg-[#0f1117] ring-2 ring-[#ffcc33] ring-offset-1 ring-offset-[#0f1117] xl:h-24"
+                  >
+                    <svg className="h-6 w-6 animate-spin" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" fill="none" stroke="#363b4e" strokeWidth="2" />
+                      <circle cx="12" cy="12" r="10" fill="none" stroke="#ffcc33" strokeWidth="2"
+                        strokeDasharray="45 20" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                )}
                 {generatedImages.map((item, itemIdx) => {
                   const thumbUrl = item.images[0];
                   if (!thumbUrl) return null;
@@ -1046,7 +1282,14 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
                       key={item.id}
                       onClick={() => {
                         setSelectedGalleryIdx(itemIdx);
-                        document.getElementById(`gallery-card-${itemIdx}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        const el = document.getElementById(`gallery-card-${itemIdx}`);
+                        if (el) {
+                          const container = el.closest('.overflow-y-auto');
+                          if (container) {
+                            const top = el.offsetTop - container.getBoundingClientRect().top - 16;
+                            container.scrollTo({ top, behavior: 'smooth' });
+                          }
+                        }
                       }}
                       className={`relative flex-shrink-0 overflow-hidden rounded-lg transition-all duration-200 ${
                         selectedGalleryIdx === itemIdx
@@ -1164,6 +1407,130 @@ export default function ImageGenerator({ examples }: ImageGeneratorProps) {
           </div>
         )}
       </div>
+
+      {/* ═══ Asset Library Modal ═══ */}
+      {showAssetLib && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => setShowAssetLib(false)}>
+          <div className="relative mx-4 flex h-[80vh] w-full max-w-3xl flex-col rounded-2xl border border-[#363b4e]/50 bg-[#13151f] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-[#363b4e]/30 px-6 py-4">
+              <h2 className="text-lg font-bold gradient-text">{isZh ? '素材库' : 'Assets Library'}</h2>
+              <button onClick={() => setShowAssetLib(false)} className="flex h-8 w-8 items-center justify-center rounded-full text-white/50 hover:bg-white/5 hover:text-white">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Tabs */}
+            <div className="flex border-b border-[#363b4e]/30 px-6">
+              {([
+                { key: 'upload' as const, label: isZh ? '您的上传' : 'Your Uploads' },
+                { key: 'generate' as const, label: isZh ? '你的生成内容' : 'Your Generates' },
+              ]).map(tab => (
+                <button
+                  key={tab.key}
+                  onClick={() => {
+                    setAssetLibTab(tab.key);
+                    if (tab.key === 'upload') loadAssetUploads(1);
+                    else loadAssetGenerates(1);
+                  }}
+                  className={`flex-1 py-3 text-center text-sm font-medium transition-all border-2 rounded-lg mx-1 my-2 ${
+                    assetLibTab === tab.key
+                      ? 'border-[#ffcc33] text-white'
+                      : 'border-[#363b4e]/50 text-white/50 hover:text-white/70'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-6">
+              {assetLoading ? (
+                <div className="flex h-full items-center justify-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-[#ffcc33]" />
+                </div>
+              ) : (
+                <>
+                  {assetLibTab === 'upload' && assetUploads.length === 0 && (
+                    <div className="flex h-full flex-col items-center justify-center text-white/30">
+                      <Images className="mb-3 h-12 w-12" />
+                      <span>{isZh ? '未找到图片' : 'No images found'}</span>
+                    </div>
+                  )}
+                  {assetLibTab === 'generate' && assetGenerates.length === 0 && (
+                    <div className="flex h-full flex-col items-center justify-center text-white/30">
+                      <Images className="mb-3 h-12 w-12" />
+                      <span>{isZh ? '未找到图片' : 'No images found'}</span>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 md:grid-cols-6">
+                    {(assetLibTab === 'upload' ? assetUploads : assetGenerates).map((asset) => {
+                      const isSelected = uploadedFiles.some(f => f.url === asset.url);
+                      return (
+                        <button
+                          key={asset.id}
+                          disabled={isSelected || uploadedFiles.length >= maxFiles}
+                          onClick={() => {
+                            if (!isSelected && uploadedFiles.length < maxFiles) {
+                              setUploadedFiles(prev => [...prev, { preview: asset.url, url: asset.url, uploading: false }]);
+                            }
+                          }}
+                          className={`group relative aspect-square overflow-hidden rounded-lg border-2 transition-all ${
+                            isSelected
+                              ? 'border-[#ffcc33] opacity-60'
+                              : 'border-transparent hover:border-[#ffcc33]/50'
+                          }`}
+                        >
+                          <img src={asset.url} alt="" className="h-full w-full object-cover" loading="lazy" />
+                          {isSelected && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                              <CheckCircle className="h-6 w-6 text-[#ffcc33]" />
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Pagination */}
+            <div className="flex items-center justify-between border-t border-[#363b4e]/30 px-6 py-3">
+              {(() => {
+                const page = assetLibTab === 'upload' ? assetUploadPage : assetGenPage;
+                const total = assetLibTab === 'upload' ? assetUploadTotal : assetGenTotal;
+                const totalPages = Math.max(1, Math.ceil(total / ASSET_PAGE_SIZE));
+                const loadPage = assetLibTab === 'upload' ? loadAssetUploads : loadAssetGenerates;
+                return (
+                  <>
+                    <span className="text-xs text-white/40">
+                      {isZh ? `第 ${page} 页，共 ${totalPages} 页` : `Page ${page} of ${totalPages}`}
+                    </span>
+                    <div className="flex gap-2">
+                      <button
+                        disabled={page <= 1}
+                        onClick={() => loadPage(page - 1)}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#363b4e]/50 text-white/50 transition-all hover:border-[#ffcc33]/50 hover:text-white disabled:opacity-30"
+                      >
+                        <ChevronLeft className="h-4 w-4" />
+                      </button>
+                      <button
+                        disabled={page >= totalPages}
+                        onClick={() => loadPage(page + 1)}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#363b4e]/50 text-white/50 transition-all hover:border-[#ffcc33]/50 hover:text-white disabled:opacity-30"
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

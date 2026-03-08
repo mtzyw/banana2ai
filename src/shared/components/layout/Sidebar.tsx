@@ -14,6 +14,7 @@ import {
   Sparkles,
   Wand2,
   Eye,
+  FolderOpen,
 } from 'lucide-react';
 
 interface NavItem {
@@ -135,6 +136,7 @@ export default function Sidebar({ open, isMobile, onClose, topOffset = 64 }: Sid
   const aiGenNav: NavItem[] = [
     { icon: Image, label: isZh ? 'AI 图像制作' : 'AI Image', href: '/image', exact: true },
     { icon: Video, label: isZh ? 'AI 视频制作' : 'AI Video', href: '/video', exact: true },
+    { icon: FolderOpen, label: isZh ? '素材库' : 'Assets Library', href: '/assets' },
   ];
 
   const modelsNav: NavItem[] = [

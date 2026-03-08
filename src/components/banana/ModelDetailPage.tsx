@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -44,6 +44,8 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
 
   const fadeRef = useScrollFade();
   const t = useTranslations('banana.modelDetail');
+  const locale = useLocale();
+  const isZh = locale === 'zh';
 
   return (
     <div ref={fadeRef} className="min-h-screen bg-[#0f1117] text-white">
@@ -195,7 +197,7 @@ export default function ModelDetailPage(props: ModelDetailPageProps) {
       {/* FAQ Section */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 scroll-fade-in gradient-glow-text">
-          关于 {modelName} 的{t('faq_title')}
+          {isZh ? `关于 ${modelName} 的` : ''}{t('faq_title')}{!isZh ? ` about ${modelName}` : ''}
         </h2>
         <FAQAccordion faqs={faqs} />
       </section>
